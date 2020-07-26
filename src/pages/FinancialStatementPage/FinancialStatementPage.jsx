@@ -1,7 +1,7 @@
 import React from 'react';
-import BalanceSheet from '../BalanceSheet/BalanceSheet';
-import IncomeStatement from '../IncomeStatement/IncomeStatement';
-import NavBar from '../NavBar/NavBar';
+import BalanceSheet from '../../components/BalanceSheet/BalanceSheet';
+import IncomeStatement from '../../components/IncomeStatement/IncomeStatement';
+import NavBar from '../../components/NavBar/NavBar';
 
 export default function Liabilities(props) {
     return (

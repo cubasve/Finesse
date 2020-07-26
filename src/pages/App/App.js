@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import FinancialStatement from './components/FinancialStatement/FinancialStatement';
-import SignupPage from './pages/SignupPage/SignupPage';
-import LoginPage from './pages/LoginPage/LoginPage';
-import userService from './utils/userService';
+import HomePage from '../HomePage/HomePage';
+import FinancialStatement from '../FinancialStatementPage/FinancialStatementPage';
+import SignupPage from '../SignupPage/SignupPage';
+import LoginPage from '../LoginPage/LoginPage';
+import userService from '../../utils/userService';
 
 {/* 
 COMPONENT STRUCTURE
@@ -30,8 +31,6 @@ financialStatements
             payYourselfFirst
 */ }
 
-const assets = ['Paper', 'Real Estate', 'Business', 'Commodities'];
-
 export default class App extends Component {
   constructor() {
     super();
@@ -54,8 +53,10 @@ export default class App extends Component {
       <div className="App">
         <header className="App-header">FINESSE</header>
         <Switch>
-          <Route exact path="/" render={() => (
-            <main><FinancialStatement user={this.state.user} handleLogout={this.handleLogout} /></main>
+          <Route exact path="/" render={() => <HomePage user={this.state.user} handleLogout={this.handleLogout} />}></Route>
+
+          <Route exact path="/FinancialStatement" render={() => (
+            <main><FinancialStatement /></main>
           )}></Route>
 
           <Route exact path="/signup" render={({ history }) => <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
