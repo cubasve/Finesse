@@ -1,6 +1,8 @@
 import React from 'react';
 
 export default function Business(props) {
+
+    const businessOptions = ['Sole proprietorship', 'Partnership', 'Corporation'];
     return (
         <div>
             <table>
@@ -12,8 +14,14 @@ export default function Business(props) {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input placeholder="Sector" /></td>
-                        <td>$<input type="number" min="0" placeholder="Value of Company" /><button>+</button></td>
+                        <td>
+                            <select>
+                                {businessOptions.map((option) => (
+                                    <option key={option}>{option}</option>)
+                                )}
+                            </select>
+                        </td>
+                        <td>$<input type="number" min="0" placeholder="Company Value" /><button>+</button></td>
                     </tr>
                 </tbody>
             </table>

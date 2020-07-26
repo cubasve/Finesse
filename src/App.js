@@ -9,6 +9,8 @@ import userService from './utils/userService';
 {/* 
 COMPONENT STRUCTURE
 
+signup
+login
 financialStatements
     balanceSheet
         assets

@@ -21,7 +21,7 @@ export default function PaperAssets(props) {
                                 )}
                             </select>
                         </td>
-                        <td>$<input type="number" min="0" /><button>+</button></td>
+                        <td>$<input type="number" min="0" placeholder="Shares x Price" /><button>+</button></td>
                     </tr>
                 </tbody>
             </table>
