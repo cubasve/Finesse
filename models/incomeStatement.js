@@ -5,14 +5,17 @@ const incomeStatementSchema = new mongoose.Schema(
         income: {
             description: String,
             amount: Number,
-            enum: ['Earned', 'Portfolio', 'Passive'],
+            //enum: ['Earned', 'Portfolio', 'Passive'],
+            //enum = string must ne in the provided list
             unique: true,
             required: true,
+            assets: [asset], //is this embedding valid?
         },
         expense: {
             description: String,
             amount: Number,
             required: true,
+            liabilities: [liability], //is this embedding valid?
         }
     },
     {

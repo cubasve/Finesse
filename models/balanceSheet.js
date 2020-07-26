@@ -5,12 +5,12 @@ const balanceSheetSchema = new mongoose.Schema(
         asset: {
             description: String,
             amount: Number,
-            enum: ['Paper', 'Real Estate', 'Business', 'Commodity'],
+            // enum: ['Paper', 'Real Estate', 'Business', 'Commodity'],
             unique: true,
             required: true,
         },
         liability: {
-            description: [String],
+            description: String,
             amount: Number,
             required: true,
             unique: true,
