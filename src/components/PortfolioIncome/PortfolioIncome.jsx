@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function PortfolioIncome(props) {
 
-    const portfolioIncomeOptions = ['Stocks', 'Bonds', 'Index/Mutual Funds'];
+    const portfolioIncomeOptions = ['Stocks', 'Bonds', 'Index/Mutual Funds', 'GICs'];
     return (
         <div>
             <table>
