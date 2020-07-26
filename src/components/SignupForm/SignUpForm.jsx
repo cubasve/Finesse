@@ -21,6 +21,7 @@ export default class SignupForm extends Component {
         e.preventDefault();
         try {
             await userService.signup(this.state);
+            this.props.handleSignupOrLogin();
             //Successfully signed up 
             this.props.handleSignupOrLogin();
             this.props.history.push('/');
@@ -30,7 +31,7 @@ export default class SignupForm extends Component {
         }
     }
 
-    ifFormInvalid() {
+    isFormInvalid() {
         return !(
             this.state.name &&
             this.state.email &&

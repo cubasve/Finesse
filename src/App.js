@@ -38,6 +38,11 @@ export default class App extends Component {
     }
   }
 
+  handleLogout = () => {
+    userService.logout();
+    this.setState({ user: null });
+  }
+
   handleSignupOrLogin = async () => {
     this.setState({ user: userService.getUser() });
   };
@@ -48,7 +53,7 @@ export default class App extends Component {
         <header className="App-header">FINESSE</header>
         <Switch>
           <Route exact path="/" render={() => (
-            <main><FinancialStatement /></main>
+            <main><FinancialStatement user={this.state.user} handleLogout={this.handleLogout} /></main>
           )}></Route>
 
           <Route exact path="/signup" render={({ history }) => <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
