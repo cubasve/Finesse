@@ -2,6 +2,7 @@ import React from 'react';
 import PayYourselfFirst from '../PayYourselfFirst/PayYourselfFirst';
 
 export default function Expenses(props) {
+    const expenseOptions = ['Housing', 'Transportation', 'Kids', 'Entertainment'];
     return (
         <div>
             Expenses
@@ -16,12 +17,11 @@ export default function Expenses(props) {
                     <tr>
                         <td>
                             <select>
-                                <option selected>Housing</option>
-                                <option>Transportation</option>
-                                <option>Kids</option>
-                                <option>Entertainment</option>
+                                {expenseOptions.map((option, index) => (
+                                    <option>{option}</option>)
+                                )}
 
-                            /*Give the user the ability to add an expense */
+                                {/*Give the user the ability to add an expense */}
                             </select>
                         </td>
                         <td>$<input type="number" min="0" /><button>+</button></td>

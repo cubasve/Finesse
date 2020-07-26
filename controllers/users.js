@@ -1,3 +1,14 @@
 const User = require('../mdoels/user');
 
-module.exports = {}
+module.exports = {
+    signup,
+    login,
+}
+
+function signup() {
+
+}
+
+function login() {
+
+}
