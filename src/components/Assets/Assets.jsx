@@ -8,6 +8,12 @@ export default function Assets(props) {
     return (
         <div>
             Assets
+            {/* {
+                props.assets.map((asset, index) => (
+                    <p key={asset}>{asset}</p>
+                ))
+            } */}
+
             <PaperAssets />
             <RealEstate />
             <Business />

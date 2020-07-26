@@ -25,6 +25,8 @@ financialStatements
             payYourselfFirst
 */ }
 
+const assets = ['Paper', 'Real Estate', 'Business', 'Commodities'];
+
 export default class App extends Component {
   constructor() {
     super();
@@ -39,7 +41,7 @@ export default class App extends Component {
       <div className="App">
         <header className="App-header">FINESSE</header>
         <main>
-          <BalanceSheet />
+          <BalanceSheet assets={assets} />
           <IncomeStatement />
 
         </main>

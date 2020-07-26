@@ -8,7 +8,7 @@ export default function BalanceSheet(props) {
     return (
         <div>
             Balance Sheet
-            <Assets />
+            <Assets assets={props.assets} />
             <Liabilities />
         </div>
     )
