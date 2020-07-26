@@ -39,8 +39,8 @@ export default class LoginPage extends Component {
                                 type="password"
                                 className="form-control"
                                 placeholder="Password"
-                                value={this.state.pw}
-                                name="pw"
+                                value={this.state.password}
+                                name="password"
                                 onChange={this.handleChange}
                             />
                         </div>

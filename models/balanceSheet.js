@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const balanceSheetSchema = new mongoose.Schema(
+const balanceSheetSchema = new Schema(
     {
         asset: {
             description: String,

@@ -4,9 +4,11 @@ import IncomeStatement from '../IncomeStatement/IncomeStatement';
 
 export default function Liabilities(props) {
     return (
-        <div>
-            <BalanceSheet />
-            <IncomeStatement />
+        <div className='FinancialStatement'>
+            <main>
+                <BalanceSheet />
+                <IncomeStatement />
+            </main>
         </div>
     )
 }

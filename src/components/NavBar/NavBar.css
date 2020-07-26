@@ -2,12 +2,9 @@
     display: flex;
     justify-content: center;
     margin: 0 0 20px;
-  }
+}
   
-  .NavBar-link {
+.NavBar-link {
     margin: 0 10px;
-  }
+}
   
-  .NavBar-welcome {
-    color: grey;
-  }

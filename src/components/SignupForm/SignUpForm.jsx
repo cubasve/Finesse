@@ -21,7 +21,7 @@ export default class SignupForm extends Component {
         e.preventDefault();
         try {
             await userService.signup(this.state);
-            //Successfullt signed up 
+            //Successfully signed up 
             this.props.handleSignupOrLogin();
             this.props.history.push('/');
         } catch (err) {
@@ -34,7 +34,7 @@ export default class SignupForm extends Component {
         return !(
             this.state.name &&
             this.state.email &&
-            this.state.password === this.state.passwordConf
+            this.state.password === this.state.passwordConfirmation
         );
     }
 
@@ -85,8 +85,8 @@ export default class SignupForm extends Component {
                                 type="password"
                                 className="form-control"
                                 placeholder="Confirm Password"
-                                value={this.state.passwordConf}
-                                name="passwordConf"
+                                value={this.state.passwordConfirmation}
+                                name="passwordConfirmation"
                                 onChange={this.handleChange}
                             />
                         </div>
