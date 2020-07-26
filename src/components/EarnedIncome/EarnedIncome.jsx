@@ -16,8 +16,8 @@ export default function EarnedIncome(props) {
                     <tr>
                         <td>
                             <select>
-                                {earnedIncomeOptions.map((option, index) => (
-                                    <option>{option}</option>)
+                                {earnedIncomeOptions.map((option) => (
+                                    <option key={option}>{option}</option>)
                                 )}
                             </select>
                         </td>

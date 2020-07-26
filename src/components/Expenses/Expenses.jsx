@@ -17,8 +17,8 @@ export default function Expenses(props) {
                     <tr>
                         <td>
                             <select>
-                                {expenseOptions.map((option, index) => (
-                                    <option>{option}</option>)
+                                {expenseOptions.map((option) => (
+                                    <option key={option}>{option}</option>)
                                 )}
 
                                 {/*Give the user the ability to add an expense */}

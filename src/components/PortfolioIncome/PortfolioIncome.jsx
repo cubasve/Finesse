@@ -16,8 +16,8 @@ export default function PortfolioIncome(props) {
                     <tr>
                         <td>
                             <select>
-                                {portfolioIncomeOptions.map((option, index) => (
-                                    <option>{option}</option>)
+                                {portfolioIncomeOptions.map((option) => (
+                                    <option key={option}>{option}</option>)
                                 )}
                             </select>
                         </td>
