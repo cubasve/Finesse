@@ -1,6 +1,8 @@
 import React from 'react';
 
 export default function PortfolioIncome(props) {
+
+    const portfolioIncomeOptions = ['Stocks', 'Bonds', 'Index/Mutual Funds'];
     return (
         <div>
             <table>
@@ -12,11 +14,17 @@ export default function PortfolioIncome(props) {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input placeholder="Type" autocomplete="off" /></td>
+                        <td>
+                            <select>
+                                {portfolioIncomeOptions.map((option, index) => (
+                                    <option>{option}</option>)
+                                )}
+                            </select>
+                        </td>
                         <td>$<input type="number" min="0" /><button>+</button></td>
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div >
     )
 }
