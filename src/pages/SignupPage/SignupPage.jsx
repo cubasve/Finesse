@@ -5,14 +5,19 @@ import './SignupPage.css';
 export default class SignupPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = { message: '' }
+    }
+
+    updateMessage = (msg) => {
+        this.setState({ message: msg });
     }
 
     render() {
         return (
-            <div>
-                <SignupForm />
+            <div className='SignupPage'>
+                <SignupForm {...this.props} updateMessage={this.updateMessage} />
+                <p>{this.state.message}</p>
             </div>
-        )
+        );
     }
 }

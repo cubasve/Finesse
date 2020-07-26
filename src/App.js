@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import BalanceSheet from './components/BalanceSheet/BalanceSheet';
-import IncomeStatement from './components/IncomeStatement/IncomeStatement';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import FinancialStatement from './components/FinancialStatement/FinancialStatement';
+import SignupPage from './pages/SignupPage/SignupPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import userService from '../../utils/userService';
 
 {/* 
 COMPONENT STRUCTURE
@@ -41,9 +44,11 @@ export default class App extends Component {
       <div className="App">
         <header className="App-header">FINESSE</header>
         <main>
-          <BalanceSheet assets={assets} />
-          <IncomeStatement />
-
+          <Switch>
+            <Route exact path="/" render={() => (
+              <FinancialStatement />
+            )}></Route>
+          </Switch>
         </main>
       </div>
     )
