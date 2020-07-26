@@ -1,3 +1,29 @@
+# Finesse
+
+## Description:
+
+### Background Info:
+
+## Screenshots of Application:
+
+## Technologies Used:
+- MongoDB/Mongoose
+- Express
+- React
+- Node
+
+## Getting Started:
+- Application: 
+- Trello Board: 
+
+## Next Steps: Planned Future Enhancements
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
