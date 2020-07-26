@@ -39,8 +39,8 @@ export default class App extends Component {
       <div className="App">
         <header className="App-header">FINESSE</header>
         <main>
-          <IncomeStatement />
           <BalanceSheet />
+          <IncomeStatement />
 
         </main>
       </div>
