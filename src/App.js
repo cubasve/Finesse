@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import FinancialStatement from './components/FinancialStatement/FinancialStatement';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
-import userService from '../../utils/userService';
+import userService from './utils/userService';
 
 {/* 
 COMPONENT STRUCTURE
