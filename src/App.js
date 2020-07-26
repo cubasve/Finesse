@@ -1,6 +1,7 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import BalanceSheet from './components/BalanceSheet/BalanceSheet';
+import IncomeStatement from './components/IncomeStatement/IncomeStatement';
 
 {/* 
 COMPONENT STRUCTURE
@@ -24,14 +25,26 @@ financialStatements
             payYourselfFirst
 */ }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        FINESSE
-      </header>
-    </div>
-  );
-}
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
 
-export default App;
+    }
+  }
+
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">FINESSE</header>
+        <main>
+          <IncomeStatement />
+          <BalanceSheet />
+
+        </main>
+      </div>
+    )
+  }
+
+}
