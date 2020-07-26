@@ -1,10 +1,15 @@
 import React from 'react';
+// import './BalanceSheet.css'
+import Assets from '../Assets/Assets';
+import Liabilities from '../Liabilities/Liabilities';
+
 
 export default function BalanceSheet(props) {
     return (
         <div>
-            <p>Balance Sheet</p>
-
+            Balance Sheet
+            <Assets />
+            <Liabilities />
         </div>
     )
 }
