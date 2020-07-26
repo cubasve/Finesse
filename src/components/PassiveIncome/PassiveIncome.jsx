@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function PassiveIncome(props) {
 
-    const passiveIncomeOptions = ['Real Estate', 'Business', 'Commodities'];
+    const passiveIncomeOptions = ['Real Estate', 'Business', 'Commodities', 'Royalties', 'Other'];
     return (
         <div>
             <table>
@@ -21,7 +21,7 @@ export default function PassiveIncome(props) {
                                 )}
                             </select>
                         </td>
-                        <td>$<input type="number" min="0" /><button>+</button></td>
+                        <td>$<input type="number" min="0" placeholder="" /><button>+</button></td>
                     </tr>
                 </tbody>
             </table>

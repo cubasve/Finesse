@@ -8,12 +8,7 @@ export default function Assets(props) {
     return (
         <div>
             Assets
-            {/* {
-                props.assets.map((asset, index) => (
-                    <p key={asset}>{asset}</p>
-                ))
-            } */}
-
+            <p>CASH: </p>
             <PaperAssets />
             <RealEstate />
             <Business />

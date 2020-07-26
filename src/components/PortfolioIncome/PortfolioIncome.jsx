@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function PortfolioIncome(props) {
 
-    const portfolioIncomeOptions = ['Stocks', 'Bonds', 'Index/Mutual Funds', 'GICs'];
+    const portfolioIncomeOptions = ['Stocks', 'Bonds', 'Index/Mutual Funds', 'GICs', 'REITs', 'Other'];
     return (
         <div>
             <table>
@@ -21,7 +21,7 @@ export default function PortfolioIncome(props) {
                                 )}
                             </select>
                         </td>
-                        <td>$<input type="number" min="0" /><button>+</button></td>
+                        <td>$<input type="number" min="0" placeholder="Dividends/Interest" /><button>+</button></td>
                     </tr>
                 </tbody>
             </table>

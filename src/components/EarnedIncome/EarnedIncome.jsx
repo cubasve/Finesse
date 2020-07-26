@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function EarnedIncome(props) {
 
-    const earnedIncomeOptions = ['Job', 'Self-Employment'];
+    const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
     return (
         <div>
             <table>
@@ -21,7 +21,7 @@ export default function EarnedIncome(props) {
                                 )}
                             </select>
                         </td>
-                        <td>$<input type="number" min="0" /><button>+</button></td>
+                        <td>$<input type="number" min="0" placeholder="Salary" /><button>+</button></td>
                     </tr>
                 </tbody>
             </table>
