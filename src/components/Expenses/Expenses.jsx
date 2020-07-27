@@ -24,7 +24,7 @@ export default function Expenses(props) {
                                 {/*Give the user the ability to add an expense */}
                             </select>
                         </td>
-                        <td>$<input type="number" min="0" /><button>+</button></td>
+                        <td>$<input type="number" min="0" /><button type="submit">+</button></td>
                     </tr>
                 </tbody>
             </table>

@@ -21,7 +21,7 @@ export default function Business(props) {
                                 )}
                             </select>
                         </td>
-                        <td>$<input type="number" min="0" placeholder="Company Value" /><button>+</button></td>
+                        <td>$<input type="number" min="0" placeholder="Company Value" /><button type="submit">+</button></td>
                     </tr>
                 </tbody>
             </table>

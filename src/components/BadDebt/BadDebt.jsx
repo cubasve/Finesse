@@ -21,7 +21,7 @@ export default function badDebt(props) {
                                 )}
                             </select>
                         </td>
-                        <td>$<input type="number" min="0" pattern="\d+\.\d\d" placeholder="Debt Value" /><button type="submit">+</button></td>
+                        <td>$<input type="number" min="0" placeholder="Debt Value" /><button type="submit">+</button></td>
                     </tr>
                 </tbody>
             </table>

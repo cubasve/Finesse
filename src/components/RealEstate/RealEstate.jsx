@@ -21,7 +21,7 @@ export default function RealEstate(props) {
                                 )}
                             </select>
                         </td>
-                        <td>$<input type="number" min="0" placeholder="Purchase Price" /><button>+</button></td>
+                        <td>$<input type="number" min="0" placeholder="Purchase Price" /><button type="submit">+</button></td>
                     </tr>
                 </tbody>
             </table>

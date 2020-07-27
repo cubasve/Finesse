@@ -21,7 +21,7 @@ export default function PortfolioIncome(props) {
                                 )}
                             </select>
                         </td>
-                        <td>$<input type="number" min="0" placeholder="Dividends/Interest" /><button>+</button></td>
+                        <td>$<input type="number" min="0" placeholder="Dividends/Interest" /><button type="submit">+</button></td>
                     </tr>
                 </tbody>
             </table>

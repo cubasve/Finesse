@@ -21,7 +21,7 @@ export default function PassiveIncome(props) {
                                 )}
                             </select>
                         </td>
-                        <td>$<input type="number" min="0" placeholder="" /><button>+</button></td>
+                        <td>$<input type="number" min="0" placeholder="" /><button type="submit">+</button></td>
                     </tr>
                 </tbody>
             </table>
