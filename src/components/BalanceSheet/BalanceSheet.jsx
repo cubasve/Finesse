@@ -10,6 +10,7 @@ export default function BalanceSheet(props) {
             Balance Sheet
             <Assets assets={props.assets} />
             <Liabilities />
+            EQUITY/NET WORTH = ASSETS - LIABILITIES
         </div>
     )
 }

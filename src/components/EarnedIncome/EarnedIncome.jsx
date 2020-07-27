@@ -21,7 +21,7 @@ export default function EarnedIncome(props) {
                                 )}
                             </select>
                         </td>
-                        <td>$<input type="number" min="0" placeholder="Salary" /><button type="submit">+</button></td>
+                        <td>$<input type="number" min="0" placeholder="Salary/Commissions" /><button type="submit">+</button></td>
                     </tr>
                 </tbody>
             </table>

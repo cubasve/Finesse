@@ -10,25 +10,28 @@ import userService from '../../utils/userService';
 {/* 
 COMPONENT STRUCTURE
 
-signup
-login
-financialStatements
-    balanceSheet
-        assets
-            paper
-            realEstate
-            business
-            commodities
-        liabilities
-            goodDebt
-            badDebt
-    incomeStatement
-        income
-            earned
-            portfolio
-            passive
-        expenses
-            payYourselfFirst
+HomePage
+    NavBar
+Signup
+    SignupForm
+Login
+DinancialStatements
+    BalanceSheet
+        Assets
+            Paper
+            RealEstate
+            Business
+            Commodities
+        Liabilities
+            GoodDebt
+            BadDebt
+    IncomeStatement
+        Income
+            Earned
+            Portfolio
+            Passive
+        Expenses
+            PayYourselfFirst
 */ }
 
 export default class App extends Component {

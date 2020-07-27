@@ -2,7 +2,7 @@ import React from 'react';
 import PayYourselfFirst from '../PayYourselfFirst/PayYourselfFirst';
 
 export default function Expenses(props) {
-    const expenseOptions = ['Housing', 'Transportation', 'Entertainment', 'Kids', 'Other'];
+    const expenseOptions = ['Housing', 'Transportation', 'Food', 'Kids', 'Debt Payments', 'Entertainment', 'Donations', 'Other'];
     return (
         <div>
             Expenses

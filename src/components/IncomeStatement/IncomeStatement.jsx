@@ -8,6 +8,7 @@ export default function BalanceSheet(props) {
             Income Statement
             <Income />
             <Expenses />
+            CASH FLOW: INCOME - EXPENSES
         </div>
     )
 }
