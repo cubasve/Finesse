@@ -12,8 +12,7 @@ export default function FinancialStatementPage(props) {
                     //TyperError: Cannot read property 'earnedIncome' of undefined
                     // earnedIncome={props.newEarnedIncome.earnedIncome}
                     // amountEarned={props.newEarnedIncome.amountEarned}
-                    earnedIncome={props.earnedIncome}
-                    amountEarned={props.amountEarned}
+                    newEarnedIncome={props.newEarnedIncome}
                     handleChange={props.handleChange}
                 />
             </main>
