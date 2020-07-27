@@ -56,7 +56,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <header className="App-header">FINESSE</header>
-        <NavBar user={this.state.user} handleLogout={this.state.handleLogout} />
+        <NavBar user={this.state.user} handleLogout={this.handleLogout} />
         <Switch>
           <Route exact path="/" render={() => <HomePage user={this.state.user} handleLogout={this.handleLogout} />}></Route>
 
