@@ -1,0 +1,13 @@
+table {
+padding: 50px;
+border: 4px solid green;
+border-radius: 20px;
+}
+
+table:invalid {
+border-color: yellow;
+}
+
+table:invalid {
+border-color: red;
+}
