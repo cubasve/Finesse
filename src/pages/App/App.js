@@ -40,6 +40,9 @@ export default class App extends Component {
     super();
     this.state = {
       user: userService.getUser(),
+      totalIncome: [{ income: '', amount: '' }],
+      income: '',
+      amount: '',
     }
   }
 
@@ -52,20 +55,26 @@ export default class App extends Component {
     this.setState({ user: userService.getUser() });
   };
 
+  addIncome = () => {
+    alert('ADD INCOME CLICKED');
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">FINESSE</header>
         <NavBar user={this.state.user} handleLogout={this.handleLogout} />
         <Switch>
+
           <Route exact path="/" render={() => <HomePage user={this.state.user} handleLogout={this.handleLogout} />}></Route>
 
           <Route exact path="/financialstatement" render={() => (
             userService.getUser() ?
-              <main><FinancialStatementPage /></main>
+              <main><FinancialStatementPage addIncome={this.addIncome} /></main>
               :
               <Redirect to='/login' />
-          )}></Route>
+          )}>
+          </Route>
 
           <Route exact path="/signup" render={({ history }) => <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
 

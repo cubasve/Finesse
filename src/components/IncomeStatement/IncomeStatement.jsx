@@ -6,7 +6,7 @@ export default function IncomeStatement(props) {
     return (
         <div>
             Income Statement
-            <Income />
+            <Income addIncome={props.addIncome} />
             <Expenses />
             CASH FLOW: INCOME - EXPENSES
         </div>

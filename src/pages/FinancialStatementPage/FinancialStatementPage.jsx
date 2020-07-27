@@ -7,7 +7,7 @@ export default function FinancialStatementPage(props) {
         <div className='FinancialStatement'>
             <main>
                 <BalanceSheet />
-                <IncomeStatement />
+                <IncomeStatement addIncome={props.addIncome} />
             </main>
         </div>
     )
