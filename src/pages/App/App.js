@@ -36,18 +36,17 @@ DinancialStatements
 */ }
 
 export default class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      user: userService.getUser(),
-      earnedIncomeStreams: [],
-      newEarnedIncome: {
-        earnedIncome: '',
-        amountEarned: '',
-      }
 
+  state = {
+    user: userService.getUser(),
+    earnedIncomeStreams: [],
+    newEarnedIncome: {
+      earnedIncome: '',
+      amountEarned: '',
     }
+
   }
+
 
   handleLogout = () => {
     userService.logout();
@@ -63,7 +62,12 @@ export default class App extends Component {
   }
 
   handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    console.log(e.target);
+    this.setState(state => {
+      console.log(e.target)
+    })
+
+    // this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {

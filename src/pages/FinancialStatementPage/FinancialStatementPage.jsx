@@ -9,8 +9,11 @@ export default function FinancialStatementPage(props) {
                 <BalanceSheet />
                 <IncomeStatement
                     addIncome={props.addIncome}
-                    earnedIncome={props.newEarnedIncome.earnedIncome}
-                    amountEarned={props.newEarnedIncome.amountEarned}
+                    //TyperError: Cannot read property 'earnedIncome' of undefined
+                    // earnedIncome={props.newEarnedIncome.earnedIncome}
+                    // amountEarned={props.newEarnedIncome.amountEarned}
+                    earnedIncome={props.earnedIncome}
+                    amountEarned={props.amountEarned}
                     handleChange={props.handleChange}
                 />
             </main>
