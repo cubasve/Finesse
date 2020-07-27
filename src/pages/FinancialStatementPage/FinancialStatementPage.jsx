@@ -7,7 +7,12 @@ export default function FinancialStatementPage(props) {
         <div className='FinancialStatement'>
             <main>
                 <BalanceSheet />
-                <IncomeStatement addIncome={props.addIncome} />
+                <IncomeStatement
+                    addIncome={props.addIncome}
+                    earnedIncome={props.newEarnedIncome.earnedIncome}
+                    amountEarned={props.newEarnedIncome.amountEarned}
+                    handleChange={props.handleChange}
+                />
             </main>
         </div>
     )

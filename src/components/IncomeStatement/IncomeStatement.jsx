@@ -6,7 +6,12 @@ export default function IncomeStatement(props) {
     return (
         <div>
             Income Statement
-            <Income addIncome={props.addIncome} />
+            <Income
+                addIncome={props.addIncome}
+                earnedIncome={props.newEarnedIncome.earnedIncome}
+                amountEarned={props.newEarnedIncome.amountEarned}
+                handleChange={props.handleChange}
+            />
             <Expenses />
             CASH FLOW: INCOME - EXPENSES
         </div>

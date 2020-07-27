@@ -40,9 +40,12 @@ export default class App extends Component {
     super();
     this.state = {
       user: userService.getUser(),
-      totalIncome: [{ income: '', amount: '' }],
-      income: '',
-      amount: '',
+      earnedIncomeStreams: [],
+      newEarnedIncome: {
+        earnedIncome: '',
+        amountEarned: '',
+      }
+
     }
   }
 
@@ -59,6 +62,10 @@ export default class App extends Component {
     alert('ADD INCOME CLICKED');
   }
 
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
   render() {
     return (
       <div className="App">
@@ -70,7 +77,14 @@ export default class App extends Component {
 
           <Route exact path="/financialstatement" render={() => (
             userService.getUser() ?
-              <main><FinancialStatementPage addIncome={this.addIncome} /></main>
+              <main>
+                <FinancialStatementPage
+                  addIncome={this.addIncome}
+                  earnedIncome={this.state.newEarnedIncome.earnedIncome}
+                  amountEarned={this.state.newEarnedIncome.amountEarned}
+                  handleChange={this.handleChange}
+                />
+              </main>
               :
               <Redirect to='/login' />
           )}>
