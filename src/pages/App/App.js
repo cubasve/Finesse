@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from '../HomePage/HomePage';
-import FinancialStatement from '../FinancialStatementPage/FinancialStatementPage';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import userService from '../../utils/userService';
 import FinancialStatementPage from '../FinancialStatementPage/FinancialStatementPage';
+import NavBar from '../../components/NavBar/NavBar';
 
 {/* 
 COMPONENT STRUCTURE
@@ -56,6 +56,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <header className="App-header">FINESSE</header>
+        <NavBar user={this.state.user} handleLogout={this.state.handleLogout} />
         <Switch>
           <Route exact path="/" render={() => <HomePage user={this.state.user} handleLogout={this.handleLogout} />}></Route>
 
