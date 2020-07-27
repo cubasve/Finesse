@@ -6,6 +6,7 @@ import FinancialStatement from '../FinancialStatementPage/FinancialStatementPage
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import userService from '../../utils/userService';
+import FinancialStatementPage from '../FinancialStatementPage/FinancialStatementPage';
 
 {/* 
 COMPONENT STRUCTURE
@@ -58,8 +59,11 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" render={() => <HomePage user={this.state.user} handleLogout={this.handleLogout} />}></Route>
 
-          <Route exact path="/FinancialStatement" render={() => (
-            <main><FinancialStatement /></main>
+          <Route exact path="/financialstatement" render={() => (
+            userService.getUser() ?
+              <main><FinancialStatementPage /></main>
+              :
+              <Redirect to='/login' />
           )}></Route>
 
           <Route exact path="/signup" render={({ history }) => <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>

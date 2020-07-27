@@ -7,12 +7,10 @@ const financialStatementSchema = new Schema(
             description: String,
             amount: Number,
             type: ['Earned', 'Portfolio', 'Passive'],
-            required: true,
         },
         expense: {
             description: String,
             amount: Number,
-            required: true,
         },
         asset: {
             description: String,

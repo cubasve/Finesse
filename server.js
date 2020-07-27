@@ -16,8 +16,8 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
-app.use(require('./config/auth'));
-// app.use('/api/financialStatements', require('./routes/api/financialStatements'));
+app.use(require('./config/auth')); //Mount custom auth middleware to protect routes below it 
+app.use('/api/financialStatements', require('./routes/api/financialStatements'));
 
 app.use('/api', function (req, res) {
     res.status(404).json({ error: 'Resource not found' });
