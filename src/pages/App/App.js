@@ -16,23 +16,21 @@ HomePage
 Signup
     SignupForm
 Login
-DinancialStatements
-    BalanceSheet
-        Assets
-            Paper
-            RealEstate
-            Business
-            Commodities
-        Liabilities
-            GoodDebt
-            BadDebt
-    IncomeStatement
-        Income
-            Earned
-            Portfolio
-            Passive
-        Expenses
-            PayYourselfFirst
+FinancialStatements
+    Assets
+        Paper
+        RealEstate
+        Business
+        Commodities
+    Liabilities
+        GoodDebt
+        BadDebt
+    Income
+        Earned
+        Portfolio
+        Passive
+    Expenses
+        PayYourselfFirst
 */ }
 
 export default class App extends Component {

@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function EarnedIncome(props) {
-
     const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
+
+    //[state, setState] = useState(initialState)
+
+    //add additional state by calling useState multiple times
+    // const [level, setLevel] = useState(.55);
+    // const [charging, setCharging] = useState(false);
+    // const [batteryData, setBatteryData] = useState({
+    //     level: .55,
+    //     charging: true,
+    // });
+
+    const totalEarnedIncome = [];
+
+    const [earnedIncomeData, setEarnedIncomeData] = useState({
+        earnedIncomeType: '',
+        amountEarned: '',
+    });
+
+    // state = {
+    //     user: userService.getUser(),
+    //     earnedIncomeStreams: [],
+    //     newEarnedIncome: {
+    //       earnedIncome: '',
+    //       amountEarned: '',
+    //     }
+
+    //   }
+
     return (
         <div>
             <table>
@@ -17,7 +44,7 @@ export default function EarnedIncome(props) {
                         <td>
                             <select
                                 name="earnedIncome"
-                                value={props.earnedIncome}
+                                value={earnedIncomeData.earnedIncomeType}
                                 onChange={props.handleChange}>
                                 {earnedIncomeOptions.map((option) => (
                                     <option key={option}>{option}</option>)
@@ -27,7 +54,7 @@ export default function EarnedIncome(props) {
                         <td>$
                             <input
                                 name="amountEarned"
-                                value={props.amountEarned}
+                                value={earnedIncomeData.amountEarned}
                                 onChange={props.handleChange}
                                 type="number"
                                 min="0"
