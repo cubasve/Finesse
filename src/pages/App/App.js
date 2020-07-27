@@ -47,7 +47,6 @@ export default class App extends Component {
 
   }
 
-
   handleLogout = () => {
     userService.logout();
     this.setState({ user: null });
@@ -58,16 +57,18 @@ export default class App extends Component {
   };
 
   addIncome = () => {
-    alert('ADD INCOME CLICKED');
+    console.log('ADD INCOME CLICKED');
+    this.setState(state => ({
+      earnedIncomeStreams: [...state.earnedIncomeStreams, state.newEarnedIncome],
+      //replace (not mutating) --> add newEarnedIncome onto pre-existing earnedIncomeStreams array
+      newEarnedIncome: { earnedIncome: '', amountEarned: '' }
+      //rest the inputs for better UX
+    }))
   }
 
   handleChange = e => {
-    console.log(e.target);
-    this.setState(state => {
-      console.log(e.target)
-    })
-
-    // this.setState({ [e.target.name]: e.target.value });
+    const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
+    this.setState({ newEarnedIncome: newEarnedIncome })
   }
 
   render() {

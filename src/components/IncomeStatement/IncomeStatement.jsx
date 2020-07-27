@@ -8,8 +8,8 @@ export default function IncomeStatement(props) {
             Income Statement
             <Income
                 addIncome={props.addIncome}
-                // earnedIncome={props.newEarnedIncome.earnedIncome}
-                // amountEarned={props.newEarnedIncome.amountEarned}
+                earnedIncome={props.earnedIncome}
+                amountEarned={props.amountEarned}
                 handleChange={props.handleChange}
             />
             <Expenses />

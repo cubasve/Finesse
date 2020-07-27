@@ -17,8 +17,8 @@ export default function EarnedIncome(props) {
                         <td>
                             <select
                                 name="earnedIncome"
-                                // value={props.newEarnedIncome.earnedIncome}
-                                handleChange={props.handleChange}>
+                                value={props.earnedIncome}
+                                onChange={props.handleChange}>
                                 {earnedIncomeOptions.map((option) => (
                                     <option key={option}>{option}</option>)
                                 )}
@@ -27,8 +27,8 @@ export default function EarnedIncome(props) {
                         <td>$
                             <input
                                 name="amountEarned"
-                                // value={props.newEarnedIncome.amountEarned}
-                                onClick={props.handleChange}
+                                value={props.amountEarned}
+                                onChange={props.handleChange}
                                 type="number"
                                 min="0"
                                 placeholder="Salary/Commissions"
