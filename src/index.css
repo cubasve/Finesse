@@ -12,7 +12,7 @@ code {
     monospace;
 }
 
-div {
+div, section {
   border: 1px solid grey;
   margin: 5px;
   padding: 5px;

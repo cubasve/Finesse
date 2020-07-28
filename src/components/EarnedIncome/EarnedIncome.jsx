@@ -103,11 +103,11 @@ export default class EarnedIncome extends Component {
     }
 
     addEarnedIncome = () => {
-        console.log('ADD INCOME CLICKED');
+        alert('ADD INCOME CLICKED');
         this.setState(state => ({
-            earnedIncomeStreams: [...state.earnedIncomeStreams, state.newEarnedIncome],
+            totalEarnedIncome: [...this.state.totalEarnedIncome, this.state.newEarnedIncome],
             //replace (not mutating) --> add newEarnedIncome onto pre-existing earnedIncomeStreams array
-            newEarnedIncome: { earnedIncome: '', amountEarned: '' }
+            newEarnedIncome: { earnedIncomeType: '', amountEarned: '' }
             //rest the inputs for better UX
         }))
     }
@@ -119,8 +119,8 @@ export default class EarnedIncome extends Component {
 
     render() {
         return (
-            <div>
-                <table>
+            <section>
+                {/* <table>
                     <thead>
                         <tr>
                             <th>Earned</th>
@@ -148,15 +148,49 @@ export default class EarnedIncome extends Component {
                                     min="0"
                                     placeholder="Salary/Commissions"
                                 />
-                                <button onClick={this.addIncome}>+</button>
+                                <button onClick={this.addEarnedIncome}>+</button>
                             </td>
                         </tr>
                     </tbody>
-                </table>
-            </div >
+                </table> */}
+
+                <h4><span>Earned</span> <span>$</span></h4>
+                {this.state.totalEarnedIncome.map(ei => (
+                    <article key={ei.newEarnedIncome.earnedIncomeType}>
+                        <div>{ei.newEarnedIncome.earnedIncomeType}</div>
+                        <div>{ei.newEarnedIncome.amountEarned}</div>
+                    </article>
+                ))}
+                <form>
+                    <label>
+                        <select
+                            name="earnedIncomeType"
+                            value={this.state.newEarnedIncome.earnedIncomeType}
+                            onChange={this.handleChange}
+                        >
+                            {earnedIncomeOptions.map(option => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                    </label>
+                    <label>
+                        <input
+                            name="amountEarned"
+                            value={this.state.newEarnedIncome.amountEarned}
+                            onChange={this.handleChange}
+                            type="number"
+                            min="0"
+                            placeholder="Salary/Commission"
+                        />
+                    </label>
+                    <button onClick={this.addEarnedIncome}>+</button>
+
+                </form>
+            </section >
         )
     }
 }
+
 // state = {
 //     totalEarnedIncome: [],
 //     newEarnedIncome: {
