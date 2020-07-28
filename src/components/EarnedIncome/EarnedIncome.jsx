@@ -31,15 +31,20 @@ export default class EarnedIncome extends Component {
     }
 
     render() {
-        console.log(this.formRef);
         return (
             <section>
                 <h4><span>Earned</span> <span>$</span></h4>
                 {this.state.totalEarnedIncome.map(ei => (
-                    <article key={ei.amountEarned}>
-                        <div>{ei.earnedIncomeType}</div>
-                        <div>{ei.amountEarned}</div>
-                    </article>
+                    <div key={ei.amountEarned}>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>{ei.earnedIncomeType}</td>
+                                    <td>{ei.amountEarned}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 ))}
                 <form ref={this.formRef} onSubmit={this.addEarnedIncome}>
                     <label>
@@ -63,7 +68,7 @@ export default class EarnedIncome extends Component {
                             onChange={this.handleChange}
                             // type="number"
                             // min="0"
-                            pattern="[1-9]\d{2,}\.?\d{0,2}"
+                            pattern="[1-9]\d{0,}\.?\d{0,2}"
                             min="0"
                             placeholder="Salary/Commission"
                         />
