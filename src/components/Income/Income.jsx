@@ -8,10 +8,11 @@ export default function Income(props) {
     return (
         <div>
             Income
-            <Earned addIncome={props.addIncome}
-                earnedIncome={props.earnedIncome}
-                amountEarned={props.amountEarned}
-                handleChange={props.handleChange}
+            <Earned
+            // addIncome={props.addIncome}
+            // earnedIncome={props.earnedIncome}
+            // amountEarned={props.amountEarned}
+            // handleChange={props.handleChange}
             />
             <Portfolio addIncome={props.addIncome} />
             <Passive addIncome={props.addIncome} />
