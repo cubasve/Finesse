@@ -42,19 +42,37 @@ module.exports = {
 //     }
 // }
 
-function create(req, res, next) {
+//THIS GIVES ME Mongoose objects
+// function create(req, res, next) {
+//     try {
+//         const financialStatement = new FinancialStatement(req.body);
+//         console.log(req.body);
+//         financialStatement.save(err => {
+//             if (err) return next(err);
+//             console.log(financialStatement);
+//         })
+//         // FinancialStatement.create(req.body);
+//         // FinancialStatement.save(req.body);
+//         // console.log(req.body); //console.log working
+//     } catch (err) {
+//         res.json({ err });
+//         console.error(err)
+//         console.log('ERROR: CONTROLLER FN CREATE')
+//     }
+// }
+
+
+//POST /api/financialstatements 200 4.967 ms - 143
+//Updated [totalEarnedIncome] 
+async function create(req, res) {
+    const financialStatement = new FinancialStatement(req.body);
     try {
-        const financialStatement = new FinancialStatement(req.body);
+        await financialStatement.save();
         console.log(req.body);
-        financialStatement.save(err => {
-            if (err) return next(err);
-            console.log(financialStatement);
-        })
-        // FinancialStatement.create(req.body);
-        // FinancialStatement.save(req.body);
-        // console.log(req.body); //console.log working
+        console.log(financialStatement);
+        res.json({ financialStatement: financialStatement });
     } catch (err) {
-        res.json({ err });
+        res.json({ err })
         console.error(err)
         console.log('ERROR: CONTROLLER FN CREATE')
     }
