@@ -97,8 +97,9 @@ export default class EarnedIncome extends Component {
         }
     }
 
-    addEarnedIncome = () => {
+    addEarnedIncome = e => {
         // alert('ADD INCOME CLICKED');
+        e.preventDefault();
         this.setState(state => ({
             totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
             //replace (not mutating) --> add newEarnedIncome onto pre-existing totalEarnedIncome array
@@ -122,13 +123,16 @@ export default class EarnedIncome extends Component {
                         <div>{ei.amountEarned}</div>
                     </article>
                 ))}
-                <form>
+                <form onSubmit={this.addEarnedIncome}>
                     <label>
                         <select
                             name="earnedIncomeType"
                             value={this.state.newEarnedIncome.earnedIncomeType}
                             onChange={this.handleChange}
                         >
+                            {/* <option selected value="Job">Job</option>
+                            <option value="Self-Employment">Self-Employment</option>
+                            <option value="Other">Other</option> */}
                             {earnedIncomeOptions.map(option => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
