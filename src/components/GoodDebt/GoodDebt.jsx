@@ -3,12 +3,12 @@ import financialStatementService from '../../utils/financialStatementService';
 
 const goodDebtOptions = ['Real Estate', 'Business', 'Paper', 'Commodities', 'Other'];
 
-export default class goodDebt extends Component {
+export default class GoodDebt extends Component {
     state = {
         totalGoodDebt: [],
         newGoodDebt: {
             goodDebtType: 'Real Estate',
-            amountSpent: '',
+            amountOwed: '',
         },
         formInvalid: true,
     }
@@ -24,7 +24,7 @@ export default class goodDebt extends Component {
                     this.setState(state => ({
                         totalGoodDebt: [...state.totalGoodDebt, state.newGoodDebt],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newGoodDebt: { goodDebtType: '', amountSpent: '' }
+                        newGoodDebt: { goodDebtType: '', amountOwed: '' }
                         //reset the inputs for better UX
                     }))
                 )
@@ -46,12 +46,12 @@ export default class goodDebt extends Component {
                     <span>$</span>
                 </h4>
                 {this.state.totalGoodDebt.map(gd => (
-                    <div key={gd.amountSpent}>
+                    <div key={gd.amountOwed}>
                         <table>
                             <tbody>
                                 <tr>
                                     <td>{gd.goodDebtType}</td>
-                                    <td>{gd.amountSpent}</td>
+                                    <td>{gd.amountOwed}</td>
                                     <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td>
                                 </tr>
@@ -73,8 +73,8 @@ export default class goodDebt extends Component {
                     </label>
                     <label>
                         <input
-                            name="amountSpent"
-                            value={this.state.newGoodDebt.amountSpent}
+                            name="amountOwed"
+                            value={this.state.newGoodDebt.amountOwed}
                             onChange={this.handleChange}
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Debt Value"
