@@ -24,3 +24,4 @@ function create(financialStatement) {
 }
 
 //PATH: component --> serviceWorker --> API route using fetch --> controller fn --> re-render/redirect
+//send request but it is defined in routes (Express)
