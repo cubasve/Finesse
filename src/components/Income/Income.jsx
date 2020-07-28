@@ -9,8 +9,8 @@ export default function Income(props) {
         <div>
             Income
             <Earned />
-            <Portfolio addIncome={props.addIncome} />
-            <Passive addIncome={props.addIncome} />
+            <Portfolio />
+            <Passive />
         </div>
     )
 }

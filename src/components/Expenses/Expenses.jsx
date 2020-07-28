@@ -42,11 +42,15 @@ export default class Expenses extends Component {
     render() {
         return (
             <section>
-                <h4>
-                    <span>Expenses</span>
-                    <span>$</span>
+                <span>Expenses</span>
+                <PayYourselfFirst />
+                {/* <h4>
+                    Expenses
+                    $
+                    <span><div>Expenses</div></span>
+                    <span><div>$</div></span>
                     <PayYourselfFirst />
-                </h4>
+                </h4> */}
                 {this.state.totalExpenses.map(ex => (
                     <div key={ex.amountSpent}>
                         <table>
