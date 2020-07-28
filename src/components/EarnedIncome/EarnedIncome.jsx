@@ -40,9 +40,10 @@ export default class EarnedIncome extends Component {
             <section>
                 <h4>
                     <span>Earned</span>
-                    {this.state.totalEarnedIncome.amountEarned.map(amount => (
+                    <span>$</span>
+                    {/* {this.state.totalEarnedIncome.amountEarned.map(amount => (
                         <span key={amount}>${amount}</span>
-                    ))}
+                    ))} */}
                     {/* {this.state.totalEarnedIncome.amountEarned.reduce((acc, num) => (
                         <span>${acc + num}</span>
                     ))} */}
