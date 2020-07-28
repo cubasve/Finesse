@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import financialStatementService from '../financialStatementService';
+import financialStatementService from '../../utils/financialStatementService';
 
 const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
-const sum = 0;
 
 export default class EarnedIncome extends Component {
     state = {
@@ -15,22 +14,22 @@ export default class EarnedIncome extends Component {
     }
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
-    async addEarnedIncome = e => {
+    addEarnedIncome = e => {
         // alert('ADD INCOME CLICKED');
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create()
+            financialStatementService.create()
                 .then(
                     this.setState(state => ({
                         totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
-                        //replace (not mutating) --> add newEarnedIncome onto pre-existing totalEarnedIncome array
+                        //add newEarnedIncome onto pre-existing totalEarnedIncome array
                         newEarnedIncome: { earnedIncomeType: '', amountEarned: '' }
                         //reset the inputs for better UX
                     }))
                 )
         } catch (err) {
-            res.json({ err });
+            console.error(err);
         }
     }
 
