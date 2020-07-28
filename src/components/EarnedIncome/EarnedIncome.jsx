@@ -19,7 +19,7 @@ export default class EarnedIncome extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create(this.state.totalEarnedIncome)
+            await financialStatementService.create()
                 .then(
                     this.setState(state => ({
                         totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],

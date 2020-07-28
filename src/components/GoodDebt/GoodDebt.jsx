@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function GoodDebt(props) {
 
-    const goodDebtOptions = ['Real Estate', 'Business', 'Paper', 'School Loans', 'Other'];
+    const goodDebtOptions = ['Real Estate', 'Business', 'Paper', 'Other'];
     return (
         <div>
             <table>
