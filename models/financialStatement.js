@@ -4,23 +4,23 @@ const Schema = mongoose.Schema;
 const financialStatementSchema = new Schema(
     {
         income: {
-            description: String,
+            type: String,
             amount: Number,
-            type: ['Earned', 'Portfolio', 'Passive'],
+            // type: ['Earned', 'Portfolio', 'Passive'],
         },
         expense: {
-            description: String,
+            type: String,
             amount: Number,
         },
         asset: {
-            description: String,
+            type: String,
             amount: Number,
-            type: ['Paper', 'Real Estate', 'Business', 'Commodities']
+            // type: ['Paper', 'Real Estate', 'Business', 'Commodities']
         },
         liability: {
-            description: String,
+            type: String,
             amount: Number,
-            type: ['Good Debt', 'Bad Debt']
+            // type: ['Good Debt', 'Bad Debt']
         },
     },
     {
