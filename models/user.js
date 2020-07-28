@@ -7,7 +7,8 @@ const SALT_ROUNDS = 6;
 const userSchema = new Schema({
     name: String,
     email: { type: String, required: true, lowercase: true, unique: true },
-    password: String
+    password: String,
+    // financialStatements: [{ type: Schema.Types.ObjectId, ref: "FinancialStatement" }],
 }, {
     timestamps: true
 });

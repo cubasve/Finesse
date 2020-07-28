@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 const financialStatementSchema = new Schema(
     {
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+        },
         income: {
             type: String,
             amount: Number,
