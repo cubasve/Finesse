@@ -1,60 +1,44 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const incomeTypeSchema = new Schema({
-    earnedIncomeType: { type: String },
-    earnedIncomeAmount: { type: Number },
-    portfolioIncomeType: { type: String },
-    portfolioIncomeAmount: { type: Number },
-    passiveIncomeType: { type: String },
-    passiveIncomeAmount: { type: Number },
+const incomeSchema = new Schema({
+    type: String,
+    amount: Number
 });
 
 const expenseSchema = new Schema({
-    expenseType: { type: String },
-    expenseAmount: { type: Number },
+    type: String,
+    amount: Number
 });
 
-const assetTypeSchema = new Schema({
-    paperAssetType: { type: String },
-    paperAssetAmount: { type: Number },
-    realEstateType: { type: String },
-    realEstateAmount: { type: Number },
-    businessType: { type: String },
-    businessAmount: { type: Number },
-    commodityType: { type: String },
-    commodityAmount: { type: Number },
+const assetSchema = new Schema({
+    type: String,
+    amount: Number
 });
 
-const liabilityTypeSchema = new Schema({
-    goodDebtType: { type: String },
-    goodDebtAmount: { type: Number },
-    badDebtType: { type: String },
-    badDebtAmount: { type: Number }
-})
+const liabilitySchema = new Schema({
+    type: String,
+    amount: Number
+});
 
 const financialStatementSchema = new Schema(
     {
-        user: {
-            type: Schema.Types.ObjectId, ref: "User"
-        },
-        income: [incomeTypeSchema],
+        income: [incomeSchema],
         expense: [expenseSchema],
-        asset: [assetTypeSchema],
-        liability: [liabilityTypeSchema],
+        asset: [assetSchema],
+        liability: [liabilitySchema],
     },
     {
         timestamps: true,
     }
 );
 
-
 // const financialStatementSchema = new Schema(
 //     {
-//         user: {
-//             type: Schema.Types.ObjectId,
-//             ref: "User",
-//         },
+//         // user: {
+//         //     type: Schema.Types.ObjectId,
+//         //     ref: "User",
+//         // },
 //         income: {
 //             type: String,
 //             amount: Number,
@@ -79,6 +63,56 @@ const financialStatementSchema = new Schema(
 //         timestamps: true,
 //     }
 // );
+
+// const incomeTypeSchema = new Schema({
+//     earnedIncomeType: { type: String },
+//     earnedIncomeAmount: { type: Number },
+//     portfolioIncomeType: { type: String },
+//     portfolioIncomeAmount: { type: Number },
+//     passiveIncomeType: { type: String },
+//     passiveIncomeAmount: { type: Number },
+// });
+
+// const expenseSchema = new Schema({
+//     expenseType: { type: String },
+//     expenseAmount: { type: Number },
+// });
+
+// const assetTypeSchema = new Schema({
+//     paperAssetType: { type: String },
+//     paperAssetAmount: { type: Number },
+//     realEstateType: { type: String },
+//     realEstateAmount: { type: Number },
+//     businessType: { type: String },
+//     businessAmount: { type: Number },
+//     commodityType: { type: String },
+//     commodityAmount: { type: Number },
+// });
+
+// const liabilityTypeSchema = new Schema({
+//     goodDebtType: { type: String },
+//     goodDebtAmount: { type: Number },
+//     badDebtType: { type: String },
+//     badDebtAmount: { type: Number }
+// })
+
+// const financialStatementSchema = new Schema(
+//     {
+//         // user: {
+//         //     type: Schema.Types.ObjectId, ref: "User"
+//         // },
+//         income: [incomeTypeSchema],
+//         expense: [expenseSchema],
+//         asset: [assetTypeSchema],
+//         liability: [liabilityTypeSchema],
+//     },
+//     {
+//         timestamps: true,
+//     }
+// );
+
+
+
 
 // const financialStatementSchema = new Schema({
 //     user: {

@@ -1,14 +1,23 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
+const FinancialStatementSchema = require('../models/financialStatement');
 
 const SALT_ROUNDS = 6;
+
+// const userFinances = new Schema({
+//     income: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
+//     expense: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
+//     asset: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
+//     liability: { type: Schema.Types.ObjectId, ref: "FinancialStatement" }
+// });
 
 const userSchema = new Schema({
     name: String,
     email: { type: String, required: true, lowercase: true, unique: true },
     password: String,
-    // financialStatements: [{ type: Schema.Types.ObjectId, ref: "FinancialStatement" }],
+    // userFinances: [userFinances],
+    userFinances: [FinancialStatementSchema]
 }, {
     timestamps: true
 });
