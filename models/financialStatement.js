@@ -111,31 +111,4 @@ const financialStatementSchema = new Schema(
 //     }
 // );
 
-
-
-
-// const financialStatementSchema = new Schema({
-//     user: {
-//         type: Schema.Types.ObjectId,
-//         ref: "User",
-//     },
-//     earnedIncome: {
-//         type: String,
-//         amount: Number,
-//     },
-//     portfolioIncome: {
-//         type: String,
-//         amount: Number,
-//     },
-//     passiveIncome: {
-//         type: String,
-//         amount: Number,
-//     },
-//     expense: {
-//         type: String,
-//         amount: Number,
-//     },
-
-// });
-
 module.exports = mongoose.model('FinancialStatement', financialStatementSchema);

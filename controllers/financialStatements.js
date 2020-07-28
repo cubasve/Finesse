@@ -5,6 +5,18 @@ const User = require('../models/user');
 
 module.exports = {
     create,
+    show,
+}
+
+function show(req, res) {
+    try {
+        User.findById(req.user._id).populate('income').populate('expense').populate('asset').populate('liability').exec(user => {
+            console.log(user);
+        })
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
 }
 
 //POST /api/financialstatements 200 4.967 ms - 143
