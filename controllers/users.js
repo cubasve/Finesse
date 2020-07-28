@@ -1,5 +1,4 @@
 const User = require('../models/user');
-const FinancialStatement = require('../models/financialStatement');
 const jwt = require('jsonwebtoken');
 const SECRET = process.env.SECRET;
 
@@ -38,7 +37,6 @@ async function login(req, res) {
             if (isMatch) {
                 const token = createJWT(user);
                 res.json({ token });
-                const queryUserData = FinancialStatement.findOne({ user: req.body })
             } else {
                 return res.status(401).json({ err: 'bad credentials' });
             }
@@ -47,3 +45,4 @@ async function login(req, res) {
         return res.status(400).json(err);
     }
 }
+//const queryUserData = User.findOne({ financialStatementSchema: req.user._id })
