@@ -11,15 +11,14 @@ module.exports = {
 //Updated [totalEarnedIncome] 
 async function create(req, res) {
     const financialStatement = new FinancialStatement(req.body);
+    //added below 2 lines
     financialStatement.user = req.user._id;
-    financialStatement.income = req.body;
-    // financialStatement.income.type = req.user._id;
-    // financialStatement.income.amount = req.user._id;
+    financialStatement.income = req.body._id;
     // const user = userService.getUser();
     try {
         await financialStatement.save();
         console.log(req.body);
-        console.log(financialStatement);
+        // console.log(financialStatement);
         res.json({ financialStatement: financialStatement });
     } catch (err) {
         res.json({ err })
