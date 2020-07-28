@@ -22,3 +22,5 @@ function create(financialStatement) {
     }
     return fetch(BASE_URL, options).then(res => res.json());
 }
+
+//PATH: component --> serviceWorker --> API route using fetch --> controller fn --> re-render/redirect

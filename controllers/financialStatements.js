@@ -4,10 +4,14 @@ module.exports = {
     create,
 }
 
-async function create(req, res) {
+function create(req, res, next) {
+    const financialStatement = FinancialStatement.create(req.body);
     try {
-        await FinancialStatement.create(req.body);
+        console.log(req.body);
+        financialStatement.save();
+        res.json({ financialStatement: financialStatement })
     } catch (err) {
         res.json({ err });
+        console.log('Error occurred with creating')
     }
 }
