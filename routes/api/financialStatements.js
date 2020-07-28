@@ -4,7 +4,10 @@ const financialStatementsCtrl = require('../../controllers/financialStatements')
 
 // router.post('/', require('../../config/auth'), isLoggedIn, financialStatementsCtrl.create);
 
-router.post('/', isLoggedIn, financialStatementsCtrl.create);
+//In server.js:
+//app.use('/api/financialStatements', require('./routes/api/financialStatements'));
+
+router.post('/', isLoggedIn, financialStatementsCtrl.create); //route: /api/financialStatements/
 
 module.exports = router;
 

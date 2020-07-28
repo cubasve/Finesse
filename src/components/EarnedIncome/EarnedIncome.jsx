@@ -31,10 +31,6 @@ export default class EarnedIncome extends Component {
         this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() })
     }
 
-    // {earnedIncomeOptions.map((option) => (
-    //     <option key={option} value={option}>{option}</option>
-    // ))}
-
     render() {
         return (
             <section>
@@ -55,6 +51,8 @@ export default class EarnedIncome extends Component {
                                 <tr>
                                     <td>{ei.earnedIncomeType}</td>
                                     <td>{ei.amountEarned}</td>
+                                    <td><button value="Update">U</button></td>
+                                    <td><button value="Delete">X</button></td>
                                 </tr>
                             </tbody>
                         </table>
