@@ -77,7 +77,6 @@ export default class PassiveIncome extends Component {
                             value={this.state.newPassiveIncome.amountEarned}
                             onChange={this.handleChange}
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
-                            min="0"
                         />
                     </label>
                     <button

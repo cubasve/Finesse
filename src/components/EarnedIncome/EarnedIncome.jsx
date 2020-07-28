@@ -14,7 +14,7 @@ export default class EarnedIncome extends Component {
     }
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
-    addEarnedIncome = async (e) => {
+    handleSubmit = async (e) => {
         // alert('ADD INCOME CLICKED');
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
@@ -65,7 +65,7 @@ export default class EarnedIncome extends Component {
                         </table>
                     </div>
                 ))}
-                <form ref={this.formRef} onSubmit={this.addEarnedIncome}>
+                <form ref={this.formRef} onSubmit={this.handleSubmit}>
                     <label>
                         <select
                             name="earnedIncomeType"
@@ -85,16 +85,13 @@ export default class EarnedIncome extends Component {
                             name="amountEarned"
                             value={this.state.newEarnedIncome.amountEarned}
                             onChange={this.handleChange}
-                            // type="number"
-                            // min="0"
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
-                            min="0"
                             placeholder="Salary/Commission"
                         />
                     </label>
                     <button
                         className="form-submission"
-                        onClick={this.addEarnedIncome}
+                        onClick={this.handleSubmit}
                         disabled={this.state.formInvalid}
                     >+</button>
                 </form>

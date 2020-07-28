@@ -1,33 +1,93 @@
-import React from 'react';
+import React, { Component } from 'react';
+import financialStatementService from '../../utils/financialStatementService';
 import PayYourselfFirst from '../PayYourselfFirst/PayYourselfFirst';
 
-export default function Expenses(props) {
-    const expenseOptions = ['Housing', 'Transportation', 'Food', 'Kids', 'Debt Payments', 'Entertainment', 'Donations', 'Other'];
-    return (
-        <div>
-            Expenses
-            <PayYourselfFirst />
-            <table>
-                <thead>
-                    <tr>
-                        <th>$</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <select>
-                                {expenseOptions.map((option) => (
-                                    <option key={option}>{option}</option>)
-                                )}
+const expenseOptions = ['Housing', 'Transportation', 'Food', 'Kids', 'Debt Payments', 'Entertainment', 'Donations', 'Other'];
 
-                                {/*Give the user the ability to add an expense */}
-                            </select>
-                        </td>
-                        <td>$<input type="number" min="0" /><button type="submit">+</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    )
+export default class Expenses extends Component {
+    state = {
+        totalExpenses: [],
+        newExpense: {
+            expenseType: 'Housing',
+            amountSpent: '',
+        },
+        formInvalid: true,
+    }
+    formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
+
+    handleSubmit = async (e) => {
+        // alert('ADD INCOME CLICKED');
+        e.preventDefault();
+        if (!this.formRef.current.checkValidity()) return;
+        try {
+            await financialStatementService.create()
+                .then(
+                    this.setState(state => ({
+                        totalExpenses: [...state.totalExpenses, state.newExpense],
+                        //add newEarnedIncome onto pre-existing totalEarnedIncome array
+                        newExpense: { expenseType: '', amountSpent: '' }
+                        //reset the inputs for better UX
+                    }))
+                )
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    handleChange = e => {
+        const newExpense = { ...this.state.newExpense, [e.target.name]: e.target.value }
+        this.setState({ newExpense: newExpense, formInvalid: !this.formRef.current.checkValidity() })
+    }
+
+    render() {
+        return (
+            <section>
+                <h4>
+                    <PayYourselfFirst />
+                    <span>Expenses</span>
+                    <span>$</span>
+                </h4>
+                {this.state.totalExpenses.map(ex => (
+                    <div key={ex.amountSpent}>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>{ex.expenseType}</td>
+                                    <td>{ex.amountSpent}</td>
+                                    <td><button value="Update">U</button></td>
+                                    <td><button value="Delete">X</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                ))}
+                <form ref={this.formRef} onSubmit={this.handleSubmit}>
+                    <label>
+                        <select
+                            name="expenseType"
+                            value={this.state.newExpense.expenseType}
+                            onChange={this.handleChange}
+                        >
+                            {expenseOptions.map((option) => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                    </label>
+                    <label>
+                        <input
+                            name="amountSpent"
+                            value={this.state.newExpense.amountSpent}
+                            onChange={this.handleChange}
+                            pattern="[1-9]\d{0,}\.?\d{0,2}"
+                        />
+                    </label>
+                    <button
+                        className="form-submission"
+                        onClick={this.handleSubmit}
+                        disabled={this.state.formInvalid}
+                    >+</button>
+                </form>
+            </section >
+        )
+    }
 }
