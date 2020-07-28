@@ -30,10 +30,29 @@ module.exports = {
 //     }
 // }
 
+//THIS FUNCTION WORKS
+// function create(req, res, next) {
+//     try {
+//         FinancialStatement.create(req.body);
+//         console.log(req.body); //console.log working
+//     } catch (err) {
+//         res.json({ err });
+//         console.error(err)
+//         console.log('ERROR: CONTROLLER FN CREATE')
+//     }
+// }
+
 function create(req, res, next) {
     try {
-        FinancialStatement.create(req.body);
-        console.log(req.body); //console.log working
+        const financialStatement = new FinancialStatement(req.body);
+        console.log(req.body);
+        financialStatement.save(err => {
+            if (err) return next(err);
+            console.log(financialStatement);
+        })
+        // FinancialStatement.create(req.body);
+        // FinancialStatement.save(req.body);
+        // console.log(req.body); //console.log working
     } catch (err) {
         res.json({ err });
         console.error(err)
