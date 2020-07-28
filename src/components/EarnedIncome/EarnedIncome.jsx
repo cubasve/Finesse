@@ -61,7 +61,9 @@ export default class EarnedIncome extends Component {
                             name="amountEarned"
                             value={this.state.newEarnedIncome.amountEarned}
                             onChange={this.handleChange}
-                            type="number"
+                            // type="number"
+                            // min="0"
+                            pattern="[1-9]\d{2,}\.?\d{0,2}"
                             min="0"
                             placeholder="Salary/Commission"
                         />
