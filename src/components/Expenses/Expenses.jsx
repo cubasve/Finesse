@@ -43,9 +43,9 @@ export default class Expenses extends Component {
         return (
             <section>
                 <h4>
-                    <PayYourselfFirst />
                     <span>Expenses</span>
                     <span>$</span>
+                    <PayYourselfFirst />
                 </h4>
                 {this.state.totalExpenses.map(ex => (
                     <div key={ex.amountSpent}>
