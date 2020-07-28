@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
+const sum = 0;
 
 export default class EarnedIncome extends Component {
     state = {
@@ -30,10 +31,22 @@ export default class EarnedIncome extends Component {
         this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() })
     }
 
+    // {earnedIncomeOptions.map((option) => (
+    //     <option key={option} value={option}>{option}</option>
+    // ))}
+
     render() {
         return (
             <section>
-                <h4><span>Earned</span> <span>$</span></h4>
+                <h4>
+                    <span>Earned</span>
+                    {this.state.totalEarnedIncome.amountEarned.map(amount => (
+                        <span key={amount}>${amount}</span>
+                    ))}
+                    {/* {this.state.totalEarnedIncome.amountEarned.reduce((acc, num) => (
+                        <span>${acc + num}</span>
+                    ))} */}
+                </h4>
                 {this.state.totalEarnedIncome.map(ei => (
                     <div key={ei.amountEarned}>
                         <table>
