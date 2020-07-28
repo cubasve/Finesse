@@ -9,16 +9,6 @@ import Expenses from '../../components/Expenses/Expenses';
 export default function FinancialStatementPage(props) {
     return (
         <div className='FinancialStatement'>
-            {/* <main>
-                <BalanceSheet />
-                <IncomeStatement
-                    addIncome={props.addIncome}
-                    TyperError: Cannot read property 'earnedIncome' of undefined
-                    earnedIncome={props.newEarnedIncome.earnedIncome}
-                    amountEarned={props.newEarnedIncome.amountEarned}
-                    newEarnedIncome={props.newEarnedIncome}
-                    handleChange={props.handleChange}
-                /> */}
             <main>
                 <div>
                     Balance Sheet
@@ -28,12 +18,7 @@ export default function FinancialStatementPage(props) {
                 </div>
                 <div>
                     Income Statement
-                    <Income
-                        addIncome={props.addIncome}
-                        newEarnedIncome={props.newEarnedIncome}
-                        // amountEarned={props.amountEarned}
-                        handleChange={props.handleChange}
-                    />
+                    <Income />
                     <Expenses />
             CASH FLOW: INCOME - EXPENSES
         </div>

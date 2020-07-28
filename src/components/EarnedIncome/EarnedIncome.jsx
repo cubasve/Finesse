@@ -85,12 +85,7 @@ import React, { Component } from 'react';
 // }
 
 //-------------------------------------------------------------------------------------
-//     const totalEarnedIncome = [];
 
-//     const [earnedIncomeData, setEarnedIncomeData] = useState({
-//         earnedIncomeType: '',
-//         amountEarned: '',
-//     });
 const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
 export default class EarnedIncome extends Component {
@@ -103,13 +98,13 @@ export default class EarnedIncome extends Component {
     }
 
     addEarnedIncome = () => {
-        alert('ADD INCOME CLICKED');
+        // alert('ADD INCOME CLICKED');
         this.setState(state => ({
-            totalEarnedIncome: [...this.state.totalEarnedIncome, this.state.newEarnedIncome],
-            //replace (not mutating) --> add newEarnedIncome onto pre-existing earnedIncomeStreams array
+            totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
+            //replace (not mutating) --> add newEarnedIncome onto pre-existing totalEarnedIncome array
             newEarnedIncome: { earnedIncomeType: '', amountEarned: '' }
             //rest the inputs for better UX
-        }))
+        }));
     }
 
     handleChange = e => {
@@ -120,40 +115,6 @@ export default class EarnedIncome extends Component {
     render() {
         return (
             <section>
-                {/* <table>
-                    <thead>
-                        <tr>
-                            <th>Earned</th>
-                            <th>$</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <select
-                                    name="earnedIncome"
-                                    value={this.state.newEarnedIncome.earnedIncomeType}
-                                    onChange={this.handleChange}>
-                                    {earnedIncomeOptions.map((option) => (
-                                        <option key={option} value={option}>{option}</option>)
-                                    )}
-                                </select>
-                            </td>
-                            <td>$
-                                <input
-                                    name="amountEarned"
-                                    value={this.state.newEarnedIncome.amountEarned}
-                                    onChange={this.handleChange}
-                                    type="number"
-                                    min="0"
-                                    placeholder="Salary/Commissions"
-                                />
-                                <button onClick={this.addEarnedIncome}>+</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table> */}
-
                 <h4><span>Earned</span> <span>$</span></h4>
                 {this.state.totalEarnedIncome.map(ei => (
                     <article key={ei.newEarnedIncome.earnedIncomeType}>
@@ -184,7 +145,6 @@ export default class EarnedIncome extends Component {
                         />
                     </label>
                     <button onClick={this.addEarnedIncome}>+</button>
-
                 </form>
             </section >
         )
