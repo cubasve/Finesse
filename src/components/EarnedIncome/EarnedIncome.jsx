@@ -92,7 +92,7 @@ export default class EarnedIncome extends Component {
     state = {
         totalEarnedIncome: [],
         newEarnedIncome: {
-            earnedIncomeType: '',
+            earnedIncomeType: 'Job',
             amountEarned: '',
         }
     }
@@ -103,7 +103,7 @@ export default class EarnedIncome extends Component {
             totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
             //replace (not mutating) --> add newEarnedIncome onto pre-existing totalEarnedIncome array
             newEarnedIncome: { earnedIncomeType: '', amountEarned: '' }
-            //rest the inputs for better UX
+            //reset the inputs for better UX
         }));
     }
 
@@ -117,9 +117,9 @@ export default class EarnedIncome extends Component {
             <section>
                 <h4><span>Earned</span> <span>$</span></h4>
                 {this.state.totalEarnedIncome.map(ei => (
-                    <article key={ei.newEarnedIncome.earnedIncomeType}>
-                        <div>{ei.newEarnedIncome.earnedIncomeType}</div>
-                        <div>{ei.newEarnedIncome.amountEarned}</div>
+                    <article key={ei.earnedIncomeType}>
+                        <div>{ei.earnedIncomeType}</div>
+                        <div>{ei.amountEarned}</div>
                     </article>
                 ))}
                 <form>
