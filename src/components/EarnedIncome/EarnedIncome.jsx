@@ -1,91 +1,5 @@
 import React, { Component } from 'react';
 
-// export default function EarnedIncome(props) {
-//     const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
-
-//     //[state, setState] = useState(initialState)
-
-//     //add additional state by calling useState multiple times
-//     // const [level, setLevel] = useState(.55);
-//     // const [charging, setCharging] = useState(false);
-//     // const [batteryData, setBatteryData] = useState({
-//     //     level: .55,
-//     //     charging: true,
-//     // });
-
-//     const totalEarnedIncome = [];
-
-//     const [earnedIncomeData, setEarnedIncomeData] = useState({
-//         earnedIncomeType: '',
-//         amountEarned: '',
-//     });
-
-//     // state = {
-//     //     user: userService.getUser(),
-//     //     earnedIncomeStreams: [],
-//     //     newEarnedIncome: {
-//     //       earnedIncome: '',
-//     //       amountEarned: '',
-//     //     }
-
-//     //   }
-
-//     const addEarnedIncome = () => {
-//         console.log('ADD INCOME CLICKED');
-//         this.setState(state => ({
-//             earnedIncomeStreams: [...state.earnedIncomeStreams, state.newEarnedIncome],
-//             //replace (not mutating) --> add newEarnedIncome onto pre-existing earnedIncomeStreams array
-//             newEarnedIncome: { earnedIncome: '', amountEarned: '' }
-//             //rest the inputs for better UX
-//         }))
-//     }
-
-//     const handleChange = e => {
-//         const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
-//         this.setState({ newEarnedIncome: newEarnedIncome })
-//     }
-
-//     return (
-//         <div>
-//             <table>
-//                 <thead>
-//                     <tr>
-//                         <th>Earned</th>
-//                         <th>$</th>
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                     <tr>
-//                         <td>
-//                             <select
-//                                 name="earnedIncome"
-//                                 value={earnedIncomeData.earnedIncomeType}
-//                                 onChange={props.handleChange}>
-//                                 {earnedIncomeOptions.map((option) => (
-//                                     <option key={option} value={option}>{option}</option>)
-//                                 )}
-//                             </select>
-//                         </td>
-//                         <td>$
-//                             <input
-//                                 name="amountEarned"
-//                                 value={earnedIncomeData.amountEarned}
-//                                 onChange={props.handleChange}
-//                                 type="number"
-//                                 min="0"
-//                                 placeholder="Salary/Commissions"
-//                             />
-//                             <button onClick={props.addIncome}>+</button>
-//                         </td>
-//                     </tr>
-//                 </tbody>
-//             </table>
-//         </div >
-//     )
-// }
-
-//-------------------------------------------------------------------------------------
-
 const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
 export default class EarnedIncome extends Component {
@@ -94,12 +8,15 @@ export default class EarnedIncome extends Component {
         newEarnedIncome: {
             earnedIncomeType: 'Job',
             amountEarned: '',
-        }
+        },
+        formInvalid: true,
     }
+    formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
     addEarnedIncome = e => {
         // alert('ADD INCOME CLICKED');
         e.preventDefault();
+        if (!this.formRef.current.checkValidity()) return;
         this.setState(state => ({
             totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
             //replace (not mutating) --> add newEarnedIncome onto pre-existing totalEarnedIncome array
@@ -110,20 +27,21 @@ export default class EarnedIncome extends Component {
 
     handleChange = e => {
         const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
-        this.setState({ newEarnedIncome: newEarnedIncome })
+        this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() })
     }
 
     render() {
+        console.log(this.formRef);
         return (
             <section>
                 <h4><span>Earned</span> <span>$</span></h4>
                 {this.state.totalEarnedIncome.map(ei => (
-                    <article key={ei.earnedIncomeType}>
+                    <article key={ei.amountEarned}>
                         <div>{ei.earnedIncomeType}</div>
                         <div>{ei.amountEarned}</div>
                     </article>
                 ))}
-                <form onSubmit={this.addEarnedIncome}>
+                <form ref={this.formRef} onSubmit={this.addEarnedIncome}>
                     <label>
                         <select
                             name="earnedIncomeType"
@@ -133,7 +51,7 @@ export default class EarnedIncome extends Component {
                             {/* <option selected value="Job">Job</option>
                             <option value="Self-Employment">Self-Employment</option>
                             <option value="Other">Other</option> */}
-                            {earnedIncomeOptions.map(option => (
+                            {earnedIncomeOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
                         </select>
@@ -148,7 +66,11 @@ export default class EarnedIncome extends Component {
                             placeholder="Salary/Commission"
                         />
                     </label>
-                    <button onClick={this.addEarnedIncome}>+</button>
+                    <button
+                        className="form-submission"
+                        onClick={this.addEarnedIncome}
+                        disabled={this.state.formInvalid}
+                    >+</button>
                 </form>
             </section >
         )
