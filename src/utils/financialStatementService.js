@@ -4,11 +4,11 @@ import tokenService from './tokenService';
 const BASE_URL = '/api/financialstatements';
 
 export default {
-    index,
+    show,
     create,
 }
 
-function index() {
+function show(financialStatement) {
     //------------------------------------
     //I added this section
     const options = {
@@ -17,7 +17,7 @@ function index() {
             'Content-type': 'application/json',
             'Authorization': 'Bearer ' + tokenService.getToken()
         },
-        body: JSON.stringify()
+        body: JSON.stringify(financialStatement)
     }
     //=====--------------------------------
     return fetch(BASE_URL, options).then(res => res.json());
@@ -38,19 +38,6 @@ function create(financialStatement) {
 }
 
 
-//Send state data as JSON in req.body
-//const { earnedIncomeType, amountEarned } = this.state.totalEarnedIncome;
-//const body = { earnedIncomeType, amountEarned };
-//const json = JSON.stringify(body)
-//console.log(json)
-
-// state = {
-//     totalEarnedIncome: [],
-//     newEarnedIncome: {
-//         earnedIncomeType: 'Job',
-//         amountEarned: '',
-//     },
-// }
 
 
 //PATH: component --> serviceWorker --> API route using fetch --> controller fn --> re-render/redirect

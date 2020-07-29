@@ -19,7 +19,8 @@ export default class EarnedIncome extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned })
+            await financialStatementService.create({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
+                //await financialStatementService.show({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned })
                 .then(
                     this.setState(state => ({
                         totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
@@ -29,15 +30,18 @@ export default class EarnedIncome extends Component {
                         //reset the inputs 
                     }))
                 )
+            //financialStatementService.show({ type: this.state.totalEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
         } catch (err) {
             console.error(err);
         }
     }
 
+    //triggers after every change to input value/character typed
     handleChange = e => {
         const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
-        this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() })
+        this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() });
     }
+
 
     render() {
         return (

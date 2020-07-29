@@ -84,7 +84,6 @@ module.exports = {
 async function show(req, res) {
     try {
         const user = await User.findById({ _id: req.user._id }); //req.body._id OR req.user._id?
-
         res.json({ user: user });
     } catch (err) {
         res.status(400).json(err);
@@ -127,25 +126,6 @@ async function create(req, res) {
 //     }
 // }
 
-
-//POST /api/financialstatements 200 
-//Updated [totalEarnedIncome] 
-// function create(req, res) {
-//     const financialStatement = new FinancialStatement(req.body);
-//     //added below 2 lines
-//     // financialStatement.user = req.user._id;
-//     // financialStatement.income = req.body._id;
-//     try {
-//         financialStatement.save();
-//         console.log(req.body);
-//         // console.log(financialStatement);
-//         res.json({ financialStatement: financialStatement });
-//     } catch (err) {
-//         res.status(400).json(err);
-//         console.error(err)
-//         console.log('ERROR: CONTROLLER FN CREATE')
-//     }
-// }
 
 // function update(req, res) {
 //     try {
