@@ -24,7 +24,8 @@ export default class PaperAssets extends Component {
                     this.setState(state => ({
                         totalPaperAssets: [...state.totalPaperAssets, state.newPaperAsset],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newPaperAsset: { paperAssetType: 'Stock', price: '' }
+                        newPaperAsset: { paperAssetType: 'Stock', price: '' },
+                        formInvalid: true,
                         //reset the inputs for better UX
                     }))
                 )

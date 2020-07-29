@@ -24,7 +24,8 @@ export default class EarnedIncome extends Component {
                     this.setState(state => ({
                         totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newEarnedIncome: { earnedIncomeType: 'Job', amountEarned: '' }
+                        newEarnedIncome: { earnedIncomeType: 'Job', amountEarned: '' },
+                        formInvalid: true,
                         //reset the inputs for better UX
                     }))
                 )

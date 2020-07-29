@@ -24,7 +24,8 @@ export default class RealEstate extends Component {
                     this.setState(state => ({
                         totalRealEstate: [...state.totalRealEstate, state.newRealEstate],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newRealEstate: { realEstateType: 'Residential', price: '' }
+                        newRealEstate: { realEstateType: 'Residential', price: '' },
+                        formInvalid: true,
                         //reset the inputs for better UX
                     }))
                 )

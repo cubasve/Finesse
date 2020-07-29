@@ -24,7 +24,8 @@ export default class PortfolioIncome extends Component {
                     this.setState(state => ({
                         totalPortfolioIncome: [...state.totalPortfolioIncome, state.newPortfolioIncome],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newPortfolioIncome: { portfolioIncomeType: 'Stock', amountEarned: '' }
+                        newPortfolioIncome: { portfolioIncomeType: 'Stock', amountEarned: '' },
+                        formInvalid: true,
                         //reset the inputs for better UX
                     }))
                 )
