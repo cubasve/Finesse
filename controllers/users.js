@@ -45,4 +45,3 @@ async function login(req, res) {
         return res.status(400).json(err);
     }
 }
-//const queryUserData = User.findOne({ financialStatementSchema: req.user._id })

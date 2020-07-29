@@ -1,7 +1,6 @@
 const FinancialStatement = require('../models/financialStatement');
 const User = require('../models/user');
-// const userService = require('../src/utils/userService');
-//import userService from '../../utils/userService';
+const user = require('../models/user');
 
 module.exports = {
     create,
@@ -10,13 +9,20 @@ module.exports = {
 
 function show(req, res) {
     try {
-        User.findById(req.user._id).populate('income').populate('expense').populate('asset').populate('liability')
-        // .exec(user => {
-        //     console.log(user);
-        // })
+        const user = User.findById(req.body._id)
+            .populate('income')
+            .populate('expense')
+            .populate('asset')
+            .populate('liability')
+            .exec();
+        console.log(req.body)
+        console.log(user.populated('income')); //truthy or falsey
+        // console.log(req.user._id)
+        res.json(user)
+        //instead of res.render(...), we're using res.json(...)
     } catch (err) {
+        res.status(400).json(err);
         console.error(err);
-        next(err);
     }
 }
 
@@ -27,14 +33,13 @@ async function create(req, res) {
     //added below 2 lines
     financialStatement.user = req.user._id;
     financialStatement.income = req.body._id;
-    // const user = userService.getUser();
     try {
         await financialStatement.save();
         console.log(req.body);
         // console.log(financialStatement);
         res.json({ financialStatement: financialStatement });
     } catch (err) {
-        res.json({ err })
+        res.status(400).json(err);
         console.error(err)
         console.log('ERROR: CONTROLLER FN CREATE')
     }
