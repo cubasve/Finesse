@@ -27,49 +27,71 @@ module.exports = {
 // }
 
 
-function create(req, res) {
-    //-------------------------------OPTION 1
-    // let user = new User({ userFinances: [{ 'type': req.body.type, 'amount': req.body.amount }] })
-    // try {
-    //     user.save();
-    //     console.log(req.body);
-    //     res.json({ user })
-    // } catch (err) {
-    //     res.status(400).json(err);
-    //     console.error(err)
-    //     console.log('ERR: CREATE FN')
+// function create(req, res) {
+//-------------------------------OPTION 1
+// let user = new User({ userFinances: [{ 'type': req.body.type, 'amount': req.body.amount }] })
+// try {
+//     user.save();
+//     console.log(req.body);
+//     res.json({ user })
+// } catch (err) {
+//     res.status(400).json(err);
+//     console.error(err)
+//     console.log('ERR: CREATE FN')
 
-    // }
-    //------------------------------OPTION 2
-    // const user = User.findById({ _id: req.user._id });
-    // try {
-    //     const userFinance = req.user.userFinances.push({ type: req.body.type, amount: req.body.amount });
-    //     user.save();
-    //     res.json({ user: user });
-    // } catch (err) {
-    //     res.status(400).json(err);
-    //     console.error(err);
-    //     console.log('ERR: CREATE FN')
-    //     console.log(req.body)
-    // }
+// }
+//------------------------------OPTION 2
+// const user = User.findById({ _id: req.user._id });
+// try {
+//     const userFinance = req.user.userFinances.push({ type: req.body.type, amount: req.body.amount });
+//     user.save();
+//     res.json({ user: user });
+// } catch (err) {
+//     res.status(400).json(err);
+//     console.error(err);
+//     console.log('ERR: CREATE FN')
+//     console.log(req.body)
+// }
 
 
-    //const user = new User({ userFinances: [{ 'type': req.body.type, 'amount': req.body.amount }] });
-    //---------------------------------OPTION 3
-    // const user = User.findById({ _id: req.user._id });
-    // user.userFinances = [{ 'userFinances.type': req.body.type, 'userFinances.amount': req.body.amount }];
+//const user = new User({ userFinances: [{ 'type': req.body.type, 'amount': req.body.amount }] });
+//---------------------------------OPTION 3
+// const user = User.findById({ _id: req.user._id });
+// user.userFinances = [{ 'userFinances.type': req.body.type, 'userFinances.amount': req.body.amount }];
 
-    const user = req.user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount });
-    console.log(req.user);
-    console.log(req.user.userFinances)
-    console.log(req.body);
+// const user = User(req.body);
+// user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount });
+
+//const user = User.findById({ _id: req.user._id })
+//user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount });
+
+//function create(req, res) {
+//     const user = req.user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount });
+//     console.log(req.user); //good
+//     console.log(req.user.userFinances); //[{type: undefined, amount: undefined}]
+//     console.log(req.body); // {}
+//     try {
+//         user.save();
+//         res.json({ user: user })
+//     } catch (err) {
+//         res.status(400).json(err);
+//         console.error(err);
+//         console.log('ERR: CREATE FN')
+//     }
+// }
+
+async function create(req, res) {
     try {
+        const user = await User.findOne({ _id: req.user._id });
+        user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount })
+        console.log(req.user)
+        console.log(req.user.userFinances)
+        console.log(req.body)
         user.save();
-        res.send({ user: user })
     } catch (err) {
-        res.status(400).json(err);
+        return res.status(400).json(err);
         console.error(err);
-        console.log('ERR: CREATE FN')
+        console.log('ERR: CREATE FN');
     }
 }
 

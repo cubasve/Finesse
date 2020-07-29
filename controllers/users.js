@@ -53,7 +53,7 @@ function show(req, res) {
             .populate('userFinances.type')
             .populate('userFinances.amount')
             .exec();
-        res.send({ user: user })
+        res.json({ user: user })
 
 
         console.log(req.body)
