@@ -1,5 +1,5 @@
 const FinancialStatement = require('../models/financialStatement');
-// const User = require('../models/user');
+const User = require('../models/user');
 
 module.exports = {
     create,
@@ -28,18 +28,31 @@ module.exports = {
 
 
 function create(req, res) {
+    console.log(req.user)
+    console.log(req.user.userFinances)
+    console.log(userFinances)
+    let user = new User({ userFinances: [{ type: req.body.type, amount: req.body.amount }] })
     try {
-        req.user.userFinances.push(req.body);
-        req.user.save(userFinances);
-        res.json({ userFinances });
+        user.save();
+        console.log(req.body);
+        res.json({ user: user })
     } catch (err) {
         res.status(400).json(err);
-        console.log(req.body)
-        console.error(err);
+        console.error(err)
         console.log('ERR: CREATE FN')
-        console.log(req.body)
 
     }
+    // try {
+    //     req.user.userFinances.push({ type: req.body.type, amount: req.body.amount });
+    //     req.user.save();
+    //     res.json({ userFinances });
+    // } catch (err) {
+    //     res.status(400).json(err);
+    //     console.error(err);
+    //     console.log('ERR: CREATE FN')
+    //     console.log(req.body)
+
+    // }
 }
 
 function update(req, res) {
