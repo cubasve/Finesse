@@ -28,11 +28,11 @@ module.exports = {
 
 
 function create(req, res) {
-    const doc = req.user.userFinances.id(_id);
-    console.log(doc)
+    // const doc = req.user.userFinances.id(_id);
+    // console.log(doc)
     console.log(req.user)
     console.log(req.user.userFinances)
-    console.log(userFinances)
+    // console.log(userFinances)
     let user = new User({ userFinances: [{ 'type': req.body.type, 'amount': req.body.amount }] })
     try {
         user.save();
