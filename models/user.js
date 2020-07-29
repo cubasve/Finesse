@@ -5,23 +5,23 @@ const Schema = mongoose.Schema;
 
 const SALT_ROUNDS = 6;
 
-// const userFinances = new Schema({
-//     income: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
-//     expense: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
-//     asset: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
-//     liability: { type: Schema.Types.ObjectId, ref: "FinancialStatement" }
-// });
+const userFinances = new Schema({
+    income: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
+    expense: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
+    asset: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
+    liability: { type: Schema.Types.ObjectId, ref: "FinancialStatement" }
+});
 
 const userSchema = new Schema({
     name: String,
     email: { type: String, required: true, lowercase: true, unique: true },
     password: String,
-    // userFinances: [userFinances],
+    userFinances: [userFinances],
     // userFinances: [FinancialStatementSchema]
-    income: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
-    expense: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
-    asset: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
-    liability: { type: Schema.Types.ObjectId, ref: "FinancialStatement" }
+    // income: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
+    // expense: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
+    // asset: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
+    // liability: { type: Schema.Types.ObjectId, ref: "FinancialStatement" }
 
 }, {
     timestamps: true
