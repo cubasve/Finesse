@@ -19,7 +19,7 @@ export default class PortfolioIncome extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create()
+            await financialStatementService.create({ type: this.state.newPortfolioIncome.portfolioIncomeType, amount: this.state.newPortfolioIncome.amountEarned })
                 .then(
                     this.setState(state => ({
                         totalPortfolioIncome: [...state.totalPortfolioIncome, state.newPortfolioIncome],

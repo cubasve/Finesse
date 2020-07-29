@@ -19,7 +19,7 @@ export default class PaperAssets extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create()
+            await financialStatementService.create({ type: this.state.newPaperAsset.paperAssetType, amount: this.state.newPaperAsset.price })
                 .then(
                     this.setState(state => ({
                         totalPaperAssets: [...state.totalPaperAssets, state.newPaperAsset],

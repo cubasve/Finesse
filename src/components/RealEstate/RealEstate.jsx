@@ -19,7 +19,7 @@ export default class RealEstate extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create()
+            await financialStatementService.create({ type: this.state.newRealEstate.realEstateType, amount: this.state.newRealEstate.price })
                 .then(
                     this.setState(state => ({
                         totalRealEstate: [...state.totalRealEstate, state.newRealEstate],

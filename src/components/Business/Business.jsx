@@ -19,7 +19,7 @@ export default class Business extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create()
+            await financialStatementService.create({ type: this.state.newBusiness.businessType, amount: this.state.newBusiness.value })
                 .then(
                     this.setState(state => ({
                         totalBusiness: [...state.totalBusiness, state.newBusiness],

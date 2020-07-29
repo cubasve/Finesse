@@ -19,7 +19,7 @@ export default class PassiveIncome extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create()
+            await financialStatementService.create({ type: this.state.newPassiveIncome.passiveIncomeType, amount: this.state.newPassiveIncome.amountEarned })
                 .then(
                     this.setState(state => ({
                         totalPassiveIncome: [...state.totalPassiveIncome, state.newPassiveIncome],

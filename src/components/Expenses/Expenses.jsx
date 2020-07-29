@@ -20,7 +20,7 @@ export default class Expenses extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create()
+            await financialStatementService.create({ type: this.state.newExpense.expenseType, amount: this.state.newExpense.amountSpent })
                 .then(
                     this.setState(state => ({
                         totalExpenses: [...state.totalExpenses, state.newExpense],

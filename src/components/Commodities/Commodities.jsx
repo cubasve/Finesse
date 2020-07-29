@@ -19,7 +19,7 @@ export default class Commodities extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create()
+            await financialStatementService.create({ type: this.state.newCommodity.commodityType, amount: this.state.newCommodity.price })
                 .then(
                     this.setState(state => ({
                         totalCommodities: [...state.totalCommodities, state.newCommodity],

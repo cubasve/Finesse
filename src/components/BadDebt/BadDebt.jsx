@@ -19,7 +19,7 @@ export default class BadDebt extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create()
+            await financialStatementService.create({ type: this.state.newBadDebt.badDebtType, amount: this.state.newBadDebt.amountOwed })
                 .then(
                     this.setState(state => ({
                         totalBadDebt: [...state.totalBadDebt, state.newBadDebt],
