@@ -28,34 +28,67 @@ module.exports = {
 
 
 function create(req, res) {
-    // const doc = req.user.userFinances.id(_id);
-    // console.log(doc)
-    console.log(req.user)
-    console.log(req.user.userFinances)
-    // console.log(userFinances)
-    let user = new User({ userFinances: [{ 'type': req.body.type, 'amount': req.body.amount }] })
-    try {
-        user.save();
-        console.log(req.body);
-        res.json({ user: user })
-    } catch (err) {
-        res.status(400).json(err);
-        console.error(err)
-        console.log('ERR: CREATE FN')
-
-    }
+    //-------------------------------OPTION 1
+    // let user = new User({ userFinances: [{ 'type': req.body.type, 'amount': req.body.amount }] })
     // try {
-    //     req.user.userFinances.push({ type: req.body.type, amount: req.body.amount });
-    //     req.user.save();
-    //     res.json({ userFinances });
+    //     user.save();
+    //     console.log(req.body);
+    //     res.json({ user })
+    // } catch (err) {
+    //     res.status(400).json(err);
+    //     console.error(err)
+    //     console.log('ERR: CREATE FN')
+
+    // }
+    //------------------------------OPTION 2
+    // const user = User.findById({ _id: req.user._id });
+    // try {
+    //     const userFinance = req.user.userFinances.push({ type: req.body.type, amount: req.body.amount });
+    //     user.save();
+    //     res.json({ user: user });
     // } catch (err) {
     //     res.status(400).json(err);
     //     console.error(err);
     //     console.log('ERR: CREATE FN')
     //     console.log(req.body)
-
     // }
+
+
+    //const user = new User({ userFinances: [{ 'type': req.body.type, 'amount': req.body.amount }] });
+    //---------------------------------OPTION 3
+    // const user = User.findById({ _id: req.user._id });
+    // user.userFinances = [{ 'userFinances.type': req.body.type, 'userFinances.amount': req.body.amount }];
+    const user = req.user.userFinances.push({ 'userFinances.type': req.body.type, 'userFinances.amount': req.body.amount });
+    console.log(req.body);
+    try {
+        user.save();
+        res.send({ user: user })
+    } catch (err) {
+        res.status(400).json(err);
+        console.error(err);
+        console.log('ERR: CREATE FN')
+    }
 }
+
+
+//POST /api/financialstatements 200 
+//Updated [totalEarnedIncome] 
+// function create(req, res) {
+//     const financialStatement = new FinancialStatement(req.body);
+//     //added below 2 lines
+//     // financialStatement.user = req.user._id;
+//     // financialStatement.income = req.body._id;
+//     try {
+//         financialStatement.save();
+//         console.log(req.body);
+//         // console.log(financialStatement);
+//         res.json({ financialStatement: financialStatement });
+//     } catch (err) {
+//         res.status(400).json(err);
+//         console.error(err)
+//         console.log('ERROR: CONTROLLER FN CREATE')
+//     }
+// }
 
 // function update(req, res) {
 //     try {
