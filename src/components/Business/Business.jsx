@@ -78,6 +78,7 @@ export default class Business extends Component {
                             value={this.state.newBusiness.value}
                             onChange={this.handleChange}
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            required
                             placeholder="Company Value"
                             autocomplete="off"
                         />

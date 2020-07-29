@@ -77,6 +77,7 @@ export default class RealEstate extends Component {
                             name="price"
                             value={this.state.newRealEstate.price}
                             onChange={this.handleChange}
+                            required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Purchase Price"
                             autocomplete="off"

@@ -77,6 +77,7 @@ export default class PaperAssets extends Component {
                             name="price"
                             value={this.state.newPaperAsset.price}
                             onChange={this.handleChange}
+                            required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Shares X Price"
                             autocomplete="off"

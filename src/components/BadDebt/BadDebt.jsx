@@ -77,6 +77,7 @@ export default class BadDebt extends Component {
                             name="amountOwed"
                             value={this.state.newBadDebt.amountOwed}
                             onChange={this.handleChange}
+                            required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Debt Value"
                             autocomplete="off"

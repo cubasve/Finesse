@@ -83,6 +83,7 @@ export default class Expenses extends Component {
                             name="amountSpent"
                             value={this.state.newExpense.amountSpent}
                             onChange={this.handleChange}
+                            required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             autocomplete="off"
                         />

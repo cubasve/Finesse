@@ -77,6 +77,7 @@ export default class PassiveIncome extends Component {
                             name="amountEarned"
                             value={this.state.newPassiveIncome.amountEarned}
                             onChange={this.handleChange}
+                            required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             autocomplete="off"
                         />
