@@ -1,37 +1,49 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const incomeSchema = new Schema({
-    type: String,
-    amount: Number
-});
-
-const expenseSchema = new Schema({
-    type: String,
-    amount: Number
-});
-
-const assetSchema = new Schema({
-    type: String,
-    amount: Number
-});
-
-const liabilitySchema = new Schema({
-    type: String,
-    amount: Number
-});
-
 const financialStatementSchema = new Schema(
     {
-        income: [incomeSchema],
-        expense: [expenseSchema],
-        asset: [assetSchema],
-        liability: [liabilitySchema],
+        type: String,
+        amount: { type: Number, min: 0 },
     },
     {
         timestamps: true,
     }
 );
+
+module.exports = mongoose.model('FinancialStatement', financialStatementSchema);
+
+// const incomeSchema = new Schema({
+//     type: String,
+//     amount: Number
+// });
+
+// const expenseSchema = new Schema({
+//     type: String,
+//     amount: Number
+// });
+
+// const assetSchema = new Schema({
+//     type: String,
+//     amount: Number
+// });
+
+// const liabilitySchema = new Schema({
+//     type: String,
+//     amount: Number
+// });
+
+// const financialStatementSchema = new Schema(
+//     {
+//         income: [incomeSchema],
+//         expense: [expenseSchema],
+//         asset: [assetSchema],
+//         liability: [liabilitySchema],
+//     },
+//     {
+//         timestamps: true,
+//     }
+// );
 
 // const financialStatementSchema = new Schema(
 //     {
@@ -110,5 +122,3 @@ const financialStatementSchema = new Schema(
 //         timestamps: true,
 //     }
 // );
-
-module.exports = mongoose.model('FinancialStatement', financialStatementSchema);
