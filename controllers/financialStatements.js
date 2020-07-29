@@ -10,9 +10,10 @@ module.exports = {
 
 function show(req, res) {
     try {
-        User.findById(req.user._id).populate('income').populate('expense').populate('asset').populate('liability').exec(user => {
-            console.log(user);
-        })
+        User.findById(req.user._id).populate('income').populate('expense').populate('asset').populate('liability')
+        // .exec(user => {
+        //     console.log(user);
+        // })
     } catch (err) {
         console.error(err);
         next(err);
