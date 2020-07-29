@@ -5,7 +5,6 @@ const SECRET = process.env.SECRET;
 module.exports = {
     signup,
     login,
-    show,
 };
 
 async function signup(req, res) {
@@ -47,20 +46,4 @@ async function login(req, res) {
     }
 }
 
-async function show(req, res) {
-    try {
-        const user = await User.findById({ _id: req.user._id }) //req.body._id OR req.user._id?
-            .populate('userFinances.type')
-            .populate('userFinances.amount')
-            .exec();
-        res.json({ user: user });
 
-        console.log(req.user._id)
-        console.log(user.populated('userFinances.type')); //truthy or falsey
-        console.log(user.populated('userFinances.amount')); //truthy or falsey
-    } catch (err) {
-        res.status(400).json(err);
-        console.error(err);
-        console.log('ERR: SHOW FN')
-    }
-}

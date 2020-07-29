@@ -29,12 +29,6 @@ export default class EarnedIncome extends Component {
                         //reset the inputs 
                     }))
                 )
-            //Send state data as JSON in req.body
-            const { earnedIncomeType, amountEarned } = this.state.totalEarnedIncome;
-            const body = { earnedIncomeType, amountEarned };
-            const json = JSON.stringify(body)
-            console.log(json)
-            //----------------------------
         } catch (err) {
             console.error(err);
         }
@@ -79,9 +73,6 @@ export default class EarnedIncome extends Component {
                             value={this.state.newEarnedIncome.earnedIncomeType}
                             onChange={this.handleChange}
                         >
-                            {/* <option selected value="Job">Job</option>
-                            <option value="Self-Employment">Self-Employment</option>
-                            <option value="Other">Other</option> */}
                             {earnedIncomeOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
@@ -108,11 +99,3 @@ export default class EarnedIncome extends Component {
         )
     }
 }
-
-// state = {
-//     totalEarnedIncome: [],
-//     newEarnedIncome: {
-//         earnedIncomeType: '',
-//         amountEarned: '',
-//     }
-// }

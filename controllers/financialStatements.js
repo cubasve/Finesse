@@ -2,6 +2,7 @@
 const User = require('../models/user');
 
 module.exports = {
+    show,
     create,
     // update,
     // delete: deleteOne,
@@ -79,6 +80,24 @@ module.exports = {
 //         console.log('ERR: CREATE FN')
 //     }
 // }
+
+async function show(req, res) {
+    try {
+        const user = await User.findById({ _id: req.user._id }) //req.body._id OR req.user._id?
+            .populate('userFinances.type')
+            .populate('userFinances.amount')
+            .exec();
+        res.json({ user: user });
+
+        console.log(req.user._id)
+        console.log(user.populated('userFinances.type')); //truthy or falsey
+        console.log(user.populated('userFinances.amount')); //truthy or falsey
+    } catch (err) {
+        res.status(400).json(err);
+        console.error(err);
+        console.log('ERR: SHOW FN')
+    }
+}
 
 //-------------------------------OPTION 
 async function create(req, res) {
