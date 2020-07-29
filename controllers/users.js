@@ -56,7 +56,7 @@ function show(req, res) {
             .populate('liability')
             .exec();
         res.json({ user: user })
-        console.log(user)
+        //User.userFinances.findById(...)
 
 
         console.log(req.body)
