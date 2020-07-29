@@ -18,14 +18,22 @@ export default class EarnedIncome extends Component {
     componentDidMount() {
         console.log('App: componentDidMount');
         //financialStatementService.show({ type: this.state.totalEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
-        financialStatementService.show({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
+        // financialStatementService.show({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
 
         //use fetch to hit a route in controllers --> GET /api/financialstatements
-        fetch(url for api route)
-            .then((res) => res.json())
-                .then((data) => this.setState({
-                    data: data
-                }))
+        // fetch(url for api route)
+        //     .then((res) => res.json())
+        //         .then((data) => this.setState({
+        //             data: data
+        //         }))
+        // fetch('http://localhost:3000/api/financialstatements')
+        //     .then((res) => res.json())
+        //     //Once it's turned into JSON, we're referencing to it as data  --> response we're getting from route
+        //     //.json() returns a promise that resolves to the data by the server, as JSON
+        //     //Data returned by server has been parsed out of JSON and it will parse into a JS object that we then use in our app
+        //     .then((data) => this.setState({
+        //         data: data
+        //     }))
     }
 
     componentDidUpdate() {
@@ -37,7 +45,7 @@ export default class EarnedIncome extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
+            await financialStatementService.create({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned })
                 .then(
                     this.setState(state => ({
                         totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
