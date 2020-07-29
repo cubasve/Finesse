@@ -14,6 +14,13 @@ export default class EarnedIncome extends Component {
     }
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
+    componentDidMount() {
+        console.log('EarnedIncome: componentDidMount');
+        financialStatementService.show({ type: this.state.totalEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
+
+        //use fetch to hit a route in controllers --> /api/financialstatements
+    }
+
     handleSubmit = async (e) => {
         // alert('ADD INCOME CLICKED');
         e.preventDefault();
@@ -37,8 +44,9 @@ export default class EarnedIncome extends Component {
     }
 
     //triggers after every change to input value/character typed
-    handleChange = e => {
+    handleChange = async (e) => {
         const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
+        //await financialStatementService.show({ type: newEarnedIncome.earnedIncomeType, amount: newEarnedIncome.amountEarned })
         this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() });
     }
 

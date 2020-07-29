@@ -8,22 +8,19 @@ export default {
     create,
 }
 
-function show(financialStatement) {
+function show() {
     //------------------------------------
-    //I added this section
     const options = {
         method: 'GET',
         headers: {
             'Content-type': 'application/json',
             'Authorization': 'Bearer ' + tokenService.getToken()
         },
-        body: JSON.stringify(financialStatement)
+        //body: JSON.stringify(financialStatement)
     }
     //=====--------------------------------
     return fetch(BASE_URL, options).then(res => res.json());
 }
-//Would I put my show function here? show fn is populating user's data - so it saves
-//user.userFinances as parameter?
 
 function create(financialStatement) {
     const options = {

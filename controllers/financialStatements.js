@@ -8,83 +8,10 @@ module.exports = {
     // delete: deleteOne,
 }
 
-//POST /api/financialstatements 200 
-//Updated [totalEarnedIncome] 
-// function create(req, res) {
-//     const financialStatement = new FinancialStatement(req.body);
-//     //added below 2 lines
-//     // financialStatement.user = req.user._id;
-//     // financialStatement.income = req.body._id;
-//     try {
-//         financialStatement.save();
-//         console.log(req.body);
-//         // console.log(financialStatement);
-//         res.json({ financialStatement: financialStatement });
-//     } catch (err) {
-//         res.status(400).json(err);
-//         console.error(err)
-//         console.log('ERROR: CONTROLLER FN CREATE')
-//     }
-// }
-
-
-// function create(req, res) {
-//-------------------------------OPTION 1
-// let user = new User({ userFinances: [{ 'type': req.body.type, 'amount': req.body.amount }] })
-// try {
-//     user.save();
-//     console.log(req.body);
-//     res.json({ user })
-// } catch (err) {
-//     res.status(400).json(err);
-//     console.error(err)
-//     console.log('ERR: CREATE FN')
-
-// }
-//------------------------------OPTION 2
-// const user = User.findById({ _id: req.user._id });
-// try {
-//     const userFinance = req.user.userFinances.push({ type: req.body.type, amount: req.body.amount });
-//     user.save();
-//     res.json({ user: user });
-// } catch (err) {
-//     res.status(400).json(err);
-//     console.error(err);
-//     console.log('ERR: CREATE FN')
-//     console.log(req.body)
-// }
-
-
-//const user = new User({ userFinances: [{ 'type': req.body.type, 'amount': req.body.amount }] });
-//---------------------------------OPTION 3
-// const user = User.findById({ _id: req.user._id });
-// user.userFinances = [{ 'userFinances.type': req.body.type, 'userFinances.amount': req.body.amount }];
-
-// const user = User(req.body);
-// user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount });
-
-//const user = User.findById({ _id: req.user._id })
-//user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount });
-
-//function create(req, res) {
-//     const user = req.user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount });
-//     console.log(req.user); //good
-//     console.log(req.user.userFinances); //[{type: undefined, amount: undefined}]
-//     console.log(req.body); // {}
-//     try {
-//         user.save();
-//         res.json({ user: user })
-//     } catch (err) {
-//         res.status(400).json(err);
-//         console.error(err);
-//         console.log('ERR: CREATE FN')
-//     }
-// }
-
 async function show(req, res) {
     try {
         const user = await User.findById({ _id: req.user._id }); //req.body._id OR req.user._id?
-        res.json({ user: user });
+        return res.json({ user: user });//explicitly return to fetch call 
     } catch (err) {
         res.status(400).json(err);
         console.error(err);
@@ -92,7 +19,6 @@ async function show(req, res) {
     }
 }
 
-//-------------------------------OPTION 
 async function create(req, res) {
     try {
         const user = await User.findById({ _id: req.user._id });
@@ -108,23 +34,6 @@ async function create(req, res) {
         console.log('ERR: CREATE FN');
     }
 }
-
-//-------------------------------OPTION : 200 but empty req.body & req.user.userFinances
-// async function create(req, res) {
-//     try {
-//         const user = await User.findById({ _id: req.user._id });
-//         user.userFinances = [{ 'type': req.body.type, 'amount': req.body.amount }];
-//         console.log(req.user)
-//         console.log(req.user.userFinances)
-//         console.log(req.body)
-//         user.save();
-//         res.json({ user: user })
-//     } catch (err) {
-//         return res.status(400).json(err);
-//         console.error(err);
-//         console.log('ERR: CREATE FN');
-//     }
-// }
 
 
 // function update(req, res) {
@@ -163,75 +72,3 @@ function deleteOne(req, res) {
         console.log('ERR: DELETE FN')
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// async function create(req, res) {
-//     try {
-//         await FinancialStatement.create(req.body);
-//         console.log(req.body)
-//     } catch (err) {
-//         res.json({ err });
-//         console.error(err)
-//         console.log('ERROR: CONTROLLER FN CREATE')
-//     }
-// }
-
-// function create(req, res, next) {
-//     const financialStatement = FinancialStatement.create(req.body);
-//     console.log(financialStatement) //Promise {undefined}
-//     try {
-//         // console.log(req.body); //[ ]
-//         financialStatement.save();
-//         console.log(financialStatement)
-//         res.json({ financialStatement: financialStatement })
-//     } catch (err) {
-//         res.json({ err });
-//         console.error(err);
-//         console.log('ERROR: CONTROLLER FN CREATE')
-//     }
-// }
-
-//THIS FUNCTION WORKS
-// function create(req, res, next) {
-//     try {
-//         FinancialStatement.create(req.body);
-//         console.log(req.body); //console.log working
-//     } catch (err) {
-//         res.json({ err });
-//         console.error(err)
-//         console.log('ERROR: CONTROLLER FN CREATE')
-//     }
-// }
-
-//THIS GIVES ME Mongoose objects
-// function create(req, res, next) {
-//     try {
-//         const financialStatement = new FinancialStatement(req.body);
-//         console.log(req.body);
-//         financialStatement.save(err => {
-//             if (err) return next(err);
-//             console.log(financialStatement);
-//         })
-//         // FinancialStatement.create(req.body);
-//         // FinancialStatement.save(req.body);
-//         // console.log(req.body); //console.log working
-//     } catch (err) {
-//         res.json({ err });
-//         console.error(err)
-//         console.log('ERROR: CONTROLLER FN CREATE')
-//     }
-// }
