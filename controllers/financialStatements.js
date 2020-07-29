@@ -83,15 +83,9 @@ module.exports = {
 
 async function show(req, res) {
     try {
-        const user = await User.findById({ _id: req.user._id }) //req.body._id OR req.user._id?
-            .populate('userFinances.type')
-            .populate('userFinances.amount')
-            .exec();
-        res.json({ user: user });
+        const user = await User.findById({ _id: req.user._id }); //req.body._id OR req.user._id?
 
-        console.log(req.user._id)
-        console.log(user.populated('userFinances.type')); //truthy or falsey
-        console.log(user.populated('userFinances.amount')); //truthy or falsey
+        res.json({ user: user });
     } catch (err) {
         res.status(400).json(err);
         console.error(err);
@@ -104,10 +98,10 @@ async function create(req, res) {
     try {
         const user = await User.findById({ _id: req.user._id });
         user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount })
-        console.log(req.user)
-        console.log(req.user.userFinances)
+        console.log(user)
+        console.log(user.userFinances)
         console.log(req.body)
-        user.save();
+        await user.save();
         res.json({ user: user });
     } catch (err) {
         return res.status(400).json(err);

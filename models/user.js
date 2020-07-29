@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const SALT_ROUNDS = 6;
 
 const userFinances = new Schema({
-    type: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
-    amount: { type: Schema.Types.ObjectId, ref: "FinancialStatement" },
+    type: { type: String },
+    amount: { type: Number },
 });
 
 const userSchema = new Schema({

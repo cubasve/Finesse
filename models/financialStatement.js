@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const financialStatementSchema = new Schema(
     {
         type: String,
-        type: Number,
+        amount: Number,
     },
     {
         timestamps: true,
