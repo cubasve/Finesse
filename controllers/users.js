@@ -50,10 +50,8 @@ async function login(req, res) {
 function show(req, res) {
     try {
         const user = User.findById({ _id: req.body._id }) //req.body._id OR req.user._id?
-            .populate('income')
-            .populate('expense')
-            .populate('asset')
-            .populate('liability')
+            .populate('userFinances.type')
+            .populate('userFinances.amount')
             .exec();
         res.json({ user: user })
         //User.userFinances.findById(...)
@@ -61,7 +59,7 @@ function show(req, res) {
 
         console.log(req.body)
         console.log(req.body._id)
-        console.log(user.populated('income')); //truthy or falsey
+        console.log(user.populated('userFinances.type')); //truthy or falsey
         // console.log(req.user._id)
     } catch (err) {
         res.status(400).json(err);

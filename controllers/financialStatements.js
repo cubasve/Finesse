@@ -34,8 +34,10 @@ function create(req, res) {
         res.json({ userFinances });
     } catch (err) {
         res.status(400).json(err);
+        console.log(req.body)
         console.error(err);
         console.log('ERR: CREATE FN')
+        console.log(req.body)
 
     }
 }
