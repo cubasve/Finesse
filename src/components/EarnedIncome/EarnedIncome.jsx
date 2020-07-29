@@ -26,9 +26,15 @@ export default class EarnedIncome extends Component {
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
                         newEarnedIncome: { earnedIncomeType: 'Job', amountEarned: '' },
                         formInvalid: true,
-                        //reset the inputs for better UX
+                        //reset the inputs 
                     }))
                 )
+            //Send state data as JSON in req.body
+            const { earnedIncomeType, amountEarned } = this.state.totalEarnedIncome;
+            const body = { earnedIncomeType, amountEarned };
+            const json = JSON.stringify(body)
+            console.log(json)
+            //----------------------------
         } catch (err) {
             console.error(err);
         }

@@ -1,4 +1,4 @@
-const FinancialStatement = require('../models/financialStatement');
+//const FinancialStatement = require('../models/financialStatement');
 const User = require('../models/user');
 
 module.exports = {
@@ -80,7 +80,7 @@ module.exports = {
 //     }
 // }
 
-//-------------------------------OPTION 4
+//-------------------------------OPTION 
 async function create(req, res) {
     try {
         const user = await User.findById({ _id: req.user._id });
@@ -97,7 +97,7 @@ async function create(req, res) {
     }
 }
 
-//-------------------------------OPTION 5: 200 but empty req.body & req.user.userFinances
+//-------------------------------OPTION : 200 but empty req.body & req.user.userFinances
 // async function create(req, res) {
 //     try {
 //         const user = await User.findById({ _id: req.user._id });
