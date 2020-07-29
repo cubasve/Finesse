@@ -86,6 +86,7 @@ export default class EarnedIncome extends Component {
                             value={this.state.newEarnedIncome.amountEarned}
                             onChange={this.handleChange}
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            autocomplete="off"
                             placeholder="Salary/Commission"
                         />
                     </label>

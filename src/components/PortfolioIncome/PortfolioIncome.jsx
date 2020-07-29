@@ -78,6 +78,7 @@ export default class PortfolioIncome extends Component {
                             onChange={this.handleChange}
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Dividend/Interest"
+                            autocomplete="off"
                         />
                     </label>
                     <button

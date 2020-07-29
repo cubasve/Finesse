@@ -78,6 +78,7 @@ export default class PaperAssets extends Component {
                             onChange={this.handleChange}
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Shares X Price"
+                            autocomplete="off"
                         />
                     </label>
                     <button
