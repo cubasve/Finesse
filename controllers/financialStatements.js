@@ -3,18 +3,19 @@ const FinancialStatement = require('../models/financialStatement');
 
 module.exports = {
     create,
-    // show,
+    // update,
+    // delete: deleteOne,
 }
 
 //POST /api/financialstatements 200 
 //Updated [totalEarnedIncome] 
-async function create(req, res) {
+function create(req, res) {
     const financialStatement = new FinancialStatement(req.body);
     //added below 2 lines
     // financialStatement.user = req.user._id;
     // financialStatement.income = req.body._id;
     try {
-        await financialStatement.save();
+        financialStatement.save();
         console.log(req.body);
         // console.log(financialStatement);
         res.json({ financialStatement: financialStatement });
@@ -25,6 +26,23 @@ async function create(req, res) {
     }
 }
 
+function update(req, res) {
+    try {
+        FinancialStatement.findOneAndUpdate({ 'income': req.body.income });
+        res.json({ income: income })
+    } catch (err) {
+        res.status(400).json(err);
+    }
+}
+
+function deleteOne(req, res) {
+    try {
+
+
+    } catch (err) {
+
+    }
+}
 
 
 

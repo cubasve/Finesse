@@ -49,7 +49,7 @@ async function login(req, res) {
 
 function show(req, res) {
     try {
-        const user = User.findById({ _id: req.body._id })
+        const user = User.findById({ _id: req.body._id }) //req.body._id OR req.user._id?
             .populate('income')
             .populate('expense')
             .populate('asset')
