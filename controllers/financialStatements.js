@@ -80,20 +80,39 @@ module.exports = {
 //     }
 // }
 
+//-------------------------------OPTION 4
 async function create(req, res) {
     try {
-        const user = await User.findOne({ _id: req.user._id });
+        const user = await User.findById({ _id: req.user._id });
         user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount })
         console.log(req.user)
         console.log(req.user.userFinances)
         console.log(req.body)
         user.save();
+        res.json({ user: user });
     } catch (err) {
         return res.status(400).json(err);
         console.error(err);
         console.log('ERR: CREATE FN');
     }
 }
+
+//-------------------------------OPTION 5: 200 but empty req.body & req.user.userFinances
+// async function create(req, res) {
+//     try {
+//         const user = await User.findById({ _id: req.user._id });
+//         user.userFinances = [{ 'type': req.body.type, 'amount': req.body.amount }];
+//         console.log(req.user)
+//         console.log(req.user.userFinances)
+//         console.log(req.body)
+//         user.save();
+//         res.json({ user: user })
+//     } catch (err) {
+//         return res.status(400).json(err);
+//         console.error(err);
+//         console.log('ERR: CREATE FN');
+//     }
+// }
 
 
 //POST /api/financialstatements 200 
