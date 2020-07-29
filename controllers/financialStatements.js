@@ -9,20 +9,34 @@ module.exports = {
 
 //POST /api/financialstatements 200 
 //Updated [totalEarnedIncome] 
+// function create(req, res) {
+//     const financialStatement = new FinancialStatement(req.body);
+//     //added below 2 lines
+//     // financialStatement.user = req.user._id;
+//     // financialStatement.income = req.body._id;
+//     try {
+//         financialStatement.save();
+//         console.log(req.body);
+//         // console.log(financialStatement);
+//         res.json({ financialStatement: financialStatement });
+//     } catch (err) {
+//         res.status(400).json(err);
+//         console.error(err)
+//         console.log('ERROR: CONTROLLER FN CREATE')
+//     }
+// }
+
+
 function create(req, res) {
-    const financialStatement = new FinancialStatement(req.body);
-    //added below 2 lines
-    // financialStatement.user = req.user._id;
-    // financialStatement.income = req.body._id;
     try {
-        financialStatement.save();
-        console.log(req.body);
-        // console.log(financialStatement);
-        res.json({ financialStatement: financialStatement });
+        req.user.userFinances.push(req.body);
+        req.user.save(userFinances);
+        res.json({ userFinances });
     } catch (err) {
         res.status(400).json(err);
-        console.error(err)
-        console.log('ERROR: CONTROLLER FN CREATE')
+        console.error(err);
+        console.log('ERR: CREATE FN')
+
     }
 }
 
@@ -35,12 +49,16 @@ function update(req, res) {
     }
 }
 
+
 function deleteOne(req, res) {
     try {
-
-
+        req.user.userFinances.pull(req.params.id); //req.user.userFinances.remove()
+        req.user.save();
+        res.json({ user: user });
     } catch (err) {
-
+        res.status(400).json(err);
+        console.error(err);
+        console.log('ERR: DELETE FN')
     }
 }
 
