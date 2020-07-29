@@ -8,8 +8,8 @@ const financialStatementsCtrl = require('../../controllers/financialStatements')
 router.get('/', isLoggedIn, financialStatementsCtrl.show); //route: /api/financialStatements/
 router.post('/', isLoggedIn, financialStatementsCtrl.create); //route: /api/financialStatements/
 
-// router.put('/:id', isLoggedIn, financialStatementsCtrl.update); //route: /api/financialStatements/:id
-// router.delete('/:id', isLoggedIn, financialStatementsCtrl.deleteOne) //route: /api/financialStatements/:id
+router.put('/:id', isLoggedIn, financialStatementsCtrl.update); //route: /api/financialStatements/:id
+router.delete('/:id', isLoggedIn, financialStatementsCtrl.deleteOne); //route: /api/financialStatements/:id
 
 
 module.exports = router;

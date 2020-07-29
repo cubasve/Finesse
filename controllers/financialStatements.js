@@ -4,8 +4,8 @@ const User = require('../models/user');
 module.exports = {
     show,
     create,
-    // update,
-    // delete: deleteOne,
+    update,
+    deleteOne,
 }
 
 async function show(req, res) {
