@@ -26,19 +26,19 @@ export default class EarnedIncome extends Component {
         //         .then((data) => this.setState({
         //             data: data
         //         }))
-        // fetch('http://localhost:3000/api/financialstatements')
-        //     .then((res) => res.json())
-        //     //Once it's turned into JSON, we're referencing to it as data  --> response we're getting from route
-        //     //.json() returns a promise that resolves to the data by the server, as JSON
-        //     //Data returned by server has been parsed out of JSON and it will parse into a JS object that we then use in our app
-        //     .then((data) => this.setState({
-        //         data: data
-        //     }))
+        fetch('http://localhost:3000/api/financialstatements')
+            .then((res) => res.json())
+            //Once it's turned into JSON, we're referencing to it as data  --> response we're getting from route
+            //.json() returns a promise that resolves to the data by the server, as JSON
+            //Data returned by server has been parsed out of JSON and it will parse into a JS object that we then use in our app
+            .then((data) => this.setState({
+                data: data
+            }))
+        console.log(data);
     }
 
     componentDidUpdate() {
         console.log('App: componentDidUpdate')
-        // financialStatementService.show()
     }
 
     handleSubmit = async (e) => {

@@ -35,6 +35,38 @@ async function create(req, res) {
     }
 }
 
+async function update(req, res) {
+    try {
+        const user = await User.findById({ _id: req.user._id });
+        user.userFinances.set({ 'type': req.body.type, 'amount': req.body.amount })
+        console.log(user)
+        console.log(user.userFinances)
+        console.log(req.body)
+        await user.save();
+        res.json({ user: user });
+    } catch (err) {
+        return res.status(400).json(err);
+        console.error(err);
+        console.log('ERR: UPDATE FN');
+
+    }
+}
+
+async function deleteOne(req, res) {
+    try {
+        const user = await User.findById({ _id: req.user._id });
+        user.userFinances.remove(req.params.id);
+        console.log(user.userFinances);
+        // await user.save();
+        res.json({ user: user });
+
+    } catch (err) {
+        return res.status(400).json(err);
+        console.error(err);
+        console.log('ERR: DELETE FN');
+
+    }
+}
 
 // function update(req, res) {
 //     try {
@@ -45,30 +77,30 @@ async function create(req, res) {
 //     }
 // }
 
-function update(req, res) {
-    const user = User.findById({ _id: req.user._id });
-    try {
-        const userFinance = req.user.userFinances.id({ _id: userFinances._id });
-        userFinance.set({ 'type': req.body.type, 'amount': req.body.amount });
-        user.save()
-        res.send({ user: user })
-    } catch (err) {
-        res.status(400).json(err);
-        console.error(err)
-        console.log('ERR: UPDATE FN')
+// function update(req, res) {
+//     const user = User.findById({ _id: req.user._id });
+//     try {
+//         const userFinance = req.user.userFinances.id({ _id: userFinances._id });
+//         userFinance.set({ 'type': req.body.type, 'amount': req.body.amount });
+//         user.save()
+//         res.send({ user: user })
+//     } catch (err) {
+//         res.status(400).json(err);
+//         console.error(err)
+//         console.log('ERR: UPDATE FN')
 
-    }
-}
+//     }
+// }
 
-function deleteOne(req, res) {
-    try {
-        req.user.userFinances.remove(req.params.id); //req.user.userFinances.pull(req.params.id)
-        //req.user.userFinances.id(_id).remove();
-        req.user.save();
-        res.json({ user: user });
-    } catch (err) {
-        res.status(400).json(err);
-        console.error(err);
-        console.log('ERR: DELETE FN')
-    }
-}
+// function deleteOne(req, res) {
+//     try {
+//         req.user.userFinances.remove(req.params.id); //req.user.userFinances.pull(req.params.id)
+//         //req.user.userFinances.id(_id).remove();
+//         req.user.save();
+//         res.json({ user: user });
+//     } catch (err) {
+//         res.status(400).json(err);
+//         console.error(err);
+//         console.log('ERR: DELETE FN')
+//     }
+// }
