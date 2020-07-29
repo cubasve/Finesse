@@ -24,7 +24,7 @@ export default class PassiveIncome extends Component {
                     this.setState(state => ({
                         totalPassiveIncome: [...state.totalPassiveIncome, state.newPassiveIncome],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newPassiveIncome: { passiveIncomeType: '', amountEarned: '' }
+                        newPassiveIncome: { passiveIncomeType: 'Real Estate', amountEarned: '' }
                         //reset the inputs for better UX
                     }))
                 )

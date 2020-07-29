@@ -24,7 +24,7 @@ export default class BadDebt extends Component {
                     this.setState(state => ({
                         totalBadDebt: [...state.totalBadDebt, state.newBadDebt],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newBadDebt: { badDebtType: '', amountOwed: '' }
+                        newBadDebt: { badDebtType: 'Home Mortgage', amountOwed: '' }
                         //reset the inputs for better UX
                     }))
                 )

@@ -24,7 +24,7 @@ export default class Commodities extends Component {
                     this.setState(state => ({
                         totalCommodities: [...state.totalCommodities, state.newCommodity],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newCommodity: { commodityType: '', price: '' }
+                        newCommodity: { commodityType: 'Metals', price: '' }
                         //reset the inputs for better UX
                     }))
                 )

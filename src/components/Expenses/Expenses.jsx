@@ -25,7 +25,7 @@ export default class Expenses extends Component {
                     this.setState(state => ({
                         totalExpenses: [...state.totalExpenses, state.newExpense],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newExpense: { expenseType: '', amountSpent: '' }
+                        newExpense: { expenseType: 'Housing', amountSpent: '' }
                         //reset the inputs for better UX
                     }))
                 )

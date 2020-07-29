@@ -24,7 +24,7 @@ export default class Business extends Component {
                     this.setState(state => ({
                         totalBusiness: [...state.totalBusiness, state.newBusiness],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newBusiness: { businessType: '', value: '' }
+                        newBusiness: { businessType: 'Sole proprietorship', value: '' }
                         //reset the inputs for better UX
                     }))
                 )
