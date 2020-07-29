@@ -5,6 +5,7 @@ const SECRET = process.env.SECRET;
 module.exports = {
     signup,
     login,
+    show,
 };
 
 async function signup(req, res) {
@@ -43,5 +44,28 @@ async function login(req, res) {
         });
     } catch (err) {
         return res.status(400).json(err);
+    }
+}
+
+function show(req, res) {
+    try {
+        const user = User.findById({ _id: req.body._id })
+            .populate('income')
+            .populate('expense')
+            .populate('asset')
+            .populate('liability')
+            .exec();
+        res.json({ user: user })
+        console.log(user)
+
+
+        console.log(req.body)
+        console.log(req.body._id)
+        console.log(user.populated('income')); //truthy or falsey
+        // console.log(req.user._id)
+    } catch (err) {
+        res.status(400).json(err);
+        console.error(err);
+        console.log('SHOW FN NOT WORKING')
     }
 }

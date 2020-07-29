@@ -1,39 +1,18 @@
 const FinancialStatement = require('../models/financialStatement');
-const User = require('../models/user');
-const user = require('../models/user');
+// const User = require('../models/user');
 
 module.exports = {
     create,
-    show,
+    // show,
 }
 
-function show(req, res) {
-    try {
-        const user = User.findById({ _id: req.body._id })
-            .populate('income')
-            .populate('expense')
-            .populate('asset')
-            .populate('liability')
-            .exec();
-        console.log(req.body)
-        console.log(req.body._id)
-        console.log(user.populated('income')); //truthy or falsey
-        // console.log(req.user._id)
-        res.json({ user: user })
-        //instead of res.render(...), we're using res.json(...)
-    } catch (err) {
-        res.status(400).json(err);
-        console.error(err);
-    }
-}
-
-//POST /api/financialstatements 200 4.967 ms - 143
+//POST /api/financialstatements 200 
 //Updated [totalEarnedIncome] 
 async function create(req, res) {
     const financialStatement = new FinancialStatement(req.body);
     //added below 2 lines
-    financialStatement.user = req.user._id;
-    financialStatement.income = req.body._id;
+    // financialStatement.user = req.user._id;
+    // financialStatement.income = req.body._id;
     try {
         await financialStatement.save();
         console.log(req.body);

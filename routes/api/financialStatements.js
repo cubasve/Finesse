@@ -5,7 +5,7 @@ const financialStatementsCtrl = require('../../controllers/financialStatements')
 //In server.js:
 //app.use('/api/financialStatements', require('./routes/api/financialStatements'));
 
-router.get('/', isLoggedIn, financialStatementsCtrl.show); //route: /api/financialStatements/
+// router.get('/', isLoggedIn, financialStatementsCtrl.show); //route: /api/financialStatements/
 router.post('/', isLoggedIn, financialStatementsCtrl.create); //route: /api/financialStatements/
 
 
