@@ -9,16 +9,17 @@ module.exports = {
 
 function show(req, res) {
     try {
-        const user = User.findById(req.body._id)
+        const user = User.findById({ _id: req.body._id })
             .populate('income')
             .populate('expense')
             .populate('asset')
             .populate('liability')
             .exec();
         console.log(req.body)
+        console.log(req.body._id)
         console.log(user.populated('income')); //truthy or falsey
         // console.log(req.user._id)
-        res.json(user)
+        res.json({ user: user })
         //instead of res.render(...), we're using res.json(...)
     } catch (err) {
         res.status(400).json(err);
