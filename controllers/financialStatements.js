@@ -58,7 +58,10 @@ function create(req, res) {
     //---------------------------------OPTION 3
     // const user = User.findById({ _id: req.user._id });
     // user.userFinances = [{ 'userFinances.type': req.body.type, 'userFinances.amount': req.body.amount }];
-    const user = req.user.userFinances.push({ 'userFinances.type': req.body.type, 'userFinances.amount': req.body.amount });
+
+    const user = req.user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount });
+    console.log(req.user);
+    console.log(req.user.userFinances)
     console.log(req.body);
     try {
         user.save();
