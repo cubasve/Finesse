@@ -28,10 +28,12 @@ module.exports = {
 
 
 function create(req, res) {
+    const doc = req.user.userFinances.id(_id);
+    console.log(doc)
     console.log(req.user)
     console.log(req.user.userFinances)
     console.log(userFinances)
-    let user = new User({ userFinances: [{ type: req.body.type, amount: req.body.amount }] })
+    let user = new User({ userFinances: [{ 'type': req.body.type, 'amount': req.body.amount }] })
     try {
         user.save();
         console.log(req.body);
@@ -55,19 +57,34 @@ function create(req, res) {
     // }
 }
 
+// function update(req, res) {
+//     try {
+//         FinancialStatement.findOneAndUpdate({ 'income': req.body.income });
+//         res.json({ income: income })
+//     } catch (err) {
+//         res.status(400).json(err);
+//     }
+// }
+
 function update(req, res) {
+    const user = User.findById({ _id: req.user._id });
     try {
-        FinancialStatement.findOneAndUpdate({ 'income': req.body.income });
-        res.json({ income: income })
+        const userFinance = req.user.userFinances.id({ _id: userFinances._id });
+        userFinance.set({ 'type': req.body.type, 'amount': req.body.amount });
+        user.save()
+        res.send({ user: user })
     } catch (err) {
         res.status(400).json(err);
+        console.error(err)
+        console.log('ERR: UPDATE FN')
+
     }
 }
 
-
 function deleteOne(req, res) {
     try {
-        req.user.userFinances.pull(req.params.id); //req.user.userFinances.remove()
+        req.user.userFinances.remove(req.params.id); //req.user.userFinances.pull(req.params.id)
+        //req.user.userFinances.id(_id).remove();
         req.user.save();
         res.json({ user: user });
     } catch (err) {
