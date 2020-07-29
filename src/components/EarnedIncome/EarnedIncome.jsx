@@ -14,20 +14,30 @@ export default class EarnedIncome extends Component {
     }
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
+    //instance of component is created & inserted into DOM during COMMIT phase
     componentDidMount() {
-        console.log('EarnedIncome: componentDidMount');
-        financialStatementService.show({ type: this.state.totalEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
+        console.log('App: componentDidMount');
+        //financialStatementService.show({ type: this.state.totalEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
+        financialStatementService.show({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
 
-        //use fetch to hit a route in controllers --> /api/financialstatements
+        //use fetch to hit a route in controllers --> GET /api/financialstatements
+        fetch(url for api route)
+            .then((res) => res.json())
+                .then((data) => this.setState({
+                    data: data
+                }))
+    }
+
+    componentDidUpdate() {
+        console.log('App: componentDidUpdate')
+        // financialStatementService.show()
     }
 
     handleSubmit = async (e) => {
-        // alert('ADD INCOME CLICKED');
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
             await financialStatementService.create({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
-                //await financialStatementService.show({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned })
                 .then(
                     this.setState(state => ({
                         totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
@@ -37,7 +47,6 @@ export default class EarnedIncome extends Component {
                         //reset the inputs 
                     }))
                 )
-            //financialStatementService.show({ type: this.state.totalEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
         } catch (err) {
             console.error(err);
         }
@@ -46,12 +55,12 @@ export default class EarnedIncome extends Component {
     //triggers after every change to input value/character typed
     handleChange = async (e) => {
         const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
-        //await financialStatementService.show({ type: newEarnedIncome.earnedIncomeType, amount: newEarnedIncome.amountEarned })
         this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() });
     }
 
 
     render() {
+        console.log('App: render');
         return (
             <section>
                 <h4>
