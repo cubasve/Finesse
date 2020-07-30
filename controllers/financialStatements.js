@@ -41,24 +41,22 @@ async function update(req, res) {
         const id = user.userFinances.id(req.body.id);
         console.log(id);
         id.set({ 'type': req.body.type, 'amount': req.body.amount })
-        // console.log(user)
-        // console.log(user.userFinances)
-
         await user.save();
         res.json({ user: user });
     } catch (err) {
         console.error(err);
         console.log('ERR: UPDATE FN');
         return res.status(400).json(err);
-
     }
 }
 
 async function deleteOne(req, res) {
     try {
         const user = await User.findById({ _id: req.user._id });
-        user.userFinances.remove(req.params.id);
-        console.log(user.userFinances);
+        const id = user.userFinances.id(req.body.id);
+        console.log(id)
+        id.remove(); //or just req.body.id
+        //id.pull(req.body)
         // await user.save();
         res.json({ user: user });
     } catch (err) {
