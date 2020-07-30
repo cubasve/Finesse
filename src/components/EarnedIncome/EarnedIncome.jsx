@@ -88,9 +88,17 @@ export default class EarnedIncome extends Component {
     }
 
     //triggers after every change to input value/character typed
-    handleChange = async (e) => {
+    handleChange = e => {
         const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
         this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() });
+    }
+
+    handleUpdate = e => {
+        //financialStatementService.update(...)
+    }
+
+    handleDelete = e => {
+        //financialStatementService.deleteOne(...)
     }
 
 
@@ -115,8 +123,8 @@ export default class EarnedIncome extends Component {
                                 <tr>
                                     <td>{ei.earnedIncomeType}</td>
                                     <td>{ei.amountEarned}</td>
-                                    <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td>
+                                    <td><button value="Update" onClick={this.handleUpdate}>U</button></td>
+                                    <td><button value="Delete" onClick={this.handleDelete}>X</button></td>
                                 </tr>
                             </tbody>
                         </Table>
