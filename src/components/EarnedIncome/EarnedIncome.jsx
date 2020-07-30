@@ -22,13 +22,39 @@ export default class EarnedIncome extends Component {
 
     //instance of component is created & inserted into DOM during COMMIT phase
     componentDidMount() {
-        console.log('App: componentDidMount')
-        //financialStatementService.show().then(data => console.log(data.user.userFinances))
-        financialStatementService.show().then(data => this.setState({
-            data: data.user.userFinances
-        }))
-        console.log(data.user.userFinances);
+
+        try {
+            console.log('App: componentDidMount')
+            //financialStatementService.show().then(data => console.log(data.user.userFinances))
+            financialStatementService.show().then(this.setState(state => ({
+                totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
+            })))
+            // console.log(data.user.userFinances);
+
+        } catch (err) {
+            console.error(err);
+        }
     }
+
+    // handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     if (!this.formRef.current.checkValidity()) return;
+    //     try {
+    //         await financialStatementService.create({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned })
+    //             .then(
+    //                 this.setState(state => ({
+    //                     totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
+    //                     //add newEarnedIncome onto pre-existing totalEarnedIncome array
+    //                     newEarnedIncome: { earnedIncomeType: 'Job', amountEarned: '' },
+    //                     formInvalid: true,
+    //                     //reset the inputs 
+    //                 }))
+    //             )
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // }
+
     // fetch('api/financialstatements')
     //     .then((res) => res.json())
     //     .then((data) => this.setState({

@@ -21,8 +21,7 @@ function show() {
         //body: JSON.stringify(financialStatement)
     }
     //=====--------------------------------
-    return fetch(BASE_URL, options).then(res => res.json())
-    // .then(data => console.log(data.user.userFinances));
+    return fetch(BASE_URL, options).then(res => res.json()).then(data => console.log(data.user.userFinances));
 }
 
 function create(financialStatement) {
