@@ -22,15 +22,24 @@ export default class EarnedIncome extends Component {
 
     //instance of component is created & inserted into DOM during COMMIT phase
     componentDidMount() {
-
         try {
             console.log('App: componentDidMount')
             //financialStatementService.show().then(data => console.log(data.user.userFinances))
             financialStatementService.show().then(this.setState(state => ({
-                totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
-            })))
-            // console.log(data.user.userFinances);
+                //totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome], --> 1 job stays
 
+                //totalEarnedIncome: [state.newEarnedIncome.earnedIncomeType, state.newEarnedIncome.amountEarned] --> ["Job", ""]
+
+                totalEarnedIncome: [{
+                    amountEarned: state.newEarnedIncome.amountEarned,
+                    earnedIncomeType: state.newEarnedIncome.earnedIncomeType
+
+                }] //--> 1 job stays
+
+                //totalEarnedIncome: [...state.totalEarnedIncome],
+                //earnedIncomeType: this.state.newEarnedIncome.earnedIncomeType,
+                // amountEarned: this.state.newEarnedIncome.amountEarned
+            })))
         } catch (err) {
             console.error(err);
         }
