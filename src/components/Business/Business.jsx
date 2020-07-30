@@ -42,10 +42,10 @@ export default class Business extends Component {
     render() {
         return (
             <section>
-                <h4>
+                <h5>
                     <span>Business</span>
                     <span>$</span>
-                </h4>
+                </h5>
                 {this.state.totalBusiness.map(b => (
                     <div key={b.value}>
                         <table>

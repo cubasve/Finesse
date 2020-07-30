@@ -42,10 +42,10 @@ export default class Commodities extends Component {
     render() {
         return (
             <section>
-                <h4>
+                <h5>
                     <span>Commodities</span>
                     <span>$</span>
-                </h4>
+                </h5>
                 {this.state.totalCommodities.map(c => (
                     <div key={c.price}>
                         <table>

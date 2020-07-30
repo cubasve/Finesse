@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import financialStatementService from '../../utils/financialStatementService';
+import Table from 'react-bootstrap/Table';
 
 const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
@@ -14,27 +15,25 @@ export default class EarnedIncome extends Component {
     }
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
-
-
-    //Once it's turned into JSON, we're referencing to it as data  --> response we're getting from route
-    //.json() returns a promise that resolves to the data by the server, as JSON
-    //Data returned by server has been parsed out of JSON and it will parse into a JS object that we then use in our app
-
     //instance of component is created & inserted into DOM during COMMIT phase
     componentDidMount() {
         try {
             console.log('App: componentDidMount')
             //financialStatementService.show().then(data => console.log(data.user.userFinances))
             financialStatementService.show().then(this.setState(state => ({
-                //totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome], --> 1 job stays
+
+                // totalEarnedIncome: [{ amountEarned: amount, earnedIncomeType: type }] --> amount & type are undefined
+
+                //totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome], //--> 1 job stays
 
                 //totalEarnedIncome: [state.newEarnedIncome.earnedIncomeType, state.newEarnedIncome.amountEarned] --> ["Job", ""]
 
-                totalEarnedIncome: [{
-                    amountEarned: state.newEarnedIncome.amountEarned,
-                    earnedIncomeType: state.newEarnedIncome.earnedIncomeType
+                //type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned
 
-                }] //--> 1 job stays
+                // totalEarnedIncome: [{
+                //     amountEarned: state.newEarnedIncome.amountEarned,
+                //     earnedIncomeType: state.newEarnedIncome.earnedIncomeType
+                // }] //--> 1 job stays
 
                 //totalEarnedIncome: [...state.totalEarnedIncome],
                 //earnedIncomeType: this.state.newEarnedIncome.earnedIncomeType,
@@ -44,25 +43,6 @@ export default class EarnedIncome extends Component {
             console.error(err);
         }
     }
-
-    // handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     if (!this.formRef.current.checkValidity()) return;
-    //     try {
-    //         await financialStatementService.create({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned })
-    //             .then(
-    //                 this.setState(state => ({
-    //                     totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
-    //                     //add newEarnedIncome onto pre-existing totalEarnedIncome array
-    //                     newEarnedIncome: { earnedIncomeType: 'Job', amountEarned: '' },
-    //                     formInvalid: true,
-    //                     //reset the inputs 
-    //                 }))
-    //             )
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }
 
     // fetch('api/financialstatements')
     //     .then((res) => res.json())
@@ -109,7 +89,7 @@ export default class EarnedIncome extends Component {
         console.log('App: render');
         return (
             <section>
-                <h4>
+                <h5>
                     <span>Earned</span>
                     <span>$</span>
                     {/* {this.state.totalEarnedIncome.amountEarned.map(amount => (
@@ -118,10 +98,10 @@ export default class EarnedIncome extends Component {
                     {/* {this.state.totalEarnedIncome.amountEarned.reduce((acc, num) => (
                         <span>${acc + num}</span>
                     ))} */}
-                </h4>
+                </h5>
                 {this.state.totalEarnedIncome.map(ei => (
                     <div key={ei.amountEarned}>
-                        <table>
+                        <Table striped bordered hover size="sm">
                             <tbody>
                                 <tr>
                                     <td>{ei.earnedIncomeType}</td>
@@ -130,7 +110,7 @@ export default class EarnedIncome extends Component {
                                     <td><button value="Delete">X</button></td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </Table>
                     </div>
                 ))}
                 <form ref={this.formRef} onSubmit={this.handleSubmit}>

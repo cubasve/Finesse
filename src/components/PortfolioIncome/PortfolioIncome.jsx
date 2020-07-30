@@ -42,10 +42,10 @@ export default class PortfolioIncome extends Component {
     render() {
         return (
             <section>
-                <h4>
+                <h5>
                     <span>Portfolio</span>
                     <span>$</span>
-                </h4>
+                </h5>
                 {this.state.totalPortfolioIncome.map(pi => (
                     <div key={pi.amountEarned}>
                         <table>

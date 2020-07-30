@@ -42,10 +42,10 @@ export default class RealEstate extends Component {
     render() {
         return (
             <section>
-                <h4>
+                <h5>
                     <span>Real Estate</span>
                     <span>$</span>
-                </h4>
+                </h5>
                 {this.state.totalRealEstate.map(re => (
                     <div key={re.price}>
                         <table>

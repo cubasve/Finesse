@@ -7,7 +7,8 @@ import Commodities from '../Commodities/Commodities'
 export default function Assets(props) {
     return (
         <div>
-            Assets <button
+            ASSETS
+            <button
                 style={{ borderRadius: '50%' }}
             >&#8505;</button>
             <p>CASH: </p>

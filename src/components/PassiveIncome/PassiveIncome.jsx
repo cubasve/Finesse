@@ -42,10 +42,10 @@ export default class PassiveIncome extends Component {
     render() {
         return (
             <section>
-                <h4>
+                <h5>
                     <span>Passive</span>
                     <span>$</span>
-                </h4>
+                </h5>
                 {this.state.totalPassiveIncome.map(pi => (
                     <div key={pi.amountEarned}>
                         <table>

@@ -42,10 +42,10 @@ export default class GoodDebt extends Component {
     render() {
         return (
             <section>
-                <h4>
+                <h5>
                     <span>Good Debt</span>
                     <span>$</span>
-                </h4>
+                </h5>
                 {this.state.totalGoodDebt.map(gd => (
                     <div key={gd.amountOwed}>
                         <table>

@@ -43,7 +43,7 @@ export default class Expenses extends Component {
     render() {
         return (
             <section>
-                <span>Expenses</span>
+                <span>EXPENSES</span>
                 <PayYourselfFirst />
                 {/* <h4>
                     Expenses

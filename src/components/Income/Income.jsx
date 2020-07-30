@@ -7,7 +7,7 @@ import Passive from '../PassiveIncome/PassiveIncome';
 export default function Income(props) {
     return (
         <div>
-            Income
+            INCOME
             <Earned />
             <Portfolio />
             <Passive />

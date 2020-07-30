@@ -42,10 +42,10 @@ export default class BadDebt extends Component {
     render() {
         return (
             <section>
-                <h4>
+                <h5>
                     <span>Bad Debt</span>
                     <span>$</span>
-                </h4>
+                </h5>
                 {this.state.totalBadDebt.map(bd => (
                     <div key={bd.amountOwed}>
                         <table>

@@ -42,10 +42,10 @@ export default class PaperAssets extends Component {
     render() {
         return (
             <section>
-                <h4>
+                <h5>
                     <span>Paper</span>
                     <span>$</span>
-                </h4>
+                </h5>
                 {this.state.totalPaperAssets.map(pa => (
                     <div key={pa.price}>
                         <table>
