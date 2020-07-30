@@ -79,18 +79,20 @@ export default class EarnedIncome extends Component {
         try {
             const updateIncome = {
                 id: e.target.value,
-                amount: this.state.newEarnedIncome.amount,
-                type: this.state.newEarnedIncome.type,
+                // amount: this.state.totalEarnedIncome.amount, //undefined
+                // type: this.state.totalEarnedIncome.type //undefined
+                amount: this.state.newEarnedIncome.amount, //" "
+                type: this.state.newEarnedIncome.type, //"Job"
             }
-            console.log(updateIncome)
+            //console.log(updateIncome)
 
             //const x = this.state.totalEarnedIncome.filter(elem => (elem._id === e.target.value));
             //console.log(x)
 
-            const id = e.target.value
-
             await financialStatementService.update(updateIncome)
-                .then(this.setState(state => ({ totalEarnedIncome: updateIncome })))
+                //.then(data => console.log(data)) //user object
+                .then((data) => this.setState({ totalEarnedIncome: data.userFinances })) //state = data
+
             //.then(data => console.log(data))
 
             //     this.setState(({
@@ -101,28 +103,6 @@ export default class EarnedIncome extends Component {
             console.error(err);
         }
     }
-    // await financialStatementService.create({
-    //     type: this.state.newEarnedIncome.type,
-    //     amount: this.state.newEarnedIncome.amount,
-    //     //Add category
-    //     category: this.state.newEarnedIncome.category
-    // })
-    //     .then(
-    //         this.setState(state => ({
-    //             totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
-    //             //add newEarnedIncome onto pre-existing totalEarnedIncome array
-
-    //             //newEarnedIncome: { earnedIncomeType: 'Job', amountEarned: '' },
-    //             newEarnedIncome: {
-    //                 type: 'Job',
-    //                 amount: '',
-    //                 //Add category
-    //                 category: 'Earned'
-    //             },
-    //             formInvalid: true,
-    //             //reset the inputs 
-    //         }))
-    //     )
 
     handleDelete = e => {
         const deleteIncome = e.target.value
@@ -137,12 +117,6 @@ export default class EarnedIncome extends Component {
                 <h5>
                     <span>Earned</span>
                     <span>$</span>
-                    {/* {this.state.totalEarnedIncome.amountEarned.map(amount => (
-                        <span key={amount}>${amount}</span>
-                    ))} */}
-                    {/* {this.state.totalEarnedIncome.amountEarned.reduce((acc, num) => (
-                        <span>${acc + num}</span>
-                    ))} */}
                 </h5>
                 {this.state.totalEarnedIncome.map(ei => (
                     //<div key={ei.amountEarned}>
