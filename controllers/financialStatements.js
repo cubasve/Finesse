@@ -22,7 +22,7 @@ async function create(req, res) {
     try {
         const user = await User.findById({ _id: req.user._id });
         //req.user = user you get back from token VS user = User.findById(...) is the user document from Mongoose 
-        user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount })
+        user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount, 'category': req.body.category })
         console.log(user)
         console.log(user.userFinances)
         console.log(req.body)
