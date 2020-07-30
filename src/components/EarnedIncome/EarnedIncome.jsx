@@ -77,18 +77,19 @@ export default class EarnedIncome extends Component {
 
     handleUpdate = async (e) => {
         try {
-            const updateIncome = {
-                id: e.target.value,
-                // amount: this.state.totalEarnedIncome.amount, //undefined
-                // type: this.state.totalEarnedIncome.type //undefined
-                amount: this.state.newEarnedIncome.amount, //" "
-                type: this.state.newEarnedIncome.type, //"Job"
-            }
+            // const updateIncome = {
+            //     id: e.target.value,
+            //     // amount: this.state.totalEarnedIncome.amount, //undefined
+            //     // type: this.state.totalEarnedIncome.type //undefined
+            //     amount: this.state.newEarnedIncome.amount, //" "
+            //     type: this.state.newEarnedIncome.type, //"Job"
+            // }
             //console.log(updateIncome)
-            await financialStatementService.update(updateIncome)
+            const x = { id: e.target.value, amount: e.target.name }
+            console.log(x)
+            await financialStatementService.update({ id: e.target.value, amount: e.target.name })
                 //.then(data => console.log(data)) //user object
                 .then((data) => this.setState({ totalEarnedIncome: data.userFinances })) //state = data
-
             //.then(data => console.log(data))
         } catch (err) {
             console.error(err);
@@ -103,7 +104,7 @@ export default class EarnedIncome extends Component {
         // console.log(deleteIncome)
         try {
             await financialStatementService.deleteOne({ id: e.target.value, amount: e.target.name })
-                .then(this.setState({ totalEarnedIncome: this.state.totalEarnedIncome }))
+                .then(data => (this.setState({ totalEarnedIncome: this.state.totalEarnedIncome })))
         } catch (err) {
             console.error(err);
         }

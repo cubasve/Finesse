@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import financialStatementService from '../../utils/financialStatementService';
+import Table from 'react-bootstrap/Table';
 
 const portfolioIncomeOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
@@ -7,24 +8,45 @@ export default class PortfolioIncome extends Component {
     state = {
         totalPortfolioIncome: [],
         newPortfolioIncome: {
-            portfolioIncomeType: 'Stock',
-            amountEarned: '',
+            type: 'Stock',
+            amount: '',
+            category: 'Portfolio'
         },
         formInvalid: true,
     }
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
+    async componentDidMount() {
+        try {
+            let data = await financialStatementService.show()
+                .then(data => {
+                    this.setState({ totalPortfolioIncome: data.user.userFinances.filter(elem => (elem.category === 'Portfolio')) })
+                })
+            console.log(data)
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+
+
     handleSubmit = async (e) => {
-        // alert('ADD INCOME CLICKED');
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create({ type: this.state.newPortfolioIncome.portfolioIncomeType, amount: this.state.newPortfolioIncome.amountEarned })
+            await financialStatementService.create({
+                type: this.state.newPortfolioIncome.type, amount: this.state.newPortfolioIncome.amount,
+                category: this.state.newPortfolioIncome.category
+            })
                 .then(
                     this.setState(state => ({
                         totalPortfolioIncome: [...state.totalPortfolioIncome, state.newPortfolioIncome],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newPortfolioIncome: { portfolioIncomeType: 'Stock', amountEarned: '' },
+                        newPortfolioIncome: {
+                            type: 'Stock',
+                            amount: '',
+                            category: 'Portfolio'
+                        },
                         formInvalid: true,
                         //reset the inputs for better UX
                     }))
@@ -47,24 +69,24 @@ export default class PortfolioIncome extends Component {
                     <span>$</span>
                 </h5>
                 {this.state.totalPortfolioIncome.map(pi => (
-                    <div key={pi.amountEarned}>
-                        <table>
+                    <div key={pi.amount}>
+                        <Table striped bordered hover size="sm">
                             <tbody>
                                 <tr>
-                                    <td>{pi.portfolioIncomeType}</td>
-                                    <td>{pi.amountEarned}</td>
+                                    <td>{pi.type}</td>
+                                    <td>{pi.amount}</td>
                                     <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </Table>
                     </div>
                 ))}
                 <form ref={this.formRef} onSubmit={this.handleSubmit}>
                     <label>
                         <select
-                            name="portfolioIncomeType"
-                            value={this.state.newPortfolioIncome.portfolioIncomeType}
+                            name="type"
+                            value={this.state.newPortfolioIncome.type}
                             onChange={this.handleChange}
                         >
                             {portfolioIncomeOptions.map((option) => (
@@ -74,8 +96,8 @@ export default class PortfolioIncome extends Component {
                     </label>
                     <label>
                         <input
-                            name="amountEarned"
-                            value={this.state.newPortfolioIncome.amountEarned}
+                            name="amount"
+                            value={this.state.newPortfolioIncome.amount}
                             onChange={this.handleChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"

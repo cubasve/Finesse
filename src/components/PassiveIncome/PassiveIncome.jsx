@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import financialStatementService from '../../utils/financialStatementService';
+import Table from 'react-bootstrap/Table';
 
 const passiveIncomeOptions = ['Real Estate', 'Business', 'Commodities', 'Royalties', 'Other'];
 
@@ -7,24 +8,39 @@ export default class PassiveIncome extends Component {
     state = {
         totalPassiveIncome: [],
         newPassiveIncome: {
-            passiveIncomeType: 'Real Estate',
-            amountEarned: '',
+            type: 'Real Estate',
+            amount: '',
+            category: 'Passive'
         },
         formInvalid: true,
     }
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
+    async componentDidMount() {
+        try {
+            let data = await financialStatementService.show()
+                .then(data => {
+                    this.setState({ totalPassiveIncome: data.user.userFinances.filter(elem => (elem.category === 'Passive')) })
+                })
+            console.log(data)
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     handleSubmit = async (e) => {
-        // alert('ADD INCOME CLICKED');
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create({ type: this.state.newPassiveIncome.passiveIncomeType, amount: this.state.newPassiveIncome.amountEarned })
+            await financialStatementService.create({ type: this.state.newPassiveIncome.type, amount: this.state.newPassiveIncome.amount, category: this.state.newPassiveIncome.category })
                 .then(
                     this.setState(state => ({
                         totalPassiveIncome: [...state.totalPassiveIncome, state.newPassiveIncome],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newPassiveIncome: { passiveIncomeType: 'Real Estate', amountEarned: '' },
+                        newPassiveIncome: {
+                            type: 'Real Estate', amount: '',
+                            category: 'Passive'
+                        },
                         formInvalid: true,
                         //reset the inputs for better UX
                     }))
@@ -47,24 +63,24 @@ export default class PassiveIncome extends Component {
                     <span>$</span>
                 </h5>
                 {this.state.totalPassiveIncome.map(pi => (
-                    <div key={pi.amountEarned}>
-                        <table>
+                    <div key={pi.amount}>
+                        <Table striped bordered hover size="sm">
                             <tbody>
                                 <tr>
-                                    <td>{pi.passiveIncomeType}</td>
-                                    <td>{pi.amountEarned}</td>
+                                    <td>{pi.type}</td>
+                                    <td>{pi.amount}</td>
                                     <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </Table>
                     </div>
                 ))}
                 <form ref={this.formRef} onSubmit={this.handleSubmit}>
                     <label>
                         <select
-                            name="passiveIncomeType"
-                            value={this.state.newPassiveIncome.passiveIncomeType}
+                            name="type"
+                            value={this.state.newPassiveIncome.type}
                             onChange={this.handleChange}
                         >
                             {passiveIncomeOptions.map((option) => (
@@ -74,8 +90,8 @@ export default class PassiveIncome extends Component {
                     </label>
                     <label>
                         <input
-                            name="amountEarned"
-                            value={this.state.newPassiveIncome.amountEarned}
+                            name="amount"
+                            value={this.state.newPassiveIncome.amount}
                             onChange={this.handleChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"

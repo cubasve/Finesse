@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import financialStatementService from '../../utils/financialStatementService';
 import PayYourselfFirst from '../PayYourselfFirst/PayYourselfFirst';
+import Table from 'react-bootstrap/Table';
 
 const expenseOptions = ['Housing', 'Transportation', 'Food', 'Kids', 'Debt Payments', 'Entertainment', 'Donations', 'Other'];
 
@@ -8,24 +9,43 @@ export default class Expenses extends Component {
     state = {
         totalExpenses: [],
         newExpense: {
-            expenseType: 'Housing',
-            amountSpent: '',
+            type: 'Housing',
+            amount: '',
+            category: 'Expense'
         },
         formInvalid: true,
     }
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
+    async componentDidMount() {
+        try {
+            let data = await financialStatementService.show()
+                .then(data => {
+                    this.setState({ totalExpenses: data.user.userFinances.filter(elem => (elem.category === 'Expense')) })
+                })
+            console.log(data)
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     handleSubmit = async (e) => {
-        // alert('ADD INCOME CLICKED');
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create({ type: this.state.newExpense.expenseType, amount: this.state.newExpense.amountSpent })
+            await financialStatementService.create({
+                type: this.state.newExpense.type, amount: this.state.newExpense.amount,
+                category: this.state.newExpense.category
+            })
                 .then(
                     this.setState(state => ({
                         totalExpenses: [...state.totalExpenses, state.newExpense],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newExpense: { expenseType: 'Housing', amountSpent: '' },
+                        newExpense: {
+                            type: 'Housing',
+                            amount: '',
+                            category: 'Expense'
+                        },
                         formInvalid: true,
                         //reset the inputs for better UX
                     }))
@@ -53,24 +73,24 @@ export default class Expenses extends Component {
                     <PayYourselfFirst />
                 </h4> */}
                 {this.state.totalExpenses.map(ex => (
-                    <div key={ex.amountSpent}>
-                        <table>
+                    <div key={ex.amount}>
+                        <Table striped bordered hover size="sm">
                             <tbody>
                                 <tr>
-                                    <td>{ex.expenseType}</td>
-                                    <td>{ex.amountSpent}</td>
+                                    <td>{ex.type}</td>
+                                    <td>{ex.amount}</td>
                                     <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </Table>
                     </div>
                 ))}
                 <form ref={this.formRef} onSubmit={this.handleSubmit}>
                     <label>
                         <select
-                            name="expenseType"
-                            value={this.state.newExpense.expenseType}
+                            name="type"
+                            value={this.state.newExpense.type}
                             onChange={this.handleChange}
                         >
                             {expenseOptions.map((option) => (
@@ -80,8 +100,8 @@ export default class Expenses extends Component {
                     </label>
                     <label>
                         <input
-                            name="amountSpent"
-                            value={this.state.newExpense.amountSpent}
+                            name="amount"
+                            value={this.state.newExpense.amount}
                             onChange={this.handleChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
