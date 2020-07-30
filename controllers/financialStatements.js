@@ -12,9 +12,9 @@ async function show(req, res) {
         const user = await User.findById({ _id: req.user._id }); //req.body._id OR req.user._id?
         return res.json({ user: user });//explicitly return to fetch call 
     } catch (err) {
-        res.status(400).json(err);
         console.error(err);
         console.log('ERR: SHOW FN')
+        return res.status(400).json(err);
     }
 }
 
@@ -29,14 +29,16 @@ async function create(req, res) {
         await user.save();
         res.json({ user: user });
     } catch (err) {
-        return res.status(400).json(err);
         console.error(err);
         console.log('ERR: CREATE FN');
+        return res.status(400).json(err);
+
     }
 }
 
 async function update(req, res) {
     try {
+        console.log(req)
         const user = await User.findById({ _id: req.user._id });
         user.userFinances.set({ 'type': req.body.type, 'amount': req.body.amount })
         console.log(user)
@@ -45,9 +47,9 @@ async function update(req, res) {
         await user.save();
         res.json({ user: user });
     } catch (err) {
-        return res.status(400).json(err);
         console.error(err);
         console.log('ERR: UPDATE FN');
+        return res.status(400).json(err);
 
     }
 }
@@ -59,11 +61,10 @@ async function deleteOne(req, res) {
         console.log(user.userFinances);
         // await user.save();
         res.json({ user: user });
-
     } catch (err) {
-        return res.status(400).json(err);
         console.error(err);
         console.log('ERR: DELETE FN');
+        return res.status(400).json(err);
     }
 }
 

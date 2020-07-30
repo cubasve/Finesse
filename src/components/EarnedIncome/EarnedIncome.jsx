@@ -75,22 +75,32 @@ export default class EarnedIncome extends Component {
         this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() });
     }
 
-    handleUpdate = e => {
-        const updateIncome = e.target.value
-        console.log(updateIncome)
-        financialStatementService.update({
-            _id: e.target.value,
-            type: this.state.totalEarnedIncome.type,
-            amount: this.state.totalEarnedIncome.amount
-        })
-            .then(this.setState({ totalEarnedIncome: [...this.state.totalEarnedIncome] }))
+    handleUpdate = async (e) => {
+        try {
+            const updateIncome = {
+                id: e.target.value,
+                amount: this.state.newEarnedIncome.amount,
+                type: this.state.newEarnedIncome.type,
+            }
+            //console.log(updateIncome)
 
+            //const x = this.state.totalEarnedIncome.filter(elem => (elem._id === e.target.value));
+            //console.log(x)
 
-        //pull ei.id with e.target.value 
-        //from the id, I want the type & amount
+            const id = e.target.value
+
+            await financialStatementService.update(updateIncome)
+                .then(this.setState(state => ({ totalEarnedIncome: updateIncome })))
+            //.then(data => console.log(data))
+
+            //     this.setState(({
+            //     // totalEarnedIncome: data.user.userFinances.map()
+            //     // [...this.state.totalEarnedIncome, data.user.userFinances]
+            // })))
+        } catch (err) {
+            console.error(err);
+        }
     }
-
-
     // await financialStatementService.create({
     //     type: this.state.newEarnedIncome.type,
     //     amount: this.state.newEarnedIncome.amount,
@@ -144,7 +154,7 @@ export default class EarnedIncome extends Component {
                                     <td>{ei.amount}</td>
                                     <td>
                                         <button
-                                            // name={ei.type}
+                                            name={ei.amount}
                                             value={ei._id}
                                             onClick={this.handleUpdate}>U
                                         </button>

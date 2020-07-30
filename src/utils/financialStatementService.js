@@ -43,7 +43,7 @@ function update(financialStatement) {
         },
         body: JSON.stringify(financialStatement)
     }
-    return fetch(BASE_URL, options).then(res => res.json());
+    return fetch(BASE_URL + '/' + financialStatement.id, options).then(res => res.json());
 }
 
 function deleteOne(financialStatement) {
