@@ -82,7 +82,7 @@ export default class EarnedIncome extends Component {
                 amount: this.state.newEarnedIncome.amount,
                 type: this.state.newEarnedIncome.type,
             }
-            //console.log(updateIncome)
+            console.log(updateIncome)
 
             //const x = this.state.totalEarnedIncome.filter(elem => (elem._id === e.target.value));
             //console.log(x)
