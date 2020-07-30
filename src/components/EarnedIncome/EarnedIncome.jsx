@@ -10,7 +10,6 @@ export default class EarnedIncome extends Component {
         newEarnedIncome: {
             type: 'Job',
             amount: '',
-            //Add category
             category: 'Earned'
         },
         formInvalid: true,
@@ -23,7 +22,6 @@ export default class EarnedIncome extends Component {
             console.log('App: componentDidMount')
             let data = await financialStatementService.show()
                 .then(data => {
-                    // data.user.userFinances.filter(elem => (elem.category === 'Earned'))
                     this.setState({ totalEarnedIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned')) })
                 })
             console.log(data)
@@ -40,23 +38,18 @@ export default class EarnedIncome extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            //await financialStatementService.create({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned })
             await financialStatementService.create({
                 type: this.state.newEarnedIncome.type,
                 amount: this.state.newEarnedIncome.amount,
-                //Add category
                 category: this.state.newEarnedIncome.category
             })
                 .then(
                     this.setState(state => ({
                         totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-
-                        //newEarnedIncome: { earnedIncomeType: 'Job', amountEarned: '' },
                         newEarnedIncome: {
                             type: 'Job',
                             amount: '',
-                            //Add category
                             category: 'Earned'
                         },
                         formInvalid: true,
@@ -119,7 +112,6 @@ export default class EarnedIncome extends Component {
                     <span>$</span>
                 </h5>
                 {this.state.totalEarnedIncome.map(ei => (
-                    //<div key={ei.amountEarned}>
                     <div key={ei.amount}>
                         <Table striped bordered hover size="sm">
                             <tbody>
@@ -148,9 +140,7 @@ export default class EarnedIncome extends Component {
                 <form ref={this.formRef} onSubmit={this.handleSubmit}>
                     <label>
                         <select
-                            //name="earnedIncomeType"
                             name="type"
-                            //value={this.state.newEarnedIncome.earnedIncomeType}
                             value={this.state.newEarnedIncome.type}
                             onChange={this.handleChange}
                         >
@@ -161,8 +151,6 @@ export default class EarnedIncome extends Component {
                     </label>
                     <label>
                         <input
-                            // name="amountEarned"
-                            // value={this.state.newEarnedIncome.amountEarned}
                             name="amount"
                             value={this.state.newEarnedIncome.amount}
                             onChange={this.handleChange}
@@ -172,8 +160,6 @@ export default class EarnedIncome extends Component {
                             placeholder="Salary/Commission"
                         />
                     </label>
-
-                    {/* Add hidden input for category */}
                     <label>
                         <input
                             type="hidden"

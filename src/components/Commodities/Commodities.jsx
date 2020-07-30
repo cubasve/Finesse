@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import financialStatementService from '../../utils/financialStatementService';
+import Table from 'react-bootstrap/Table';
 
 const commodityOptions = ['Metals', 'Energy', 'Livestock & Meat', 'Agriculture', 'Cryptocurrency', 'Other'];
 
@@ -7,24 +8,43 @@ export default class Commodities extends Component {
     state = {
         totalCommodities: [],
         newCommodity: {
-            commodityType: 'Metals',
-            price: '',
+            type: 'Metals',
+            amount: '',
+            category: 'Commodity'
         },
         formInvalid: true,
     }
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
+    async componentDidMount() {
+        try {
+            let data = await financialStatementService.show()
+                .then(data => {
+                    this.setState({ totalCommodities: data.user.userFinances.filter(elem => (elem.category === 'Commodity')) })
+                })
+            console.log(data)
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     handleSubmit = async (e) => {
-        // alert('ADD INCOME CLICKED');
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create({ type: this.state.newCommodity.commodityType, amount: this.state.newCommodity.price })
+            await financialStatementService.create({
+                type: this.state.newCommodity.type, amount: this.state.newCommodity.amount,
+                category: this.state.newCommodity.category
+            })
                 .then(
                     this.setState(state => ({
                         totalCommodities: [...state.totalCommodities, state.newCommodity],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newCommodity: { commodityType: 'Metals', price: '' },
+                        newCommodity: {
+                            type: 'Metals',
+                            amount: '',
+                            category: 'Commodity'
+                        },
                         formInvalid: true,
                         //reset the inputs for better UX
                     }))
@@ -47,24 +67,24 @@ export default class Commodities extends Component {
                     <span>$</span>
                 </h5>
                 {this.state.totalCommodities.map(c => (
-                    <div key={c.price}>
-                        <table>
+                    <div key={c.amount}>
+                        <Table striped bordered hover size="sm">
                             <tbody>
                                 <tr>
-                                    <td>{c.commodityType}</td>
-                                    <td>{c.price}</td>
+                                    <td>{c.type}</td>
+                                    <td>{c.amount}</td>
                                     <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </Table>
                     </div>
                 ))}
                 <form ref={this.formRef} onSubmit={this.handleSubmit}>
                     <label>
                         <select
-                            name="commodityType"
-                            value={this.state.newCommodity.commodityType}
+                            name="type"
+                            value={this.state.newCommodity.type}
                             onChange={this.handleChange}
                         >
                             {commodityOptions.map((option) => (
@@ -74,13 +94,21 @@ export default class Commodities extends Component {
                     </label>
                     <label>
                         <input
-                            name="price"
-                            value={this.state.newCommodity.price}
+                            name="amount"
+                            value={this.state.newCommodity.amount}
                             onChange={this.handleChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Purchase Price"
                             autocomplete="off"
+                        />
+                    </label>
+                    <label>
+                        <input
+                            type="hidden"
+                            name="category"
+                            value={this.state.newCommodity.category}
+                            onChange={this.handleChange}
                         />
                     </label>
                     <button

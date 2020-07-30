@@ -105,6 +105,14 @@ export default class PortfolioIncome extends Component {
                             autocomplete="off"
                         />
                     </label>
+                    <label>
+                        <input
+                            type="hidden"
+                            name="category"
+                            value={this.state.newPortfolioIncome.category}
+                            onChange={this.handleChange}
+                        />
+                    </label>
                     <button
                         className="form-submission"
                         onClick={this.handleSubmit}

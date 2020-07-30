@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import financialStatementService from '../../utils/financialStatementService';
+import Table from 'react-bootstrap/Table';
 
 const realEstateOptions = ['Residential', 'Commercial', 'Industrial', 'Land'];
 
@@ -17,18 +18,17 @@ export default class RealEstate extends Component {
 
     async componentDidMount() {
         try {
-            let data = await financialStatementService.show();
-            let filter = await data.user.userFinances.filter(elem => (elem.category == 'RealEstate'))
+            let data = await financialStatementService.show()
+                .then(data => {
+                    this.setState({ totalRealEstate: data.user.userFinances.filter(elem => (elem.category === 'RealEstate')) })
+                })
             console.log(data)
-            this.setState({ totalRealEstate: data.user.userFinances })
-
         } catch (err) {
             console.error(err);
         }
     }
 
     handleSubmit = async (e) => {
-        // alert('ADD INCOME CLICKED');
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
@@ -69,7 +69,7 @@ export default class RealEstate extends Component {
                 </h5>
                 {this.state.totalRealEstate.map(re => (
                     <div key={re.amount}>
-                        <table>
+                        <Table striped bordered hover size="sm">
                             <tbody>
                                 <tr>
                                     <td>{re.type}</td>
@@ -78,7 +78,7 @@ export default class RealEstate extends Component {
                                     <td><button value="Delete">X</button></td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </Table>
                     </div>
                 ))}
                 <form ref={this.formRef} onSubmit={this.handleSubmit}>
