@@ -19,7 +19,7 @@ function show() {
         },
         //body: JSON.stringify(financialStatement)
     }
-    return fetch(BASE_URL, options).then(res => res.json())
+    return fetch(BASE_URL, options).then(res => res.json());
 }
 
 function create(financialStatement) {

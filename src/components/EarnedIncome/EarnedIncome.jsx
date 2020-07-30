@@ -25,6 +25,11 @@ export default class EarnedIncome extends Component {
             //.forEach or .map --> Object.keys/values
             console.log(data)
             this.setState({ totalEarnedIncome: data.user.userFinances })
+            // this.setState({
+            //     totalEarnedIncome: data.user.userFinances.filter(elem => (
+            //         if(elem.type === 'Job' || 'Self-employment' || 'Other')
+            //     ))
+
         } catch (err) {
             console.error(err);
         }
