@@ -19,7 +19,6 @@ export default class EarnedIncome extends Component {
     componentDidMount() {
         try {
             console.log('App: componentDidMount')
-            //financialStatementService.show().then(data => console.log(data.user.userFinances))
             financialStatementService.show().then(this.setState(state => ({
 
                 // totalEarnedIncome: [{ amountEarned: amount, earnedIncomeType: type }] --> amount & type are undefined

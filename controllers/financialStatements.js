@@ -64,7 +64,6 @@ async function deleteOne(req, res) {
         return res.status(400).json(err);
         console.error(err);
         console.log('ERR: DELETE FN');
-
     }
 }
 
