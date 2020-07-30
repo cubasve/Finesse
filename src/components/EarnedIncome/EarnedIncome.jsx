@@ -23,17 +23,22 @@ export default class EarnedIncome extends Component {
     //instance of component is created & inserted into DOM during COMMIT phase
     componentDidMount() {
         console.log('App: componentDidMount')
-        // fetch('api/financialstatements')
-        //     .then((res) => res.json())
-        //     .then((data) => this.setState({
-        //         data: data
-        //     }))
-        fetch('api/financialstatements')
-            .then((res) => res.json())
-            .then((data) => console.log(data))
-        //GET 401 (Unauthorized)  --> {msg: 'Not Authorized'}
+        //financialStatementService.show().then(data => console.log(data.user.userFinances))
+        financialStatementService.show().then(data => this.setState({
+            data: data.user.userFinances
+        }))
+        console.log(data.user.userFinances);
     }
+    // fetch('api/financialstatements')
+    //     .then((res) => res.json())
+    //     .then((data) => this.setState({
+    //         data: data
+    //     }))
 
+    // fetch('api/financialstatements')
+    //     .then((res) => res.json())
+    //     .then((data) => console.log(data))
+    //GET 401 (Unauthorized)  --> {msg: 'Not Authorized'}
 
     componentDidUpdate() {
         console.log('App: componentDidUpdate')

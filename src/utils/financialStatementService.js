@@ -4,7 +4,7 @@ import tokenService from './tokenService';
 const BASE_URL = '/api/financialstatements';
 
 export default {
-    // show,
+    show,
     create,
     update,
     deleteOne,
@@ -21,9 +21,9 @@ function show() {
         //body: JSON.stringify(financialStatement)
     }
     //=====--------------------------------
-    return fetch(BASE_URL, options).then(res => res.json()).then(data => console.log(data));
+    return fetch(BASE_URL, options).then(res => res.json())
+    // .then(data => console.log(data.user.userFinances));
 }
-
 
 function create(financialStatement) {
     const options = {
