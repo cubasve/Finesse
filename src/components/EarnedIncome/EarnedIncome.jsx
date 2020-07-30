@@ -6,11 +6,8 @@ const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
 export default class EarnedIncome extends Component {
     state = {
-        //Add category
         totalEarnedIncome: [],
         newEarnedIncome: {
-            // earnedIncomeType: 'Job',
-            // amountEarned: '',
             type: 'Job',
             amount: '',
             //Add category
@@ -24,23 +21,12 @@ export default class EarnedIncome extends Component {
     async componentDidMount() {
         try {
             console.log('App: componentDidMount')
-            //let data = await financialStatementService.show();
-
             let data = await financialStatementService.show()
                 .then(data => {
                     // data.user.userFinances.filter(elem => (elem.category === 'Earned'))
                     this.setState({ totalEarnedIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned')) })
                 })
-
-
-            //chain .filter
-            //.forEach or .map --> Object.keys/values
-
             console.log(data)
-            // this.setState({
-            //     totalEarnedIncome: data.user.userFinances.filter(elem => (
-            //         if(elem.type === 'Job' || 'Self-employment' || 'Other')
-            //     ))
         } catch (err) {
             console.error(err);
         }
@@ -90,11 +76,47 @@ export default class EarnedIncome extends Component {
     }
 
     handleUpdate = e => {
-        //financialStatementService.update(...)
+        const updateIncome = e.target.value
+        console.log(updateIncome)
+        financialStatementService.update({
+            _id: e.target.value,
+            type: this.state.totalEarnedIncome.type,
+            amount: this.state.totalEarnedIncome.amount
+        })
+            .then(this.setState({ totalEarnedIncome: [...this.state.totalEarnedIncome] }))
+
+
         //pull ei.id with e.target.value 
+        //from the id, I want the type & amount
     }
 
+
+    // await financialStatementService.create({
+    //     type: this.state.newEarnedIncome.type,
+    //     amount: this.state.newEarnedIncome.amount,
+    //     //Add category
+    //     category: this.state.newEarnedIncome.category
+    // })
+    //     .then(
+    //         this.setState(state => ({
+    //             totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
+    //             //add newEarnedIncome onto pre-existing totalEarnedIncome array
+
+    //             //newEarnedIncome: { earnedIncomeType: 'Job', amountEarned: '' },
+    //             newEarnedIncome: {
+    //                 type: 'Job',
+    //                 amount: '',
+    //                 //Add category
+    //                 category: 'Earned'
+    //             },
+    //             formInvalid: true,
+    //             //reset the inputs 
+    //         }))
+    //     )
+
     handleDelete = e => {
+        const deleteIncome = e.target.value
+        console.log(deleteIncome)
         //financialStatementService.deleteOne(...)
     }
 
@@ -120,8 +142,20 @@ export default class EarnedIncome extends Component {
                                 <tr>
                                     <td>{ei.type}</td>
                                     <td>{ei.amount}</td>
-                                    <td><button value="ei.id" onClick={this.handleUpdate}>U</button></td>
-                                    <td><button value="ei.id" onClick={this.handleDelete}>X</button></td>
+                                    <td>
+                                        <button
+                                            // name={ei.type}
+                                            value={ei._id}
+                                            onClick={this.handleUpdate}>U
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button
+                                            // name={ei.type}
+                                            value={ei._id}
+                                            onClick={this.handleDelete}>X
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
