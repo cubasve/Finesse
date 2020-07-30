@@ -8,8 +8,10 @@ export default class EarnedIncome extends Component {
     state = {
         totalEarnedIncome: [],
         newEarnedIncome: {
-            earnedIncomeType: 'Job',
-            amountEarned: '',
+            // earnedIncomeType: 'Job',
+            // amountEarned: '',
+            type: 'Job',
+            amount: '',
         },
         formInvalid: true,
     }
@@ -23,51 +25,10 @@ export default class EarnedIncome extends Component {
             //.forEach or .map --> Object.keys/values
             console.log(data)
             this.setState({ totalEarnedIncome: data.user.userFinances })
-            // financialStatementService.show().then(this.setState(state => ({
-            //     totalEarnedIncome: this.state.totalEarnedIncome
-            // (el => (
-            //     <div key={el.amountEarned}>
-            //         <table>
-            //             <tr>
-            //                 <td>{el.earnedIncomeType}</td>
-            //                 <td>{el.amountEarned}</td>
-            //             </tr>
-            //         </table>
-            //     </div>
-            // ))
-
-            // totalEarnedIncome: [{ amountEarned: amount, earnedIncomeType: type }] --> amount & type are undefined
-
-            //totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome], //--> 1 job stays
-
-            //totalEarnedIncome: [state.newEarnedIncome.earnedIncomeType, state.newEarnedIncome.amountEarned] --> ["Job", ""]
-
-            //type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned
-
-            // totalEarnedIncome: [{
-            //     amountEarned: state.newEarnedIncome.amountEarned,
-            //     earnedIncomeType: state.newEarnedIncome.earnedIncomeType
-            // }] //--> 1 job stays
-
-            //totalEarnedIncome: [...state.totalEarnedIncome],
-            //earnedIncomeType: this.state.newEarnedIncome.earnedIncomeType,
-            // amountEarned: this.state.newEarnedIncome.amountEarned
-            // })))
         } catch (err) {
             console.error(err);
         }
     }
-
-    // fetch('api/financialstatements')
-    //     .then((res) => res.json())
-    //     .then((data) => this.setState({
-    //         data: data
-    //     }))
-
-    // fetch('api/financialstatements')
-    //     .then((res) => res.json())
-    //     .then((data) => console.log(data))
-    //GET 401 (Unauthorized)  --> {msg: 'Not Authorized'}
 
     componentDidUpdate() {
         console.log('App: componentDidUpdate')
@@ -77,12 +38,15 @@ export default class EarnedIncome extends Component {
         e.preventDefault();
         if (!this.formRef.current.checkValidity()) return;
         try {
-            await financialStatementService.create({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned })
+            //await financialStatementService.create({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned })
+            await financialStatementService.create({ type: this.state.newEarnedIncome.type, amount: this.state.newEarnedIncome.amount })
                 .then(
                     this.setState(state => ({
                         totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newEarnedIncome: { earnedIncomeType: 'Job', amountEarned: '' },
+
+                        //newEarnedIncome: { earnedIncomeType: 'Job', amountEarned: '' },
+                        newEarnedIncome: { type: 'Job', amount: '' },
                         formInvalid: true,
                         //reset the inputs 
                     }))
@@ -122,7 +86,8 @@ export default class EarnedIncome extends Component {
                     ))} */}
                 </h5>
                 {this.state.totalEarnedIncome.map(ei => (
-                    <div key={ei.amountEarned}>
+                    //<div key={ei.amountEarned}>
+                    <div key={ei.amount}>
                         <Table striped bordered hover size="sm">
                             <tbody>
                                 <tr>
@@ -138,8 +103,10 @@ export default class EarnedIncome extends Component {
                 <form ref={this.formRef} onSubmit={this.handleSubmit}>
                     <label>
                         <select
-                            name="earnedIncomeType"
-                            value={this.state.newEarnedIncome.earnedIncomeType}
+                            //name="earnedIncomeType"
+                            name="type"
+                            //value={this.state.newEarnedIncome.earnedIncomeType}
+                            value={this.state.newEarnedIncome.type}
                             onChange={this.handleChange}
                         >
                             {earnedIncomeOptions.map(option => (
@@ -149,8 +116,10 @@ export default class EarnedIncome extends Component {
                     </label>
                     <label>
                         <input
-                            name="amountEarned"
-                            value={this.state.newEarnedIncome.amountEarned}
+                            // name="amountEarned"
+                            // value={this.state.newEarnedIncome.amountEarned}
+                            name="amount"
+                            value={this.state.newEarnedIncome.amount}
                             onChange={this.handleChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
