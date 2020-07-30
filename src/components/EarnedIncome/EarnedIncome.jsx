@@ -26,17 +26,17 @@ export default class EarnedIncome extends Component {
             console.log('App: componentDidMount')
             //let data = await financialStatementService.show();
 
-            let data = await financialStatementService.show();
-            //let filter = data.filter(elem => (elem.category == 'Earned')
+            let data = await financialStatementService.show()
+                .then(data => {
+                    // data.user.userFinances.filter(elem => (elem.category === 'Earned'))
+                    this.setState({ totalEarnedIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned')) })
+                })
 
-            // .then(data => data.filter(elem => (elem.category == 'Earned'))
 
             //chain .filter
             //.forEach or .map --> Object.keys/values
 
             console.log(data)
-
-            this.setState({ totalEarnedIncome: data.user.userFinances })
             // this.setState({
             //     totalEarnedIncome: data.user.userFinances.filter(elem => (
             //         if(elem.type === 'Job' || 'Self-employment' || 'Other')
