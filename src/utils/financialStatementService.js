@@ -12,14 +12,15 @@ export default {
 
 function show() {
     const options = {
-        method: 'GET',
+        method: 'GET', //fetch automatically makes a GET request - code not needed
         headers: {
             'Content-type': 'application/json',
             'Authorization': 'Bearer ' + tokenService.getToken()
         },
         //body: JSON.stringify(financialStatement)
     }
-    return fetch(BASE_URL, options).then(res => res.json()).then(data => console.log(data.user.userFinances))
+    return fetch(BASE_URL, options).then(res => res.json())
+    //.then(data => console.log(data.user.userFinances));
 
     // return fetch(BASE_URL, options).then(res => res.json()).then(data => console.log(data.user.userFinances.map(elem => (
     //     { type: type, amount: amount }

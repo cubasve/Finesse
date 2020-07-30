@@ -16,38 +16,43 @@ export default class EarnedIncome extends Component {
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
     //instance of component is created & inserted into DOM during COMMIT phase
-    componentDidMount() {
+    async componentDidMount() {
         try {
             console.log('App: componentDidMount')
-            financialStatementService.show().then(this.setState(state => ({
-                totalEarnedIncome: this.state.totalEarnedIncome.map(el => (
-                    <div key={el.amountEarned}>
-                        <table>
-                            <tr>
-                                <td>{el.earnedIncomeType}</td>
-                                <td>{el.amountEarned}</td>
-                            </tr>
-                        </table>
-                    </div>
-                ))
+            let data = await financialStatementService.show(); //chain .filter
+            //.forEach or .map --> Object.keys/values
+            console.log(data)
+            this.setState({ totalEarnedIncome: data.user.userFinances })
+            // financialStatementService.show().then(this.setState(state => ({
+            //     totalEarnedIncome: this.state.totalEarnedIncome
+            // (el => (
+            //     <div key={el.amountEarned}>
+            //         <table>
+            //             <tr>
+            //                 <td>{el.earnedIncomeType}</td>
+            //                 <td>{el.amountEarned}</td>
+            //             </tr>
+            //         </table>
+            //     </div>
+            // ))
 
-                // totalEarnedIncome: [{ amountEarned: amount, earnedIncomeType: type }] --> amount & type are undefined
+            // totalEarnedIncome: [{ amountEarned: amount, earnedIncomeType: type }] --> amount & type are undefined
 
-                //totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome], //--> 1 job stays
+            //totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome], //--> 1 job stays
 
-                //totalEarnedIncome: [state.newEarnedIncome.earnedIncomeType, state.newEarnedIncome.amountEarned] --> ["Job", ""]
+            //totalEarnedIncome: [state.newEarnedIncome.earnedIncomeType, state.newEarnedIncome.amountEarned] --> ["Job", ""]
 
-                //type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned
+            //type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned
 
-                // totalEarnedIncome: [{
-                //     amountEarned: state.newEarnedIncome.amountEarned,
-                //     earnedIncomeType: state.newEarnedIncome.earnedIncomeType
-                // }] //--> 1 job stays
+            // totalEarnedIncome: [{
+            //     amountEarned: state.newEarnedIncome.amountEarned,
+            //     earnedIncomeType: state.newEarnedIncome.earnedIncomeType
+            // }] //--> 1 job stays
 
-                //totalEarnedIncome: [...state.totalEarnedIncome],
-                //earnedIncomeType: this.state.newEarnedIncome.earnedIncomeType,
-                // amountEarned: this.state.newEarnedIncome.amountEarned
-            })))
+            //totalEarnedIncome: [...state.totalEarnedIncome],
+            //earnedIncomeType: this.state.newEarnedIncome.earnedIncomeType,
+            // amountEarned: this.state.newEarnedIncome.amountEarned
+            // })))
         } catch (err) {
             console.error(err);
         }
@@ -121,10 +126,10 @@ export default class EarnedIncome extends Component {
                         <Table striped bordered hover size="sm">
                             <tbody>
                                 <tr>
-                                    <td>{ei.earnedIncomeType}</td>
-                                    <td>{ei.amountEarned}</td>
-                                    <td><button value="Update" onClick={this.handleUpdate}>U</button></td>
-                                    <td><button value="Delete" onClick={this.handleDelete}>X</button></td>
+                                    <td>{ei.type}</td>
+                                    <td>{ei.amount}</td>
+                                    <td><button value="ei.id" onClick={this.handleUpdate}>U</button></td>
+                                    <td><button value="e.id" onClick={this.handleDelete}>X</button></td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -137,7 +142,7 @@ export default class EarnedIncome extends Component {
                             value={this.state.newEarnedIncome.earnedIncomeType}
                             onChange={this.handleChange}
                         >
-                            {earnedIncomeOptions.map((option) => (
+                            {earnedIncomeOptions.map(option => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
                         </select>

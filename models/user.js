@@ -7,6 +7,8 @@ const SALT_ROUNDS = 6;
 const userFinances = new Schema({
     type: { type: String },
     amount: { type: Number },
+    // type --> description
+    //type: {type: String} enum: [earned, passive, portfolio....] (for each form)
 });
 
 const userSchema = new Schema({
