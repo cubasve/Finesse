@@ -1,4 +1,3 @@
-//const FinancialStatement = require('../models/financialStatement');
 const User = require('../models/user');
 
 module.exports = {
@@ -22,6 +21,7 @@ async function show(req, res) {
 async function create(req, res) {
     try {
         const user = await User.findById({ _id: req.user._id });
+        //req.user = user you get back from token VS user = User.findById(...) is the user document from Mongoose 
         user.userFinances.push({ 'type': req.body.type, 'amount': req.body.amount })
         console.log(user)
         console.log(user.userFinances)

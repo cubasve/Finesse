@@ -20,6 +20,16 @@ export default class EarnedIncome extends Component {
         try {
             console.log('App: componentDidMount')
             financialStatementService.show().then(this.setState(state => ({
+                totalEarnedIncome: this.state.totalEarnedIncome.map(el => (
+                    <div key={el.amountEarned}>
+                        <table>
+                            <tr>
+                                <td>{el.earnedIncomeType}</td>
+                                <td>{el.amountEarned}</td>
+                            </tr>
+                        </table>
+                    </div>
+                ))
 
                 // totalEarnedIncome: [{ amountEarned: amount, earnedIncomeType: type }] --> amount & type are undefined
 
