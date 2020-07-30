@@ -6,12 +6,15 @@ const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
 export default class EarnedIncome extends Component {
     state = {
+        //Add category
         totalEarnedIncome: [],
         newEarnedIncome: {
             // earnedIncomeType: 'Job',
             // amountEarned: '',
             type: 'Job',
             amount: '',
+            //Add category
+            category: 'Earned'
         },
         formInvalid: true,
     }
@@ -21,9 +24,21 @@ export default class EarnedIncome extends Component {
     async componentDidMount() {
         try {
             console.log('App: componentDidMount')
-            let data = await financialStatementService.show(); //chain .filter
+            //let data = await financialStatementService.show();
+
+            let data = await financialStatementService.show()
+            //let filter = data.filter(elem => (elem.category == 'Earned')
+
+
+            // .then(data => data.filter(elem => (elem.category == 'Earned'))
+
+            //chain .filter
             //.forEach or .map --> Object.keys/values
-            console.log(data)
+            //if statement or a switch statement
+            //create empty array to start off with evey category (earned, passive, portfolio) and as .map, if object has key at this value of passive, then push to passive array
+
+            //console.log(data)
+
             this.setState({ totalEarnedIncome: data.user.userFinances })
             // this.setState({
             //     totalEarnedIncome: data.user.userFinances.filter(elem => (
@@ -44,14 +59,22 @@ export default class EarnedIncome extends Component {
         if (!this.formRef.current.checkValidity()) return;
         try {
             //await financialStatementService.create({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.newEarnedIncome.amountEarned })
-            await financialStatementService.create({ type: this.state.newEarnedIncome.type, amount: this.state.newEarnedIncome.amount })
+            await financialStatementService.create({
+                type: this.state.newEarnedIncome.type, amount: this.state.newEarnedIncome.amount
+                //Add category
+                , category: this.state.newEarnedIncome.category
+            })
                 .then(
                     this.setState(state => ({
                         totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
 
                         //newEarnedIncome: { earnedIncomeType: 'Job', amountEarned: '' },
-                        newEarnedIncome: { type: 'Job', amount: '' },
+                        newEarnedIncome: {
+                            type: 'Job', amount: '',
+                            //Add category
+                            category: 'Earned'
+                        },
                         formInvalid: true,
                         //reset the inputs 
                     }))
@@ -69,6 +92,7 @@ export default class EarnedIncome extends Component {
 
     handleUpdate = e => {
         //financialStatementService.update(...)
+        //pull ei.id with e.target.value 
     }
 
     handleDelete = e => {
@@ -99,7 +123,7 @@ export default class EarnedIncome extends Component {
                                     <td>{ei.type}</td>
                                     <td>{ei.amount}</td>
                                     <td><button value="ei.id" onClick={this.handleUpdate}>U</button></td>
-                                    <td><button value="e.id" onClick={this.handleDelete}>X</button></td>
+                                    <td><button value="ei.id" onClick={this.handleDelete}>X</button></td>
                                 </tr>
                             </tbody>
                         </Table>
