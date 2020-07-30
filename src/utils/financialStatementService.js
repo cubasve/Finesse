@@ -10,19 +10,20 @@ export default {
     deleteOne,
 }
 
-// function show() {
-//     //------------------------------------
-//     const options = {
-//         method: 'GET',
-//         headers: {
-//             'Content-type': 'application/json',
-//             'Authorization': 'Bearer ' + tokenService.getToken()
-//         },
-//         //body: JSON.stringify(financialStatement)
-//     }
-//     //=====--------------------------------
-//     return fetch(BASE_URL, options).then(res => res.json());
-// }
+function show() {
+    //------------------------------------
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer ' + tokenService.getToken()
+        },
+        //body: JSON.stringify(financialStatement)
+    }
+    //=====--------------------------------
+    return fetch(BASE_URL, options).then(res => res.json()).then(data => console.log(data));
+}
+
 
 function create(financialStatement) {
     const options = {

@@ -14,28 +14,26 @@ export default class EarnedIncome extends Component {
     }
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
 
+
+
+    //Once it's turned into JSON, we're referencing to it as data  --> response we're getting from route
+    //.json() returns a promise that resolves to the data by the server, as JSON
+    //Data returned by server has been parsed out of JSON and it will parse into a JS object that we then use in our app
+
     //instance of component is created & inserted into DOM during COMMIT phase
     componentDidMount() {
-        console.log('App: componentDidMount');
-        //financialStatementService.show({ type: this.state.totalEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
-        // financialStatementService.show({ type: this.state.newEarnedIncome.earnedIncomeType, amount: this.state.totalEarnedIncome.amountEarned })
-
-        //use fetch to hit a route in controllers --> GET /api/financialstatements
-        // fetch(url for api route)
+        console.log('App: componentDidMount')
+        // fetch('api/financialstatements')
         //     .then((res) => res.json())
-        //         .then((data) => this.setState({
-        //             data: data
-        //         }))
-        fetch('http://localhost:3000/api/financialstatements')
+        //     .then((data) => this.setState({
+        //         data: data
+        //     }))
+        fetch('api/financialstatements')
             .then((res) => res.json())
-            //Once it's turned into JSON, we're referencing to it as data  --> response we're getting from route
-            //.json() returns a promise that resolves to the data by the server, as JSON
-            //Data returned by server has been parsed out of JSON and it will parse into a JS object that we then use in our app
-            .then((data) => this.setState({
-                data: data
-            }))
-        console.log(data);
+            .then((data) => console.log(data))
+        //GET 401 (Unauthorized)  --> {msg: 'Not Authorized'}
     }
+
 
     componentDidUpdate() {
         console.log('App: componentDidUpdate')
