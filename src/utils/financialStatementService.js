@@ -55,7 +55,7 @@ function deleteOne(financialStatement) {
         },
         body: JSON.stringify(financialStatement)
     }
-    return fetch(BASE_URL, options).then(res => res.json());
+    return fetch(BASE_URL + '/' + financialStatement.id, options).then(res => res.json());
 }
 
 //PATH: component --> serviceWorker --> API route using fetch --> controller fn --> re-render/redirect

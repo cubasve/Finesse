@@ -85,29 +85,28 @@ export default class EarnedIncome extends Component {
                 type: this.state.newEarnedIncome.type, //"Job"
             }
             //console.log(updateIncome)
-
-            //const x = this.state.totalEarnedIncome.filter(elem => (elem._id === e.target.value));
-            //console.log(x)
-
             await financialStatementService.update(updateIncome)
                 //.then(data => console.log(data)) //user object
                 .then((data) => this.setState({ totalEarnedIncome: data.userFinances })) //state = data
 
             //.then(data => console.log(data))
-
-            //     this.setState(({
-            //     // totalEarnedIncome: data.user.userFinances.map()
-            //     // [...this.state.totalEarnedIncome, data.user.userFinances]
-            // })))
         } catch (err) {
             console.error(err);
         }
     }
 
-    handleDelete = e => {
-        const deleteIncome = e.target.value
-        console.log(deleteIncome)
-        //financialStatementService.deleteOne(...)
+    handleDelete = async (e) => {
+        // const deleteIncome = {
+        //     id: e.target.value,
+        //     amount: e.target.name
+        // };
+        // console.log(deleteIncome)
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value, amount: e.target.name })
+                .then(this.setState({ totalEarnedIncome: this.state.totalEarnedIncome }))
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     render() {
@@ -135,7 +134,7 @@ export default class EarnedIncome extends Component {
                                     </td>
                                     <td>
                                         <button
-                                            // name={ei.type}
+                                            name={ei.amount}
                                             value={ei._id}
                                             onClick={this.handleDelete}>X
                                         </button>
