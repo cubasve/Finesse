@@ -55,21 +55,6 @@ export default class App extends Component {
     this.setState({ user: userService.getUser() });
   };
 
-  addIncome = () => {
-    console.log('ADD INCOME CLICKED');
-    this.setState(state => ({
-      earnedIncomeStreams: [...state.earnedIncomeStreams, state.newEarnedIncome],
-      //replace (not mutating) --> add newEarnedIncome onto pre-existing earnedIncomeStreams array
-      newEarnedIncome: { earnedIncome: '', amountEarned: '' }
-      //rest the inputs for better UX
-    }))
-  }
-
-  handleChange = e => {
-    const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
-    this.setState({ newEarnedIncome: newEarnedIncome })
-  }
-
   render() {
     return (
       <div className="App">
@@ -82,12 +67,7 @@ export default class App extends Component {
           <Route exact path="/financialstatement" render={() => (
             userService.getUser() ?
               <main>
-                <FinancialStatementPage
-                  addIncome={this.addIncome}
-                  earnedIncome={this.state.newEarnedIncome.earnedIncome}
-                  amountEarned={this.state.newEarnedIncome.amountEarned}
-                  handleChange={this.handleChange}
-                />
+                <FinancialStatementPage />
               </main>
               :
               <Redirect to='/login' />

@@ -7,7 +7,10 @@ export default function HomePage(props) {
         <div>
             {/* <NavBar user={props.user} handleLogout={props.handleLogout} /> */}
             {props.user && <Link className='btn btn-default FinancialStatementPage-link-margin' to='/financialstatement'>FINANCIAL STATEMENT</Link>}
-            Home Page
+
+            {/* BECOME FINANCIALLY LITERATE
+
+            Using Financial Statements */}
         </div>
     )
 }

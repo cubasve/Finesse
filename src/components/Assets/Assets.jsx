@@ -8,9 +8,14 @@ export default function Assets(props) {
     return (
         <div className="border">
             <span className="title">ASSETS</span>
-            <button
-                style={{ borderRadius: '50%' }}
-            >&#8505;</button>
+            {/* <button
+                type="button"
+                className="btn"
+                data-toggle="popver"
+                title="ASSET"
+                data-content="Something that puts money in your pocket" 
+            style={{ borderRadius: '50%' }} */}
+            <button>&#8505;</button>
             <p>CASH: </p>
             <PaperAssets />
             <RealEstate />
