@@ -60,17 +60,17 @@ export default class PassiveIncome extends Component {
             <section>
                 <h5>
                     <span>Passive</span>
-                    <span>$</span>
+                    {/* <span>$</span> */}
                 </h5>
                 {this.state.totalPassiveIncome.map(pi => (
                     <div key={pi.amount}>
-                        <Table striped bordered hover size="sm">
+                        <Table hover size="sm">
                             <tbody>
                                 <tr>
                                     <td>{pi.type}</td>
-                                    <td>{pi.amount}</td>
-                                    <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td>
+                                    <td className="right">{pi.amount}</td>
+                                    {/* <td><button value="Update">U</button></td>
+                                    <td><button value="Delete">X</button></td> */}
                                 </tr>
                             </tbody>
                         </Table>

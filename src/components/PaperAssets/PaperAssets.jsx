@@ -64,17 +64,17 @@ export default class PaperAssets extends Component {
             <section>
                 <h5>
                     <span>Paper</span>
-                    <span>$</span>
+                    {/* <span>$</span> */}
                 </h5>
                 {this.state.totalPaperAssets.map(pa => (
                     <div key={pa.amount}>
-                        <Table striped bordered hover size="sm">
+                        <Table hover size="sm">
                             <tbody>
                                 <tr>
                                     <td>{pa.type}</td>
-                                    <td>{pa.amount}</td>
-                                    <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td>
+                                    <td className="right">{pa.amount}</td>
+                                    {/* <td><button value="Update">U</button></td>
+                                    <td><button value="Delete">X</button></td> */}
                                 </tr>
                             </tbody>
                         </Table>

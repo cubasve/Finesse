@@ -12,21 +12,40 @@ code {
     monospace;
 }
 
-/* div, section {
-  border: 1px solid grey;
-  margin: 5px;
-  padding: 5px;
-} */
-
 h5 {
   margin: 5px 5px;
   color: blue;
 }
 
-
 div.border {
   padding: 20px 40px;
   margin: 20px 50px;
+}
+
+span.title {
+  color: maroon;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+div.FinancialStatement {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+span.statement {
+  color: red;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+/* td.left {
+  float: left;
+} */
+
+td.right {
+  float: right;
 }
 
 
@@ -35,8 +54,6 @@ div.border {
   padding: 0px;
   border: 1px purple;
 } */
-
-
 
 
 /* button:disabled .form-submission {

@@ -64,17 +64,17 @@ export default class Commodities extends Component {
             <section>
                 <h5>
                     <span>Commodities</span>
-                    <span>$</span>
+                    {/* <span>$</span> */}
                 </h5>
                 {this.state.totalCommodities.map(c => (
                     <div key={c.amount}>
-                        <Table striped bordered hover size="sm">
+                        <Table hover size="sm">
                             <tbody>
                                 <tr>
                                     <td>{c.type}</td>
-                                    <td>{c.amount}</td>
-                                    <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td>
+                                    <td className="right">{c.amount}</td>
+                                    {/* <td><button value="Update">U</button></td>
+                                    <td><button value="Delete">X</button></td> */}
                                 </tr>
                             </tbody>
                         </Table>

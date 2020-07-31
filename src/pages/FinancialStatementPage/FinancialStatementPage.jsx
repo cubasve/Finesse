@@ -7,20 +7,18 @@ import Expenses from '../../components/Expenses/Expenses';
 export default function FinancialStatementPage(props) {
     return (
         <div className='FinancialStatement'>
-            <main>
-                <div>
-                    BALANCE SHEET
-                    <Assets />
-                    <Liabilities />
+            <div>
+                <span className="statement">BALANCE SHEET</span>
+                <Assets />
+                <Liabilities />
                     EQUITY/NET WORTH = ASSETS - LIABILITIES
                 </div>
-                <div>
-                    INCOME STATEMENT
-                    <Income />
-                    <Expenses />
-            CASH FLOW: INCOME - EXPENSES
-        </div>
-            </main>
+            <div>
+                <span className="statement">INCOME STATEMENT</span>
+                <Income />
+                <Expenses />
+                    CASH FLOW: INCOME - EXPENSES
+                </div>
         </div>
     )
 }

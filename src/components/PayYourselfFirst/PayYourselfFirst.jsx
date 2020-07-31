@@ -24,7 +24,7 @@ export default class PayYourselfFirst extends Component {
     render() {
         return (
             <div>
-                <h6>Pay Yourself First</h6>
+                <h5>Pay Yourself First</h5>
 
                 {/* <form ref={this.formRef} onSubmit={this.handleSubmit} >
                     <label>

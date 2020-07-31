@@ -64,17 +64,17 @@ export default class BadDebt extends Component {
             <section>
                 <h5>
                     <span>Bad Debt</span>
-                    <span>$</span>
+                    {/* <span>$</span> */}
                 </h5>
                 {this.state.totalBadDebt.map(bd => (
                     <div key={bd.amount}>
-                        <Table striped bordered hover size="sm">
+                        <Table hover size="sm">
                             <tbody>
                                 <tr>
                                     <td>{bd.type}</td>
-                                    <td>{bd.amount}</td>
-                                    <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td>
+                                    <td className="right">{bd.amount}</td>
+                                    {/* <td><button value="Update">U</button></td>
+                                    <td><button value="Delete">X</button></td> */}
                                 </tr>
                             </tbody>
                         </Table>

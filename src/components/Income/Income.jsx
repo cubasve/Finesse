@@ -8,7 +8,7 @@ import Passive from '../PassiveIncome/PassiveIncome';
 export default function Income(props) {
     return (
         <div className="border">
-            INCOME
+            <span className="title">INCOME</span>
             <Earned />
             <Portfolio />
             <Passive />

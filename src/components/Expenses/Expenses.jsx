@@ -63,7 +63,7 @@ export default class Expenses extends Component {
     render() {
         return (
             <div className="border">
-                <span>EXPENSES</span>
+                <span className="title">EXPENSES</span>
                 <PayYourselfFirst />
                 {/* <h4>
                     Expenses
@@ -74,13 +74,13 @@ export default class Expenses extends Component {
                 </h4> */}
                 {this.state.totalExpenses.map(ex => (
                     <div key={ex.amount}>
-                        <Table striped bordered hover size="sm">
+                        <Table hover size="sm">
                             <tbody>
                                 <tr>
                                     <td>{ex.type}</td>
-                                    <td>{ex.amount}</td>
-                                    <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td>
+                                    <td className="right">{ex.amount}</td>
+                                    {/* <td><button value="Update">U</button></td>
+                                    <td><button value="Delete">X</button></td> */}
                                 </tr>
                             </tbody>
                         </Table>

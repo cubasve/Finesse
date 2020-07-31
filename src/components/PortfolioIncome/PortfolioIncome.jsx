@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import financialStatementService from '../../utils/financialStatementService';
-//import Table from 'react-bootstrap/Table';
+import Table from 'react-bootstrap/Table';
 
 const portfolioIncomeOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
@@ -66,21 +66,21 @@ export default class PortfolioIncome extends Component {
             <section>
                 <h5>
                     <span>Portfolio</span>
-                    <span>$</span>
+                    {/* <span>$</span> */}
                 </h5>
                 {
                     this.state.totalPortfolioIncome.map(pi => (
                         <div key={pi.amount}>
-                            <table className="table table-hover">
+                            <Table hover size="sm">
                                 <tbody>
                                     <tr>
-                                        <td>{pi.type}</td>
-                                        <td>{pi.amount}</td>
-                                        <td><button value="Update">U</button></td>
-                                        <td><button value="Delete">X</button></td>
+                                        <td className="left">{pi.type}</td>
+                                        <td className="right">{pi.amount}</td>
+                                        {/* <td><button value="Update">U</button></td>
+                                        <td><button value="Delete">X</button></td> */}
                                     </tr>
                                 </tbody>
-                            </table>
+                            </Table>
                         </div>
                     ))
                 }
