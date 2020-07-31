@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import financialStatementService from '../../utils/financialStatementService';
-import Table from 'react-bootstrap/Table';
+//import Table from 'react-bootstrap/Table';
 
 const portfolioIncomeOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
@@ -64,25 +64,52 @@ export default class PortfolioIncome extends Component {
     render() {
         return (
             <section>
+                {/* //     <table class="table table-hover">
+            //         <thead>
+            //             <tr>
+            //                 <th scope="col">Earned</th>
+            //                 <th scope="col">$</th>
+            //             </tr>
+            //         </thead>
+            //         <tbody>
+            //             <div key={pi.amount}>
+            //                 <tr>
+            //                     {this.state.totalPortfolioIncome.map(pi => ( */}
+                {/* //                         <><td>{pi.type}</td></>
+            //                         // <td><>{pi.amount}</></td>
+            //                         // <td><button>U</button></td>
+            //                         // <td><button>X</button></td>
+            //                         <><td>{pi.amount}</td></>
+            //                         <><td><button>U</button></td></>
+            //                         <><td><button>X</button></td></>
+            //                  ))}
+            //                 </tr> */}
+                {/* //             </div> */}
+                {/* //         </tbody> */}
+                {/* //     </table> */}
+
                 <h5>
                     <span>Portfolio</span>
                     <span>$</span>
                 </h5>
-                {this.state.totalPortfolioIncome.map(pi => (
-                    <div key={pi.amount}>
-                        <Table striped bordered hover size="sm">
-                            <tbody>
-                                <tr>
-                                    <td>{pi.type}</td>
-                                    <td>{pi.amount}</td>
-                                    <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </div>
-                ))}
-                <form ref={this.formRef} onSubmit={this.handleSubmit}>
+                {
+                    this.state.totalPortfolioIncome.map(pi => (
+                        <div key={pi.amount}>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>{pi.type}</td>
+                                        <td>{pi.amount}</td>
+                                        <td><button value="Update">U</button></td>
+                                        <td><button value="Delete">X</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    ))
+                }
+
+                < form ref={this.formRef} onSubmit={this.handleSubmit} >
                     <label>
                         <select
                             name="type"
@@ -118,7 +145,7 @@ export default class PortfolioIncome extends Component {
                         onClick={this.handleSubmit}
                         disabled={this.state.formInvalid}
                     >+</button>
-                </form>
+                </form >
             </section >
         )
     }

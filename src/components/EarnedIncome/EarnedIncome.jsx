@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import financialStatementService from '../../utils/financialStatementService';
-import Table from 'react-bootstrap/Table';
+// import Table from 'react-bootstrap/Table';
 
 const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
@@ -113,7 +113,7 @@ export default class EarnedIncome extends Component {
                 </h5>
                 {this.state.totalEarnedIncome.map(ei => (
                     <div key={ei.amount}>
-                        <Table striped bordered hover size="sm">
+                        <table class="table table-sm">
                             <tbody>
                                 <tr>
                                     <td>{ei.type}</td>
@@ -134,7 +134,7 @@ export default class EarnedIncome extends Component {
                                     </td>
                                 </tr>
                             </tbody>
-                        </Table>
+                        </table>
                     </div>
                 ))}
                 <form ref={this.formRef} onSubmit={this.handleSubmit}>

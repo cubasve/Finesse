@@ -12,11 +12,11 @@ code {
     monospace;
 }
 
-div, section {
+/* div, section {
   border: 1px solid grey;
   margin: 5px;
   padding: 5px;
-}
+} */
 
 h4 {
   margin: 5px 5px;

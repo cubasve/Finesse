@@ -106,7 +106,7 @@ export default class GoodDebt extends Component {
                         <input
                             type="hidden"
                             name="category"
-                            value={this.state.newPortfolioIncome.category}
+                            value={this.state.newGoodDebt.category}
                             onChange={this.handleChange}
                         />
                     </label>
