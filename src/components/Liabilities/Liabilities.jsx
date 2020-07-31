@@ -4,7 +4,7 @@ import BadDebt from '../BadDebt/BadDebt';
 
 export default function Liabilities(props) {
     return (
-        <div>
+        <div className="border">
             LIABILITIES
             <GoodDebt />
             <BadDebt />

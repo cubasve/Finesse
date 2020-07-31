@@ -62,7 +62,7 @@ export default class Expenses extends Component {
 
     render() {
         return (
-            <section>
+            <div className="border">
                 <span>EXPENSES</span>
                 <PayYourselfFirst />
                 {/* <h4>
@@ -122,7 +122,7 @@ export default class Expenses extends Component {
                         disabled={this.state.formInvalid}
                     >+</button>
                 </form>
-            </section >
+            </div>
         )
     }
 }

@@ -2,30 +2,31 @@ import React, { Component } from 'react';
 
 export default class PayYourselfFirst extends Component {
 
-    state = {
-        payYourselfFirst: '',
-        formInvalid: true,
-    }
-    formRef = React.createRef();
+    // state = {
+    //     payYourselfFirst: '',
+    //     formInvalid: true,
+    // }
+    // formRef = React.createRef();
 
-    handleSubmit = e => {
-        e.preventDefault();
-        if (!this.formRef.current.checkValidity()) return;
-        this.setState(state => ({
-            payYourselfFirst: e.target.value
-        }))
-    }
+    // handleSubmit = e => {
+    //     e.preventDefault();
+    //     if (!this.formRef.current.checkValidity()) return;
+    //     this.setState(state => ({
+    //         payYourselfFirst: e.target.value
+    //     }))
+    // }
 
-    handleChange = e => {
-        const payYourselfFirst = { [e.target.name]: e.target.value }
-        this.setState({ payYourselfFirst: payYourselfFirst, formInvalid: !this.formRef.current.checkValidity() })
-    }
+    // handleChange = e => {
+    //     const payYourselfFirst = { [e.target.name]: e.target.value }
+    //     this.setState({ payYourselfFirst: payYourselfFirst, formInvalid: !this.formRef.current.checkValidity() })
+    // }
 
     render() {
         return (
             <div>
                 <h6>Pay Yourself First</h6>
-                <form ref={this.formRef} onSubmit={this.handleSubmit} >
+
+                {/* <form ref={this.formRef} onSubmit={this.handleSubmit} >
                     <label>
                         <input
                             name="percentage"
@@ -41,7 +42,8 @@ export default class PayYourselfFirst extends Component {
                         onClick={this.handleSubmit}
                         disabled={this.state.formInvalid}
                     >+</button>
-                </form >
+                </form > */}
+
             </div>
         )
     }

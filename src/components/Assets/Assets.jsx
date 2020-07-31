@@ -6,7 +6,7 @@ import Commodities from '../Commodities/Commodities'
 
 export default function Assets(props) {
     return (
-        <div>
+        <div className="border">
             ASSETS
             <button
                 style={{ borderRadius: '50%' }}

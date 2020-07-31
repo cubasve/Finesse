@@ -64,30 +64,6 @@ export default class PortfolioIncome extends Component {
     render() {
         return (
             <section>
-                {/* //     <table class="table table-hover">
-            //         <thead>
-            //             <tr>
-            //                 <th scope="col">Earned</th>
-            //                 <th scope="col">$</th>
-            //             </tr>
-            //         </thead>
-            //         <tbody>
-            //             <div key={pi.amount}>
-            //                 <tr>
-            //                     {this.state.totalPortfolioIncome.map(pi => ( */}
-                {/* //                         <><td>{pi.type}</td></>
-            //                         // <td><>{pi.amount}</></td>
-            //                         // <td><button>U</button></td>
-            //                         // <td><button>X</button></td>
-            //                         <><td>{pi.amount}</td></>
-            //                         <><td><button>U</button></td></>
-            //                         <><td><button>X</button></td></>
-            //                  ))}
-            //                 </tr> */}
-                {/* //             </div> */}
-                {/* //         </tbody> */}
-                {/* //     </table> */}
-
                 <h5>
                     <span>Portfolio</span>
                     <span>$</span>
@@ -95,7 +71,7 @@ export default class PortfolioIncome extends Component {
                 {
                     this.state.totalPortfolioIncome.map(pi => (
                         <div key={pi.amount}>
-                            <table>
+                            <table className="table table-hover">
                                 <tbody>
                                     <tr>
                                         <td>{pi.type}</td>

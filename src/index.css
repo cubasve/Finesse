@@ -18,9 +18,26 @@ code {
   padding: 5px;
 } */
 
-h4 {
+h5 {
   margin: 5px 5px;
+  color: blue;
 }
+
+
+div.border {
+  padding: 20px 40px;
+  margin: 20px 50px;
+}
+
+
+/* .table .table-hover {
+  margin: 0px;
+  padding: 0px;
+  border: 1px purple;
+} */
+
+
+
 
 /* button:disabled .form-submission {
   background-color: light-grey;
