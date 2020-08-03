@@ -8,31 +8,6 @@ import userService from '../../utils/userService';
 import FinancialStatementPage from '../FinancialStatementPage/FinancialStatementPage';
 import NavBar from '../../components/NavBar/NavBar';
 
-{/* 
-COMPONENT STRUCTURE
-
-HomePage
-    NavBar
-Signup
-    SignupForm
-Login
-FinancialStatements
-    Assets
-        Paper
-        RealEstate
-        Business
-        Commodities
-    Liabilities
-        GoodDebt
-        BadDebt
-    Income
-        Earned
-        Portfolio
-        Passive
-    Expenses
-        PayYourselfFirst
-*/ }
-
 export default class App extends Component {
 
   state = {

@@ -1,5 +1,3 @@
-const BASE_URL = '/api/users';
-
 function setToken(token) {
     localStorage.setItem('token', token);
 }
