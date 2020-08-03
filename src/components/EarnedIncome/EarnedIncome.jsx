@@ -132,7 +132,7 @@ export default class EarnedIncome extends Component {
                                 <tr>
                                     <td>{ei.type}</td>
                                     <td>{ei.amount}</td>
-                                    <td>
+                                    {/* <td>
                                         <button
                                             name={ei.amount}
                                             value={ei._id}
@@ -145,7 +145,7 @@ export default class EarnedIncome extends Component {
                                             value={ei._id}
                                             onClick={this.handleDelete}>X
                                         </button>
-                                    </td>
+                                    </td> */}
                                 </tr>
                             </tbody>
                         </Table>
