@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from '../HomePage/HomePage';
-import SignUpPage from '../SignupPage/SignUpPage';
+import SignUpPage from '../SignUpPage/SignUpPage';
 import LoginPage from '../LoginPage/LoginPage';
 import userService from '../../utils/userService';
 import FinancialStatementPage from '../FinancialStatementPage/FinancialStatementPage';
