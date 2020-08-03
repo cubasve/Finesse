@@ -1,6 +1,12 @@
 # Finesse
 
 ## Description:
+
+Finesse is based off of the book Increase Your Financial IQ by Robert Kiyosaki. It implements the diagrams in the book and has additional features added onto them.
+
+Finesse aims to simplify financial jargon so it is easy to understand and it aims to teach financial literacy using financial statements.
+
+
 - Users from all different knowledge backgrounds can use this
 - Demystifies/simplifies financial jargon so everyone can understand key concepts
 - Includes the idea of "paying yourself first" with every paycheque before paying other expenses --> it ensures that the user to prioritize their financial future before their payees

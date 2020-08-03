@@ -78,16 +78,29 @@ export default class EarnedIncome extends Component {
             //     type: this.state.newEarnedIncome.type, //"Job"
             // }
             //console.log(updateIncome)
-            const x = { id: e.target.value, amount: e.target.name }
-            console.log(x)
+
+            // const x = { id: e.target.value, amount: e.target.name }
+            // console.log(x)
+
             await financialStatementService.update({ id: e.target.value, amount: e.target.name })
-                //.then(data => console.log(data)) //user object
-                .then((data) => this.setState({ totalEarnedIncome: data.userFinances })) //state = data
+                .then(data => console.log(data.user.userFinances)) //user object
+            // .then((data) => this.setState({ totalEarnedIncome: data.userFinances })) //state = data
             //.then(data => console.log(data))
         } catch (err) {
             console.error(err);
         }
     }
+
+    // try {
+    //     console.log('App: componentDidMount')
+    //     let data = await financialStatementService.show()
+    //         .then(data => {
+    //             this.setState({ totalEarnedIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned')) })
+    //         })
+    //     console.log(data)
+    // } catch (err) {
+    //     console.error(err);
+    // }
 
     handleDelete = async (e) => {
         // const deleteIncome = {
@@ -97,7 +110,8 @@ export default class EarnedIncome extends Component {
         // console.log(deleteIncome)
         try {
             await financialStatementService.deleteOne({ id: e.target.value, amount: e.target.name })
-                .then(data => (this.setState({ totalEarnedIncome: this.state.totalEarnedIncome })))
+                //.then(data => console.log(data))
+                .then(data => (this.setState({ totalEarnedIncome: data.user.userFinances })))
         } catch (err) {
             console.error(err);
         }
@@ -117,8 +131,8 @@ export default class EarnedIncome extends Component {
                             <tbody>
                                 <tr>
                                     <td>{ei.type}</td>
-                                    <td className="right">{ei.amount}</td>
-                                    {/*<td>
+                                    <td>{ei.amount}</td>
+                                    <td>
                                         <button
                                             name={ei.amount}
                                             value={ei._id}
@@ -131,7 +145,7 @@ export default class EarnedIncome extends Component {
                                             value={ei._id}
                                             onClick={this.handleDelete}>X
                                         </button>
-                                    </td> */}
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
