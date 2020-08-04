@@ -36,25 +36,25 @@ Finesse
 - Trello Board: https://trello.com/b/f7luley2/finesse
 
 ## Next Steps: Planned Future Enhancements
-- ** Add functionality to Pay Yourself First: **
+- **Add functionality to Pay Yourself First:**
 The user can input an integer, which represents a percentage, and that gets deducted from the user's paycheque/income source before they pay for their other expenses.
 
-- ** Add definitions to terms: **
+- **Add definitions to terms:**
 When the information icon button is clicked, the popup will show the definition for the particular term.
 
-- ** Math calculations for each financial statement: **
-    - Income Statement: Calculate the total income and the total expenses and deduce the difference (cash flow)
-    - Balance Sheet: Assets = Liabilities + Equity - The balance sheet must be balanced
+- **Math calculations for each financial statement:**
+    - Income Statement: Cash Flow = Total Income - Total Expenses 
+    - Balance Sheet: Assets = Liabilities + Equity 
 
-- ** Add percentages to data inputs: **
+- **Add percentages to data inputs:**
 For instance, out of all the income the user has, how much is allocated to earned, portfolio and passive out of 100%?
 
-- ** Add validation for the income statement: **
-If the income exceeds the expenses, then there will be a green border surrounding the income statement.
-If the income is equal to the expenses (breaking even), then there will be an orange border around the income statement.
-If the income is less than the expenses, then there will be a red border.
+- **Add validation for the income statement:**
+    - If the income exceeds the expenses, then there will be a green border surrounding the income statement.
+    - If the income is equal to the expenses (breaking even), then there will be an orange border around the income statement.
+    - If the income is less than the expenses, then there will be a red border.
 
-- ** Add arrows to the UI: **
+- **Add arrows to the UI:**
 The arrows represent the cash flow statement, which is what connects the balance sheet and the income statement.
     - Earned income is linked to a job (employer's financial statement)
     - Portfolio income comes from paper assets
@@ -62,5 +62,5 @@ The arrows represent the cash flow statement, which is what connects the balance
     - Good debt is connected to assets
     - Bad debt is connected to expenses
 
-- ** Tabs for month & year: **
+- **Tabs for month & year:**
 The user should be able to track their finances monthly, quarterly and annually and see the changes between them. 
