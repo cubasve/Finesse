@@ -102,19 +102,51 @@ export default class EarnedIncome extends Component {
     //     console.error(err);
     // }
 
+    // let firstWhiteCarIdx = cars.findIndex(function(car) {           
+    //     return car.color === 'white';
+    //   });
+    //   // firstWhiteCarIdx equals 1
+    //   let missingCarIdx = cars.findIndex(function(car) {
+    //     return car.color === 'black';
+    //   });
+    //   // missingCarIdx = -1
+    //   /*--- using an arrow function for the callback ---*/
+    //   let firstWhiteCarIdx = cars.findIndex(car => car.color === 'white');
+
     handleDelete = async (e) => {
+        //an array of objects: --> findIndex by id --> splice it
+        //let deleteIncome = { id: e.target.value }
+        let selectedIndex = this.state.totalEarnedIncome.findIndex(index => (index._id === e.target.value));
+
+        console.log(selectedIndex) //-1
+        try {
+            let data = await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalEarnedIncome: data.user.userFinances
+                            .filter(elem => (elem.category === 'Earned'))
+                            .splice(selectedIndex, 1)
+                    })
+                })
+
+        } catch (err) {
+            console.error(err);
+        }
+
+
         // const deleteIncome = {
         //     id: e.target.value,
         //     amount: e.target.name
         // };
         // console.log(deleteIncome)
-        try {
-            await financialStatementService.deleteOne({ id: e.target.value, amount: e.target.name })
-                //.then(data => console.log(data))
-                .then(data => (this.setState({ totalEarnedIncome: data.user.userFinances })))
-        } catch (err) {
-            console.error(err);
-        }
+
+        // try {
+        //     await financialStatementService.deleteOne({ id: e.target.value, amount: e.target.name })
+        //         //.then(data => console.log(data))
+        //         .then(data => (this.setState({ totalEarnedIncome: data.user.userFinances })))
+        // } catch (err) {
+        //     console.error(err);
+        // }
     }
 
     render() {
@@ -123,7 +155,7 @@ export default class EarnedIncome extends Component {
             <section>
                 <h5>
                     <span>Earned</span>
-                    {/* <span>$</span> */}
+                    <span>$</span>
                 </h5>
                 {this.state.totalEarnedIncome.map(ei => (
                     <div key={ei.amount}>
@@ -132,7 +164,7 @@ export default class EarnedIncome extends Component {
                                 <tr>
                                     <td>{ei.type}</td>
                                     <td>{ei.amount}</td>
-                                    {/* <td>
+                                    <td>
                                         <button
                                             name={ei.amount}
                                             value={ei._id}
@@ -145,12 +177,13 @@ export default class EarnedIncome extends Component {
                                             value={ei._id}
                                             onClick={this.handleDelete}>X
                                         </button>
-                                    </td> */}
+                                    </td>
                                 </tr>
                             </tbody>
                         </Table>
                     </div>
                 ))}
+
                 <form ref={this.formRef} onSubmit={this.handleSubmit}>
                     <label>
                         <select

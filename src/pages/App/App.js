@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from '../HomePage/HomePage';
-import SignupPage from '../SignupPage/SignupPage';
+import SignupPage from '../SignupPage/SignUpPage';
+//Added a capital U to import statement
+
+// ./src/pages/App/App.js
+// Cannot find file: 'SignupPage.jsx' does not match the corresponding name on disk: './src/pages/SignupPage/SignUpPage.jsx'.
 import LoginPage from '../LoginPage/LoginPage';
 import userService from '../../utils/userService';
 import FinancialStatementPage from '../FinancialStatementPage/FinancialStatementPage';
