@@ -20,11 +20,11 @@ export default class EarnedIncome extends Component {
     async componentDidMount() {
         try {
             // console.log('App: componentDidMount')
-            let data = await financialStatementService.show()
+            //let data = await financialStatementService.show()
+            await financialStatementService.show()
                 .then(data => {
                     this.setState({ totalEarnedIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned')) })
                 })
-            console.log(data)
         } catch (err) {
             console.error(err);
         }
@@ -43,19 +43,30 @@ export default class EarnedIncome extends Component {
                 amount: this.state.newEarnedIncome.amount,
                 category: this.state.newEarnedIncome.category
             })
-                .then(
-                    this.setState(state => ({
-                        totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
-                        //add newEarnedIncome onto pre-existing totalEarnedIncome array
+                // .then(
+                //     this.setState(state => ({
+                //         totalEarnedIncome: [...state.totalEarnedIncome, state.newEarnedIncome],
+                //         //add newEarnedIncome onto pre-existing totalEarnedIncome array
+                //         newEarnedIncome: {
+                //             type: 'Job',
+                //             amount: '',
+                //             category: 'Earned'
+                //         },
+                //         formInvalid: true,
+                //         //reset the inputs 
+                //     }))
+                // )
+                .then(data => {
+                    this.setState({
+                        totalEarnedIncome: data.user.userFinances, //.filter(elem => (elem.category === 'Earned')),
                         newEarnedIncome: {
                             type: 'Job',
                             amount: '',
                             category: 'Earned'
                         },
                         formInvalid: true,
-                        //reset the inputs 
-                    }))
-                )
+                    })
+                })
         } catch (err) {
             console.error(err);
         }
@@ -64,7 +75,7 @@ export default class EarnedIncome extends Component {
     //triggers after every change to input value/character typed
     handleChange = e => {
         const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
-        console.log(newEarnedIncome);
+        //console.log(newEarnedIncome);
         this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() });
     }
 
@@ -91,20 +102,14 @@ export default class EarnedIncome extends Component {
         }
     }
 
-    // try {
-    //     console.log('App: componentDidMount')
-    //     let data = await financialStatementService.show()
-    //         .then(data => {
-    //             this.setState({ totalEarnedIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned')) })
-    //         })
-    //     console.log(data)
-    // } catch (err) {
-    //     console.error(err);
-    // }
-
     handleDelete = async (e) => {
         //an array of objects: --> findIndex by id --> splice it
         //let deleteIncome = { id: e.target.value }
+
+        //PROBLEM: No _id when form is submitted - have to refresh page to get it
+        //TypeError: Cannot read property 'userFinances' of undefined
+
+        //SOLUTION: Database needs to send front-end its _id from Mongoose when form submits
         let selectedIndex = this.state.totalEarnedIncome.findIndex(index => (index._id === e.target.value));
         console.log(selectedIndex) //-1
         try {
@@ -116,24 +121,10 @@ export default class EarnedIncome extends Component {
                             .splice(selectedIndex, 1)
                     })
                 })
+
         } catch (err) {
             console.error(err);
         }
-
-
-        // const deleteIncome = {
-        //     id: e.target.value,
-        //     amount: e.target.name
-        // };
-        // console.log(deleteIncome)
-
-        // try {
-        //     await financialStatementService.deleteOne({ id: e.target.value, amount: e.target.name })
-        //         //.then(data => console.log(data))
-        //         .then(data => (this.setState({ totalEarnedIncome: data.user.userFinances })))
-        // } catch (err) {
-        //     console.error(err);
-        // }
     }
 
     render() {
@@ -144,7 +135,7 @@ export default class EarnedIncome extends Component {
                     <span>$</span>
                 </h5>
                 {this.state.totalEarnedIncome.map(ei => (
-                    <div key={ei.amount}>
+                    <div key={ei._id}>
                         <Table hover size="sm">
                             <tbody>
                                 <tr>
@@ -159,7 +150,7 @@ export default class EarnedIncome extends Component {
                                     </td>
                                     <td>
                                         <button
-                                            name={ei.amount}
+                                            //name={ei.amount}
                                             value={ei._id}
                                             onClick={this.handleDelete}>X
                                         </button>
