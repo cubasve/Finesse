@@ -55,6 +55,7 @@ function deleteOne(financialStatement) {
         },
         body: JSON.stringify(financialStatement)
     }
+    console.log(financialStatement)
     return fetch(BASE_URL + '/' + financialStatement.id, options).then(res => res.json());
 }
 

@@ -19,7 +19,7 @@ export default class EarnedIncome extends Component {
     //instance of component is created & inserted into DOM during COMMIT phase
     async componentDidMount() {
         try {
-            console.log('App: componentDidMount')
+            // console.log('App: componentDidMount')
             let data = await financialStatementService.show()
                 .then(data => {
                     this.setState({ totalEarnedIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned')) })
@@ -30,9 +30,9 @@ export default class EarnedIncome extends Component {
         }
     }
 
-    componentDidUpdate() {
-        console.log('App: componentDidUpdate')
-    }
+    // componentDidUpdate() {
+    //     console.log('App: componentDidUpdate')
+    // }
 
     handleSubmit = async (e) => {
         e.preventDefault();
@@ -102,25 +102,13 @@ export default class EarnedIncome extends Component {
     //     console.error(err);
     // }
 
-    // let firstWhiteCarIdx = cars.findIndex(function(car) {           
-    //     return car.color === 'white';
-    //   });
-    //   // firstWhiteCarIdx equals 1
-    //   let missingCarIdx = cars.findIndex(function(car) {
-    //     return car.color === 'black';
-    //   });
-    //   // missingCarIdx = -1
-    //   /*--- using an arrow function for the callback ---*/
-    //   let firstWhiteCarIdx = cars.findIndex(car => car.color === 'white');
-
     handleDelete = async (e) => {
         //an array of objects: --> findIndex by id --> splice it
         //let deleteIncome = { id: e.target.value }
         let selectedIndex = this.state.totalEarnedIncome.findIndex(index => (index._id === e.target.value));
-
         console.log(selectedIndex) //-1
         try {
-            let data = await financialStatementService.deleteOne({ id: e.target.value })
+            await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
                     this.setState({
                         totalEarnedIncome: data.user.userFinances
@@ -128,7 +116,6 @@ export default class EarnedIncome extends Component {
                             .splice(selectedIndex, 1)
                     })
                 })
-
         } catch (err) {
             console.error(err);
         }
@@ -150,9 +137,8 @@ export default class EarnedIncome extends Component {
     }
 
     render() {
-        console.log('App: render');
         return (
-            <section>
+            <>
                 <h5>
                     <span>Earned</span>
                     <span>$</span>
@@ -222,7 +208,7 @@ export default class EarnedIncome extends Component {
                         disabled={this.state.formInvalid}
                     >+</button>
                 </form>
-            </section >
+            </>
         )
     }
 }

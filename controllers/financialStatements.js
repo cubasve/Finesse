@@ -57,7 +57,8 @@ async function deleteOne(req, res) {
         console.log(id)
         id.remove(); //or just req.body.id
         //id.pull(req.body)
-        // await user.save();
+        //id.pull()
+        await user.save();
         res.json({ user: user });
     } catch (err) {
         console.error(err);
