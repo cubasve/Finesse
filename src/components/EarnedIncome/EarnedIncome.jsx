@@ -14,7 +14,7 @@ export default class EarnedIncome extends Component {
         },
         formInvalid: true,
     }
-    formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
+    formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome 
 
     //instance of component is created & inserted into DOM during COMMIT phase
     async componentDidMount() {
@@ -25,6 +25,7 @@ export default class EarnedIncome extends Component {
                 .then(data => {
                     this.setState({ totalEarnedIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned')) })
                 })
+            console.log(this.state.totalEarnedIncome)
         } catch (err) {
             console.error(err);
         }
@@ -58,7 +59,7 @@ export default class EarnedIncome extends Component {
                 // )
                 .then(data => {
                     this.setState({
-                        totalEarnedIncome: data.user.userFinances, //.filter(elem => (elem.category === 'Earned')),
+                        totalEarnedIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned')),
                         newEarnedIncome: {
                             type: 'Job',
                             amount: '',
@@ -103,25 +104,34 @@ export default class EarnedIncome extends Component {
     }
 
     handleDelete = async (e) => {
-        //an array of objects: --> findIndex by id --> splice it
-        //let deleteIncome = { id: e.target.value }
-
-        //PROBLEM: No _id when form is submitted - have to refresh page to get it
-        //TypeError: Cannot read property 'userFinances' of undefined
-
-        //SOLUTION: Database needs to send front-end its _id from Mongoose when form submits
         let selectedIndex = this.state.totalEarnedIncome.findIndex(index => (index._id === e.target.value));
-        console.log(selectedIndex) //-1
+        console.log(selectedIndex)
+        //let earnedIncomeArray = [];
+        //let removedIncome = this.state.totalEarnedIncome.splice(selectedIndex, 1);
+
+        // function isEarned(elem) {
+        //     return elem.category === 'Earned'
+        // }
+
         try {
             await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
                     this.setState({
                         totalEarnedIncome: data.user.userFinances
+                            // .splice(selectedIndex, 1)
+                            // .forEach(element => {
+                            //     if (element.category === 'Earned') earnedIncomeArray.push(element)
+                            // }) //cannot read property 'splice' of undefined
+
+                            // .filter(function (elem) {
+                            //     return elem.category === 'Earned'
+                            // })
+                            //.splice(selectedIndex, 1)
                             .filter(elem => (elem.category === 'Earned'))
                             .splice(selectedIndex, 1)
                     })
                 })
-
+            //return earnedIncomeArray;
         } catch (err) {
             console.error(err);
         }
@@ -197,7 +207,7 @@ export default class EarnedIncome extends Component {
                         className="form-submission"
                         onClick={this.handleSubmit}
                         disabled={this.state.formInvalid}
-                    >+</button>
+                    >ADD</button>
                 </form>
             </>
         )
