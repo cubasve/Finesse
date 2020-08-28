@@ -14,7 +14,7 @@ const popover = (
 
     </Popover>
 );
-const Asset = () => (
+const AssetPopover = () => (
     <OverlayTrigger trigger="click" placement="right" overlay={popover}>
         <Button variant="success">&#8505;</Button>
         {/* //<button>&#8505;</button> */}
@@ -25,7 +25,7 @@ export default function Assets(props) {
     return (
         <div className="border">
             <span className="title">ASSETS</span>
-            <Asset />
+            <AssetPopover />
 
             {/* <button
                 type="button"

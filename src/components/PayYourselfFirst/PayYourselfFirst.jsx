@@ -1,4 +1,20 @@
 import React, { Component } from 'react';
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Button from 'react-bootstrap/Button';
+
+const popover = (
+    <Popover id="popover-basic">
+        <Popover.Title as="h3">Pay Yourself First</Popover.Title>
+        <Popover.Content>Prioritize your financial future by deducting a percentage of your paycheque FIRST before you pay for other expenses. As your income increases, this percentage should increase accordingly.</Popover.Content>
+    </Popover>
+);
+
+const PayYourselfPopover = () => (
+    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+        <Button variant="success">&#8505;</Button>
+    </OverlayTrigger>
+)
 
 export default class PayYourselfFirst extends Component {
 
@@ -24,7 +40,11 @@ export default class PayYourselfFirst extends Component {
     render() {
         return (
             <div>
-                <h5>Pay Yourself First</h5>
+                <h5>
+                    <span>Pay Yourself First</span>
+                    <PayYourselfPopover />
+                </h5>
+
 
                 {/* <form ref={this.formRef} onSubmit={this.handleSubmit} >
                     <label>

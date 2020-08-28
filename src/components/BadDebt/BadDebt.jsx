@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
 import financialStatementService from '../../utils/financialStatementService';
 import Table from 'react-bootstrap/Table';
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Button from 'react-bootstrap/Button';
 
 const badDebtOptions = ['Home Mortgage', 'Car Loans', 'Credit Cards', 'School Loans', 'Other'];
+
+const popover = (
+    <Popover id="popover-basic">
+        <Popover.Title as="h3">Bad Debt</Popover.Title>
+        <Popover.Content>Debt that is used to buy liabilities</Popover.Content>
+    </Popover>
+);
+
+const BadDebtPopover = () => (
+    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+        <Button variant="success">&#8505;</Button>
+    </OverlayTrigger>
+)
 
 export default class BadDebt extends Component {
     state = {
@@ -64,6 +80,7 @@ export default class BadDebt extends Component {
             <section>
                 <h5>
                     <span>Bad Debt</span>
+                    <BadDebtPopover />
                     {/* <span>$</span> */}
                 </h5>
                 {this.state.totalBadDebt.map(bd => (
