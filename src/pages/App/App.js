@@ -16,12 +16,6 @@ export default class App extends Component {
 
   state = {
     user: userService.getUser(),
-    earnedIncomeStreams: [],
-    newEarnedIncome: {
-      earnedIncome: '',
-      amountEarned: '',
-    }
-
   }
 
   handleLogout = () => {

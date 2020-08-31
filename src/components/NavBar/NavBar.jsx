@@ -10,10 +10,7 @@ export default function NavBar(props) {
         <div>
             <Form inline>
                 <Nav>
-                    <Link to="/financialstatement">{props.user.name}'s Financial Statement</Link>
-                </Nav>
-                <Nav>
-                    <Link to="" className="NavBar-link" id="NavBar-user" onClick={props.handleLogout}>Log Out</Link>
+                    <Link to="" className="NavBar-link" onClick={props.handleLogout}>Log Out</Link>
                 </Nav>
             </Form>
         </div>
@@ -21,21 +18,22 @@ export default function NavBar(props) {
         <div>
             <Form inline>
                 <Nav className="NavBar-user">
-                    <Link to="/login" className="NavBar-link" id="NavBar-user">Log In</Link>
-                    <Link to="/signup" className="NavBar-link" id="NavBar-user">Sign Up</Link>
+                    <Link to="/login" className="NavBar-link">Log In</Link>
+                    <Link to="/signup" className="NavBar-link">Sign Up</Link>
                 </Nav>
             </Form>
         </div>
 
     return (
         <div className='NavBar'>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar expand="lg" bg="dark" variant="dark">
                 <Navbar.Brand href="/">FINESSE</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        {nav}
+                        {props.user && <Link className="NavBar-link" to='/financialstatement'>{props.user.name}'s Financial Statement</Link>}
                     </Nav>
+                    {nav}
                 </Navbar.Collapse>
             </Navbar>
         </div >

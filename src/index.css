@@ -48,6 +48,25 @@ td.right {
   float: right;
 }
 
+.cash-flow {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 40px;
+  /* padding: 20px 20px; */
+}
+
+.overview {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.financial-statement {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+
 
 /* .table .table-hover {
   margin: 0px;

@@ -8,11 +8,11 @@
   
 .NavBar-link {
     margin: 0 10px;
+    color: white;
+}
+
+.NavBar-link:hover {
+    text-decoration: none;
+    color: yellow;
 }
   
-#NavBar-user {
-    justify-content: flex-end;
-}
-/* .NavBar-welcome {
-    color: grey;
-} */

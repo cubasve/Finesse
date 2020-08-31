@@ -5,16 +5,17 @@ import Table from 'react-bootstrap/Table';
 const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
 export default class EarnedIncome extends Component {
-    state = {
-        totalEarnedIncome: [],
-        newEarnedIncome: {
-            type: 'Job',
-            amount: '',
-            category: 'Earned'
-        },
-        formInvalid: true,
-        earnedSum: 0,
-    }
+    // state = {
+    // totalEarnedIncome: [],
+    // newEarnedIncome: {
+    //     type: 'Job',
+    //     amount: '',
+    //     category: 'Earned'
+    // },
+    // formInvalid: true,
+    //     earnedSum: 0,
+    // }
+
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome 
 
     //instance of component is created & inserted into DOM during COMMIT phase
@@ -25,7 +26,7 @@ export default class EarnedIncome extends Component {
                 .then(data => {
                     this.setState({ totalEarnedIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned')) })
                 })
-            console.log(this.state.totalEarnedIncome)
+            console.log(this.props.totalEarnedIncome)
         } catch (err) {
             console.error(err);
         }
@@ -40,9 +41,9 @@ export default class EarnedIncome extends Component {
         if (!this.formRef.current.checkValidity()) return;
         try {
             await financialStatementService.create({
-                type: this.state.newEarnedIncome.type,
-                amount: this.state.newEarnedIncome.amount,
-                category: this.state.newEarnedIncome.category
+                type: this.props.newEarnedIncome.type,
+                amount: this.props.newEarnedIncome.amount,
+                category: this.props.newEarnedIncome.category
             })
                 // .then(
                 //     this.setState(state => ({
@@ -75,7 +76,7 @@ export default class EarnedIncome extends Component {
 
     //triggers after every change to input value/character typed
     handleChange = e => {
-        const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
+        const newEarnedIncome = { ...this.props.newEarnedIncome, [e.target.name]: e.target.value }
         //console.log(newEarnedIncome);
         this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() });
     }
@@ -104,7 +105,7 @@ export default class EarnedIncome extends Component {
     }
 
     handleDelete = async (e) => {
-        let selectedIndex = this.state.totalEarnedIncome.findIndex(index => (index._id === e.target.value));
+        let selectedIndex = this.props.totalEarnedIncome.findIndex(index => (index._id === e.target.value));
         console.log(selectedIndex)
         //let earnedIncomeArray = [];
         //let removedIncome = this.state.totalEarnedIncome.splice(selectedIndex, 1);
@@ -180,7 +181,7 @@ export default class EarnedIncome extends Component {
                             <td></td>
                         </tr>
                     </thead>
-                    {/* {this.state.newEarnedIncome.push(
+                    {/* {this.props.newEarnedIncome.push(
                         <tbody>
                             <tr>
                                 <td>{ei.type}</td>
@@ -203,7 +204,7 @@ export default class EarnedIncome extends Component {
                     )} */}
                 </Table>
 
-                {this.state.totalEarnedIncome.map(ei => (
+                {this.props.totalEarnedIncome.map(ei => (
                     <div key={ei._id}>
                         <Table striped bordered hover size="sm">
                             {/* <thead>
@@ -240,7 +241,7 @@ export default class EarnedIncome extends Component {
                     <label>
                         <select
                             name="type"
-                            value={this.state.newEarnedIncome.type}
+                            value={this.props.newEarnedIncome.type}
                             onChange={this.handleChange}
                         >
                             {earnedIncomeOptions.map(option => (
@@ -251,7 +252,7 @@ export default class EarnedIncome extends Component {
                     <label>
                         <input
                             name="amount"
-                            value={this.state.newEarnedIncome.amount}
+                            value={this.props.newEarnedIncome.amount}
                             onChange={this.handleChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
@@ -263,7 +264,7 @@ export default class EarnedIncome extends Component {
                         <input
                             type="hidden"
                             name="category"
-                            value={this.state.newEarnedIncome.category}
+                            value={this.props.newEarnedIncome.category}
                             onChange={this.handleChange}
                         />
                     </label>
@@ -271,7 +272,7 @@ export default class EarnedIncome extends Component {
                     <button
                         className="form-submission"
                         onClick={this.handleSubmit}
-                        disabled={this.state.formInvalid}
+                        disabled={this.props.formInvalid}
                     >ADD</button>
                 </form>
             </>
