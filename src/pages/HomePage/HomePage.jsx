@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom';
 
 export default function HomePage(props) {
     return (
-        <div>
+        <>
             {/* <NavBar user={props.user} handleLogout={props.handleLogout} /> */}
-            {props.user && <Link className='btn btn-default FinancialStatementPage-link-margin' to='/financialstatement'>FINANCIAL STATEMENT</Link>}
+
+            {/* {props.user && <Link className='btn btn-default FinancialStatementPage-link-margin' to='/financialstatement'>FINANCIAL STATEMENT</Link>} */}
 
             {/* BECOME FINANCIALLY LITERATE
 
             Using Financial Statements */}
-        </div>
+        </>
     )
 }
 

@@ -1,25 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
+import Navbar from 'react-bootstrap/NavBar';
+import Nav from 'react-bootstrap/Nav';
+import Form from 'react-bootstrap/Form';
 
 export default function NavBar(props) {
     let nav = props.user ?
         <div>
-            <Link to='' className='NavBar-link' onClick={props.handleLogout}>LOG OUT</Link>
-      &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-      <span className='NavBar-welcome'>WELCOME, {props.user.name}</span>
+            <Form inline>
+                <Nav>
+                    <Link to="/financialstatement">{props.user.name}'s Financial Statement</Link>
+                </Nav>
+                <Nav>
+                    <Link to="" className="NavBar-link" id="NavBar-user" onClick={props.handleLogout}>Log Out</Link>
+                </Nav>
+            </Form>
         </div>
         :
         <div>
-            <Link to='/login' className='NavBar-link'>LOG IN</Link>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <Link to='/signup' className='NavBar-link'>SIGN UP</Link>
-        </div>;
+            <Form inline>
+                <Nav className="NavBar-user">
+                    <Link to="/login" className="NavBar-link" id="NavBar-user">Log In</Link>
+                    <Link to="/signup" className="NavBar-link" id="NavBar-user">Sign Up</Link>
+                </Nav>
+            </Form>
+        </div>
 
     return (
         <div className='NavBar'>
-            {/*FINESSE |*/}
-            {nav}
-        </div>
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                <Navbar.Brand href="/">FINESSE</Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="mr-auto">
+                        {nav}
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        </div >
     );
 }

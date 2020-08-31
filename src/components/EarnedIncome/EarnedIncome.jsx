@@ -13,6 +13,7 @@ export default class EarnedIncome extends Component {
             category: 'Earned'
         },
         formInvalid: true,
+        earnedSum: 0,
     }
     formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome 
 
@@ -20,7 +21,6 @@ export default class EarnedIncome extends Component {
     async componentDidMount() {
         try {
             // console.log('App: componentDidMount')
-            //let data = await financialStatementService.show()
             await financialStatementService.show()
                 .then(data => {
                     this.setState({ totalEarnedIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned')) })
@@ -137,16 +137,82 @@ export default class EarnedIncome extends Component {
         }
     }
 
+    // calculateSum = () => {
+    //     try {
+    //         await financialStatementService.show()
+    //             .then(data => {
+    //                 this.setState({
+    //                     earnedSum: data.user.userFinances
+    //                         .filter(elem => elem.category === 'Earned')
+    //                         .reduce((acc, num) => acc + num)
+    //                 })
+    //             })
+
+    //     } catch (err) {
+    //         console.error(err)
+    //     }
+    // }
+
     render() {
         return (
             <>
                 <h5>
+                    {/* let sum = nums.reduce(function(acc, num) {
+  console.log('Acc: ', acc)
+  console.log('Num: ', num)
+  return acc + num;
+}, 0); */}
+
                     <span>Earned</span>
-                    <span>$</span>
+                    <span>$
+                        {/* {this.setState({
+                        totalNumber: this.state.totalEarnedIncome
+                            .filter(elem => (elem.category === 'Earned'))
+                            .reduce((acc, num) => acc + num)
+                    })} */}
+                    </span>
                 </h5>
+                <Table striped bordered hover size="sm">
+                    <thead>
+                        <tr>
+                            <td>Earned Type</td>
+                            <td>Amount</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    {/* {this.state.newEarnedIncome.push(
+                        <tbody>
+                            <tr>
+                                <td>{ei.type}</td>
+                                <td>{ei.amount}</td>
+                                <td>
+                                    <button
+                                        name={ei.amount}
+                                        value={ei._id}
+                                        onClick={this.handleUpdate}>U
+                                        </button>
+                                    <span>  </span>
+                                    <button
+                                        //name={ei.amount}
+                                        value={ei._id}
+                                        onClick={this.handleDelete}>D
+                                        </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    )} */}
+                </Table>
+
                 {this.state.totalEarnedIncome.map(ei => (
                     <div key={ei._id}>
-                        <Table hover size="sm">
+                        <Table striped bordered hover size="sm">
+                            {/* <thead>
+                                <tr>
+                                    <td>Earned Type</td>
+                                    <td>Amount</td>
+                                    <td></td>
+                                </tr>
+                            </thead> */}
                             <tbody>
                                 <tr>
                                     <td>{ei.type}</td>
@@ -157,12 +223,11 @@ export default class EarnedIncome extends Component {
                                             value={ei._id}
                                             onClick={this.handleUpdate}>U
                                         </button>
-                                    </td>
-                                    <td>
+                                        <span>  </span>
                                         <button
                                             //name={ei.amount}
                                             value={ei._id}
-                                            onClick={this.handleDelete}>X
+                                            onClick={this.handleDelete}>D
                                         </button>
                                     </td>
                                 </tr>

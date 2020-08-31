@@ -18,7 +18,7 @@ const GoodDebtPopover = () => (
     <OverlayTrigger trigger="click" placement="right" overlay={popover}>
         <Button variant="success">&#8505;</Button>
     </OverlayTrigger>
-)
+);
 
 export default class GoodDebt extends Component {
     state = {
@@ -76,11 +76,11 @@ export default class GoodDebt extends Component {
 
     render() {
         return (
-            <section>
+            <>
                 <h5>
                     <span>Good Debt</span>
                     <GoodDebtPopover />
-                    {/* <span>$</span> */}
+                    <span>$</span>
                 </h5>
                 {this.state.totalGoodDebt.map(gd => (
                     <div key={gd.amount}>
@@ -96,6 +96,7 @@ export default class GoodDebt extends Component {
                         </Table>
                     </div>
                 ))}
+
                 <form ref={this.formRef} onSubmit={this.handleSubmit}>
                     <label>
                         <select
@@ -133,7 +134,7 @@ export default class GoodDebt extends Component {
                         disabled={this.state.formInvalid}
                     >+</button>
                 </form>
-            </section >
+            </>
         )
     }
 }

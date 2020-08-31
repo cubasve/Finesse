@@ -1,13 +1,18 @@
 .NavBar {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
+    flex-direction: column;
     margin: 0 0 20px;
+    color: white;
 }
   
 .NavBar-link {
     margin: 0 10px;
 }
   
-.NavBar-welcome {
-    color: grey;
+#NavBar-user {
+    justify-content: flex-end;
 }
+/* .NavBar-welcome {
+    color: grey;
+} */

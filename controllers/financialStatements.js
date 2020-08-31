@@ -13,7 +13,6 @@ async function show(req, res) {
         return res.json({ user: user });//explicitly return to fetch call 
     } catch (err) {
         console.error(err);
-        console.log('ERR: SHOW FN')
         return res.status(400).json(err);
     }
 }
@@ -30,7 +29,6 @@ async function create(req, res) {
         res.json({ user: user });
     } catch (err) {
         console.error(err);
-        console.log('ERR: CREATE FN');
         return res.status(400).json(err);
     }
 }
@@ -45,7 +43,6 @@ async function update(req, res) {
         res.json({ user: user });
     } catch (err) {
         console.error(err);
-        console.log('ERR: UPDATE FN');
         return res.status(400).json(err);
     }
 }
@@ -62,7 +59,6 @@ async function deleteOne(req, res) {
         res.json({ user: user });
     } catch (err) {
         console.error(err);
-        console.log('ERR: DELETE FN');
         return res.status(400).json(err);
     }
 }
