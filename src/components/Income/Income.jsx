@@ -9,11 +9,20 @@ export default function Income(props) {
     return (
         <div className="border">
             <span className="title">INCOME</span>
-            <Earned
-                totalEarnedIncome={props.totalEarnedIncome}
-                newEarnedIncome={props.newEarnedIncome}
-                formInvalid={props.formInvalid} />
-            <Portfolio />
+
+            <Earned />
+            {props.portfolioIncome.map((portfolio, idx) =>
+                <Portfolio
+                    totalPortfolioIncome={props.totalPortfolioIncome}
+                    portfolio={portfolio}
+                    key={idx}
+                    portfolioComponentDidMount={props.portfolioComponentDidMount}
+                    handlePortfolioIncomeSubmit={props.handlePortfolioIncomeSubmit}
+                    handlePortfolioIncomeChange={props.handlePortfolioIncomeChange}
+
+                    formInvalid={props.formInvalid}
+                    formRef={props.formRef} />
+            )}
             <Passive />
         </div>
     )

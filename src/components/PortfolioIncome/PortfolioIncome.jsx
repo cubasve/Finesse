@@ -1,128 +1,89 @@
-import React, { Component } from 'react';
-import financialStatementService from '../../utils/financialStatementService';
+import React from 'react';
+// import financialStatementService from '../../utils/financialStatementService';
 import Table from 'react-bootstrap/Table';
 
 const portfolioIncomeOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
-export default class PortfolioIncome extends Component {
-    state = {
-        totalPortfolioIncome: [],
-        newPortfolioIncome: {
-            type: 'Stock',
-            amount: '',
-            category: 'Portfolio'
-        },
-        formInvalid: true,
-    }
-    formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
+export default function PortfolioIncome(props) {
 
-    async componentDidMount() {
-        try {
-            let data = await financialStatementService.show()
-                .then(data => {
-                    this.setState({ totalPortfolioIncome: data.user.userFinances.filter(elem => (elem.category === 'Portfolio')) })
-                })
-            console.log(data)
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-
-
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!this.formRef.current.checkValidity()) return;
-        try {
-            await financialStatementService.create({
-                type: this.state.newPortfolioIncome.type, amount: this.state.newPortfolioIncome.amount,
-                category: this.state.newPortfolioIncome.category
-            })
-                .then(
-                    this.setState(state => ({
-                        totalPortfolioIncome: [...state.totalPortfolioIncome, state.newPortfolioIncome],
-                        //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newPortfolioIncome: {
-                            type: 'Stock',
-                            amount: '',
-                            category: 'Portfolio'
-                        },
-                        formInvalid: true,
-                        //reset the inputs for better UX
-                    }))
-                )
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    handleChange = e => {
-        const newPortfolioIncome = { ...this.state.newPortfolioIncome, [e.target.name]: e.target.value }
-        this.setState({ newPortfolioIncome: newPortfolioIncome, formInvalid: !this.formRef.current.checkValidity() })
-    }
-
-    render() {
-        return (
-            <section>
-                <h5>
-                    <span>Portfolio</span>
-                    {/* <span>$</span> */}
-                </h5>
-                {
-                    this.state.totalPortfolioIncome.map(pi => (
-                        <div key={pi.amount}>
-                            <Table hover size="sm">
-                                <tbody>
-                                    <tr>
-                                        <td className="left">{pi.type}</td>
-                                        <td className="right">{pi.amount}</td>
-                                        {/* <td><button value="Update">U</button></td>
+    return (
+        <section>
+            <h5>
+                <span>Portfolio</span>
+                {/* <span>$</span> */}
+            </h5>
+            {
+                props.totalPortfolioIncome.map(pi => (
+                    <div key={pi.amount}>
+                        <Table hover size="sm">
+                            <tbody>
+                                <tr>
+                                    <td className="left">{pi.type}</td>
+                                    <td className="right">{pi.amount}</td>
+                                    {/* <td><button value="Update">U</button></td>
                                         <td><button value="Delete">X</button></td> */}
-                                    </tr>
-                                </tbody>
-                            </Table>
-                        </div>
-                    ))
-                }
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </div>
+                ))
+            }
 
-                < form ref={this.formRef} onSubmit={this.handleSubmit} >
-                    <label>
-                        <select
-                            name="type"
-                            value={this.state.newPortfolioIncome.type}
-                            onChange={this.handleChange}
-                        >
-                            {portfolioIncomeOptions.map((option) => (
-                                <option key={option} value={option}>{option}</option>
-                            ))}
-                        </select>
-                    </label>
-                    <label>
-                        <input
-                            name="amount"
-                            value={this.state.newPortfolioIncome.amount}
-                            onChange={this.handleChange}
-                            required
-                            pattern="[1-9]\d{0,}\.?\d{0,2}"
-                            placeholder="Dividend/Interest"
-                            autocomplete="off"
-                        />
-                    </label>
-                    <label>
-                        <input
-                            type="hidden"
-                            name="category"
-                            value={this.state.newPortfolioIncome.category}
-                            onChange={this.handleChange}
-                        />
-                    </label>
-                    <button
-                        className="form-submission"
-                        onClick={this.handleSubmit}
-                        disabled={this.state.formInvalid}
-                    >+</button>
-                </form >
-            </section >
-        )
-    }
+            < form ref={props.formRef} onSubmit={props.handlePortfolioIncomeSubmit} >
+                <label>
+                    <select
+                        name="type"
+                        value={props.portfolio.newPortfolioIncome.type}
+                        onChange={props.handlePortfolioIncomeChange}
+                    >
+                        {portfolioIncomeOptions.map((option) => (
+                            <option key={option} value={option}>{option}</option>
+                        ))}
+                    </select>
+                </label>
+                <label>
+                    <input
+                        name="amount"
+                        value={props.portfolio.newPortfolioIncome.amount}
+                        onChange={props.handlePortfolioIncomeChange}
+                        required
+                        pattern="[1-9]\d{0,}\.?\d{0,2}"
+                        placeholder="Dividend/Interest"
+                        autocomplete="off"
+                    />
+                </label>
+                <label>
+                    <input
+                        type="hidden"
+                        name="category"
+                        value={props.portfolio.newPortfolioIncome.category}
+                        onChange={props.handlePortfolioIncomeChange}
+                    />
+                </label>
+                <button
+                    className="form-submission"
+                    onClick={props.handlePortfolioIncomeSubmit}
+                    disabled={props.formInvalid}
+                >+</button>
+            </form >
+        </section >
+    )
 }
+
+// function introduceYourself(name, title, location, ...skills) {
+//     return {
+//         name,
+//         title,
+//         location,
+//         technicalSkills: skills,
+//     }
+
+// }
+// console.log(introduceYourself('Eva', 'Web Developer', 'Toronto', 'HTML', 'CSS', 'JS', 'Node', 'Express', 'React'))
+
+// {
+//     name: 'Eva',
+//     title: 'Web Developer',
+//     location: 'Toronto',
+//     technicalSkills: ['HTML', 'CSS', 'JS', 'Node', 'Express', 'React']
+// }

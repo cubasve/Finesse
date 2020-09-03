@@ -30,7 +30,6 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <header className="App-header">FINESSE</header> */}
         <NavBar user={this.state.user} handleLogout={this.handleLogout} />
         <Switch>
 

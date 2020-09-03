@@ -38,7 +38,8 @@ export default class PassiveIncome extends Component {
                         totalPassiveIncome: [...state.totalPassiveIncome, state.newPassiveIncome],
                         //add newEarnedIncome onto pre-existing totalEarnedIncome array
                         newPassiveIncome: {
-                            type: 'Real Estate', amount: '',
+                            type: 'Real Estate',
+                            amount: '',
                             category: 'Passive'
                         },
                         formInvalid: true,

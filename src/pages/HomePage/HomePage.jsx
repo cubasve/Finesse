@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import NavBar from '../../components/NavBar/NavBar';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -9,17 +9,17 @@ export default function HomePage(props) {
     return (
         <>
             <div className="overview">
-                <div>
+                {/* <div>
                     <Card style={{ width: '35rem' }}>
                         <Card.Img variant="top" src="./Overview.png" />
                     </Card>
-                </div>
+                </div> */}
 
                 <div>
                     <div>
-                        <h1> Accounting Class Made Easy</h1>
+                        <h2> Accounting Class Made Easy</h2>
                         <br />
-                        <h2> Become Financially Literate Using Financial Statements</h2>
+                        <h3> Become Financially Literate Using Financial Statements</h3>
                         <br />
                     </div>
                     <div className="financial-statement">
@@ -90,12 +90,12 @@ export default function HomePage(props) {
                 <Carousel>
                     <Carousel.Item>
                         <img
-                            src=""
+                            src="./Overview.png"
                             alt="" />
-                        <Carousel.Caption>
+                        {/* <Carousel.Caption>
                             <h3>First slide label</h3>
                             <p>Description</p>
-                        </Carousel.Caption>
+                        </Carousel.Caption> */}
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
