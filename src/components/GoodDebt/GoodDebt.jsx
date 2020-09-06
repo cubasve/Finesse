@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import financialStatementService from '../../utils/financialStatementService';
+import React from 'react';
 import Table from 'react-bootstrap/Table';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -16,125 +15,71 @@ const popover = (
 
 const GoodDebtPopover = () => (
     <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-        <Button variant="success">&#8505;</Button>
+        <Button variant="success" size="sm">&#8505;</Button>
     </OverlayTrigger>
 );
 
-export default class GoodDebt extends Component {
-    state = {
-        totalGoodDebt: [],
-        newGoodDebt: {
-            type: 'Real Estate',
-            amount: '',
-            category: 'GoodDebt'
-        },
-        formInvalid: true,
-    }
-    formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newEarnedIncome
-
-    async componentDidMount() {
-        try {
-            let data = await financialStatementService.show()
-                .then(data => {
-                    this.setState({ totalGoodDebt: data.user.userFinances.filter(elem => (elem.category === 'GoodDebt')) })
-                })
-            console.log(data)
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!this.formRef.current.checkValidity()) return;
-        try {
-            await financialStatementService.create({
-                type: this.state.newGoodDebt.type, amount: this.state.newGoodDebt.amount,
-                category: this.state.newGoodDebt.category
-            })
-                .then(
-                    this.setState(state => ({
-                        totalGoodDebt: [...state.totalGoodDebt, state.newGoodDebt],
-                        //add newEarnedIncome onto pre-existing totalEarnedIncome array
-                        newGoodDebt: {
-                            type: 'Real Estate', amount: '',
-                            category: 'GoodDebt'
-                        },
-                        formInvalid: true,
-                        //reset the inputs for better UX
-                    }))
-                )
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    handleChange = e => {
-        const newGoodDebt = { ...this.state.newGoodDebt, [e.target.name]: e.target.value }
-        this.setState({ newGoodDebt: newGoodDebt, formInvalid: !this.formRef.current.checkValidity() })
-    }
-
-    render() {
-        return (
-            <>
-                <h5>
-                    <span>Good Debt</span>
-                    <GoodDebtPopover />
-                    <span>$</span>
-                </h5>
-                {this.state.totalGoodDebt.map(gd => (
-                    <div key={gd.amount}>
-                        <Table hover size="sm">
-                            <tbody>
-                                <tr>
-                                    <td>{gd.type}</td>
-                                    <td className="right">{gd.amount}</td>
-                                    {/* <td><button value="Update">U</button></td>
+export default function GoodDebt(props) {
+    return (
+        <>
+            <h5>
+                <span>Good Debt <GoodDebtPopover /></span>
+                <span className="right">${props.totalGoodDebt.map(elem => elem.amount).reduce(function (acc, num) {
+                    return acc + num;
+                }, 0)}</span>
+            </h5>
+            {props.totalGoodDebt.map(gd => (
+                <div key={gd.amount}>
+                    <Table hover size="sm">
+                        <tbody>
+                            <tr>
+                                <td>{gd.type}</td>
+                                <td className="right">{gd.amount}</td>
+                                {/* <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td> */}
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </div>
-                ))}
+                            </tr>
+                        </tbody>
+                    </Table>
+                </div>
+            ))}
 
-                <form ref={this.formRef} onSubmit={this.handleSubmit}>
-                    <label>
-                        <select
-                            name="type"
-                            value={this.state.newGoodDebt.type}
-                            onChange={this.handleChange}
-                        >
-                            {goodDebtOptions.map((option) => (
-                                <option key={option} value={option}>{option}</option>
-                            ))}
-                        </select>
-                    </label>
-                    <label>
-                        <input
-                            name="amount"
-                            value={this.state.newGoodDebt.amount}
-                            onChange={this.handleChange}
-                            required
-                            pattern="[1-9]\d{0,}\.?\d{0,2}"
-                            placeholder="Debt Value"
-                            autocomplete="off"
-                        />
-                    </label>
-                    <label>
-                        <input
-                            type="hidden"
-                            name="category"
-                            value={this.state.newGoodDebt.category}
-                            onChange={this.handleChange}
-                        />
-                    </label>
-                    <button
-                        className="form-submission"
-                        onClick={this.handleSubmit}
-                        disabled={this.state.formInvalid}
-                    >+</button>
-                </form>
-            </>
-        )
-    }
+            <form ref={props.goodDebtFormRef} onSubmit={props.handleGoodDebtSubmit}>
+                <label>
+                    <select
+                        name="type"
+                        value={props.newGoodDebt.type}
+                        onChange={props.handleGoodDebtChange}
+                    >
+                        {goodDebtOptions.map((option) => (
+                            <option key={option} value={option}>{option}</option>
+                        ))}
+                    </select>
+                </label>
+                <label>
+                    <input
+                        name="amount"
+                        value={props.newGoodDebt.amount}
+                        onChange={props.handleGoodDebtChange}
+                        required
+                        pattern="[1-9]\d{0,}\.?\d{0,2}"
+                        placeholder="Debt Value"
+                        autocomplete="off"
+                    />
+                </label>
+                <label>
+                    <input
+                        type="hidden"
+                        name="category"
+                        value={props.newGoodDebt.category}
+                        onChange={props.handleGoodDebtChange}
+                    />
+                </label>
+                <button
+                    className="form-submission"
+                    onClick={props.handleGoodDebtSubmit}
+                    disabled={props.goodDebtFormInvalid}
+                >ADD</button>
+            </form>
+        </>
+    )
 }

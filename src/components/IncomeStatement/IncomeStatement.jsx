@@ -13,6 +13,7 @@ export default class IncomeStatement extends Component {
             amount: '',
             category: 'Earned',
         },
+        earnedFormInvalid: true,
 
         totalPortfolioIncome: [],
         newPortfolioIncome: {
@@ -20,6 +21,7 @@ export default class IncomeStatement extends Component {
             amount: '',
             category: 'Portfolio',
         },
+        portfolioFormInvalid: true,
 
         totalPassiveIncome: [],
         newPassiveIncome: {
@@ -27,13 +29,21 @@ export default class IncomeStatement extends Component {
             amount: '',
             category: 'Passive'
         },
+        passiveFormInvalid: true,
 
-        formInvalid: true,
+        totalExpenses: [],
+        newExpense: {
+            type: 'Housing',
+            amount: '',
+            category: 'Expense'
+        },
+        expenseFormInvalid: true,
     }
     // formRef = React.createRef(); //object that provides access to a DOM element - validate form before creating newPortfolioIncome
     earnedFormRef = React.createRef();
     portfolioFormRef = React.createRef();
     passiveFormRef = React.createRef();
+    expenseFormRef = React.createRef();
 
     async componentDidMount() {
         try {
@@ -44,25 +54,15 @@ export default class IncomeStatement extends Component {
                         totalEarnedIncome: data.user.userFinances.filter(elem => elem.category === 'Earned'),
                         totalPortfolioIncome: data.user.userFinances.filter(elem => elem.category === 'Portfolio'),
                         totalPassiveIncome: data.user.userFinances.filter(elem => elem.category === 'Passive'),
-                        // totalIncome: data.user.userFinances
-                        //     .filter(elem => (elem.category === 'Earned' || elem.category === 'Portfolio' || elem.category === 'Passive'))
-                        //     .reduce((acc, num) => acc + num)
+                        totalExpenses: data.user.userFinances.filter(elem => elem.category === 'Expense'),
+                        totalIncome: data.user.userFinances
+                            .filter(elem => (elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'))
                     })
                 })
         } catch (err) {
             console.error(err)
         }
     }
-
-    // handleTotalIncome = async (e) => {
-
-    //     try {
-    //         totalIncome: data.user.userFinances.filter(elem => (elem.category === 'Earned'))
-
-    //     } catch (err) {
-    //         console.error(err)
-    //     }
-    // }
 
     handleEarnedIncomeSubmit = async (e) => {
         e.preventDefault();
@@ -77,12 +77,13 @@ export default class IncomeStatement extends Component {
                 .then(data => {
                     this.setState({
                         totalEarnedIncome: data.user.userFinances.filter(elem => elem.category === 'Earned'),
+                        //totalIncome: [...this.state.totalIncome, this.state.newEarnedIncome],
                         newEarnedIncome: {
                             type: 'Job',
                             amount: '',
                             category: 'Earned'
                         },
-                        formInvalid: true,
+                        earnedFormInvalid: true,
                     })
                 })
         } catch (err) {
@@ -93,7 +94,7 @@ export default class IncomeStatement extends Component {
     handleEarnedIncomeChange = e => {
         const newEarnedIncome = { ...this.state.newEarnedIncome, [e.target.name]: e.target.value }
         // this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.formRef.current.checkValidity() });
-        this.setState({ newEarnedIncome: newEarnedIncome, formInvalid: !this.earnedFormRef.current.checkValidity() });
+        this.setState({ newEarnedIncome: newEarnedIncome, earnedFormInvalid: !this.earnedFormRef.current.checkValidity() });
     }
 
     handlePortfolioIncomeSubmit = async (e) => {
@@ -110,12 +111,14 @@ export default class IncomeStatement extends Component {
                     this.setState({
                         totalPortfolioIncome: data.user.userFinances.filter(elem => elem.category === 'Portfolio'),
                         // totalIncome: [...this.state.totalPortfolioIncome, ...this.state.totalEarnedIncome, ...this.state.totalPassiveIncome],
+                        // totalIncome: [...this.state.totalIncome, this.state.newPortfolioIncome],
+                        totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'),
                         newPortfolioIncome: {
                             type: 'Stock',
                             amount: '',
                             category: 'Portfolio',
                         },
-                        formInvalid: true,
+                        portfolioFormInvalid: true,
                     })
                 })
         } catch (err) {
@@ -126,7 +129,7 @@ export default class IncomeStatement extends Component {
     handlePortfolioIncomeChange = e => {
         const newPortfolioIncome = { ...this.state.newPortfolioIncome, [e.target.name]: e.target.value }
         // this.setState({ newPortfolioIncome: newPortfolioIncome, formInvalid: !this.formRef.current.checkValidity() })
-        this.setState({ newPortfolioIncome: newPortfolioIncome, formInvalid: !this.portfolioFormRef.current.checkValidity() })
+        this.setState({ newPortfolioIncome: newPortfolioIncome, portfolioFormInvalid: !this.portfolioFormRef.current.checkValidity() })
     }
 
     handlePassiveIncomeSubmit = async (e) => {
@@ -142,12 +145,13 @@ export default class IncomeStatement extends Component {
                 .then(data => {
                     this.setState({
                         totalPassiveIncome: data.user.userFinances.filter(elem => (elem.category === 'Passive')),
+                        totalIncome: [...this.state.totalIncome, this.state.newPassiveIncome],
                         newPassiveIncome: {
                             type: 'Real Estate',
                             amount: '',
                             category: 'Passive',
                         },
-                        formInvalid: true,
+                        passiveFormInvalid: true,
                     })
                 })
         } catch (err) {
@@ -158,7 +162,38 @@ export default class IncomeStatement extends Component {
     handlePassiveIncomeChange = e => {
         const newPassiveIncome = { ...this.state.newPassiveIncome, [e.target.name]: e.target.value }
         // this.setState({ newPassiveIncome: newPassiveIncome, formInvalid: !this.formRef.current.checkValidity() });
-        this.setState({ newPassiveIncome: newPassiveIncome, formInvalid: !this.passiveFormRef.current.checkValidity() });
+        this.setState({ newPassiveIncome: newPassiveIncome, passiveFormInvalid: !this.passiveFormRef.current.checkValidity() });
+    }
+
+    handleExpenseSubmit = async (e) => {
+        e.preventDefault();
+        // if (!this.formRef.current.checkValidity()) return;
+        if (!this.expenseFormRef.current.checkValidity()) return;
+        try {
+            await financialStatementService.create({
+                type: this.state.newExpense.type,
+                amount: this.state.newExpense.amount,
+                category: this.state.newExpense.category
+            })
+                .then(data => {
+                    this.setState({
+                        totalExpenses: data.user.userFinances.filter(elem => elem.category === 'Expense'),
+                        newExpense: {
+                            type: 'Housing',
+                            amount: '',
+                            category: 'Expense'
+                        },
+                        expenseFormInvalid: true,
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    handleExpenseChange = e => {
+        const newExpense = { ...this.state.newExpense, [e.target.name]: e.target.value }
+        this.setState({ newExpense: newExpense, expenseFormInvalid: !this.expenseFormRef.current.checkValidity() })
     }
 
     render() {
@@ -171,25 +206,32 @@ export default class IncomeStatement extends Component {
                     newEarnedIncome={this.state.newEarnedIncome}
                     handleEarnedIncomeSubmit={this.handleEarnedIncomeSubmit}
                     handleEarnedIncomeChange={this.handleEarnedIncomeChange}
+                    earnedFormInvalid={this.state.earnedFormInvalid}
+                    earnedFormRef={this.earnedFormRef}
 
                     totalPortfolioIncome={this.state.totalPortfolioIncome}
                     newPortfolioIncome={this.state.newPortfolioIncome}
                     handlePortfolioIncomeSubmit={this.handlePortfolioIncomeSubmit}
                     handlePortfolioIncomeChange={this.handlePortfolioIncomeChange}
+                    portfolioFormInvalid={this.state.portfolioFormInvalid}
+                    portfolioFormRef={this.portfolioFormRef}
 
                     totalPassiveIncome={this.state.totalPassiveIncome}
                     newPassiveIncome={this.state.newPassiveIncome}
                     handlePassiveIncomeSubmit={this.handlePassiveIncomeSubmit}
                     handlePassiveIncomeChange={this.handlePassiveIncomeChange}
-
-                    formInvalid={this.state.formInvalid}
-                    // formRef={this.formRef}
-                    earnedFormRef={this.earnedFormRef}
-                    portfolioFormRef={this.portfolioFormRef}
+                    passiveFormInvalid={this.state.passiveFormInvalid}
                     passiveFormRef={this.passiveFormRef}
                 />
 
-                <Expenses />
+                <Expenses
+                    totalExpenses={this.state.totalExpenses}
+                    newExpense={this.state.newExpense}
+                    handleExpenseSubmit={this.handleExpenseSubmit}
+                    handleExpenseChange={this.handleExpenseChange}
+                    expenseFormInvalid={this.state.expenseFormInvalid}
+                    expenseFormRef={this.expenseFormRef}
+                />
                 CASH FLOW: INCOME - EXPENSES
             </>
         )

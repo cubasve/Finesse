@@ -14,9 +14,10 @@ const popover = (
 
     </Popover>
 );
+
 const AssetPopover = () => (
-    <OverlayTrigger trigger="click" placement="right" overlay={popover} size="sm">
-        <Button variant="success">&#8505;</Button>
+    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+        <Button variant="success" size="sm">&#8505;</Button>
         {/* //<button>&#8505;</button> */}
     </OverlayTrigger>
 )
@@ -24,22 +25,44 @@ const AssetPopover = () => (
 export default function Assets(props) {
     return (
         <div className="border">
-            <span className="title">ASSETS</span>
-            <AssetPopover />
+            <span className="title">
+                <span>ASSETS <AssetPopover /></span>
+                <span className="right">$</span>
 
-            {/* <button
-                type="button"
-                className="btn"
-                data-toggle="popver"
-                title="ASSET"
-                data-content="Something that puts money in your pocket" 
-            style={{ borderRadius: '50%' }} */}
-            {/* <button>&#8505;</button> */}
+            </span>
             <p>CASH: </p>
-            <PaperAssets />
-            <RealEstate />
-            <Business />
-            <Commodities />
+            <PaperAssets
+                totalPaperAssets={props.totalPaperAssets}
+                newPaperAsset={props.newPaperAsset}
+                handlePaperAssetSubmit={props.handlePaperAssetSubmit}
+                handlePaperAssetChange={props.handlePaperAssetChange}
+                paperAssetFormInvalid={props.paperAssetFormInvalid}
+                paperAssetFormRef={props.paperAssetFormRef}
+            />
+            <RealEstate
+                totalRealEstate={props.totalRealEstate}
+                newRealEstate={props.newRealEstate}
+                handleRealEstateSubmit={props.handleRealEstateSubmit}
+                handleRealEstateChange={props.handleRealEstateChange}
+                realEstateFormInvalid={props.realEstateFormInvalid}
+                realEstateFormRef={props.realEstateFormRef}
+            />
+            <Business
+                totalBusiness={props.totalBusiness}
+                newBusiness={props.newBusiness}
+                handleBusinessSubmit={props.handleBusinessSubmit}
+                handleBusinessChange={props.handleBusinessChange}
+                businessFormInvalid={props.businessFormInvalid}
+                businessFormRef={props.businessFormRef}
+            />
+            <Commodities
+                totalCommodities={props.totalCommodities}
+                newCommodity={props.newCommodity}
+                handleCommoditySubmit={props.handleCommoditySubmit}
+                handleCommodityChange={props.handleCommodityChange}
+                commodityFormInvalid={props.commodityFormInvalid}
+                commodityFormRef={props.commodityFormRef}
+            />
         </div>
     )
 }

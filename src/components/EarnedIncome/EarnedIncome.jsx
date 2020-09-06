@@ -89,7 +89,7 @@ export default function EarnedIncome(props) {
 }, 0); */}
 
                 <span>Earned</span>
-                <span>${props.totalEarnedIncome.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${props.totalEarnedIncome.map(elem => elem.amount).reduce(function (acc, num) {
                     console.log('Acc: ', acc)
                     console.log('Num: ', num)
                     return acc + num;
@@ -128,21 +128,6 @@ export default function EarnedIncome(props) {
                     </Table>
                 </div>
             ))}
-            {/* <InputGroup>
-                    <DropdownButton as={InputGroup.Prepend} title="Earned" variant="outline-secondary">
-                        <Dropdown.Item eventKey="1">Job</Dropdown.Item>
-                        <Dropdown.Item eventKey="2">Self-Employment</Dropdown.Item>
-                        <Dropdown.Item eventKey="3">Other</Dropdown.Item>
-                    </DropdownButton>
-                    <FormControl
-                        name="amount"
-                        value={this.state.newEarnedIncome.amount}
-                        onChange={this.handleChange}
-                        required
-                        pattern="[1-9]\d{0,}\.?\d{0,2}"
-                        autocomplete="off"
-                        placeholder="Salary/Commission" />
-                </InputGroup> */}
 
             {/* <form ref={props.formRef} onSubmit={props.handleEarnedIncomeSubmit}> */}
             <form ref={props.earnedFormRef} onSubmit={props.handleEarnedIncomeSubmit}>
@@ -180,7 +165,7 @@ export default function EarnedIncome(props) {
                 <button
                     className="form-submission"
                     onClick={props.handleEarnedIncomeSubmit}
-                    disabled={props.formInvalid}
+                    disabled={props.earnedFormInvalid}
                 >ADD</button>
             </form>
         </>

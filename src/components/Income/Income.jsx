@@ -10,13 +10,12 @@ export default function Income(props) {
         <div className="border">
             <span className="title">
                 <span>INCOME</span>
-                <span>$
+                <span className="right">$
                     {/* {props.totalIncome.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)} */}
                 </span>
             </span>
-
 
             <Earned
                 totalEarnedIncome={props.totalEarnedIncome}
@@ -24,8 +23,7 @@ export default function Income(props) {
                 handleEarnedIncomeSubmit={props.handleEarnedIncomeSubmit}
                 handleEarnedIncomeChange={props.handleEarnedIncomeChange}
 
-                formInvalid={props.formInvalid}
-                // formRef={props.formRef}
+                earnedFormInvalid={props.earnedFormInvalid}
                 earnedFormRef={props.earnedFormRef}
             />
             <Portfolio
@@ -34,8 +32,7 @@ export default function Income(props) {
                 handlePortfolioIncomeSubmit={props.handlePortfolioIncomeSubmit}
                 handlePortfolioIncomeChange={props.handlePortfolioIncomeChange}
 
-                formInvalid={props.formInvalid}
-                // formRef={props.formRef}
+                portfolioFormInvalid={props.portfolioFormInvalid}
                 portfolioFormRef={props.portfolioFormRef}
             />
 
@@ -45,8 +42,7 @@ export default function Income(props) {
                 handlePassiveIncomeSubmit={props.handlePassiveIncomeSubmit}
                 handlePassiveIncomeChange={props.handlePassiveIncomeChange}
 
-                formInvalid={props.formInvalid}
-                // formRef={props.formRef}
+                passiveFormInvalid={props.passiveFormInvalid}
                 passiveFormRef={props.passiveFormRef}
             />
         </div>

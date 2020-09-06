@@ -1,10 +1,9 @@
 import React from 'react';
-// import financialStatementService from '../../utils/financialStatementService';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const portfolioIncomeOptions = ['Stock', 'Bond', 'Index Fund', 'Mutual Fund', 'GIC', 'REIT', 'Other'];
+const portfolioIncomeOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
 export default function PortfolioIncome(props) {
 
@@ -12,7 +11,7 @@ export default function PortfolioIncome(props) {
         <section>
             <h5>
                 <span>Portfolio</span>
-                <span>${props.totalPortfolioIncome.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${props.totalPortfolioIncome.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}</span>
             </h5>
@@ -32,10 +31,19 @@ export default function PortfolioIncome(props) {
                     </div>
                 ))
             }
-            {/* <Form ref={props.portfolioFormRef} onSubmit={props.handlePortfolioIncomeSubmit}>
+            <Form ref={props.portfolioFormRef} onSubmit={props.handlePortfolioIncomeSubmit}>
                 <Form.Row>
                     <Form.Group>
-                        <Form.Control
+                        <select
+                            name="type"
+                            value={props.newPortfolioIncome.type}
+                            onChange={props.handlePortfolioIncomeChange}
+                        >
+                            {portfolioIncomeOptions.map((option) => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                        {/* <Form.Control
                             as="select"
                             name="type"
                             value={props.newPortfolioIncome.type}
@@ -45,7 +53,7 @@ export default function PortfolioIncome(props) {
                             {portfolioIncomeOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
-                        </Form.Control>
+                        </Form.Control> */}
                     </Form.Group>
                     <Form.Group>
                         <Form.Control
@@ -56,6 +64,7 @@ export default function PortfolioIncome(props) {
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Dividend/Interest"
                             autocomplete="off"
+                            size="sm"
                         />
                     </Form.Group>
                     <Form.Group>
@@ -69,13 +78,14 @@ export default function PortfolioIncome(props) {
                             type="submit"
                             className="form-submission"
                             onClick={props.handlePortfolioIncomeSubmit}
-                            disabled={props.formInvalid}
-                        >Add</Button>
+                            disabled={props.portfolioFormInvalid}
+                            size="sm"
+                        >ADD</Button>
                     </Form.Group>
                 </Form.Row>
-            </Form>  */}
+            </Form>
             {/* < form ref={props.formRef} onSubmit={props.handlePortfolioIncomeSubmit} > */}
-            < form ref={props.portfolioFormRef} onSubmit={props.handlePortfolioIncomeSubmit} >
+            {/* < form ref={props.portfolioFormRef} onSubmit={props.handlePortfolioIncomeSubmit} >
                 <label>
                     <select
                         name="type"
@@ -106,31 +116,20 @@ export default function PortfolioIncome(props) {
                         onChange={props.handlePortfolioIncomeChange}
                     />
                 </label>
-                <button
+                <Button
                     type="submit"
                     className="form-submission"
                     onClick={props.handlePortfolioIncomeSubmit}
                     disabled={props.formInvalid}
-                >ADD</button>
-            </form >
+                    size="sm"
+                >ADD</Button> */}
+            {/* <button
+                    type="submit"
+                    className="form-submission"
+                    onClick={props.handlePortfolioIncomeSubmit}
+                    disabled={props.formInvalid}
+                >ADD</button> */}
+            {/* </form > */}
         </section >
     )
 }
-
-// function introduceYourself(name, title, location, ...skills) {
-//     return {
-//         name,
-//         title,
-//         location,
-//         technicalSkills: skills,
-//     }
-
-// }
-// console.log(introduceYourself('Eva', 'Web Developer', 'Toronto', 'HTML', 'CSS', 'JS', 'Node', 'Express', 'React'))
-
-// {
-//     name: 'Eva',
-//     title: 'Web Developer',
-//     location: 'Toronto',
-//     technicalSkills: ['HTML', 'CSS', 'JS', 'Node', 'Express', 'React']
-// }

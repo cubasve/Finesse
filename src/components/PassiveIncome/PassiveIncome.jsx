@@ -1,21 +1,15 @@
 import React from 'react';
-import financialStatementService from '../../utils/financialStatementService';
 import Table from 'react-bootstrap/Table';
-
-import InputGroup from 'react-bootstrap/InputGroup';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
 import FormControl from 'react-bootstrap/FormControl';
 
 const passiveIncomeOptions = ['Real Estate', 'Business', 'Commodities', 'Royalties', 'Other'];
 
 export default function PassiveIncome(props) {
-
     return (
         <section>
             <h5>
                 <span>Passive</span>
-                <span>${props.totalPassiveIncome.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${props.totalPassiveIncome.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}</span>
             </h5>
@@ -88,7 +82,7 @@ export default function PassiveIncome(props) {
                 <button
                     className="form-submission"
                     onClick={props.handlePassiveIncomeSubmit}
-                    disabled={props.formInvalid}
+                    disabled={props.passiveFormInvalid}
                 >ADD</button>
             </form>
         </section >

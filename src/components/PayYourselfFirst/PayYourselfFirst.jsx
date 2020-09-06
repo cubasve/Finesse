@@ -12,7 +12,7 @@ const popover = (
 
 const PayYourselfPopover = () => (
     <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-        <Button variant="success">&#8505;</Button>
+        <Button variant="success" size="sm">&#8505;</Button>
     </OverlayTrigger>
 )
 
@@ -41,7 +41,7 @@ export default class PayYourselfFirst extends Component {
         return (
             <div>
                 <h5>
-                    <span>Pay Yourself First</span>
+                    <span>Pay Yourself First </span>
                     <PayYourselfPopover />
                 </h5>
 
