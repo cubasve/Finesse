@@ -15,7 +15,7 @@ const popover = (
     </Popover>
 );
 const AssetPopover = () => (
-    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+    <OverlayTrigger trigger="click" placement="right" overlay={popover} size="sm">
         <Button variant="success">&#8505;</Button>
         {/* //<button>&#8505;</button> */}
     </OverlayTrigger>

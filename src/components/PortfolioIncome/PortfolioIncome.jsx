@@ -1,8 +1,10 @@
 import React from 'react';
 // import financialStatementService from '../../utils/financialStatementService';
 import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
-const portfolioIncomeOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
+const portfolioIncomeOptions = ['Stock', 'Bond', 'Index Fund', 'Mutual Fund', 'GIC', 'REIT', 'Other'];
 
 export default function PortfolioIncome(props) {
 
@@ -10,7 +12,9 @@ export default function PortfolioIncome(props) {
         <section>
             <h5>
                 <span>Portfolio</span>
-                {/* <span>$</span> */}
+                <span>${props.totalPortfolioIncome.map(elem => elem.amount).reduce(function (acc, num) {
+                    return acc + num;
+                }, 0)}</span>
             </h5>
             {
                 props.totalPortfolioIncome.map(pi => (
@@ -28,12 +32,54 @@ export default function PortfolioIncome(props) {
                     </div>
                 ))
             }
-
-            < form ref={props.formRef} onSubmit={props.handlePortfolioIncomeSubmit} >
+            {/* <Form ref={props.portfolioFormRef} onSubmit={props.handlePortfolioIncomeSubmit}>
+                <Form.Row>
+                    <Form.Group>
+                        <Form.Control
+                            as="select"
+                            name="type"
+                            value={props.newPortfolioIncome.type}
+                        // defaultValue="Stock"
+                        // custom
+                        >
+                            {portfolioIncomeOptions.map((option) => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            name="amount"
+                            value={props.newPortfolioIncome.amount}
+                            onChange={props.handlePortfolioIncomeChange}
+                            required
+                            pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            placeholder="Dividend/Interest"
+                            autocomplete="off"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="category"
+                            value={props.newPortfolioIncome.category}
+                            onChange={props.handlePortfolioIncomeChange}
+                        />
+                        <Button
+                            type="submit"
+                            className="form-submission"
+                            onClick={props.handlePortfolioIncomeSubmit}
+                            disabled={props.formInvalid}
+                        >Add</Button>
+                    </Form.Group>
+                </Form.Row>
+            </Form>  */}
+            {/* < form ref={props.formRef} onSubmit={props.handlePortfolioIncomeSubmit} > */}
+            < form ref={props.portfolioFormRef} onSubmit={props.handlePortfolioIncomeSubmit} >
                 <label>
                     <select
                         name="type"
-                        value={props.portfolio.newPortfolioIncome.type}
+                        value={props.newPortfolioIncome.type}
                         onChange={props.handlePortfolioIncomeChange}
                     >
                         {portfolioIncomeOptions.map((option) => (
@@ -44,7 +90,7 @@ export default function PortfolioIncome(props) {
                 <label>
                     <input
                         name="amount"
-                        value={props.portfolio.newPortfolioIncome.amount}
+                        value={props.newPortfolioIncome.amount}
                         onChange={props.handlePortfolioIncomeChange}
                         required
                         pattern="[1-9]\d{0,}\.?\d{0,2}"
@@ -56,15 +102,16 @@ export default function PortfolioIncome(props) {
                     <input
                         type="hidden"
                         name="category"
-                        value={props.portfolio.newPortfolioIncome.category}
+                        value={props.newPortfolioIncome.category}
                         onChange={props.handlePortfolioIncomeChange}
                     />
                 </label>
                 <button
+                    type="submit"
                     className="form-submission"
                     onClick={props.handlePortfolioIncomeSubmit}
                     disabled={props.formInvalid}
-                >+</button>
+                >ADD</button>
             </form >
         </section >
     )
