@@ -1,14 +1,13 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const paperAssetsOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
 export default function PaperAssets(props) {
-
-
-
     return (
-        <section>
+        <>
             <h5>
                 <span>Paper</span>
                 <span className="right">${props.totalPaperAssets.map(elem => elem.amount).reduce(function (acc, num) {
@@ -29,44 +28,48 @@ export default function PaperAssets(props) {
                     </Table>
                 </div>
             ))}
-            <form ref={props.paperAssetFormRef} onSubmit={props.handlePaperAssetSubmit}>
-                <label>
-                    <select
-                        name="type"
-                        value={props.newPaperAsset.type}
-                        onChange={props.handlePaperAssetChange}
-                    >
-                        {paperAssetsOptions.map((option) => (
-                            <option key={option} value={option}>{option}</option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <input
-                        name="amount"
-                        value={props.newPaperAsset.amount}
-                        onChange={props.handlePaperAssetChange}
-                        required
-                        pattern="[1-9]\d{0,}\.?\d{0,2}"
-                        placeholder="Purchase Price"
-                        autocomplete="off"
-                    />
-                </label>
-                <label>
-                    <input
-                        type="hidden"
-                        name="category"
-                        value={props.newPaperAsset.category}
-                        onChange={props.handlePaperAssetChange}
-                    />
-                </label>
-                <button
-                    className="form-submission"
-                    onClick={props.handlePaperAssetSubmit}
-                    disabled={props.paperAssetFormInvalid}
-                >ADD</button>
-            </form>
-        </section >
+            <Form ref={props.paperAssetFormRef} onSubmit={props.handlePaperAssetSubmit}>
+                <Form.Row>
+                    <Form.Group>
+                        <select
+                            name="type"
+                            value={props.newPaperAsset.type}
+                            onChange={props.handlePaperAssetChange}
+                        >
+                            {paperAssetsOptions.map((option) => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            name="amount"
+                            value={props.newPaperAsset.amount}
+                            onChange={props.handlePaperAssetChange}
+                            required
+                            pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            placeholder="Purchase Price"
+                            autocomplete="off"
+                            size="sm"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="category"
+                            value={props.newPaperAsset.category}
+                            onChange={props.handlePaperAssetChange}
+                        />
+                        <Button
+                            className="form-submission"
+                            onClick={props.handlePaperAssetSubmit}
+                            disabled={props.paperAssetFormInvalid}
+                            size="sm"
+                        >ADD</Button>
+                    </Form.Group>
+                </Form.Row>
+            </Form>
+        </>
     )
 }
 

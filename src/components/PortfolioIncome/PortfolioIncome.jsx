@@ -8,7 +8,7 @@ const portfolioIncomeOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'RE
 export default function PortfolioIncome(props) {
 
     return (
-        <section>
+        <>
             <h5>
                 <span>Portfolio</span>
                 <span className="right">${props.totalPortfolioIncome.map(elem => elem.amount).reduce(function (acc, num) {
@@ -31,7 +31,7 @@ export default function PortfolioIncome(props) {
                     </div>
                 ))
             }
-            <Form ref={props.portfolioFormRef} onSubmit={props.handlePortfolioIncomeSubmit}>
+            <Form ref={props.portfolioFormRef} onSubmit={props.handlePortfolioIncomeSubmit} className="form">
                 <Form.Row>
                     <Form.Group>
                         <select
@@ -84,52 +84,6 @@ export default function PortfolioIncome(props) {
                     </Form.Group>
                 </Form.Row>
             </Form>
-            {/* < form ref={props.formRef} onSubmit={props.handlePortfolioIncomeSubmit} > */}
-            {/* < form ref={props.portfolioFormRef} onSubmit={props.handlePortfolioIncomeSubmit} >
-                <label>
-                    <select
-                        name="type"
-                        value={props.newPortfolioIncome.type}
-                        onChange={props.handlePortfolioIncomeChange}
-                    >
-                        {portfolioIncomeOptions.map((option) => (
-                            <option key={option} value={option}>{option}</option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <input
-                        name="amount"
-                        value={props.newPortfolioIncome.amount}
-                        onChange={props.handlePortfolioIncomeChange}
-                        required
-                        pattern="[1-9]\d{0,}\.?\d{0,2}"
-                        placeholder="Dividend/Interest"
-                        autocomplete="off"
-                    />
-                </label>
-                <label>
-                    <input
-                        type="hidden"
-                        name="category"
-                        value={props.newPortfolioIncome.category}
-                        onChange={props.handlePortfolioIncomeChange}
-                    />
-                </label>
-                <Button
-                    type="submit"
-                    className="form-submission"
-                    onClick={props.handlePortfolioIncomeSubmit}
-                    disabled={props.formInvalid}
-                    size="sm"
-                >ADD</Button> */}
-            {/* <button
-                    type="submit"
-                    className="form-submission"
-                    onClick={props.handlePortfolioIncomeSubmit}
-                    disabled={props.formInvalid}
-                >ADD</button> */}
-            {/* </form > */}
-        </section >
+        </>
     )
 }

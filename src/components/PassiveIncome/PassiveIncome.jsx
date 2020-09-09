@@ -1,12 +1,13 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
-import FormControl from 'react-bootstrap/FormControl';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const passiveIncomeOptions = ['Real Estate', 'Business', 'Commodities', 'Royalties', 'Other'];
 
 export default function PassiveIncome(props) {
     return (
-        <section>
+        <>
             <h5>
                 <span>Passive</span>
                 <span className="right">${props.totalPassiveIncome.map(elem => elem.amount).reduce(function (acc, num) {
@@ -27,64 +28,46 @@ export default function PassiveIncome(props) {
                     </Table>
                 </div>
             ))}
-            {/* <form ref={props.formRef} onSubmit={props.handlePassiveIncomeSubmit}> */}
-            <form ref={props.passiveFormRef} onSubmit={props.handlePassiveIncomeSubmit}>
-                {/* <InputGroup>
-                        <DropdownButton
-                            id="dropdown-item-button"
-                            title="Earned"
-                            variant="outline-secondary"
+            <Form ref={props.passiveFormRef} onSubmit={props.handlePassiveIncomeSubmit}>
+                <Form.Row>
+                    <Form.Group>
+                        <select
                             name="type"
-                            value={this.state.newPassiveIncome.type}
-                            onChange={this.handleChange}>
-                            <Dropdown.Item as="button">Job</Dropdown.Item>
-                            <Dropdown.Item as="button">Self-Employment</Dropdown.Item>
-                            <Dropdown.Item as="button">Other</Dropdown.Item>
-                        </DropdownButton>
-                        <FormControl
+                            value={props.newPassiveIncome.type}
+                            onChange={props.handlePassiveIncomeChange}
+                        >
+                            {passiveIncomeOptions.map((option) => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
                             name="amount"
-                            value={this.state.newPassiveIncome.amount}
-                            onChange={this.handleChange}
+                            value={props.newPassiveIncome.amount}
+                            onChange={props.handlePassiveIncomeChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             autocomplete="off"
-                            placeholder="Salary/Commission" />
-                    </InputGroup> */}
-                <label>
-                    <select
-                        name="type"
-                        value={props.newPassiveIncome.type}
-                        onChange={props.handlePassiveIncomeChange}
-                    >
-                        {passiveIncomeOptions.map((option) => (
-                            <option key={option} value={option}>{option}</option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <input
-                        name="amount"
-                        value={props.newPassiveIncome.amount}
-                        onChange={props.handlePassiveIncomeChange}
-                        required
-                        pattern="[1-9]\d{0,}\.?\d{0,2}"
-                        autocomplete="off"
-                    />
-                </label>
-                <label>
-                    <input
-                        type="hidden"
-                        name="category"
-                        value={props.newPassiveIncome.category}
-                        onChange={props.handlePassiveIncomeChange}
-                    />
-                </label>
-                <button
-                    className="form-submission"
-                    onClick={props.handlePassiveIncomeSubmit}
-                    disabled={props.passiveFormInvalid}
-                >ADD</button>
-            </form>
-        </section >
+                            size="sm"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="category"
+                            value={props.newPassiveIncome.category}
+                            onChange={props.handlePassiveIncomeChange}
+                        />
+                        <Button
+                            className="form-submission"
+                            onClick={props.handlePassiveIncomeSubmit}
+                            disabled={props.passiveFormInvalid}
+                            size="sm"
+                        >ADD</Button>
+                    </Form.Group>
+                </Form.Row>
+            </Form>
+        </>
     )
 }

@@ -4,19 +4,19 @@
 
 Finesse is based on the book "Increase Your Financial IQ" by Robert Kiyosaki. It implements the diagrams in the book and has additional features added onto them.
 
-Finesse aims to simplify financial jargon so it is easy to understand and it aims to teach financial literacy using financial statements.
+Finesse aims to:
+1. Simplify financial jargon so it is easy for everyone to understand
+2. Teach financial literacy using financial statements
 
 ### Background Info:
 There is a lot of importance placed on literacy in reading and math, and unfortunately other types of literacy have been overlooked or ignored. This changed when Ontario schools made the decision to implement courses teaching financial literacy (the language of money) and coding into their curriculum.
 It is one of the many skills that are needed in the future.
 However, there are many individuals, including highly-educated adults, that are financially illiterate. 
 
-The application Finesse strives to remove all the extra, complex words so everyone can understand the key concepts.
-
 Finesse
 - Includes the idea of "paying yourself first" to ensure that the user prioritizes their financial future
 - Introduces different types of income, assets, and liabilities
-- Introduces easy definitions so everyone can understand
+- Includes easy definitions so everyone can understand
 - Shows the connection between the 3 financial statements: income statement, balance sheet and cash flow statement
 
 

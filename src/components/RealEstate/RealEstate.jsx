@@ -1,11 +1,13 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
-const realEstateOptions = ['Residential', 'Commercial', 'Industrial', 'Land'];
+const realEstateOptions = ['Residential', 'Commercial', 'Industrial', 'Vacant Land'];
 
 export default function RealEstate(props) {
     return (
-        <section>
+        <>
             <h5>
                 <span>Real Estate</span>
                 <span className="right">${props.totalRealEstate.map(elem => elem.amount).reduce(function (acc, num) {
@@ -27,43 +29,47 @@ export default function RealEstate(props) {
                     </Table>
                 </div>
             ))}
-            <form ref={props.realEstateFormRef} onSubmit={props.handleRealEstateSubmit}>
-                <label>
-                    <select
-                        name="type"
-                        value={props.newRealEstate.type}
-                        onChange={props.handleRealEstateChange}
-                    >
-                        {realEstateOptions.map((option) => (
-                            <option key={option} value={option}>{option}</option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <input
-                        name="amount"
-                        value={props.newRealEstate.amount}
-                        onChange={props.handleRealEstateChange}
-                        required
-                        pattern="[1-9]\d{0,}\.?\d{0,2}"
-                        placeholder="Purchase Price"
-                        autocomplete="off"
-                    />
-                </label>
-                <label>
-                    <input
-                        type="hidden"
-                        name="category"
-                        value={props.newRealEstate.category}
-                        onChange={props.handleRealEstateChange}
-                    />
-                </label>
-                <button
-                    className="form-submission"
-                    onClick={props.handleRealEstateSubmit}
-                    disabled={props.realEstateFormInvalid}
-                >ADD</button>
-            </form>
-        </section >
+            <Form ref={props.realEstateFormRef} onSubmit={props.handleRealEstateSubmit}>
+                <Form.Row>
+                    <Form.Group>
+                        <select
+                            name="type"
+                            value={props.newRealEstate.type}
+                            onChange={props.handleRealEstateChange}
+                        >
+                            {realEstateOptions.map((option) => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            name="amount"
+                            value={props.newRealEstate.amount}
+                            onChange={props.handleRealEstateChange}
+                            required
+                            pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            placeholder="Purchase Price"
+                            autocomplete="off"
+                            size="sm"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="category"
+                            value={props.newRealEstate.category}
+                            onChange={props.handleRealEstateChange}
+                        />
+                        <Button
+                            className="form-submission"
+                            onClick={props.handleRealEstateSubmit}
+                            disabled={props.realEstateFormInvalid}
+                            size="sm"
+                        >ADD</Button>
+                    </Form.Group>
+                </Form.Row>
+            </Form>
+        </>
     )
 }

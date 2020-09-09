@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const badDebtOptions = ['Home Mortgage', 'Car Loans', 'Credit Cards', 'School Loans', 'Other'];
 
@@ -42,43 +43,47 @@ export default function BadDebt(props) {
                     </Table>
                 </div>
             ))}
-            <form ref={props.badDebtFormRef} onSubmit={props.handleBadDebtSubmit}>
-                <label>
-                    <select
-                        name="type"
-                        value={props.newBadDebt.type}
-                        onChange={props.handleBadDebtChange}
-                    >
-                        {badDebtOptions.map((option) => (
-                            <option key={option} value={option}>{option}</option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <input
-                        name="amount"
-                        value={props.newBadDebt.amount}
-                        onChange={props.handleBadDebtChange}
-                        required
-                        pattern="[1-9]\d{0,}\.?\d{0,2}"
-                        placeholder="Debt Value"
-                        autocomplete="off"
-                    />
-                </label>
-                <label>
-                    <input
-                        type="hidden"
-                        name="category"
-                        value={props.newBadDebt.category}
-                        onChange={props.handleBadDebtChange}
-                    />
-                </label>
-                <button
-                    className="form-submission"
-                    onClick={props.handleBadDebtSubmit}
-                    disabled={props.badDebtFormInvalid}
-                >ADD</button>
-            </form>
+            <Form ref={props.badDebtFormRef} onSubmit={props.handleBadDebtSubmit}>
+                <Form.Row>
+                    <Form.Group>
+                        <select
+                            name="type"
+                            value={props.newBadDebt.type}
+                            onChange={props.handleBadDebtChange}
+                        >
+                            {badDebtOptions.map((option) => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            name="amount"
+                            value={props.newBadDebt.amount}
+                            onChange={props.handleBadDebtChange}
+                            required
+                            pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            placeholder="Debt Value"
+                            autocomplete="off"
+                            size="sm"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="category"
+                            value={props.newBadDebt.category}
+                            onChange={props.handleBadDebtChange}
+                        />
+                        <Button
+                            className="form-submission"
+                            onClick={props.handleBadDebtSubmit}
+                            disabled={props.badDebtFormInvalid}
+                            size="sm"
+                        >ADD</Button>
+                    </Form.Group>
+                </Form.Row>
+            </Form>
         </>
     )
 }

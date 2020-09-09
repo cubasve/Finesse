@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const goodDebtOptions = ['Real Estate', 'Business', 'Paper', 'Commodities', 'Other'];
 
@@ -42,44 +43,47 @@ export default function GoodDebt(props) {
                     </Table>
                 </div>
             ))}
-
-            <form ref={props.goodDebtFormRef} onSubmit={props.handleGoodDebtSubmit}>
-                <label>
-                    <select
-                        name="type"
-                        value={props.newGoodDebt.type}
-                        onChange={props.handleGoodDebtChange}
-                    >
-                        {goodDebtOptions.map((option) => (
-                            <option key={option} value={option}>{option}</option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <input
-                        name="amount"
-                        value={props.newGoodDebt.amount}
-                        onChange={props.handleGoodDebtChange}
-                        required
-                        pattern="[1-9]\d{0,}\.?\d{0,2}"
-                        placeholder="Debt Value"
-                        autocomplete="off"
-                    />
-                </label>
-                <label>
-                    <input
-                        type="hidden"
-                        name="category"
-                        value={props.newGoodDebt.category}
-                        onChange={props.handleGoodDebtChange}
-                    />
-                </label>
-                <button
-                    className="form-submission"
-                    onClick={props.handleGoodDebtSubmit}
-                    disabled={props.goodDebtFormInvalid}
-                >ADD</button>
-            </form>
+            <Form ref={props.goodDebtFormRef} onSubmit={props.handleGoodDebtSubmit}>
+                <Form.Row>
+                    <Form.Group>
+                        <select
+                            name="type"
+                            value={props.newGoodDebt.type}
+                            onChange={props.handleGoodDebtChange}
+                        >
+                            {goodDebtOptions.map((option) => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            name="amount"
+                            value={props.newGoodDebt.amount}
+                            onChange={props.handleGoodDebtChange}
+                            required
+                            pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            placeholder="Debt Value"
+                            autocomplete="off"
+                            size="sm"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="category"
+                            value={props.newGoodDebt.category}
+                            onChange={props.handleGoodDebtChange}
+                        />
+                        <Button
+                            className="form-submission"
+                            onClick={props.handleGoodDebtSubmit}
+                            disabled={props.goodDebtFormInvalid}
+                            size="sm"
+                        >ADD</Button>
+                    </Form.Group>
+                </Form.Row>
+            </Form>
         </>
     )
 }

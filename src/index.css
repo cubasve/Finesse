@@ -67,18 +67,6 @@ span.statement {
   justify-content: space-evenly;
 }
 
-
-/* .table .table-hover {
-  margin: 0px;
-  padding: 0px;
-  border: 1px purple;
-} */
-
-
-/* button:disabled .form-submission {
-  background-color: light-grey;
+.form {
+  text-align: center;
 }
-
-button .form-submission {
-  background-color: blue;
-} */

@@ -1,5 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
@@ -129,45 +131,46 @@ export default function EarnedIncome(props) {
                 </div>
             ))}
 
-            {/* <form ref={props.formRef} onSubmit={props.handleEarnedIncomeSubmit}> */}
-            <form ref={props.earnedFormRef} onSubmit={props.handleEarnedIncomeSubmit}>
-                <label>
-                    <select
-                        name="type"
-                        value={props.newEarnedIncome.type}
-                        onChange={props.handleEarnedIncomeChange}
-                    >
-                        {earnedIncomeOptions.map(option => (
-                            <option key={option} value={option}>{option}</option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <input
-                        name="amount"
-                        value={props.newEarnedIncome.amount}
-                        onChange={props.handleEarnedIncomeChange}
-                        required
-                        pattern="[1-9]\d{0,}\.?\d{0,2}"
-                        autocomplete="off"
-                        placeholder="Salary/Commission"
-                    />
-                </label>
-                <label>
-                    <input
-                        type="hidden"
-                        name="category"
-                        value={props.newEarnedIncome.category}
-                        onChange={props.handleEarnedIncomeChange}
-                    />
-                </label>
-
-                <button
-                    className="form-submission"
-                    onClick={props.handleEarnedIncomeSubmit}
-                    disabled={props.earnedFormInvalid}
-                >ADD</button>
-            </form>
+            <Form ref={props.earnedFormRef} onSubmit={props.handleEarnedIncomeSubmit}>
+                <Form.Row>
+                    <Form.Group>
+                        <select
+                            name="type"
+                            value={props.newEarnedIncome.type}
+                            onChange={props.handleEarnedIncomeChange}
+                        >
+                            {earnedIncomeOptions.map(option => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            name="amount"
+                            value={props.newEarnedIncome.amount}
+                            onChange={props.handleEarnedIncomeChange}
+                            required
+                            pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            autocomplete="off"
+                            placeholder="Salary/Commission"
+                            size="sm"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="category"
+                            value={props.newEarnedIncome.category}
+                            onChange={props.handleEarnedIncomeChange} />
+                        <Button
+                            className="form-submission"
+                            onClick={props.handleEarnedIncomeSubmit}
+                            disabled={props.earnedFormInvalid}
+                            size="sm"
+                        >ADD</Button>
+                    </Form.Group>
+                </Form.Row>
+            </Form>
         </>
     )
 }

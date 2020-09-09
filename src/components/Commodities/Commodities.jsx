@@ -1,11 +1,13 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const commodityOptions = ['Metals', 'Energy', 'Livestock & Meat', 'Agriculture', 'Cryptocurrency', 'Other'];
 
 export default function Commodities(props) {
     return (
-        <section>
+        <>
             <h5>
                 <span>Commodities</span>
                 <span className="right">${props.totalCommodities.map(elem => elem.amount).reduce(function (acc, num) {
@@ -26,43 +28,47 @@ export default function Commodities(props) {
                     </Table>
                 </div>
             ))}
-            <form ref={props.commodityFormRef} onSubmit={props.handleCommoditySubmit}>
-                <label>
-                    <select
-                        name="type"
-                        value={props.newCommodity.type}
-                        onChange={props.handleCommodityChange}
-                    >
-                        {commodityOptions.map((option) => (
-                            <option key={option} value={option}>{option}</option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    <input
-                        name="amount"
-                        value={props.newCommodity.amount}
-                        onChange={props.handleCommodityChange}
-                        required
-                        pattern="[1-9]\d{0,}\.?\d{0,2}"
-                        placeholder="Purchase Price"
-                        autocomplete="off"
-                    />
-                </label>
-                <label>
-                    <input
-                        type="hidden"
-                        name="category"
-                        value={props.newCommodity.category}
-                        onChange={props.handleCommodityChange}
-                    />
-                </label>
-                <button
-                    className="form-submission"
-                    onClick={props.handleCommoditySubmit}
-                    disabled={props.commodityFormInvalid}
-                >ADD</button>
-            </form>
-        </section >
+            <Form ref={props.commodityFormRef} onSubmit={props.handleCommoditySubmit}>
+                <Form.Row>
+                    <Form.Group>
+                        <select
+                            name="type"
+                            value={props.newCommodity.type}
+                            onChange={props.handleCommodityChange}
+                        >
+                            {commodityOptions.map((option) => (
+                                <option key={option} value={option}>{option}</option>
+                            ))}
+                        </select>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            name="amount"
+                            value={props.newCommodity.amount}
+                            onChange={props.handleCommodityChange}
+                            required
+                            pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            placeholder="Purchase Price"
+                            autocomplete="off"
+                            size="sm"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="category"
+                            value={props.newCommodity.category}
+                            onChange={props.handleCommodityChange}
+                        />
+                        <Button
+                            className="form-submission"
+                            onClick={props.handleCommoditySubmit}
+                            disabled={props.commodityFormInvalid}
+                            size="sm"
+                        >ADD</Button>
+                    </Form.Group>
+                </Form.Row>
+            </Form>
+        </>
     )
 }
