@@ -32,6 +32,7 @@ export default function Income(props) {
                 newPortfolioIncome={props.newPortfolioIncome}
                 handlePortfolioIncomeSubmit={props.handlePortfolioIncomeSubmit}
                 handlePortfolioIncomeChange={props.handlePortfolioIncomeChange}
+                handlePortfolioIncomeDelete={props.handlePortfolioIncomeDelete}
 
                 portfolioFormInvalid={props.portfolioFormInvalid}
                 portfolioFormRef={props.portfolioFormRef}
@@ -42,6 +43,7 @@ export default function Income(props) {
                 newPassiveIncome={props.newPassiveIncome}
                 handlePassiveIncomeSubmit={props.handlePassiveIncomeSubmit}
                 handlePassiveIncomeChange={props.handlePassiveIncomeChange}
+                handlePassiveIncomeDelete={props.handlePassiveIncomeDelete}
 
                 passiveFormInvalid={props.passiveFormInvalid}
                 passiveFormRef={props.passiveFormRef}

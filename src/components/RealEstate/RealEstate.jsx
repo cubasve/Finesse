@@ -20,10 +20,17 @@ export default function RealEstate(props) {
                     <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td className="left">{re.type}</td>
+                                <td className="left">
+                                    <Button
+                                        name={re.amount}
+                                        value={re._id}
+                                        onClick={props.handleRealEstateDelete}
+                                        variant="danger"
+                                        size="sm"
+                                        className="delete">X</Button>
+                                    {re.type}
+                                </td>
                                 <td className="right">{re.amount}</td>
-                                {/* <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td> */}
                             </tr>
                         </tbody>
                     </Table>

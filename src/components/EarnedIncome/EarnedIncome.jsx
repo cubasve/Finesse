@@ -21,19 +21,23 @@ export default function EarnedIncome(props) {
                         <tbody>
                             <tr>
                                 <td className="left">
-                                    <button
+                                    {/* <button
                                         name={ei.amount}
                                         value={ei._id}
-                                    // onClick={props.handleEarnedIncomeUpdate}
+                                        onClick={props.handleEarnedIncomeUpdate}
                                     >
                                         U
-                                    </button>
-                                    <button
+                                    </button> */}
+                                    <Button
                                         name={ei.amount}
                                         value={ei._id}
-                                        onClick={props.handleEarnedIncomeDelete}>
+                                        onClick={props.handleEarnedIncomeDelete}
+                                        variant="danger"
+                                        size="sm"
+                                        className="delete">
                                         X
-                                    </button>
+                                    </Button>
+                                    <span></span>
                                     {ei.type}
                                 </td>
                                 <td className="right">{ei.amount}</td>

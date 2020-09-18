@@ -32,7 +32,16 @@ export default function PayYourselfFirst(props) {
                         <Table borderless hover size="sm">
                             <tbody>
                                 <tr>
-                                    <td className="left"><strong>{pi.amount}%</strong> Allocated to Financial Future</td>
+                                    <td className="left">
+                                        <Button
+                                            name={pi.amount}
+                                            value={pi._id}
+                                            onClick={props.handleSelfFirstDelete}
+                                            variant="danger"
+                                            size="sm"
+                                            className="delete">X</Button>
+                                        <strong>{pi.amount}%</strong> Allocation
+                                        </td>
                                     <td className="right">$</td>
                                 </tr>
                             </tbody>

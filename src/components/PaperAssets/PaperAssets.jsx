@@ -19,10 +19,17 @@ export default function PaperAssets(props) {
                     <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td className="left">{pa.type}</td>
+                                <td className="left">
+                                    <Button
+                                        name={pa.amount}
+                                        value={pa._id}
+                                        onClick={props.handlePaperAssetDelete}
+                                        variant="danger"
+                                        size="sm"
+                                        className="delete">X</Button>
+                                    {pa.type}
+                                </td>
                                 <td className="right">{pa.amount}</td>
-                                {/* <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td> */}
                             </tr>
                         </tbody>
                     </Table>

@@ -20,10 +20,17 @@ export default function Cash(props) {
                     <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td className="left">{ca.type}</td>
+                                <td className="left">
+                                    <Button
+                                        name={ca.amount}
+                                        value={ca._id}
+                                        onClick={props.handleCashDelete}
+                                        variant="danger"
+                                        size="sm"
+                                        className="delete">X</Button>
+                                    {ca.type}
+                                </td>
                                 <td className="right">{ca.amount}</td>
-                                {/* <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td>  */}
                             </tr>
                         </tbody >
                     </Table >

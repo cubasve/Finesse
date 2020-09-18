@@ -19,10 +19,17 @@ export default function Commodities(props) {
                     <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td className="left">{c.type}</td>
+                                <td className="left">
+                                    <Button
+                                        name={c.amount}
+                                        value={c._id}
+                                        onClick={props.handleCommodityDelete}
+                                        variant="danger"
+                                        size="sm"
+                                        className="delete">X</Button>
+                                    {c.type}
+                                </td>
                                 <td className="right">{c.amount}</td>
-                                {/* <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td> */}
                             </tr>
                         </tbody>
                     </Table>

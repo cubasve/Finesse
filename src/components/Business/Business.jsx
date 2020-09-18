@@ -20,10 +20,17 @@ export default function Business(props) {
                     <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td className="left">{b.type}</td>
+                                <td className="left">
+                                    <Button
+                                        name={b.amount}
+                                        value={b._id}
+                                        onClick={props.handleBusinessDelete}
+                                        variant="danger"
+                                        size="sm"
+                                        className="delete">X</Button>
+                                    {b.type}
+                                </td>
                                 <td className="right">{b.amount}</td>
-                                {/* <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td> */}
                             </tr>
                         </tbody>
                     </Table>

@@ -38,6 +38,7 @@ export default function Assets(props) {
                 newCash={props.newCash}
                 handleCashSubmit={props.handleCashSubmit}
                 handleCashChange={props.handleCashChange}
+                handleCashDelete={props.handleCashDelete}
                 cashFormInvalid={props.cashFormInvalid}
                 cashFormRef={props.cashFormRef}
             />
@@ -46,6 +47,7 @@ export default function Assets(props) {
                 newPaperAsset={props.newPaperAsset}
                 handlePaperAssetSubmit={props.handlePaperAssetSubmit}
                 handlePaperAssetChange={props.handlePaperAssetChange}
+                handlePaperAssetDelete={props.handlePaperAssetDelete}
                 paperAssetFormInvalid={props.paperAssetFormInvalid}
                 paperAssetFormRef={props.paperAssetFormRef}
             />
@@ -54,6 +56,7 @@ export default function Assets(props) {
                 newRealEstate={props.newRealEstate}
                 handleRealEstateSubmit={props.handleRealEstateSubmit}
                 handleRealEstateChange={props.handleRealEstateChange}
+                handleRealEstateDelete={props.handleRealEstateDelete}
                 realEstateFormInvalid={props.realEstateFormInvalid}
                 realEstateFormRef={props.realEstateFormRef}
             />
@@ -62,6 +65,7 @@ export default function Assets(props) {
                 newBusiness={props.newBusiness}
                 handleBusinessSubmit={props.handleBusinessSubmit}
                 handleBusinessChange={props.handleBusinessChange}
+                handleBusinessDelete={props.handleBusinessDelete}
                 businessFormInvalid={props.businessFormInvalid}
                 businessFormRef={props.businessFormRef}
             />
@@ -70,6 +74,7 @@ export default function Assets(props) {
                 newCommodity={props.newCommodity}
                 handleCommoditySubmit={props.handleCommoditySubmit}
                 handleCommodityChange={props.handleCommodityChange}
+                handleCommodityDelete={props.handleCommodityDelete}
                 commodityFormInvalid={props.commodityFormInvalid}
                 commodityFormRef={props.commodityFormRef}
             />

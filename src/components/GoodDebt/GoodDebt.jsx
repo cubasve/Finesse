@@ -34,10 +34,17 @@ export default function GoodDebt(props) {
                     <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td className="left">{gd.type}</td>
+                                <td className="left">
+                                    <Button
+                                        name={gd.amount}
+                                        value={gd._id}
+                                        onClick={props.handleGoodDebtDelete}
+                                        variant="danger"
+                                        size="sm"
+                                        className="delete">X</Button>
+                                    {gd.type}
+                                </td>
                                 <td className="right">{gd.amount}</td>
-                                {/* <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td> */}
                             </tr>
                         </tbody>
                     </Table>

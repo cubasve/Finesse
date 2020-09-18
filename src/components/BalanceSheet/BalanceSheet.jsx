@@ -128,6 +128,19 @@ export default class BalanceSheet extends Component {
         this.setState({ newPaperAsset: newPaperAsset, paperAssetFormInvalid: !this.paperAssetFormRef.current.checkValidity() })
     }
 
+    handlePaperAssetDelete = async (e) => {
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalPaperAssets: data.user.userFinances.filter(elem => elem.category === 'Paper')
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     handleRealEstateSubmit = async (e) => {
         e.preventDefault();
         if (!this.realEstateFormRef.current.checkValidity()) return;
@@ -156,6 +169,19 @@ export default class BalanceSheet extends Component {
     handleRealEstateChange = e => {
         const newRealEstate = { ...this.state.newRealEstate, [e.target.name]: e.target.value }
         this.setState({ newRealEstate: newRealEstate, realEstateFormInvalid: !this.realEstateFormRef.current.checkValidity() })
+    }
+
+    handleRealEstateDelete = async (e) => {
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalRealEstate: data.user.userFinances.filter(elem => elem.category === 'RealEstate')
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     handleBusinessSubmit = async (e) => {
@@ -188,6 +214,19 @@ export default class BalanceSheet extends Component {
         this.setState({ newBusiness: newBusiness, businessFormInvalid: !this.businessFormRef.current.checkValidity() })
     }
 
+    handleBusinessDelete = async (e) => {
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalBusiness: data.user.userFinances.filter(elem => elem.category === 'Business')
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     handleCommoditySubmit = async (e) => {
         e.preventDefault();
         if (!this.commodityFormRef.current.checkValidity()) return;
@@ -216,6 +255,19 @@ export default class BalanceSheet extends Component {
     handleCommodityChange = e => {
         const newCommodity = { ...this.state.newCommodity, [e.target.name]: e.target.value }
         this.setState({ newCommodity: newCommodity, commodityFormInvalid: !this.commodityFormRef.current.checkValidity() })
+    }
+
+    handleCommodityDelete = async (e) => {
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalCommodities: data.user.userFinances.filter(elem => elem.category === 'Commodity')
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     handleCashSubmit = async (e) => {
@@ -248,6 +300,19 @@ export default class BalanceSheet extends Component {
         this.setState({ newCash: newCash, cashFormInvalid: !this.cashFormRef.current.checkValidity() })
     }
 
+    handleCashDelete = async (e) => {
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalCash: data.user.userFinances.filter(elem => elem.category === 'Cash')
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     handleGoodDebtSubmit = async (e) => {
         e.preventDefault();
         if (!this.goodDebtFormRef.current.checkValidity()) return;
@@ -278,6 +343,19 @@ export default class BalanceSheet extends Component {
         this.setState({ newGoodDebt: newGoodDebt, goodDebtFormInvalid: !this.goodDebtFormRef.current.checkValidity() })
     }
 
+    handleGoodDebtDelete = async (e) => {
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalGoodDebt: data.user.userFinances.filter(elem => elem.category === 'GoodDebt')
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     handleBadDebtSubmit = async (e) => {
         e.preventDefault();
         if (!this.badDebtFormRef.current.checkValidity()) return;
@@ -290,7 +368,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalBadDebt: data.user.userFinances.filter(elem => elem.category === 'BadDebt'),
-                        newGoodDebt: {
+                        newBadDebt: {
                             type: 'Home Mortgage',
                             amount: '',
                             category: 'BadDebt'
@@ -308,6 +386,19 @@ export default class BalanceSheet extends Component {
         this.setState({ newBadDebt: newBadDebt, badDebtFormInvalid: !this.badDebtFormRef.current.checkValidity() })
     }
 
+    handleBadDebtDelete = async (e) => {
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalBadDebt: data.user.userFinances.filter(elem => elem.category === 'BadDebt')
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     render() {
         return (
             <>
@@ -316,6 +407,7 @@ export default class BalanceSheet extends Component {
                     newPaperAsset={this.state.newPaperAsset}
                     handlePaperAssetSubmit={this.handlePaperAssetSubmit}
                     handlePaperAssetChange={this.handlePaperAssetChange}
+                    handlePaperAssetDelete={this.handlePaperAssetDelete}
                     paperAssetFormInvalid={this.state.paperAssetFormInvalid}
                     paperAssetFormRef={this.paperAssetFormRef}
 
@@ -323,6 +415,7 @@ export default class BalanceSheet extends Component {
                     newRealEstate={this.state.newRealEstate}
                     handleRealEstateSubmit={this.handleRealEstateSubmit}
                     handleRealEstateChange={this.handleRealEstateChange}
+                    handleRealEstateDelete={this.handleRealEstateDelete}
                     realEstateFormInvalid={this.state.realEstateFormInvalid}
                     realEstateFormRef={this.realEstateFormRef}
 
@@ -330,6 +423,7 @@ export default class BalanceSheet extends Component {
                     newBusiness={this.state.newBusiness}
                     handleBusinessSubmit={this.handleBusinessSubmit}
                     handleBusinessChange={this.handleBusinessChange}
+                    handleBusinessDelete={this.handleBusinessDelete}
                     businessFormInvalid={this.state.businessFormInvalid}
                     businessFormRef={this.businessFormRef}
 
@@ -337,6 +431,7 @@ export default class BalanceSheet extends Component {
                     newCommodity={this.state.newCommodity}
                     handleCommoditySubmit={this.handleCommoditySubmit}
                     handleCommodityChange={this.handleCommodityChange}
+                    handleCommodityDelete={this.handleCommodityDelete}
                     commodityFormInvalid={this.state.commodityFormInvalid}
                     commodityFormRef={this.commodityFormRef}
 
@@ -344,6 +439,7 @@ export default class BalanceSheet extends Component {
                     newCash={this.state.newCash}
                     handleCashSubmit={this.handleCashSubmit}
                     handleCashChange={this.handleCashChange}
+                    handleCashDelete={this.handleCashDelete}
                     cashFormInvalid={this.state.cashFormInvalid}
                     cashFormRef={this.cashFormRef}
                 />
@@ -352,6 +448,7 @@ export default class BalanceSheet extends Component {
                     newGoodDebt={this.state.newGoodDebt}
                     handleGoodDebtSubmit={this.handleGoodDebtSubmit}
                     handleGoodDebtChange={this.handleGoodDebtChange}
+                    handleGoodDebtDelete={this.handleGoodDebtDelete}
                     goodDebtFormInvalid={this.state.goodDebtFormInvalid}
                     goodDebtFormRef={this.goodDebtFormRef}
 
@@ -359,10 +456,9 @@ export default class BalanceSheet extends Component {
                     newBadDebt={this.state.newBadDebt}
                     handleBadDebtSubmit={this.handleBadDebtSubmit}
                     handleBadDebtChange={this.handleBadDebtChange}
+                    handleBadDebtDelete={this.handleBadDebtDelete}
                     badDebtFormInvalid={this.state.badDebtFormInvalid}
                     badDebtFormRef={this.badDebtFormRef}
-
-                // formInvalid={this.state.formInvalid}
                 />
                 EQUITY/NET WORTH = ASSETS - LIABILITIES
             </>

@@ -19,10 +19,17 @@ export default function PassiveIncome(props) {
                     <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td className="left">{pi.type}</td>
+                                <td className="left">
+                                    <Button
+                                        name={pi.amount}
+                                        value={pi._id}
+                                        onClick={props.handlePassiveIncomeDelete}
+                                        variant="danger"
+                                        size="sm"
+                                        className="delete">X</Button>
+                                    {pi.type}
+                                </td>
                                 <td className="right">{pi.amount}</td>
-                                {/* <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td> */}
                             </tr>
                         </tbody>
                     </Table>

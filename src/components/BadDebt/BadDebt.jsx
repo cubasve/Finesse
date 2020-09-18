@@ -34,15 +34,23 @@ export default function BadDebt(props) {
                     <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td className="left">{bd.type}</td>
+                                <td className="left">
+                                    <Button
+                                        name={bd.amount}
+                                        value={bd._id}
+                                        onClick={props.handleBadDebtDelete}
+                                        variant="danger"
+                                        size="sm"
+                                        className="delete">X</Button>
+                                    {bd.type}
+                                </td>
                                 <td className="right">{bd.amount}</td>
-                                {/* <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td> */}
                             </tr>
                         </tbody>
                     </Table>
                 </div>
-            ))}
+            ))
+            }
             <Form ref={props.badDebtFormRef} onSubmit={props.handleBadDebtSubmit}>
                 <Form.Row>
                     <Form.Group>

@@ -113,7 +113,6 @@ export default class IncomeStatement extends Component {
     }
 
     handleEarnedIncomeDelete = async (e) => {
-        // const data = this.state.totalEarnedIncome.filter(i => i._id !== e.target.value);
         try {
             await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
@@ -121,17 +120,6 @@ export default class IncomeStatement extends Component {
                         totalEarnedIncome: data.user.userFinances.filter(elem => elem.category === 'Earned')
                     })
                 })
-            // let selectedIndex = this.state.totalEarnedIncome.findIndex(index => (index._id === e.target.value));
-            // console.log(selectedIndex)
-            // try {
-            //     await financialStatementService.deleteOne({ id: e.target.value })
-            //         .then(data => {
-            //             this.setState({
-            //                 totalEarnedIncome: data.user.userFinances
-            //                     .filter(elem => (elem.category === 'Earned'))
-            //                     .splice(selectedIndex, 1)
-            //             })
-            //         })
         } catch (err) {
             console.error(err);
         }
@@ -171,6 +159,19 @@ export default class IncomeStatement extends Component {
         this.setState({ newPortfolioIncome: newPortfolioIncome, portfolioFormInvalid: !this.portfolioFormRef.current.checkValidity() })
     }
 
+    handlePortfolioIncomeDelete = async (e) => {
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalPortfolioIncome: data.user.userFinances.filter(elem => elem.category === 'Portfolio')
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     handlePassiveIncomeSubmit = async (e) => {
         e.preventDefault();
         if (!this.passiveFormRef.current.checkValidity()) return;
@@ -205,6 +206,19 @@ export default class IncomeStatement extends Component {
         this.setState({ newPassiveIncome: newPassiveIncome, passiveFormInvalid: !this.passiveFormRef.current.checkValidity() });
     }
 
+    handlePassiveIncomeDelete = async (e) => {
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalPassiveIncome: data.user.userFinances.filter(elem => elem.category === 'Passive')
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     handleExpenseSubmit = async (e) => {
         e.preventDefault();
         if (!this.expenseFormRef.current.checkValidity()) return;
@@ -237,6 +251,19 @@ export default class IncomeStatement extends Component {
         this.setState({ newExpense: newExpense, expenseFormInvalid: !this.expenseFormRef.current.checkValidity() })
     }
 
+    handleExpenseDelete = async (e) => {
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalExpenses: data.user.userFinances.filter(elem => elem.category === 'Expense')
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     handleSelfFirstSubmit = async (e) => {
         e.preventDefault();
         if (!this.selfFirstFormRef.current.checkValidity()) return;
@@ -250,7 +277,7 @@ export default class IncomeStatement extends Component {
                 .then(data => {
                     this.setState({
                         totalPayYourselfFirst: data.user.userFinances.filter(elem => elem.category === 'Self'),
-                        newExpense: {
+                        newPayYourselfFirst: {
                             // type: 'Self',
                             amount: '',
                             category: 'Self',
@@ -267,6 +294,19 @@ export default class IncomeStatement extends Component {
     handleSelfFirstChange = e => {
         const newPayYourselfFirst = { ...this.state.newPayYourselfFirst, [e.target.name]: e.target.value }
         this.setState({ newPayYourselfFirst: newPayYourselfFirst, selfFirstFormInvalid: !this.selfFirstFormRef.current.checkValidity() })
+    }
+
+    handleSelfFirstDelete = async (e) => {
+        try {
+            await financialStatementService.deleteOne({ id: e.target.value })
+                .then(data => {
+                    this.setState({
+                        totalPayYourselfFirst: data.user.userFinances.filter(elem => elem.category === 'Self')
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     render() {
@@ -287,6 +327,7 @@ export default class IncomeStatement extends Component {
                     newPortfolioIncome={this.state.newPortfolioIncome}
                     handlePortfolioIncomeSubmit={this.handlePortfolioIncomeSubmit}
                     handlePortfolioIncomeChange={this.handlePortfolioIncomeChange}
+                    handlePortfolioIncomeDelete={this.handlePortfolioIncomeDelete}
                     portfolioFormInvalid={this.state.portfolioFormInvalid}
                     portfolioFormRef={this.portfolioFormRef}
 
@@ -294,6 +335,7 @@ export default class IncomeStatement extends Component {
                     newPassiveIncome={this.state.newPassiveIncome}
                     handlePassiveIncomeSubmit={this.handlePassiveIncomeSubmit}
                     handlePassiveIncomeChange={this.handlePassiveIncomeChange}
+                    handlePassiveIncomeDelete={this.handlePassiveIncomeDelete}
                     passiveFormInvalid={this.state.passiveFormInvalid}
                     passiveFormRef={this.passiveFormRef}
                 />
@@ -303,6 +345,7 @@ export default class IncomeStatement extends Component {
                     newExpense={this.state.newExpense}
                     handleExpenseSubmit={this.handleExpenseSubmit}
                     handleExpenseChange={this.handleExpenseChange}
+                    handleExpenseDelete={this.handleExpenseDelete}
                     expenseFormInvalid={this.state.expenseFormInvalid}
                     expenseFormRef={this.expenseFormRef}
 
@@ -310,6 +353,7 @@ export default class IncomeStatement extends Component {
                     newPayYourselfFirst={this.state.newPayYourselfFirst}
                     handleSelfFirstSubmit={this.handleSelfFirstSubmit}
                     handleSelfFirstChange={this.handleSelfFirstChange}
+                    handleSelfFirstDelete={this.handleSelfFirstDelete}
                     selfFirstFormInvalid={this.state.selfFirstFormInvalid}
                     selfFirstFormRef={this.selfFirstFormRef}
                 />

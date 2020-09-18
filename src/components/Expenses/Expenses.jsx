@@ -11,23 +11,27 @@ export default function Expenses(props) {
         <div className="border">
             <span className="title">
                 <span>EXPENSES</span>
-                <span className="right">${props.totalExpenses.map(elem => elem.amount).reduce(function (acc, num) {
+                {/* <span className="right">${props.totalExpenses.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}
-                </span>
+                </span> */}
             </span>
             <PayYourselfFirst
                 totalPayYourselfFirst={props.totalPayYourselfFirst}
                 newPayYourselfFirst={props.newPayYourselfFirst}
                 handleSelfFirstSubmit={props.handleSelfFirstSubmit}
                 handleSelfFirstChange={props.handleSelfFirstChange}
+                handleSelfFirstDelete={props.handleSelfFirstDelete}
                 selfFirstFormInvalid={props.selfFirstFormInvalid}
                 selfFirstFormRef={props.selfFirstFormRef}
             />
 
             <h5>
                 <span>Expenses</span>
-                <span className="right">$</span>
+                <span className="right">${props.totalExpenses.map(elem => elem.amount).reduce(function (acc, num) {
+                    return acc + num;
+                }, 0)}
+                </span>
             </h5>
 
             {props.totalExpenses.map(ex => (
@@ -35,10 +39,17 @@ export default function Expenses(props) {
                     <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td className="left">{ex.type}</td>
+                                <td className="left">
+                                    <Button
+                                        name={ex.amount}
+                                        value={ex._id}
+                                        onClick={props.handleExpenseDelete}
+                                        variant="danger"
+                                        size="sm"
+                                        className="delete">X</Button>
+                                    {ex.type}
+                                </td>
                                 <td className="right">{ex.amount}</td>
-                                {/* <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td> */}
                             </tr>
                         </tbody>
                     </Table>
