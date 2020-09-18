@@ -4,27 +4,38 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-const expenseOptions = ['Housing', 'Transportation', 'Food', 'Kids', 'Debt Payments', 'Entertainment', 'Donations', 'Other'];
+const expenseOptions = ['Taxes', 'Housing', 'Transportation', 'Food', 'Children', 'Debt Payments', 'Entertainment', 'Donations', 'Other'];
 
 export default function Expenses(props) {
     return (
         <div className="border">
             <span className="title">
                 <span>EXPENSES</span>
-                <span className="right">$
-                    {/* {props.totalIncome.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${props.totalExpenses.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
-                }, 0)} */}
+                }, 0)}
                 </span>
             </span>
-            <PayYourselfFirst />
+            <PayYourselfFirst
+                totalPayYourselfFirst={props.totalPayYourselfFirst}
+                newPayYourselfFirst={props.newPayYourselfFirst}
+                handleSelfFirstSubmit={props.handleSelfFirstSubmit}
+                handleSelfFirstChange={props.handleSelfFirstChange}
+                selfFirstFormInvalid={props.selfFirstFormInvalid}
+                selfFirstFormRef={props.selfFirstFormRef}
+            />
+
+            <h5>
+                <span>Expenses</span>
+                <span className="right">$</span>
+            </h5>
 
             {props.totalExpenses.map(ex => (
                 <div key={ex.amount}>
-                    <Table hover size="sm">
+                    <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td>{ex.type}</td>
+                                <td className="left">{ex.type}</td>
                                 <td className="right">{ex.amount}</td>
                                 {/* <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td> */}
@@ -40,6 +51,7 @@ export default function Expenses(props) {
                             name="type"
                             value={props.newExpense.type}
                             onChange={props.handleExpenseChange}
+                            className="select"
                         >
                             {expenseOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

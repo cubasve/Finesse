@@ -16,10 +16,10 @@ export default function PaperAssets(props) {
             </h5>
             {props.totalPaperAssets.map(pa => (
                 <div key={pa.amount}>
-                    <Table hover size="sm">
+                    <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td>{pa.type}</td>
+                                <td className="left">{pa.type}</td>
                                 <td className="right">{pa.amount}</td>
                                 {/* <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td> */}
@@ -35,6 +35,7 @@ export default function PaperAssets(props) {
                             name="type"
                             value={props.newPaperAsset.type}
                             onChange={props.handlePaperAssetChange}
+                            className="select"
                         >
                             {paperAssetsOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

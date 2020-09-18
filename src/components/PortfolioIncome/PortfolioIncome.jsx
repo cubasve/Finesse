@@ -18,7 +18,7 @@ export default function PortfolioIncome(props) {
             {
                 props.totalPortfolioIncome.map(pi => (
                     <div key={pi.amount}>
-                        <Table hover size="sm">
+                        <Table borderless hover size="sm">
                             <tbody>
                                 <tr>
                                     <td className="left">{pi.type}</td>
@@ -38,6 +38,7 @@ export default function PortfolioIncome(props) {
                             name="type"
                             value={props.newPortfolioIncome.type}
                             onChange={props.handlePortfolioIncomeChange}
+                            className="select"
                         >
                             {portfolioIncomeOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
@@ -65,6 +66,14 @@ export default function PortfolioIncome(props) {
                             placeholder="Dividend/Interest"
                             autocomplete="off"
                             size="sm"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="class"
+                            value={props.newPortfolioIncome.class}
+                            onChange={props.handlePortfolioIncomeChange}
                         />
                     </Form.Group>
                     <Form.Group>

@@ -40,9 +40,9 @@ span.statement {
   font-weight: 500;
 }
 
-/* td.left {
+.left {
   float: left;
-} */
+}
 
 .right {
   float: right;
@@ -55,10 +55,16 @@ span.statement {
   /* padding: 20px 20px; */
 }
 
+.homepage {
+  margin: 200px 100px;
+}
+
 .overview {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  margin-bottom: 200px;
+  margin-top: 100px;
 }
 
 .financial-statement {
@@ -67,6 +73,28 @@ span.statement {
   justify-content: space-evenly;
 }
 
-.form {
-  text-align: center;
+.select {
+  width: 160px;
 }
+.selfFirst {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width : 1200px) {
+  div.FinancialStatement, .overview, .financial-statement, .cash-flow {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: space-around;
+  }
+  .select {
+    width: 100px;
+  }
+  div.border {
+    padding: 15px 30px;
+    margin: 10px 0px;
+  }
+}
+

@@ -15,7 +15,7 @@ const popover = (
 );
 
 const BadDebtPopover = () => (
-    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+    <OverlayTrigger trigger="click" placement="top" overlay={popover}>
         <Button variant="success" size="sm">&#8505;</Button>
     </OverlayTrigger>
 );
@@ -31,10 +31,10 @@ export default function BadDebt(props) {
             </h5>
             {props.totalBadDebt.map(bd => (
                 <div key={bd.amount}>
-                    <Table hover size="sm">
+                    <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td>{bd.type}</td>
+                                <td className="left">{bd.type}</td>
                                 <td className="right">{bd.amount}</td>
                                 {/* <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td> */}
@@ -50,6 +50,7 @@ export default function BadDebt(props) {
                             name="type"
                             value={props.newBadDebt.type}
                             onChange={props.handleBadDebtChange}
+                            className="select"
                         >
                             {badDebtOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

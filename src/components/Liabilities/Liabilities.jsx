@@ -13,7 +13,7 @@ const popover = (
     </Popover>
 );
 const LiabilityPopover = () => (
-    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+    <OverlayTrigger trigger="click" placement="top" overlay={popover}>
         <Button variant="success" size="sm">&#8505;</Button>
     </OverlayTrigger>
 )

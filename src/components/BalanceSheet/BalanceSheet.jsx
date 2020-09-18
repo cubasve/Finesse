@@ -9,7 +9,8 @@ export default class BalanceSheet extends Component {
         newPaperAsset: {
             type: 'Stock',
             amount: '',
-            category: 'Paper'
+            category: 'Paper',
+            class: 'Asset',
         },
         paperAssetFormInvalid: true,
 
@@ -17,7 +18,8 @@ export default class BalanceSheet extends Component {
         newRealEstate: {
             type: 'Residential',
             amount: '',
-            category: 'RealEstate'
+            category: 'RealEstate',
+            class: 'Asset',
         },
         realEstateFormInvalid: true,
 
@@ -25,7 +27,8 @@ export default class BalanceSheet extends Component {
         newBusiness: {
             type: 'Sole proprietorship',
             amount: '',
-            category: 'Business'
+            category: 'Business',
+            class: 'Asset',
         },
         businessFormInvalid: true,
 
@@ -33,15 +36,28 @@ export default class BalanceSheet extends Component {
         newCommodity: {
             type: 'Metals',
             amount: '',
-            category: 'Commodity'
+            category: 'Commodity',
+            class: 'Asset',
         },
         commodityFormInvalid: true,
+
+        totalCash: [],
+        newCash: {
+            type: 'Chequing Account',
+            amount: '',
+            category: 'Cash',
+            class: 'Asset',
+        },
+        cashFormInvalid: true,
+
+        totalLiabilities: [],
 
         totalGoodDebt: [],
         newGoodDebt: {
             type: 'Real Estate',
             amount: '',
-            category: 'GoodDebt'
+            category: 'GoodDebt',
+            class: 'Liability',
         },
         goodDebtFormInvalid: true,
 
@@ -49,7 +65,8 @@ export default class BalanceSheet extends Component {
         newBadDebt: {
             type: 'Home Mortgage',
             amount: '',
-            category: 'BadDebt'
+            category: 'BadDebt',
+            class: 'Liability',
         },
         badDebtFormInvalid: true,
     }
@@ -57,6 +74,7 @@ export default class BalanceSheet extends Component {
     realEstateFormRef = React.createRef();
     businessFormRef = React.createRef();
     commodityFormRef = React.createRef();
+    cashFormRef = React.createRef();
     goodDebtFormRef = React.createRef();
     badDebtFormRef = React.createRef();
 
@@ -69,8 +87,10 @@ export default class BalanceSheet extends Component {
                         totalRealEstate: data.user.userFinances.filter(elem => (elem.category === 'RealEstate')),
                         totalBusiness: data.user.userFinances.filter(elem => (elem.category === 'Business')),
                         totalCommodities: data.user.userFinances.filter(elem => elem.category === 'Commodity'),
+                        totalCash: data.user.userFinances.filter(elem => elem.category === 'Cash'),
                         totalGoodDebt: data.user.userFinances.filter(elem => elem.category === 'GoodDebt'),
                         totalBadDebt: data.user.userFinances.filter(elem => elem.category === 'BadDebt'),
+                        totalLiabilities: data.user.userFinances.filter(elem => elem.category === 'GoodDebt' && elem.category === 'BadDebt'),
                     })
                 })
         } catch (err) {
@@ -83,7 +103,8 @@ export default class BalanceSheet extends Component {
         if (!this.paperAssetFormRef.current.checkValidity()) return;
         try {
             await financialStatementService.create({
-                type: this.state.newPaperAsset.type, amount: this.state.newPaperAsset.amount,
+                type: this.state.newPaperAsset.type,
+                amount: this.state.newPaperAsset.amount,
                 category: this.state.newPaperAsset.category
             })
                 .then(data => {
@@ -197,6 +218,36 @@ export default class BalanceSheet extends Component {
         this.setState({ newCommodity: newCommodity, commodityFormInvalid: !this.commodityFormRef.current.checkValidity() })
     }
 
+    handleCashSubmit = async (e) => {
+        e.preventDefault();
+        if (!this.cashFormRef.current.checkValidity()) return;
+        try {
+            await financialStatementService.create({
+                type: this.state.newCash.type,
+                amount: this.state.newCash.amount,
+                category: this.state.newCash.category,
+            })
+                .then(data => {
+                    this.setState({
+                        totalCash: data.user.userFinances.filter(elem => elem.category === 'Cash'),
+                        newCash: {
+                            type: 'Chequing Account',
+                            amount: '',
+                            category: 'Cash'
+                        },
+                        cashFormInvalid: true,
+                    })
+                })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    handleCashChange = e => {
+        const newCash = { ...this.state.newCash, [e.target.name]: e.target.value }
+        this.setState({ newCash: newCash, cashFormInvalid: !this.cashFormRef.current.checkValidity() })
+    }
+
     handleGoodDebtSubmit = async (e) => {
         e.preventDefault();
         if (!this.goodDebtFormRef.current.checkValidity()) return;
@@ -288,6 +339,13 @@ export default class BalanceSheet extends Component {
                     handleCommodityChange={this.handleCommodityChange}
                     commodityFormInvalid={this.state.commodityFormInvalid}
                     commodityFormRef={this.commodityFormRef}
+
+                    totalCash={this.state.totalCash}
+                    newCash={this.state.newCash}
+                    handleCashSubmit={this.handleCashSubmit}
+                    handleCashChange={this.handleCashChange}
+                    cashFormInvalid={this.state.cashFormInvalid}
+                    cashFormRef={this.cashFormRef}
                 />
                 <Liabilities
                     totalGoodDebt={this.state.totalGoodDebt}

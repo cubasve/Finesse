@@ -3,9 +3,11 @@ import PaperAssets from '../PaperAssets/PaperAssets';
 import RealEstate from '../RealEstate/RealEstate';
 import Business from '../Business/Business';
 import Commodities from '../Commodities/Commodities'
+import Cash from '../Cash/Cash';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Button from 'react-bootstrap/Button';
+import { BsInfoCircleFill } from 'react-icons/bs';
 
 const popover = (
     <Popover id="popover-basic">
@@ -16,7 +18,8 @@ const popover = (
 );
 
 const AssetPopover = () => (
-    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+    <OverlayTrigger trigger="click" placement="top" overlay={popover}>
+        {/* <BsInfoCircleFill /> */}
         <Button variant="success" size="sm">&#8505;</Button>
         {/* //<button>&#8505;</button> */}
     </OverlayTrigger>
@@ -30,7 +33,14 @@ export default function Assets(props) {
                 <span className="right">$</span>
 
             </span>
-            <p>CASH: </p>
+            <Cash
+                totalCash={props.totalCash}
+                newCash={props.newCash}
+                handleCashSubmit={props.handleCashSubmit}
+                handleCashChange={props.handleCashChange}
+                cashFormInvalid={props.cashFormInvalid}
+                cashFormRef={props.cashFormRef}
+            />
             <PaperAssets
                 totalPaperAssets={props.totalPaperAssets}
                 newPaperAsset={props.newPaperAsset}

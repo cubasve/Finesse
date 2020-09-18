@@ -3,42 +3,44 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+const cashOptions = ['Chequing Account', 'Savings Account'];
 
-const businessOptions = ['Sole proprietorship', 'Partnership', 'Corporation'];
-
-export default function Business(props) {
+export default function Cash(props) {
     return (
         <>
             <h5>
-                <span>Business</span>
-                <span className="right">${props.totalBusiness.map(elem => elem.amount).reduce(function (acc, num) {
+                <span>Cash</span>
+                <span className="right">${props.totalCash.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}</span>
             </h5>
-            {props.totalBusiness.map(b => (
-                <div key={b.amount}>
+
+            {props.totalCash.map(ca => (
+                <div key={ca.amount}>
                     <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td className="left">{b.type}</td>
-                                <td className="right">{b.amount}</td>
+                                <td className="left">{ca.type}</td>
+                                <td className="right">{ca.amount}</td>
                                 {/* <td><button value="Update">U</button></td>
-                                    <td><button value="Delete">X</button></td> */}
+                                    <td><button value="Delete">X</button></td>  */}
                             </tr>
-                        </tbody>
-                    </Table>
-                </div>
-            ))}
-            <Form ref={props.businessFormRef} onSubmit={props.handleBusinessSubmit}>
+                        </tbody >
+                    </Table >
+                </div >
+            ))
+            }
+
+            < Form ref={props.cashFormRef} onSubmit={props.handleCashSubmit} >
                 <Form.Row>
                     <Form.Group>
                         <select
                             name="type"
-                            value={props.newBusiness.type}
-                            onChange={props.handleBusinessChange}
+                            value={props.newCash.type}
+                            onChange={props.handleCashChange}
                             className="select"
                         >
-                            {businessOptions.map((option) => (
+                            {cashOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
                         </select>
@@ -46,11 +48,11 @@ export default function Business(props) {
                     <Form.Group>
                         <Form.Control
                             name="amount"
-                            value={props.newBusiness.amount}
-                            onChange={props.handleBusinessChange}
-                            pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            value={props.newCash.amount}
+                            onChange={props.handleCashChange}
                             required
-                            placeholder="Company Value"
+                            pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            placeholder="Bank Accounts"
                             autocomplete="off"
                             size="sm"
                         />
@@ -59,18 +61,18 @@ export default function Business(props) {
                         <Form.Control
                             type="hidden"
                             name="category"
-                            value={props.newBusiness.category}
-                            onChange={props.handleBusinessChange}
+                            value={props.newCash.category}
+                            onChange={props.handlePaperAssetChange}
                         />
                         <Button
                             className="form-submission"
-                            onClick={props.handleBusinessSubmit}
-                            disabled={props.businessFormInvalid}
+                            onClick={props.handleCashSubmit}
+                            disabled={props.cashFormInvalid}
                             size="sm"
                         >ADD</Button>
                     </Form.Group>
                 </Form.Row>
-            </Form>
+            </Form >
         </>
     )
 }

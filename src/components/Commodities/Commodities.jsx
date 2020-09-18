@@ -16,10 +16,10 @@ export default function Commodities(props) {
             </h5>
             {props.totalCommodities.map(c => (
                 <div key={c.amount}>
-                    <Table hover size="sm">
+                    <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td>{c.type}</td>
+                                <td className="left">{c.type}</td>
                                 <td className="right">{c.amount}</td>
                                 {/* <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td> */}
@@ -35,6 +35,7 @@ export default function Commodities(props) {
                             name="type"
                             value={props.newCommodity.type}
                             onChange={props.handleCommodityChange}
+                            className="select"
                         >
                             {commodityOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

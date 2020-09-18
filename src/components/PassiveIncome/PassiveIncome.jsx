@@ -16,10 +16,10 @@ export default function PassiveIncome(props) {
             </h5>
             {props.totalPassiveIncome.map(pi => (
                 <div key={pi.amount}>
-                    <Table hover size="sm">
+                    <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td>{pi.type}</td>
+                                <td className="left">{pi.type}</td>
                                 <td className="right">{pi.amount}</td>
                                 {/* <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td> */}
@@ -35,6 +35,7 @@ export default function PassiveIncome(props) {
                             name="type"
                             value={props.newPassiveIncome.type}
                             onChange={props.handlePassiveIncomeChange}
+                            className="select"
                         >
                             {passiveIncomeOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
@@ -50,6 +51,14 @@ export default function PassiveIncome(props) {
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             autocomplete="off"
                             size="sm"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="class"
+                            value={props.newPassiveIncome.class}
+                            onChange={props.handlePassiveIncomeChange}
                         />
                     </Form.Group>
                     <Form.Group>

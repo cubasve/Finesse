@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
 
 const popover = (
     <Popover id="popover-basic">
@@ -11,60 +13,72 @@ const popover = (
 );
 
 const PayYourselfPopover = () => (
-    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+    <OverlayTrigger trigger="click" placement="top" overlay={popover}>
         <Button variant="success" size="sm">&#8505;</Button>
     </OverlayTrigger>
 )
 
-export default class PayYourselfFirst extends Component {
-
-    // state = {
-    //     payYourselfFirst: '',
-    //     formInvalid: true,
-    // }
-    // formRef = React.createRef();
-
-    // handleSubmit = e => {
-    //     e.preventDefault();
-    //     if (!this.formRef.current.checkValidity()) return;
-    //     this.setState(state => ({
-    //         payYourselfFirst: e.target.value
-    //     }))
-    // }
-
-    // handleChange = e => {
-    //     const payYourselfFirst = { [e.target.name]: e.target.value }
-    //     this.setState({ payYourselfFirst: payYourselfFirst, formInvalid: !this.formRef.current.checkValidity() })
-    // }
-
-    render() {
-        return (
-            <div>
-                <h5>
-                    <span>Pay Yourself First </span>
-                    <PayYourselfPopover />
-                </h5>
-
-
-                {/* <form ref={this.formRef} onSubmit={this.handleSubmit} >
-                    <label>
-                        <input
-                            name="percentage"
-                            value={this.state.payYourselfFirst}
-                            onChange={this.handleChange}
+export default function PayYourselfFirst(props) {
+    return (
+        <>
+            <h5>
+                <span>Pay Yourself First </span>
+                <PayYourselfPopover />
+                <span className="right">$</span>
+            </h5>
+            {
+                props.totalPayYourselfFirst.map(pi => (
+                    <div key={pi.amount}>
+                        <Table borderless hover size="sm">
+                            <tbody>
+                                <tr>
+                                    <td className="left"><strong>{pi.amount}%</strong> Allocated to Financial Future</td>
+                                    <td className="right">$</td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </div>
+                ))
+            }
+            <Form ref={props.selfFirstFormRef} onSubmit={props.handleSelfFirstSubmit} className="selfFirst">
+                <Form.Row>
+                    <Form.Group>
+                        <Form.Control
+                            name="amount"
+                            value={props.newPayYourselfFirst.amount}
+                            onChange={props.handleSelfFirstChange}
                             required
-                            pattern="[1-9]\d{0,2}"
+                            pattern="[1-9]\d{0,1}"
+                            placeholder="% of Total Income"
                             autocomplete="off"
+                            size="sm"
                         />
-                    </label>
-                    <button
-                        className="form-submission"
-                        onClick={this.handleSubmit}
-                        disabled={this.state.formInvalid}
-                    >+</button>
-                </form > */}
-
-            </div>
-        )
-    }
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="class"
+                            value={props.newPayYourselfFirst.class}
+                            onChange={props.handleSelfFirstChange}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control
+                            type="hidden"
+                            name="category"
+                            value={props.newPayYourselfFirst.category}
+                            onChange={props.handleSelfFirstChange}
+                        />
+                        <Button
+                            type="submit"
+                            className="form-submission"
+                            onClick={props.handleSelfFirstSubmit}
+                            disabled={props.selfFirstFormInvalid}
+                            size="sm"
+                        >ADD</Button>
+                    </Form.Group>
+                </Form.Row>
+            </Form>
+        </>
+    )
 }

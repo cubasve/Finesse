@@ -5,12 +5,10 @@ const Schema = mongoose.Schema;
 const SALT_ROUNDS = 6;
 
 const userFinances = new Schema({
-    type: { type: String },
-    amount: { type: Number },
-    category: {
-        type: String,
-        //enum: ['Earned', 'Passive', 'Portfolio', 'Expense', 'Paper', 'Real Estate', 'Business', 'Commodities', 'Good Debt', 'Bad Debt'];
-    }
+    type: String,
+    amount: Number,
+    category: String,
+    class: String,
 });
 
 const userSchema = new Schema({

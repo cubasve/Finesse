@@ -17,7 +17,7 @@ export default function HomePage(props) {
 
                 <div>
                     <div>
-                        <h2> Accounting Class Made Easy</h2>
+                        <h1> ACCOUNTING WITH FINESSE</h1>
                         <br />
                         <h3> Become Financially Literate Using Financial Statements</h3>
                         <br />
@@ -41,65 +41,66 @@ export default function HomePage(props) {
                             <Card.Header>Financial Statement 3</Card.Header>
                             <Card.Body>
                                 <Card.Title>Cash Flow Statement</Card.Title>
-                                <Card.Text>Is cash flowing in or out?</Card.Text>
+                                <Card.Text>The direction of cash flow</Card.Text>
                             </Card.Body>
                         </Card>
                     </div>
                 </div>
             </div>
 
-
-            <h2>Where is Your Cash Flowing?</h2>
-            <div className="cash-flow">
-                <Card style={{ width: '18rem' }} >
-                    <Card.Img variant="top" src="./Case1.png" />
-                    <Card.Body>
-                        <Card.Title>CASE 1</Card.Title>
-                        <Card.Text>
-                            Income is equal to expenses. No assets or liabilities.
+            <div className="homepage">
+                <h2>WHERE IS YOUR CASH FLOWING?</h2>
+                <div className="cash-flow">
+                    <Card style={{ width: '18rem' }} >
+                        <Card.Img variant="top" src="./Case1.png" />
+                        <Card.Body>
+                            <Card.Title>CASE 1</Card.Title>
+                            <Card.Text>
+                                Income is equal to expenses. No assets or liabilities.
                 </Card.Text>
-                    </Card.Body>
-                    <Button variant="primary" href="/financialstatement">Find Out</Button>
-                </Card>
+                        </Card.Body>
+                        <Button variant="primary" href="/financialstatement">ARE YOU CASE #1?</Button>
+                    </Card>
 
-                <Card style={{ width: '18rem' }} >
-                    <Card.Img variant="top" src="./Case2.png" />
-                    <Card.Body>
-                        <Card.Title>CASE 2</Card.Title>
-                        <Card.Text>
-                            No assets. Income pays for liabilities through expense column.
+                    <Card style={{ width: '18rem' }} >
+                        <Card.Img variant="top" src="./Case2.png" />
+                        <Card.Body>
+                            <Card.Title>CASE 2</Card.Title>
+                            <Card.Text>
+                                No assets. Income pays for liabilities through expense column.
                 </Card.Text>
-                    </Card.Body>
-                    <Button variant="primary" href="/financialstatement">Find Out</Button>
-                </Card>
+                        </Card.Body>
+                        <Button variant="primary" href="/financialstatement">ARE YOU CASE #2?</Button>
+                    </Card>
 
-                <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src="./Case3.png" />
-                    <Card.Body>
-                        <Card.Title>CASE 3</Card.Title>
-                        <Card.Text>
-                            Assets are the source of income.
+                    <Card style={{ width: '18rem' }}>
+                        <Card.Img variant="top" src="./Case3.png" />
+                        <Card.Body>
+                            <Card.Title>CASE 3</Card.Title>
+                            <Card.Text>
+                                Liabilities buy assets and assets are the income source.
                 </Card.Text>
-                    </Card.Body>
-                    <Button variant="primary" href="/financialstatement">Find Out</Button>
-                </Card>
+                        </Card.Body>
+                        <Button variant="primary" href="/financialstatement">ARE YOU CASE #3?</Button>
+                    </Card>
+                </div>
             </div>
 
-            <div>
-                <h2>How It Works</h2>
+            {/* <div className="homepage">
+                <h2>HOW IT WORKS:</h2>
                 <Carousel>
                     <Carousel.Item>
                         <img
                             src="./Overview.png"
                             alt="" />
-                        {/* <Carousel.Caption>
+                        <Carousel.Caption>
                             <h3>First slide label</h3>
                             <p>Description</p>
-                        </Carousel.Caption> */}
+                        </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
-                            src=""
+                            src="./Asset.png"
                             alt="" />
                         <Carousel.Caption>
                             <h3>Second slide label</h3>
@@ -108,7 +109,25 @@ export default function HomePage(props) {
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
-                            src=""
+                            src="./Liability.png"
+                            alt="" />
+                        <Carousel.Caption>
+                            <h3>Third slide label</h3>
+                            <p>Description</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            src="./Income.png"
+                            alt="" />
+                        <Carousel.Caption>
+                            <h3>Third slide label</h3>
+                            <p>Description</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            src="./Expense.png"
                             alt="" />
                         <Carousel.Caption>
                             <h3>Third slide label</h3>
@@ -116,8 +135,7 @@ export default function HomePage(props) {
                         </Carousel.Caption>
                     </Carousel.Item>
                 </Carousel>
-
-            </div>
+            </div> */}
         </>
     )
 }

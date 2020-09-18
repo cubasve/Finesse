@@ -14,7 +14,6 @@ export default function FinancialStatementPage() {
                 <span className="statement">BALANCE SHEET</span>
                 <BalanceSheet />
             </div>
-
             <div>
                 <span className="statement">INCOME STATEMENT</span>
                 <IncomeStatement />

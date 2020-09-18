@@ -26,7 +26,7 @@ export default function NavBar(props) {
 
     return (
         <div className='NavBar'>
-            <Navbar expand="lg" bg="dark" variant="dark">
+            <Navbar expand="lg" bg="dark" variant="dark" sticky="top">
                 <Navbar.Brand href="/" className="NavBar-link">FINESSE</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">

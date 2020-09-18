@@ -22,6 +22,7 @@ export default function Income(props) {
                 newEarnedIncome={props.newEarnedIncome}
                 handleEarnedIncomeSubmit={props.handleEarnedIncomeSubmit}
                 handleEarnedIncomeChange={props.handleEarnedIncomeChange}
+                handleEarnedIncomeDelete={props.handleEarnedIncomeDelete}
 
                 earnedFormInvalid={props.earnedFormInvalid}
                 earnedFormRef={props.earnedFormRef}

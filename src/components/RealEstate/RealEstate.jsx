@@ -17,10 +17,10 @@ export default function RealEstate(props) {
 
             {props.totalRealEstate.map(re => (
                 <div key={re.amount}>
-                    <Table hover size="sm">
+                    <Table borderless hover size="sm">
                         <tbody>
                             <tr>
-                                <td>{re.type}</td>
+                                <td className="left">{re.type}</td>
                                 <td className="right">{re.amount}</td>
                                 {/* <td><button value="Update">U</button></td>
                                     <td><button value="Delete">X</button></td> */}
@@ -36,6 +36,7 @@ export default function RealEstate(props) {
                             name="type"
                             value={props.newRealEstate.type}
                             onChange={props.handleRealEstateChange}
+                            className="select"
                         >
                             {realEstateOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
