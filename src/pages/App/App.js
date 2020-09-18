@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from '../HomePage/HomePage';
-import SignupPage from '../SignupPage/SignUpPage';
+import SignUpPage from '../SignupPage/SignUpPage';
 //Added a capital U to import statement
 
 // ./src/pages/App/App.js
@@ -45,7 +45,7 @@ export default class App extends Component {
           )}>
           </Route>
 
-          <Route exact path="/signup" render={({ history }) => <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
+          <Route exact path="/signup" render={({ history }) => <SignUpPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
 
           <Route exact path="/login" render={({ history }) => <LoginPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
 

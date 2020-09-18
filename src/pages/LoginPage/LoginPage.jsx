@@ -21,7 +21,7 @@ export default class LoginPage extends Component {
             //Update to call login instead of signup
             await userService.login(this.state);
             this.props.handleSignupOrLogin();
-            this.props.history.push('/');
+            this.props.history.push('/financialstatement');
         } catch (err) {
             console.error(err);
         }

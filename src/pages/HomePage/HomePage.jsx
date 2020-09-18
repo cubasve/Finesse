@@ -1,25 +1,22 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-// import NavBar from '../../components/NavBar/NavBar';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Carousel from 'react-bootstrap/Carousel';
+import Image from 'react-bootstrap/Image';
 
 export default function HomePage(props) {
     return (
         <>
             <div className="overview">
-                {/* <div>
-                    <Card style={{ width: '35rem' }}>
-                        <Card.Img variant="top" src="./Overview.png" />
-                    </Card>
-                </div> */}
-
                 <div>
                     <div>
                         <h1> ACCOUNTING WITH FINESSE</h1>
                         <br />
                         <h3> Become Financially Literate Using Financial Statements</h3>
+                        <br />
+                        <Image src="./Overview.png" fluid />
+                        <br />
+                        <br />
                         <br />
                     </div>
                     <div className="financial-statement">
@@ -55,9 +52,7 @@ export default function HomePage(props) {
                         <Card.Img variant="top" src="./Case1.png" />
                         <Card.Body>
                             <Card.Title>CASE 1</Card.Title>
-                            <Card.Text>
-                                Income is equal to expenses. No assets or liabilities.
-                </Card.Text>
+                            <Card.Text>Income is equal to expenses. No assets or liabilities.</Card.Text>
                         </Card.Body>
                         <Button variant="primary" href="/financialstatement">ARE YOU CASE #1?</Button>
                     </Card>
@@ -66,9 +61,7 @@ export default function HomePage(props) {
                         <Card.Img variant="top" src="./Case2.png" />
                         <Card.Body>
                             <Card.Title>CASE 2</Card.Title>
-                            <Card.Text>
-                                No assets. Income pays for liabilities through expense column.
-                </Card.Text>
+                            <Card.Text>No assets. Income pays for liabilities through expense column.</Card.Text>
                         </Card.Body>
                         <Button variant="primary" href="/financialstatement">ARE YOU CASE #2?</Button>
                     </Card>
@@ -77,9 +70,7 @@ export default function HomePage(props) {
                         <Card.Img variant="top" src="./Case3.png" />
                         <Card.Body>
                             <Card.Title>CASE 3</Card.Title>
-                            <Card.Text>
-                                Liabilities buy assets and assets are the income source.
-                </Card.Text>
+                            <Card.Text>Liabilities buy assets and assets are the income source.</Card.Text>
                         </Card.Body>
                         <Button variant="primary" href="/financialstatement">ARE YOU CASE #3?</Button>
                     </Card>
@@ -92,47 +83,33 @@ export default function HomePage(props) {
                     <Carousel.Item>
                         <img
                             src="./Overview.png"
-                            alt="" />
+                            rounded />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img className="d-block w-100" alt="Second slides" />
                         <Carousel.Caption>
-                            <h3>First slide label</h3>
-                            <p>Description</p>
+                            <h1>Add your assets in the balance sheet</h1>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
                             src="./Asset.png"
                             alt="" />
-                        <Carousel.Caption>
-                            <h3>Second slide label</h3>
-                            <p>Description</p>
-                        </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
                             src="./Liability.png"
                             alt="" />
-                        <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>Description</p>
-                        </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
                             src="./Income.png"
                             alt="" />
-                        <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>Description</p>
-                        </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
                             src="./Expense.png"
                             alt="" />
-                        <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>Description</p>
-                        </Carousel.Caption>
                     </Carousel.Item>
                 </Carousel>
             </div> */}
