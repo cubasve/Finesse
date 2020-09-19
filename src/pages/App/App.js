@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from '../HomePage/HomePage';
-import SignUpPage from '../SignUpPage/SignUpPage.jsx';
+import SignUpPage from '../SignupPage/SignUpPage';
 //Added a capital U to import statement
 
 // ./src/pages/App/App.js
