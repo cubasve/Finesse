@@ -53,16 +53,17 @@ export default function GoodDebt(props) {
             <Form ref={props.goodDebtFormRef} onSubmit={props.handleGoodDebtSubmit}>
                 <Form.Row>
                     <Form.Group>
-                        <select
+                        <Form.Control
                             name="type"
                             value={props.newGoodDebt.type}
                             onChange={props.handleGoodDebtChange}
-                            className="select"
+                            as="select"
+                            size="sm"
                         >
                             {goodDebtOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
-                        </select>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Control

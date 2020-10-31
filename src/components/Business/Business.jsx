@@ -39,16 +39,17 @@ export default function Business(props) {
             <Form ref={props.businessFormRef} onSubmit={props.handleBusinessSubmit}>
                 <Form.Row>
                     <Form.Group>
-                        <select
+                        <Form.Control
                             name="type"
                             value={props.newBusiness.type}
                             onChange={props.handleBusinessChange}
-                            className="select"
+                            as="select"
+                            size="sm"
                         >
                             {businessOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
-                        </select>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Control

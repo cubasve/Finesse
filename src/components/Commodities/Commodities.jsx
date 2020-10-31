@@ -38,16 +38,17 @@ export default function Commodities(props) {
             <Form ref={props.commodityFormRef} onSubmit={props.handleCommoditySubmit}>
                 <Form.Row>
                     <Form.Group>
-                        <select
+                        <Form.Control
                             name="type"
                             value={props.newCommodity.type}
                             onChange={props.handleCommodityChange}
-                            className="select"
+                            as="select"
+                            size="sm"
                         >
                             {commodityOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
-                        </select>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Control

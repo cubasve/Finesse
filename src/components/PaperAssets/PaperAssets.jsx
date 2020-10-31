@@ -38,16 +38,17 @@ export default function PaperAssets(props) {
             <Form ref={props.paperAssetFormRef} onSubmit={props.handlePaperAssetSubmit}>
                 <Form.Row>
                     <Form.Group>
-                        <select
+                        <Form.Control
                             name="type"
                             value={props.newPaperAsset.type}
                             onChange={props.handlePaperAssetChange}
-                            className="select"
+                            as="select"
+                            size="sm"
                         >
                             {paperAssetsOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
-                        </select>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Control

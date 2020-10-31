@@ -357,7 +357,7 @@ export default class IncomeStatement extends Component {
                     selfFirstFormInvalid={this.state.selfFirstFormInvalid}
                     selfFirstFormRef={this.selfFirstFormRef}
                 />
-                CASH FLOW: INCOME - EXPENSES
+                CASH FLOW = INCOME - EXPENSES
             </>
         )
     }

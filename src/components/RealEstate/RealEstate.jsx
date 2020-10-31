@@ -39,16 +39,17 @@ export default function RealEstate(props) {
             <Form ref={props.realEstateFormRef} onSubmit={props.handleRealEstateSubmit}>
                 <Form.Row>
                     <Form.Group>
-                        <select
+                        <Form.Control
                             name="type"
                             value={props.newRealEstate.type}
                             onChange={props.handleRealEstateChange}
-                            className="select"
+                            as="select"
+                            size="sm"
                         >
                             {realEstateOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
-                        </select>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Control

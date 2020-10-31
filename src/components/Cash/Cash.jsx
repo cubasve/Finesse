@@ -41,16 +41,17 @@ export default function Cash(props) {
             < Form ref={props.cashFormRef} onSubmit={props.handleCashSubmit} >
                 <Form.Row>
                     <Form.Group>
-                        <select
+                        <Form.Control
                             name="type"
                             value={props.newCash.type}
                             onChange={props.handleCashChange}
-                            className="select"
+                            as="select"
+                            size="sm"
                         >
                             {cashOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
-                        </select>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Control
