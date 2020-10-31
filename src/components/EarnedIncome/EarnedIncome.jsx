@@ -50,16 +50,17 @@ export default function EarnedIncome(props) {
             <Form ref={props.earnedFormRef} onSubmit={props.handleEarnedIncomeSubmit}>
                 <Form.Row>
                     <Form.Group>
-                        <select
+                        <Form.Control
                             name="type"
                             value={props.newEarnedIncome.type}
                             onChange={props.handleEarnedIncomeChange}
-                            className="select"
+                            as="select"
+                            size="sm"
                         >
                             {earnedIncomeOptions.map(option => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
-                        </select>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Control

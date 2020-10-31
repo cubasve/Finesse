@@ -42,27 +42,17 @@ export default function PortfolioIncome(props) {
             <Form ref={props.portfolioFormRef} onSubmit={props.handlePortfolioIncomeSubmit} className="form">
                 <Form.Row>
                     <Form.Group>
-                        <select
+                        <Form.Control
                             name="type"
                             value={props.newPortfolioIncome.type}
                             onChange={props.handlePortfolioIncomeChange}
-                            className="select"
-                        >
-                            {portfolioIncomeOptions.map((option) => (
-                                <option key={option} value={option}>{option}</option>
-                            ))}
-                        </select>
-                        {/* <Form.Control
                             as="select"
-                            name="type"
-                            value={props.newPortfolioIncome.type}
-                        // defaultValue="Stock"
-                        // custom
+                            size="sm"
                         >
                             {portfolioIncomeOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
-                        </Form.Control> */}
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Control

@@ -38,16 +38,17 @@ export default function PassiveIncome(props) {
             <Form ref={props.passiveFormRef} onSubmit={props.handlePassiveIncomeSubmit}>
                 <Form.Row>
                     <Form.Group>
-                        <select
+                        <Form.Control
                             name="type"
                             value={props.newPassiveIncome.type}
                             onChange={props.handlePassiveIncomeChange}
-                            className="select"
+                            as="select"
+                            size="sm"
                         >
                             {passiveIncomeOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
-                        </select>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Control

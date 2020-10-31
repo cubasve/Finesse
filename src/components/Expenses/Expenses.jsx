@@ -58,16 +58,17 @@ export default function Expenses(props) {
             <Form ref={props.expenseFormRef} onSubmit={props.handleExpenseSubmit}>
                 <Form.Row>
                     <Form.Group>
-                        <select
+                        <Form.Control
                             name="type"
                             value={props.newExpense.type}
                             onChange={props.handleExpenseChange}
-                            className="select"
+                            as="select"
+                            size="sm"
                         >
                             {expenseOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
-                        </select>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Form.Control
