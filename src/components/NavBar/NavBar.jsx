@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Form from 'react-bootstrap/Form';
+import { Navbar, Nav, Form } from 'react-bootstrap';
 
 export default function NavBar(props) {
     let nav = props.user ?

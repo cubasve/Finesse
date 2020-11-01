@@ -5,10 +5,12 @@ const Schema = mongoose.Schema;
 const SALT_ROUNDS = 6;
 
 const userFinances = new Schema({
-    type: String,
-    amount: Number,
-    category: String,
-    class: String,
+    type: {
+        type: String, enum: ['Home Mortgage', 'Car Loans', 'Credit Cards', 'School Loans', 'Other', 'Sole proprietorship', 'Partnership', 'Corporation', 'Chequing Account', 'Savings Account', 'Metals', 'Energy', 'Livestock & Meat', 'Agriculture', 'Cryptocurrency', 'Job', 'Self-Employment', 'Taxes', 'Housing', 'Transportation', 'Food', 'Children', 'Debt Payments', 'Entertainment', 'Donations', 'Business', 'Paper', 'Commodities', 'Stock', 'Index/Mutual Fund', 'GIC', 'REIT', 'Real Estate', 'Business', 'Royalties', 'Bond', 'Residential', 'Commercial', 'Industrial', 'Vacant Land'], required: true
+    },
+    amount: { type: Number, required: true },
+    category: { type: String, enum: ['Earned', 'Portfolio', 'Passive', 'Expense', 'Self', 'Paper', 'RealEstate', 'Business', 'Commodity', 'Cash', 'GoodDebt', 'BadDebt'], required: true },
+    class: { type: String, enum: ['Income', 'Expense', 'Self', 'Asset', 'Liability'], required: true },
 });
 
 const userSchema = new Schema({

@@ -1,9 +1,5 @@
 import React from 'react';
-import Popover from 'react-bootstrap/Popover';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
-import Form from 'react-bootstrap/Form';
+import { Popover, OverlayTrigger, Button, Table, Form } from 'react-bootstrap';
 
 const popover = (
     <Popover id="popover-basic">

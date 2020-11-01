@@ -1,9 +1,7 @@
 import React from 'react';
 import GoodDebt from '../GoodDebt/GoodDebt';
 import BadDebt from '../BadDebt/BadDebt';
-import Popover from 'react-bootstrap/Popover';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Button from 'react-bootstrap/Button';
+import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
 
 const popover = (
     <Popover id="popover-basic">

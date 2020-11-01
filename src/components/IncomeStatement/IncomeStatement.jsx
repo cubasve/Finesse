@@ -70,7 +70,8 @@ export default class IncomeStatement extends Component {
                         totalPayYourselfFirst: data.user.userFinances.filter(elem => elem.category === 'Self'),
                         // totalIncome: data.user.userFinances
                         //     .filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'),
-                        totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
+                        // totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
+                        totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio'),
                     })
                 })
         } catch (err) {
@@ -90,9 +91,12 @@ export default class IncomeStatement extends Component {
             })
                 .then(data => {
                     this.setState({
-                        totalEarnedIncome: data.user.userFinances.filter(elem => elem.category === 'Earned'),
+                        totalEarnedIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio'),
+                        // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio'),
+                        //totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned'),
+
                         // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'),
-                        totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
+                        // totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
                         newEarnedIncome: {
                             type: 'Job',
                             amount: '',
@@ -137,9 +141,11 @@ export default class IncomeStatement extends Component {
             })
                 .then(data => {
                     this.setState({
-                        totalPortfolioIncome: data.user.userFinances.filter(elem => elem.category === 'Portfolio'),
+                        totalPortfolioIncome: data.user.userFinances.filter(elem => elem.category === 'Portfolio' && elem.category === 'Earned'),
+                        // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio'),
+                        // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Portfolio'),
                         // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'),
-                        totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
+                        // totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
                         newPortfolioIncome: {
                             type: 'Stock',
                             amount: '',
@@ -186,7 +192,9 @@ export default class IncomeStatement extends Component {
                     this.setState({
                         totalPassiveIncome: data.user.userFinances.filter(elem => (elem.category === 'Passive')),
                         // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'),
-                        totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
+
+                        // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'),
+                        // totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
                         newPassiveIncome: {
                             type: 'Real Estate',
                             amount: '',
@@ -312,6 +320,7 @@ export default class IncomeStatement extends Component {
     render() {
         return (
             <>
+                <h6>CASH FLOW = INCOME - EXPENSES</h6>
                 <Income
                     totalIncome={this.state.totalIncome}
 
@@ -357,7 +366,6 @@ export default class IncomeStatement extends Component {
                     selfFirstFormInvalid={this.state.selfFirstFormInvalid}
                     selfFirstFormRef={this.selfFirstFormRef}
                 />
-                CASH FLOW = INCOME - EXPENSES
             </>
         )
     }

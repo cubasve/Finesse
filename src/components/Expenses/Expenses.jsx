@@ -1,8 +1,6 @@
 import React from 'react';
 import PayYourselfFirst from '../PayYourselfFirst/PayYourselfFirst';
-import Table from 'react-bootstrap/Table';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Table, Form, Button } from 'react-bootstrap';
 
 const expenseOptions = ['Taxes', 'Housing', 'Transportation', 'Food', 'Children', 'Debt Payments', 'Entertainment', 'Donations', 'Other'];
 

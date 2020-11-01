@@ -1,8 +1,5 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Carousel from 'react-bootstrap/Carousel';
-import Image from 'react-bootstrap/Image';
+import { Card, Button, Carousel, Image } from 'react-bootstrap';
 
 export default function HomePage(props) {
     return (
@@ -54,7 +51,7 @@ export default function HomePage(props) {
                             <Card.Title>CASE 1</Card.Title>
                             <Card.Text>Income is equal to expenses. No assets or liabilities.</Card.Text>
                         </Card.Body>
-                        <Button variant="primary" href="/financialstatement">ARE YOU CASE #1?</Button>
+                        <Button variant="primary" href="/financialstatement">Find Out!</Button>
                     </Card>
 
                     <Card style={{ width: '18rem' }} >
@@ -63,7 +60,7 @@ export default function HomePage(props) {
                             <Card.Title>CASE 2</Card.Title>
                             <Card.Text>No assets. Income pays for liabilities through expense column.</Card.Text>
                         </Card.Body>
-                        <Button variant="primary" href="/financialstatement">ARE YOU CASE #2?</Button>
+                        <Button variant="primary" href="/financialstatement">Find Out!</Button>
                     </Card>
 
                     <Card style={{ width: '18rem' }}>
@@ -72,7 +69,7 @@ export default function HomePage(props) {
                             <Card.Title>CASE 3</Card.Title>
                             <Card.Text>Liabilities buy assets and assets are the income source.</Card.Text>
                         </Card.Body>
-                        <Button variant="primary" href="/financialstatement">ARE YOU CASE #3?</Button>
+                        <Button variant="primary" href="/financialstatement">Find Out!</Button>
                     </Card>
                 </div>
             </div>

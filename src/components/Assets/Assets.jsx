@@ -4,10 +4,7 @@ import RealEstate from '../RealEstate/RealEstate';
 import Business from '../Business/Business';
 import Commodities from '../Commodities/Commodities'
 import Cash from '../Cash/Cash';
-import Popover from 'react-bootstrap/Popover';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Button from 'react-bootstrap/Button';
-import { BsInfoCircleFill } from 'react-icons/bs';
+import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
 
 const popover = (
     <Popover id="popover-basic">

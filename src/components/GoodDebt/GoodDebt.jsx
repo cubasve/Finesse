@@ -1,9 +1,5 @@
 import React from 'react';
-import Table from 'react-bootstrap/Table';
-import Popover from 'react-bootstrap/Popover';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import { Table, Popover, OverlayTrigger, Button, Form } from 'react-bootstrap';
 
 const goodDebtOptions = ['Real Estate', 'Business', 'Paper', 'Commodities', 'Other'];
 

@@ -402,6 +402,7 @@ export default class BalanceSheet extends Component {
     render() {
         return (
             <>
+                <h6>EQUITY/NET WORTH = ASSETS - LIABILITIES</h6>
                 <Assets
                     totalPaperAssets={this.state.totalPaperAssets}
                     newPaperAsset={this.state.newPaperAsset}
@@ -460,7 +461,6 @@ export default class BalanceSheet extends Component {
                     badDebtFormInvalid={this.state.badDebtFormInvalid}
                     badDebtFormRef={this.badDebtFormRef}
                 />
-                EQUITY/NET WORTH = ASSETS - LIABILITIES
             </>
         )
     }
