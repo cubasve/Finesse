@@ -21,15 +21,30 @@ Finesse
 
 
 ## Screenshots of Application:
-![image](https://user-images.githubusercontent.com/62129720/89247757-09134280-d5dc-11ea-919a-2b1e8de72565.png)
+![image](https://user-images.githubusercontent.com/62129720/97793140-4fb61000-1bbe-11eb-8a75-8a12acf83cf3.png)
 
-![image](https://user-images.githubusercontent.com/62129720/89247855-3bbd3b00-d5dc-11ea-940d-d4fcc96c9aec.png)
+![image](https://user-images.githubusercontent.com/62129720/97793149-6bb9b180-1bbe-11eb-8284-04b08858d197.png)
+
+![image](https://user-images.githubusercontent.com/62129720/97793157-84c26280-1bbe-11eb-9301-308bf64922df.png)
+
+![image](https://user-images.githubusercontent.com/62129720/97793162-96a40580-1bbe-11eb-8ed2-74ed7fe71d18.png)
+
+![image](https://user-images.githubusercontent.com/62129720/97793167-b20f1080-1bbe-11eb-8746-c1c93b996fae.png)
 
 ## Technologies Used:
 - MongoDB/Mongoose
 - Express
 - React
 - Node
+
+## Dependencies:
+- bcrypt
+- dotenv
+- express
+- json web token
+- mongoose
+- react-bootstrap
+- react-router-dom
 
 ## Getting Started:
 - Application: https://drippininfinesse.herokuapp.com/
@@ -38,9 +53,6 @@ Finesse
 ## Next Steps: Planned Future Enhancements
 - **Add functionality to Pay Yourself First:**
 The user can input an integer, which represents a percentage, and that gets deducted from the user's paycheque/income source before they pay for their other expenses.
-
-- **Add definitions to terms:**
-When the information icon button is clicked, the popup will show the definition for the particular term.
 
 - **Math calculations for each financial statement:**
     - Income Statement: Cash Flow = Total Income - Total Expenses 
