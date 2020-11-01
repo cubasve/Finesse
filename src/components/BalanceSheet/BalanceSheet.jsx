@@ -5,6 +5,9 @@ import financialStatementService from '../../utils/financialStatementService';
 
 export default class BalanceSheet extends Component {
     state = {
+        totalAssets: [],
+        totalLiabilities: [],
+
         totalPaperAssets: [],
         newPaperAsset: {
             type: 'Stock',
@@ -50,8 +53,6 @@ export default class BalanceSheet extends Component {
         },
         cashFormInvalid: true,
 
-        totalLiabilities: [],
-
         totalGoodDebt: [],
         newGoodDebt: {
             type: 'Real Estate',
@@ -88,9 +89,13 @@ export default class BalanceSheet extends Component {
                         totalBusiness: data.user.userFinances.filter(elem => (elem.category === 'Business')),
                         totalCommodities: data.user.userFinances.filter(elem => elem.category === 'Commodity'),
                         totalCash: data.user.userFinances.filter(elem => elem.category === 'Cash'),
+
                         totalGoodDebt: data.user.userFinances.filter(elem => elem.category === 'GoodDebt'),
                         totalBadDebt: data.user.userFinances.filter(elem => elem.category === 'BadDebt'),
-                        totalLiabilities: data.user.userFinances.filter(elem => elem.category === 'GoodDebt' && elem.category === 'BadDebt'),
+
+                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
+                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
+                        totalLiabilities: data.user.userFinances.filter(elem => elem.category === 'GoodDebt' || elem.category === 'BadDebt'),
                     })
                 })
         } catch (err) {
@@ -110,6 +115,8 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalPaperAssets: data.user.userFinances.filter(elem => elem.category === 'Paper'),
+                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
+                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
                         newPaperAsset: {
                             type: 'Stock',
                             amount: '',
@@ -133,7 +140,9 @@ export default class BalanceSheet extends Component {
             await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
                     this.setState({
-                        totalPaperAssets: data.user.userFinances.filter(elem => elem.category === 'Paper')
+                        totalPaperAssets: data.user.userFinances.filter(elem => elem.category === 'Paper'),
+                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
+                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
                     })
                 })
         } catch (err) {
@@ -153,6 +162,8 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalRealEstate: data.user.userFinances.filter(elem => elem.category === 'RealEstate'),
+                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
+                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
                         newRealEstate: {
                             type: 'Residential',
                             amount: '',
@@ -176,7 +187,9 @@ export default class BalanceSheet extends Component {
             await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
                     this.setState({
-                        totalRealEstate: data.user.userFinances.filter(elem => elem.category === 'RealEstate')
+                        totalRealEstate: data.user.userFinances.filter(elem => elem.category === 'RealEstate'),
+                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
+                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
                     })
                 })
         } catch (err) {
@@ -196,6 +209,8 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalBusiness: data.user.userFinances.filter(elem => elem.category === 'Business'),
+                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
+                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
                         newBusiness: {
                             type: 'Sole proprietorship',
                             amount: '',
@@ -219,7 +234,9 @@ export default class BalanceSheet extends Component {
             await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
                     this.setState({
-                        totalBusiness: data.user.userFinances.filter(elem => elem.category === 'Business')
+                        totalBusiness: data.user.userFinances.filter(elem => elem.category === 'Business'),
+                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
+                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
                     })
                 })
         } catch (err) {
@@ -239,6 +256,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalCommodities: data.user.userFinances.filter(elem => elem.category === 'Commodity'),
+                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                         newCommodity: {
                             type: 'Metals',
                             amount: '',
@@ -262,7 +280,8 @@ export default class BalanceSheet extends Component {
             await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
                     this.setState({
-                        totalCommodities: data.user.userFinances.filter(elem => elem.category === 'Commodity')
+                        totalCommodities: data.user.userFinances.filter(elem => elem.category === 'Commodity'),
+                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                     })
                 })
         } catch (err) {
@@ -282,6 +301,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalCash: data.user.userFinances.filter(elem => elem.category === 'Cash'),
+                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                         newCash: {
                             type: 'Chequing Account',
                             amount: '',
@@ -305,7 +325,8 @@ export default class BalanceSheet extends Component {
             await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
                     this.setState({
-                        totalCash: data.user.userFinances.filter(elem => elem.category === 'Cash')
+                        totalCash: data.user.userFinances.filter(elem => elem.category === 'Cash'),
+                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                     })
                 })
         } catch (err) {
@@ -325,6 +346,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalGoodDebt: data.user.userFinances.filter(elem => elem.category === 'GoodDebt'),
+                        totalLiabilities: data.user.userFinances.filter(elem => elem.category === 'GoodDebt' || elem.category === 'BadDebt'),
                         newGoodDebt: {
                             type: 'Real Estate',
                             amount: '',
@@ -348,7 +370,8 @@ export default class BalanceSheet extends Component {
             await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
                     this.setState({
-                        totalGoodDebt: data.user.userFinances.filter(elem => elem.category === 'GoodDebt')
+                        totalGoodDebt: data.user.userFinances.filter(elem => elem.category === 'GoodDebt'),
+                        totalLiabilities: data.user.userFinances.filter(elem => elem.category === 'GoodDebt' || elem.category === 'BadDebt'),
                     })
                 })
         } catch (err) {
@@ -368,6 +391,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalBadDebt: data.user.userFinances.filter(elem => elem.category === 'BadDebt'),
+                        totalLiabilities: data.user.userFinances.filter(elem => elem.category === 'GoodDebt' || elem.category === 'BadDebt'),
                         newBadDebt: {
                             type: 'Home Mortgage',
                             amount: '',
@@ -391,7 +415,8 @@ export default class BalanceSheet extends Component {
             await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
                     this.setState({
-                        totalBadDebt: data.user.userFinances.filter(elem => elem.category === 'BadDebt')
+                        totalBadDebt: data.user.userFinances.filter(elem => elem.category === 'BadDebt'),
+                        totalLiabilities: data.user.userFinances.filter(elem => elem.category === 'GoodDebt' || elem.category === 'BadDebt'),
                     })
                 })
         } catch (err) {
@@ -404,6 +429,8 @@ export default class BalanceSheet extends Component {
             <>
                 <h6>EQUITY/NET WORTH = ASSETS - LIABILITIES</h6>
                 <Assets
+                    totalAssets={this.state.totalAssets}
+
                     totalPaperAssets={this.state.totalPaperAssets}
                     newPaperAsset={this.state.newPaperAsset}
                     handlePaperAssetSubmit={this.handlePaperAssetSubmit}
@@ -445,6 +472,8 @@ export default class BalanceSheet extends Component {
                     cashFormRef={this.cashFormRef}
                 />
                 <Liabilities
+                    totalLiabilities={this.state.totalLiabilities}
+
                     totalGoodDebt={this.state.totalGoodDebt}
                     newGoodDebt={this.state.newGoodDebt}
                     handleGoodDebtSubmit={this.handleGoodDebtSubmit}

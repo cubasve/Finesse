@@ -16,9 +16,7 @@ const popover = (
 
 const AssetPopover = () => (
     <OverlayTrigger trigger="click" placement="top" overlay={popover}>
-        {/* <BsInfoCircleFill /> */}
         <Button variant="success" size="sm">&#8505;</Button>
-        {/* //<button>&#8505;</button> */}
     </OverlayTrigger>
 )
 
@@ -27,8 +25,7 @@ export default function Assets(props) {
         <div className="border">
             <span className="title">
                 <span>ASSETS <AssetPopover /></span>
-                <span className="right">$</span>
-
+                <span className="right">${props.totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span>
             </span>
             <Cash
                 totalCash={props.totalCash}

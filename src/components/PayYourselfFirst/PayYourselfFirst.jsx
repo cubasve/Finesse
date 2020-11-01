@@ -14,6 +14,17 @@ const PayYourselfPopover = () => (
     </OverlayTrigger>
 )
 
+// const totalIncomeNumber = { props.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0) }
+
+const PayYourselfFirstAllocation = (percentage, totalIncome) => {
+    const decimal = percentage / 100;
+    console.log(decimal);
+    console.log(totalIncome);
+    const percentageOfIncome = decimal * totalIncome;
+    console.log(percentageOfIncome);
+    return percentageOfIncome;
+}
+
 export default function PayYourselfFirst(props) {
     return (
         <>
@@ -38,7 +49,7 @@ export default function PayYourselfFirst(props) {
                                             className="delete">X</Button>
                                         <strong>{pi.amount}%</strong> Allocation
                                         </td>
-                                    <td className="right">$</td>
+                                    <td className="right">${PayYourselfFirstAllocation(pi.amount, { props.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0) })}</td>
                                 </tr>
                             </tbody>
                         </Table>

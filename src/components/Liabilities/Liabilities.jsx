@@ -21,7 +21,7 @@ export default function Liabilities(props) {
         <div className="border">
             <span className="title">
                 <span>LIABILITIES <LiabilityPopover /></span>
-                <span className="right">$</span>
+                <span className="right">${props.totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span>
             </span>
 
             <GoodDebt

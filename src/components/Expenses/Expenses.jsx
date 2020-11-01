@@ -15,6 +15,7 @@ export default function Expenses(props) {
                 </span> */}
             </span>
             <PayYourselfFirst
+                totalIncome={props.totalIncome}
                 totalPayYourselfFirst={props.totalPayYourselfFirst}
                 newPayYourselfFirst={props.newPayYourselfFirst}
                 handleSelfFirstSubmit={props.handleSelfFirstSubmit}
