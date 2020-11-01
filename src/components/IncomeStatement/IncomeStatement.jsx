@@ -71,7 +71,7 @@ export default class IncomeStatement extends Component {
                         // totalIncome: data.user.userFinances
                         //     .filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'),
                         // totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
-                        totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio'),
+                        totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' || elem.category === 'Portfolio' || elem.category === 'Passive'),
                     })
                 })
         } catch (err) {
@@ -91,12 +91,13 @@ export default class IncomeStatement extends Component {
             })
                 .then(data => {
                     this.setState({
-                        totalEarnedIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio'),
-                        // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio'),
+                        totalEarnedIncome: data.user.userFinances.filter(elem => elem.category === 'Earned'),
                         //totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned'),
 
                         // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'),
                         // totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
+                        // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned'),
+                        totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' || elem.category === 'Portfolio' || elem.category === 'Passive'),
                         newEarnedIncome: {
                             type: 'Job',
                             amount: '',
@@ -141,11 +142,13 @@ export default class IncomeStatement extends Component {
             })
                 .then(data => {
                     this.setState({
-                        totalPortfolioIncome: data.user.userFinances.filter(elem => elem.category === 'Portfolio' && elem.category === 'Earned'),
-                        // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio'),
+                        totalPortfolioIncome: data.user.userFinances.filter(elem => elem.category === 'Portfolio'),
                         // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Portfolio'),
                         // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'),
                         // totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
+
+                        // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Portfolio'),
+                        totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' || elem.category === 'Portfolio' || elem.category === 'Passive'),
                         newPortfolioIncome: {
                             type: 'Stock',
                             amount: '',
@@ -190,11 +193,12 @@ export default class IncomeStatement extends Component {
             })
                 .then(data => {
                     this.setState({
-                        totalPassiveIncome: data.user.userFinances.filter(elem => (elem.category === 'Passive')),
-                        // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'),
+                        totalPassiveIncome: data.user.userFinances.filter(elem => elem.category === 'Passive'),
+                        // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Passive'),
 
                         // totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' && elem.category === 'Portfolio' && elem.category === 'Passive'),
                         // totalIncome: data.user.userFinances.filter(elem => elem.class === 'Income'),
+                        totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' || elem.category === 'Portfolio' || elem.category === 'Passive'),
                         newPassiveIncome: {
                             type: 'Real Estate',
                             amount: '',

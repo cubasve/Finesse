@@ -11,9 +11,10 @@ export default function Income(props) {
             <span className="title">
                 <span>INCOME</span>
                 <span className="right">$
+                    {props.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}
                     {/* {props.totalIncome.map(elem => elem.amount).reduce(function (acc, num) {
-                    return acc + num;
-                }, 0)} */}
+                        return acc + num;
+                    }, 0)} */}
                 </span>
             </span>
 
