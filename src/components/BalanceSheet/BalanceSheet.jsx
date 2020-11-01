@@ -93,8 +93,7 @@ export default class BalanceSheet extends Component {
                         totalGoodDebt: data.user.userFinances.filter(elem => elem.category === 'GoodDebt'),
                         totalBadDebt: data.user.userFinances.filter(elem => elem.category === 'BadDebt'),
 
-                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
-                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
+                        totalAssets: data.user.userFinances.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                         totalLiabilities: data.user.userFinances.filter(elem => elem.category === 'GoodDebt' || elem.category === 'BadDebt'),
                     })
                 })
@@ -115,8 +114,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalPaperAssets: data.user.userFinances.filter(elem => elem.category === 'Paper'),
-                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
-                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
+                        totalAssets: data.user.userFinances.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                         newPaperAsset: {
                             type: 'Stock',
                             amount: '',
@@ -141,8 +139,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalPaperAssets: data.user.userFinances.filter(elem => elem.category === 'Paper'),
-                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
-                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
+                        totalAssets: data.user.userFinances.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                     })
                 })
         } catch (err) {
@@ -162,8 +159,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalRealEstate: data.user.userFinances.filter(elem => elem.category === 'RealEstate'),
-                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
-                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
+                        totalAssets: data.user.userFinances.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                         newRealEstate: {
                             type: 'Residential',
                             amount: '',
@@ -188,8 +184,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalRealEstate: data.user.userFinances.filter(elem => elem.category === 'RealEstate'),
-                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
-                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
+                        totalAssets: data.user.userFinances.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                     })
                 })
         } catch (err) {
@@ -209,8 +204,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalBusiness: data.user.userFinances.filter(elem => elem.category === 'Business'),
-                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
-                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
+                        totalAssets: data.user.userFinances.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                         newBusiness: {
                             type: 'Sole proprietorship',
                             amount: '',
@@ -235,8 +229,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalBusiness: data.user.userFinances.filter(elem => elem.category === 'Business'),
-                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
-                        totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business'),
+                        totalAssets: data.user.userFinances.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                     })
                 })
         } catch (err) {
@@ -256,7 +249,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalCommodities: data.user.userFinances.filter(elem => elem.category === 'Commodity'),
-                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
+                        totalAssets: data.user.userFinances.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                         newCommodity: {
                             type: 'Metals',
                             amount: '',
@@ -281,7 +274,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalCommodities: data.user.userFinances.filter(elem => elem.category === 'Commodity'),
-                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
+                        totalAssets: data.user.userFinances.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                     })
                 })
         } catch (err) {
@@ -301,7 +294,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalCash: data.user.userFinances.filter(elem => elem.category === 'Cash'),
-                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
+                        totalAssets: data.user.userFinances.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                         newCash: {
                             type: 'Chequing Account',
                             amount: '',
@@ -326,7 +319,7 @@ export default class BalanceSheet extends Component {
                 .then(data => {
                     this.setState({
                         totalCash: data.user.userFinances.filter(elem => elem.category === 'Cash'),
-                        // totalAssets: data.user.userFinance.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
+                        totalAssets: data.user.userFinances.filter(elem => elem.category === 'Paper' || elem.category === 'RealEstate' || elem.category === 'Business' || elem.category === 'Commodity' || elem.category === 'Cash'),
                     })
                 })
         } catch (err) {
@@ -424,10 +417,19 @@ export default class BalanceSheet extends Component {
         }
     }
 
+
+    calculateEquity = (totalAssetNumber, totalLiabilityNumber) => {
+        let equity = totalAssetNumber - totalLiabilityNumber;
+        console.log(equity);
+        return equity;
+    }
+
     render() {
+        const totalAssetNumber = this.state.totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+        const totalLiabilityNumber = this.state.totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
         return (
             <>
-                <h6>EQUITY/NET WORTH = ASSETS - LIABILITIES</h6>
+                <h6>EQUITY/NET WORTH = ASSETS - LIABILITIES = {totalAssetNumber} - {totalLiabilityNumber} = {this.calculateEquity(totalAssetNumber, totalLiabilityNumber)}</h6>
                 <Assets
                     totalAssets={this.state.totalAssets}
 

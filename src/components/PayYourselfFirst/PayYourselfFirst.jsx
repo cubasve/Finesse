@@ -14,22 +14,31 @@ const PayYourselfPopover = () => (
     </OverlayTrigger>
 )
 
-// const totalIncomeNumber = { props.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0) }
-
-const PayYourselfFirstAllocation = (percentage, totalIncome) => {
+const payYourselfFirstAllocation = (percentage, totalIncome) => {
     const decimal = percentage / 100;
-    console.log(decimal);
-    console.log(totalIncome);
+    console.log('decimal:', decimal);
+    console.log('totalIncome:', totalIncome);
+    // const percentageOfIncome = Math.floor(decimal * totalIncome);
     const percentageOfIncome = decimal * totalIncome;
-    console.log(percentageOfIncome);
-    return percentageOfIncome;
+    const allocation = percentageOfIncome.toFixed(2);
+    console.log('percentageOfIncome:', percentageOfIncome);
+    console.log('allocation:', allocation);
+    return allocation;
 }
 
+// const addTotalAllocation = () => {
+//     let total = 0;
+//     total += payYourselfFirstAllocation();
+//     console.log(total);
+//     return total;
+// }
+
 export default function PayYourselfFirst(props) {
+    const totalIncomeNumber = props.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
     return (
         <>
             <h5>
-                <span>Pay Yourself First </span>
+                <span>Pay Yourself First</span>
                 <PayYourselfPopover />
                 <span className="right">$</span>
             </h5>
@@ -49,7 +58,7 @@ export default function PayYourselfFirst(props) {
                                             className="delete">X</Button>
                                         <strong>{pi.amount}%</strong> Allocation
                                         </td>
-                                    <td className="right">${PayYourselfFirstAllocation(pi.amount, { props.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0) })}</td>
+                                    <td className="right">${payYourselfFirstAllocation(pi.amount, totalIncomeNumber)}</td>
                                 </tr>
                             </tbody>
                         </Table>
