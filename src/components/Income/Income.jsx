@@ -5,49 +5,49 @@ import Portfolio from '../PortfolioIncome/PortfolioIncome';
 import Passive from '../PassiveIncome/PassiveIncome';
 
 
-export default function Income(props) {
+export default function Income({ totalIncome, totalEarnedIncome, newEarnedIncome, handleEarnedIncomeSubmit, handleEarnedIncomeChange, handleEarnedIncomeDelete, earnedFormInvalid, earnedFormRef, totalPortfolioIncome, newPortfolioIncome, handlePortfolioIncomeSubmit, handlePortfolioIncomeChange, handlePortfolioIncomeDelete, portfolioFormInvalid, portfolioFormRef, totalPassiveIncome, newPassiveIncome, handlePassiveIncomeSubmit, handlePassiveIncomeChange, handlePassiveIncomeDelete, passiveFormInvalid, passiveFormRef }) {
     return (
         <div className="border">
             <span className="title">
                 <span>INCOME</span>
                 <span className="right">$
-                    {props.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}
-                    {/* {props.totalIncome.map(elem => elem.amount).reduce(function (acc, num) {
+                    {totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}
+                    {/* {totalIncome.map(elem => elem.amount).reduce(function (acc, num) {
                         return acc + num;
                     }, 0)} */}
                 </span>
             </span>
 
             <Earned
-                totalEarnedIncome={props.totalEarnedIncome}
-                newEarnedIncome={props.newEarnedIncome}
-                handleEarnedIncomeSubmit={props.handleEarnedIncomeSubmit}
-                handleEarnedIncomeChange={props.handleEarnedIncomeChange}
-                handleEarnedIncomeDelete={props.handleEarnedIncomeDelete}
+                totalEarnedIncome={totalEarnedIncome}
+                newEarnedIncome={newEarnedIncome}
+                handleEarnedIncomeSubmit={handleEarnedIncomeSubmit}
+                handleEarnedIncomeChange={handleEarnedIncomeChange}
+                handleEarnedIncomeDelete={handleEarnedIncomeDelete}
 
-                earnedFormInvalid={props.earnedFormInvalid}
-                earnedFormRef={props.earnedFormRef}
+                earnedFormInvalid={earnedFormInvalid}
+                earnedFormRef={earnedFormRef}
             />
             <Portfolio
-                totalPortfolioIncome={props.totalPortfolioIncome}
-                newPortfolioIncome={props.newPortfolioIncome}
-                handlePortfolioIncomeSubmit={props.handlePortfolioIncomeSubmit}
-                handlePortfolioIncomeChange={props.handlePortfolioIncomeChange}
-                handlePortfolioIncomeDelete={props.handlePortfolioIncomeDelete}
+                totalPortfolioIncome={totalPortfolioIncome}
+                newPortfolioIncome={newPortfolioIncome}
+                handlePortfolioIncomeSubmit={handlePortfolioIncomeSubmit}
+                handlePortfolioIncomeChange={handlePortfolioIncomeChange}
+                handlePortfolioIncomeDelete={handlePortfolioIncomeDelete}
 
-                portfolioFormInvalid={props.portfolioFormInvalid}
-                portfolioFormRef={props.portfolioFormRef}
+                portfolioFormInvalid={portfolioFormInvalid}
+                portfolioFormRef={portfolioFormRef}
             />
 
             <Passive
-                totalPassiveIncome={props.totalPassiveIncome}
-                newPassiveIncome={props.newPassiveIncome}
-                handlePassiveIncomeSubmit={props.handlePassiveIncomeSubmit}
-                handlePassiveIncomeChange={props.handlePassiveIncomeChange}
-                handlePassiveIncomeDelete={props.handlePassiveIncomeDelete}
+                totalPassiveIncome={totalPassiveIncome}
+                newPassiveIncome={newPassiveIncome}
+                handlePassiveIncomeSubmit={handlePassiveIncomeSubmit}
+                handlePassiveIncomeChange={handlePassiveIncomeChange}
+                handlePassiveIncomeDelete={handlePassiveIncomeDelete}
 
-                passiveFormInvalid={props.passiveFormInvalid}
-                passiveFormRef={props.passiveFormRef}
+                passiveFormInvalid={passiveFormInvalid}
+                passiveFormRef={passiveFormRef}
             />
         </div>
     )

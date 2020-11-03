@@ -3,18 +3,18 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const portfolioIncomeOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
-export default function PortfolioIncome(props) {
+export default function PortfolioIncome({ totalPortfolioIncome, handlePortfolioIncomeDelete, portfolioFormRef, handlePortfolioIncomeSubmit, newPortfolioIncome, handlePortfolioIncomeChange, portfolioFormInvalid }) {
 
     return (
         <>
             <h5>
                 <span>Portfolio</span>
-                <span className="right">${props.totalPortfolioIncome.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${totalPortfolioIncome.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}</span>
             </h5>
             {
-                props.totalPortfolioIncome.map(pi => (
+                totalPortfolioIncome.map(pi => (
                     <div key={pi.amount}>
                         <Table borderless hover size="sm">
                             <tbody>
@@ -23,7 +23,7 @@ export default function PortfolioIncome(props) {
                                         <Button
                                             name={pi.amount}
                                             value={pi._id}
-                                            onClick={props.handlePortfolioIncomeDelete}
+                                            onClick={handlePortfolioIncomeDelete}
                                             variant="danger"
                                             size="sm"
                                             className="delete"
@@ -37,13 +37,13 @@ export default function PortfolioIncome(props) {
                     </div>
                 ))
             }
-            <Form ref={props.portfolioFormRef} onSubmit={props.handlePortfolioIncomeSubmit} className="form">
+            <Form ref={portfolioFormRef} onSubmit={handlePortfolioIncomeSubmit} className="form">
                 <Form.Row>
                     <Form.Group>
                         <Form.Control
                             name="type"
-                            value={props.newPortfolioIncome.type}
-                            onChange={props.handlePortfolioIncomeChange}
+                            value={newPortfolioIncome.type}
+                            onChange={handlePortfolioIncomeChange}
                             as="select"
                             size="sm"
                         >
@@ -55,12 +55,12 @@ export default function PortfolioIncome(props) {
                     <Form.Group>
                         <Form.Control
                             name="amount"
-                            value={props.newPortfolioIncome.amount}
-                            onChange={props.handlePortfolioIncomeChange}
+                            value={newPortfolioIncome.amount}
+                            onChange={handlePortfolioIncomeChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Dividend/Interest"
-                            autocomplete="off"
+                            autoComplete="off"
                             size="sm"
                         />
                     </Form.Group>
@@ -68,22 +68,22 @@ export default function PortfolioIncome(props) {
                         <Form.Control
                             type="hidden"
                             name="class"
-                            value={props.newPortfolioIncome.class}
-                            onChange={props.handlePortfolioIncomeChange}
+                            value={newPortfolioIncome.class}
+                            onChange={handlePortfolioIncomeChange}
                         />
                     </Form.Group>
                     <Form.Group>
                         <Form.Control
                             type="hidden"
                             name="category"
-                            value={props.newPortfolioIncome.category}
-                            onChange={props.handlePortfolioIncomeChange}
+                            value={newPortfolioIncome.category}
+                            onChange={handlePortfolioIncomeChange}
                         />
                         <Button
                             type="submit"
                             className="form-submission"
-                            onClick={props.handlePortfolioIncomeSubmit}
-                            disabled={props.portfolioFormInvalid}
+                            onClick={handlePortfolioIncomeSubmit}
+                            disabled={portfolioFormInvalid}
                             size="sm"
                         >ADD</Button>
                     </Form.Group>

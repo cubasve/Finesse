@@ -70,7 +70,7 @@ export default function BadDebt(props) {
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Debt Value"
-                            autocomplete="off"
+                            autoComplete="off"
                             size="sm"
                         />
                     </Form.Group>

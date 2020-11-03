@@ -3,16 +3,16 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const passiveIncomeOptions = ['Real Estate', 'Business', 'Commodities', 'Royalties', 'Other'];
 
-export default function PassiveIncome(props) {
+export default function PassiveIncome({ totalPassiveIncome, handlePassiveIncomeDelete, passiveFormRef, handlePassiveIncomeSubmit, newPassiveIncome, handlePassiveIncomeChange, passiveFormInvalid }) {
     return (
         <>
             <h5>
                 <span>Passive</span>
-                <span className="right">${props.totalPassiveIncome.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${totalPassiveIncome.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}</span>
             </h5>
-            {props.totalPassiveIncome.map(pi => (
+            {totalPassiveIncome.map(pi => (
                 <div key={pi.amount}>
                     <Table borderless hover size="sm">
                         <tbody>
@@ -21,7 +21,7 @@ export default function PassiveIncome(props) {
                                     <Button
                                         name={pi.amount}
                                         value={pi._id}
-                                        onClick={props.handlePassiveIncomeDelete}
+                                        onClick={handlePassiveIncomeDelete}
                                         variant="danger"
                                         size="sm"
                                         className="delete">X</Button>
@@ -33,13 +33,13 @@ export default function PassiveIncome(props) {
                     </Table>
                 </div>
             ))}
-            <Form ref={props.passiveFormRef} onSubmit={props.handlePassiveIncomeSubmit}>
+            <Form ref={passiveFormRef} onSubmit={handlePassiveIncomeSubmit}>
                 <Form.Row>
                     <Form.Group>
                         <Form.Control
                             name="type"
-                            value={props.newPassiveIncome.type}
-                            onChange={props.handlePassiveIncomeChange}
+                            value={newPassiveIncome.type}
+                            onChange={handlePassiveIncomeChange}
                             as="select"
                             size="sm"
                         >
@@ -51,11 +51,11 @@ export default function PassiveIncome(props) {
                     <Form.Group>
                         <Form.Control
                             name="amount"
-                            value={props.newPassiveIncome.amount}
-                            onChange={props.handlePassiveIncomeChange}
+                            value={newPassiveIncome.amount}
+                            onChange={handlePassiveIncomeChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
-                            autocomplete="off"
+                            autoComplete="off"
                             size="sm"
                         />
                     </Form.Group>
@@ -63,21 +63,21 @@ export default function PassiveIncome(props) {
                         <Form.Control
                             type="hidden"
                             name="class"
-                            value={props.newPassiveIncome.class}
-                            onChange={props.handlePassiveIncomeChange}
+                            value={newPassiveIncome.class}
+                            onChange={handlePassiveIncomeChange}
                         />
                     </Form.Group>
                     <Form.Group>
                         <Form.Control
                             type="hidden"
                             name="category"
-                            value={props.newPassiveIncome.category}
-                            onChange={props.handlePassiveIncomeChange}
+                            value={newPassiveIncome.category}
+                            onChange={handlePassiveIncomeChange}
                         />
                         <Button
                             className="form-submission"
-                            onClick={props.handlePassiveIncomeSubmit}
-                            disabled={props.passiveFormInvalid}
+                            onClick={handlePassiveIncomeSubmit}
+                            disabled={passiveFormInvalid}
                             size="sm"
                         >ADD</Button>
                     </Form.Group>

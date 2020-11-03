@@ -59,7 +59,7 @@ export default function Cash(props) {
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Bank Accounts"
-                            autocomplete="off"
+                            autoComplete="off"
                             size="sm"
                         />
                     </Form.Group>

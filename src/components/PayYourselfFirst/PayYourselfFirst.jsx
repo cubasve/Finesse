@@ -16,13 +16,8 @@ const PayYourselfPopover = () => (
 
 const payYourselfFirstAllocation = (percentage, totalIncome) => {
     const decimal = percentage / 100;
-    console.log('decimal:', decimal);
-    console.log('totalIncome:', totalIncome);
-    // const percentageOfIncome = Math.floor(decimal * totalIncome);
     const percentageOfIncome = decimal * totalIncome;
     const allocation = percentageOfIncome.toFixed(2);
-    console.log('percentageOfIncome:', percentageOfIncome);
-    console.log('allocation:', allocation);
     return allocation;
 }
 
@@ -33,8 +28,9 @@ const payYourselfFirstAllocation = (percentage, totalIncome) => {
 //     return total;
 // }
 
-export default function PayYourselfFirst(props) {
-    const totalIncomeNumber = props.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+export default function PayYourselfFirst({ totalIncome, totalPayYourselfFirst, handleSelfFirstDelete, selfFirstFormRef, handleSelfFirstSubmit, newPayYourselfFirst, handleSelfFirstChange, selfFirstFormInvalid }) {
+    const totalIncomeNumber = totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
     return (
         <>
             <h5>
@@ -43,7 +39,7 @@ export default function PayYourselfFirst(props) {
                 <span className="right">$</span>
             </h5>
             {
-                props.totalPayYourselfFirst.map(pi => (
+                totalPayYourselfFirst.map(pi => (
                     <div key={pi.amount}>
                         <Table borderless hover size="sm">
                             <tbody>
@@ -52,7 +48,7 @@ export default function PayYourselfFirst(props) {
                                         <Button
                                             name={pi.amount}
                                             value={pi._id}
-                                            onClick={props.handleSelfFirstDelete}
+                                            onClick={handleSelfFirstDelete}
                                             variant="danger"
                                             size="sm"
                                             className="delete">X</Button>
@@ -65,17 +61,17 @@ export default function PayYourselfFirst(props) {
                     </div>
                 ))
             }
-            <Form ref={props.selfFirstFormRef} onSubmit={props.handleSelfFirstSubmit} className="selfFirst">
+            <Form ref={selfFirstFormRef} onSubmit={handleSelfFirstSubmit} className="selfFirst">
                 <Form.Row>
                     <Form.Group>
                         <Form.Control
                             name="amount"
-                            value={props.newPayYourselfFirst.amount}
-                            onChange={props.handleSelfFirstChange}
+                            value={newPayYourselfFirst.amount}
+                            onChange={handleSelfFirstChange}
                             required
                             pattern="[1-9]\d{0,1}"
                             placeholder="% of Total Income"
-                            autocomplete="off"
+                            autoComplete="off"
                             size="sm"
                         />
                     </Form.Group>
@@ -83,22 +79,22 @@ export default function PayYourselfFirst(props) {
                         <Form.Control
                             type="hidden"
                             name="class"
-                            value={props.newPayYourselfFirst.class}
-                            onChange={props.handleSelfFirstChange}
+                            value={newPayYourselfFirst.class}
+                            onChange={handleSelfFirstChange}
                         />
                     </Form.Group>
                     <Form.Group>
                         <Form.Control
                             type="hidden"
                             name="category"
-                            value={props.newPayYourselfFirst.category}
-                            onChange={props.handleSelfFirstChange}
+                            value={newPayYourselfFirst.category}
+                            onChange={handleSelfFirstChange}
                         />
                         <Button
                             type="submit"
                             className="form-submission"
-                            onClick={props.handleSelfFirstSubmit}
-                            disabled={props.selfFirstFormInvalid}
+                            onClick={handleSelfFirstSubmit}
+                            disabled={selfFirstFormInvalid}
                             size="sm"
                         >ADD</Button>
                     </Form.Group>

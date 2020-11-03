@@ -56,7 +56,7 @@ export default function Commodities(props) {
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Purchase Price"
-                            autocomplete="off"
+                            autoComplete="off"
                             size="sm"
                         />
                     </Form.Group>

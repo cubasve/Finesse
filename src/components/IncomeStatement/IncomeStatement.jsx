@@ -6,6 +6,7 @@ import financialStatementService from '../../utils/financialStatementService';
 export default class IncomeStatement extends Component {
     state = {
         totalIncome: [],
+        totalExpensesAndSelfFirst: [],
 
         totalEarnedIncome: [],
         newEarnedIncome: {
@@ -309,10 +310,17 @@ export default class IncomeStatement extends Component {
         }
     }
 
+    // calculateCashFlow = (totalIncomeNumber, totalExpenseNumber) => {
+    //     let cashFlow = totalIncomeNumber - totalExpenseNumber;
+    //     console.log(cashFlow);
+    //     return cashFlow;
+    // }
+
     render() {
+        const totalIncomeNumber = this.state.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
         return (
             <>
-                <h6>CASH FLOW = INCOME - EXPENSES</h6>
+                <h6>CASH FLOW = INCOME - EXPENSES = {totalIncomeNumber} -</h6>
                 <Income
                     totalIncome={this.state.totalIncome}
 
@@ -343,6 +351,7 @@ export default class IncomeStatement extends Component {
 
                 <Expenses
                     totalIncome={this.state.totalIncome}
+                    totalExpensesAndSelfFirst={this.state.totalExpensesAndSelfFirst}
 
                     totalExpenses={this.state.totalExpenses}
                     newExpense={this.state.newExpense}

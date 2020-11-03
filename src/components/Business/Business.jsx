@@ -56,7 +56,7 @@ export default function Business(props) {
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             required
                             placeholder="Company Value"
-                            autocomplete="off"
+                            autoComplete="off"
                             size="sm"
                         />
                     </Form.Group>

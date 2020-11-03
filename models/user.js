@@ -11,6 +11,8 @@ const userFinances = new Schema({
     amount: Number,
     category: { type: String, enum: ['Earned', 'Portfolio', 'Passive', 'Expense', 'Self', 'Paper', 'RealEstate', 'Business', 'Commodity', 'Cash', 'GoodDebt', 'BadDebt'] },
     class: { type: String, enum: ['Income', 'Expense', 'Self', 'Asset', 'Liability'] },
+    month: { type: String, enum: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] },
+    year: { type: Number, match: [/\d{4}/] },
 });
 
 const userSchema = new Schema({

@@ -3,17 +3,17 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
-export default function EarnedIncome(props) {
+export default function EarnedIncome({ totalEarnedIncome, handleEarnedIncomeDelete, handleEarnedIncomeSubmit, newEarnedIncome, handleEarnedIncomeChange, earnedFormInvalid, earnedFormRef }) {
     return (
         <>
             <h5>
                 <span>Earned</span>
-                <span className="right">${props.totalEarnedIncome.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${totalEarnedIncome.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}
                 </span>
             </h5>
-            {props.totalEarnedIncome.map(ei => (
+            {totalEarnedIncome.map(ei => (
                 <div key={ei._id}>
                     <Table borderless hover size="sm">
                         <tbody>
@@ -29,7 +29,7 @@ export default function EarnedIncome(props) {
                                     <Button
                                         name={ei.amount}
                                         value={ei._id}
-                                        onClick={props.handleEarnedIncomeDelete}
+                                        onClick={handleEarnedIncomeDelete}
                                         variant="danger"
                                         size="sm"
                                         className="delete">
@@ -45,13 +45,13 @@ export default function EarnedIncome(props) {
                 </div>
             ))}
 
-            <Form ref={props.earnedFormRef} onSubmit={props.handleEarnedIncomeSubmit}>
+            <Form ref={earnedFormRef} onSubmit={handleEarnedIncomeSubmit}>
                 <Form.Row>
                     <Form.Group>
                         <Form.Control
                             name="type"
-                            value={props.newEarnedIncome.type}
-                            onChange={props.handleEarnedIncomeChange}
+                            value={newEarnedIncome.type}
+                            onChange={handleEarnedIncomeChange}
                             as="select"
                             size="sm"
                         >
@@ -63,11 +63,11 @@ export default function EarnedIncome(props) {
                     <Form.Group>
                         <Form.Control
                             name="amount"
-                            value={props.newEarnedIncome.amount}
-                            onChange={props.handleEarnedIncomeChange}
+                            value={newEarnedIncome.amount}
+                            onChange={handleEarnedIncomeChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
-                            autocomplete="off"
+                            autoComplete="off"
                             placeholder="Salary/Commission"
                             size="sm"
                         />
@@ -83,17 +83,17 @@ export default function EarnedIncome(props) {
                         <Form.Control
                             type="hidden"
                             name="class"
-                            value={props.newEarnedIncome.class}
-                            onChange={props.handleEarnedIncomeChange} />
+                            value={newEarnedIncome.class}
+                            onChange={handleEarnedIncomeChange} />
                         <Form.Control
                             type="hidden"
                             name="category"
-                            value={props.newEarnedIncome.category}
-                            onChange={props.handleEarnedIncomeChange} />
+                            value={newEarnedIncome.category}
+                            onChange={handleEarnedIncomeChange} />
                         <Button
                             className="form-submission"
-                            onClick={props.handleEarnedIncomeSubmit}
-                            disabled={props.earnedFormInvalid}
+                            onClick={handleEarnedIncomeSubmit}
+                            disabled={earnedFormInvalid}
                             size="sm"
                         >ADD</Button>
                     </Form.Group>
