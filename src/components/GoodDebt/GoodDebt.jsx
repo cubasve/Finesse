@@ -16,16 +16,16 @@ const GoodDebtPopover = () => (
     </OverlayTrigger>
 );
 
-export default function GoodDebt(props) {
+export default function GoodDebt({ totalGoodDebt, handleGoodDebtDelete, goodDebtFormRef, handleGoodDebtSubmit, newGoodDebt, handleGoodDebtChange, goodDebtFormInvalid }) {
     return (
         <>
             <h5>
                 <span>Good Debt <GoodDebtPopover /></span>
-                <span className="right">${props.totalGoodDebt.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${totalGoodDebt.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}</span>
             </h5>
-            {props.totalGoodDebt.map(gd => (
+            {totalGoodDebt.map(gd => (
                 <div key={gd.amount}>
                     <Table borderless hover size="sm">
                         <tbody>
@@ -34,7 +34,7 @@ export default function GoodDebt(props) {
                                     <Button
                                         name={gd.amount}
                                         value={gd._id}
-                                        onClick={props.handleGoodDebtDelete}
+                                        onClick={handleGoodDebtDelete}
                                         variant="danger"
                                         size="sm"
                                         className="delete">X</Button>
@@ -46,13 +46,13 @@ export default function GoodDebt(props) {
                     </Table>
                 </div>
             ))}
-            <Form ref={props.goodDebtFormRef} onSubmit={props.handleGoodDebtSubmit}>
+            <Form ref={goodDebtFormRef} onSubmit={handleGoodDebtSubmit}>
                 <Form.Row>
                     <Form.Group>
                         <Form.Control
                             name="type"
-                            value={props.newGoodDebt.type}
-                            onChange={props.handleGoodDebtChange}
+                            value={newGoodDebt.type}
+                            onChange={handleGoodDebtChange}
                             as="select"
                             size="sm"
                         >
@@ -64,8 +64,8 @@ export default function GoodDebt(props) {
                     <Form.Group>
                         <Form.Control
                             name="amount"
-                            value={props.newGoodDebt.amount}
-                            onChange={props.handleGoodDebtChange}
+                            value={newGoodDebt.amount}
+                            onChange={handleGoodDebtChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Debt Value"
@@ -77,13 +77,13 @@ export default function GoodDebt(props) {
                         <Form.Control
                             type="hidden"
                             name="category"
-                            value={props.newGoodDebt.category}
-                            onChange={props.handleGoodDebtChange}
+                            value={newGoodDebt.category}
+                            onChange={handleGoodDebtChange}
                         />
                         <Button
                             className="form-submission"
-                            onClick={props.handleGoodDebtSubmit}
-                            disabled={props.goodDebtFormInvalid}
+                            onClick={handleGoodDebtSubmit}
+                            disabled={goodDebtFormInvalid}
                             size="sm"
                         >ADD</Button>
                     </Form.Group>

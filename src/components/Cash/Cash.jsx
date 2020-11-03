@@ -3,17 +3,17 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const cashOptions = ['Chequing Account', 'Savings Account'];
 
-export default function Cash(props) {
+export default function Cash({ totalCash, handleCashDelete, cashFormRef, handleCashSubmit, newCash, handleCashChange, cashFormInvalid }) {
     return (
         <>
             <h5>
                 <span>Cash</span>
-                <span className="right">${props.totalCash.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${totalCash.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}</span>
             </h5>
 
-            {props.totalCash.map(ca => (
+            {totalCash.map(ca => (
                 <div key={ca.amount}>
                     <Table borderless hover size="sm">
                         <tbody>
@@ -22,7 +22,7 @@ export default function Cash(props) {
                                     <Button
                                         name={ca.amount}
                                         value={ca._id}
-                                        onClick={props.handleCashDelete}
+                                        onClick={handleCashDelete}
                                         variant="danger"
                                         size="sm"
                                         className="delete">X</Button>
@@ -36,13 +36,13 @@ export default function Cash(props) {
             ))
             }
 
-            < Form ref={props.cashFormRef} onSubmit={props.handleCashSubmit} >
+            < Form ref={cashFormRef} onSubmit={handleCashSubmit} >
                 <Form.Row>
                     <Form.Group>
                         <Form.Control
                             name="type"
-                            value={props.newCash.type}
-                            onChange={props.handleCashChange}
+                            value={newCash.type}
+                            onChange={handleCashChange}
                             as="select"
                             size="sm"
                         >
@@ -54,8 +54,8 @@ export default function Cash(props) {
                     <Form.Group>
                         <Form.Control
                             name="amount"
-                            value={props.newCash.amount}
-                            onChange={props.handleCashChange}
+                            value={newCash.amount}
+                            onChange={handleCashChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Bank Accounts"
@@ -67,13 +67,13 @@ export default function Cash(props) {
                         <Form.Control
                             type="hidden"
                             name="category"
-                            value={props.newCash.category}
-                            onChange={props.handlePaperAssetChange}
+                            value={newCash.category}
+                            onChange={handleCashChange}
                         />
                         <Button
                             className="form-submission"
-                            onClick={props.handleCashSubmit}
-                            disabled={props.cashFormInvalid}
+                            onClick={handleCashSubmit}
+                            disabled={cashFormInvalid}
                             size="sm"
                         >ADD</Button>
                     </Form.Group>

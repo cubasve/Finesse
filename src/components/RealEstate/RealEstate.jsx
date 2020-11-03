@@ -3,17 +3,17 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const realEstateOptions = ['Residential', 'Commercial', 'Industrial', 'Vacant Land'];
 
-export default function RealEstate(props) {
+export default function RealEstate({ totalRealEstate, handleRealEstateDelete, realEstateFormRef, handleRealEstateSubmit, newRealEstate, handleRealEstateChange, realEstateFormInvalid }) {
     return (
         <>
             <h5>
                 <span>Real Estate</span>
-                <span className="right">${props.totalRealEstate.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${totalRealEstate.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}</span>
             </h5>
 
-            {props.totalRealEstate.map(re => (
+            {totalRealEstate.map(re => (
                 <div key={re.amount}>
                     <Table borderless hover size="sm">
                         <tbody>
@@ -22,7 +22,7 @@ export default function RealEstate(props) {
                                     <Button
                                         name={re.amount}
                                         value={re._id}
-                                        onClick={props.handleRealEstateDelete}
+                                        onClick={handleRealEstateDelete}
                                         variant="danger"
                                         size="sm"
                                         className="delete">X</Button>
@@ -34,13 +34,13 @@ export default function RealEstate(props) {
                     </Table>
                 </div>
             ))}
-            <Form ref={props.realEstateFormRef} onSubmit={props.handleRealEstateSubmit}>
+            <Form ref={realEstateFormRef} onSubmit={handleRealEstateSubmit}>
                 <Form.Row>
                     <Form.Group>
                         <Form.Control
                             name="type"
-                            value={props.newRealEstate.type}
-                            onChange={props.handleRealEstateChange}
+                            value={newRealEstate.type}
+                            onChange={handleRealEstateChange}
                             as="select"
                             size="sm"
                         >
@@ -52,8 +52,8 @@ export default function RealEstate(props) {
                     <Form.Group>
                         <Form.Control
                             name="amount"
-                            value={props.newRealEstate.amount}
-                            onChange={props.handleRealEstateChange}
+                            value={newRealEstate.amount}
+                            onChange={handleRealEstateChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Purchase Price"
@@ -65,13 +65,13 @@ export default function RealEstate(props) {
                         <Form.Control
                             type="hidden"
                             name="category"
-                            value={props.newRealEstate.category}
-                            onChange={props.handleRealEstateChange}
+                            value={newRealEstate.category}
+                            onChange={handleRealEstateChange}
                         />
                         <Button
                             className="form-submission"
-                            onClick={props.handleRealEstateSubmit}
-                            disabled={props.realEstateFormInvalid}
+                            onClick={handleRealEstateSubmit}
+                            disabled={realEstateFormInvalid}
                             size="sm"
                         >ADD</Button>
                     </Form.Group>

@@ -3,16 +3,16 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const commodityOptions = ['Metals', 'Energy', 'Livestock & Meat', 'Agriculture', 'Cryptocurrency', 'Other'];
 
-export default function Commodities(props) {
+export default function Commodities({ totalCommodities, handleCommodityDelete, commodityFormRef, handleCommoditySubmit, newCommodity, handleCommodityChange, commodityFormInvalid }) {
     return (
         <>
             <h5>
                 <span>Commodities</span>
-                <span className="right">${props.totalCommodities.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${totalCommodities.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}</span>
             </h5>
-            {props.totalCommodities.map(c => (
+            {totalCommodities.map(c => (
                 <div key={c.amount}>
                     <Table borderless hover size="sm">
                         <tbody>
@@ -21,7 +21,7 @@ export default function Commodities(props) {
                                     <Button
                                         name={c.amount}
                                         value={c._id}
-                                        onClick={props.handleCommodityDelete}
+                                        onClick={handleCommodityDelete}
                                         variant="danger"
                                         size="sm"
                                         className="delete">X</Button>
@@ -33,13 +33,13 @@ export default function Commodities(props) {
                     </Table>
                 </div>
             ))}
-            <Form ref={props.commodityFormRef} onSubmit={props.handleCommoditySubmit}>
+            <Form ref={commodityFormRef} onSubmit={handleCommoditySubmit}>
                 <Form.Row>
                     <Form.Group>
                         <Form.Control
                             name="type"
-                            value={props.newCommodity.type}
-                            onChange={props.handleCommodityChange}
+                            value={newCommodity.type}
+                            onChange={handleCommodityChange}
                             as="select"
                             size="sm"
                         >
@@ -51,8 +51,8 @@ export default function Commodities(props) {
                     <Form.Group>
                         <Form.Control
                             name="amount"
-                            value={props.newCommodity.amount}
-                            onChange={props.handleCommodityChange}
+                            value={newCommodity.amount}
+                            onChange={handleCommodityChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Purchase Price"
@@ -64,13 +64,13 @@ export default function Commodities(props) {
                         <Form.Control
                             type="hidden"
                             name="category"
-                            value={props.newCommodity.category}
-                            onChange={props.handleCommodityChange}
+                            value={newCommodity.category}
+                            onChange={handleCommodityChange}
                         />
                         <Button
                             className="form-submission"
-                            onClick={props.handleCommoditySubmit}
-                            disabled={props.commodityFormInvalid}
+                            onClick={handleCommoditySubmit}
+                            disabled={commodityFormInvalid}
                             size="sm"
                         >ADD</Button>
                     </Form.Group>

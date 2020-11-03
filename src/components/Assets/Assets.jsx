@@ -20,57 +20,58 @@ const AssetPopover = () => (
     </OverlayTrigger>
 )
 
-export default function Assets(props) {
+export default function Assets({ totalAssets, totalCash, newCash, handleCashSubmit, handleCashChange, handleCashDelete, cashFormInvalid, cashFormRef, totalPaperAssets, newPaperAsset, handlePaperAssetSubmit, handlePaperAssetChange, handlePaperAssetDelete, paperAssetFormInvalid, paperAssetFormRef, totalRealEstate, newRealEstate, handleRealEstateSubmit, handleRealEstateChange, handleRealEstateDelete, realEstateFormInvalid, realEstateFormRef, totalBusiness, newBusiness, handleBusinessSubmit, handleBusinessChange, handleBusinessDelete, businessFormInvalid, businessFormRef, totalCommodities, newCommodity, handleCommoditySubmit, handleCommodityChange, handleCommodityDelete, commodityFormInvalid, commodityFormRef }) {
+
     return (
         <div className="border">
             <span className="title">
                 <span>ASSETS <AssetPopover /></span>
-                <span className="right">${props.totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span>
+                <span className="right">${totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span>
             </span>
             <Cash
-                totalCash={props.totalCash}
-                newCash={props.newCash}
-                handleCashSubmit={props.handleCashSubmit}
-                handleCashChange={props.handleCashChange}
-                handleCashDelete={props.handleCashDelete}
-                cashFormInvalid={props.cashFormInvalid}
-                cashFormRef={props.cashFormRef}
+                totalCash={totalCash}
+                newCash={newCash}
+                handleCashSubmit={handleCashSubmit}
+                handleCashChange={handleCashChange}
+                handleCashDelete={handleCashDelete}
+                cashFormInvalid={cashFormInvalid}
+                cashFormRef={cashFormRef}
             />
             <PaperAssets
-                totalPaperAssets={props.totalPaperAssets}
-                newPaperAsset={props.newPaperAsset}
-                handlePaperAssetSubmit={props.handlePaperAssetSubmit}
-                handlePaperAssetChange={props.handlePaperAssetChange}
-                handlePaperAssetDelete={props.handlePaperAssetDelete}
-                paperAssetFormInvalid={props.paperAssetFormInvalid}
-                paperAssetFormRef={props.paperAssetFormRef}
+                totalPaperAssets={totalPaperAssets}
+                newPaperAsset={newPaperAsset}
+                handlePaperAssetSubmit={handlePaperAssetSubmit}
+                handlePaperAssetChange={handlePaperAssetChange}
+                handlePaperAssetDelete={handlePaperAssetDelete}
+                paperAssetFormInvalid={paperAssetFormInvalid}
+                paperAssetFormRef={paperAssetFormRef}
             />
             <RealEstate
-                totalRealEstate={props.totalRealEstate}
-                newRealEstate={props.newRealEstate}
-                handleRealEstateSubmit={props.handleRealEstateSubmit}
-                handleRealEstateChange={props.handleRealEstateChange}
-                handleRealEstateDelete={props.handleRealEstateDelete}
-                realEstateFormInvalid={props.realEstateFormInvalid}
-                realEstateFormRef={props.realEstateFormRef}
+                totalRealEstate={totalRealEstate}
+                newRealEstate={newRealEstate}
+                handleRealEstateSubmit={handleRealEstateSubmit}
+                handleRealEstateChange={handleRealEstateChange}
+                handleRealEstateDelete={handleRealEstateDelete}
+                realEstateFormInvalid={realEstateFormInvalid}
+                realEstateFormRef={realEstateFormRef}
             />
             <Business
-                totalBusiness={props.totalBusiness}
-                newBusiness={props.newBusiness}
-                handleBusinessSubmit={props.handleBusinessSubmit}
-                handleBusinessChange={props.handleBusinessChange}
-                handleBusinessDelete={props.handleBusinessDelete}
-                businessFormInvalid={props.businessFormInvalid}
-                businessFormRef={props.businessFormRef}
+                totalBusiness={totalBusiness}
+                newBusiness={newBusiness}
+                handleBusinessSubmit={handleBusinessSubmit}
+                handleBusinessChange={handleBusinessChange}
+                handleBusinessDelete={handleBusinessDelete}
+                businessFormInvalid={businessFormInvalid}
+                businessFormRef={businessFormRef}
             />
             <Commodities
-                totalCommodities={props.totalCommodities}
-                newCommodity={props.newCommodity}
-                handleCommoditySubmit={props.handleCommoditySubmit}
-                handleCommodityChange={props.handleCommodityChange}
-                handleCommodityDelete={props.handleCommodityDelete}
-                commodityFormInvalid={props.commodityFormInvalid}
-                commodityFormRef={props.commodityFormRef}
+                totalCommodities={totalCommodities}
+                newCommodity={newCommodity}
+                handleCommoditySubmit={handleCommoditySubmit}
+                handleCommodityChange={handleCommodityChange}
+                handleCommodityDelete={handleCommodityDelete}
+                commodityFormInvalid={commodityFormInvalid}
+                commodityFormRef={commodityFormRef}
             />
         </div>
     )

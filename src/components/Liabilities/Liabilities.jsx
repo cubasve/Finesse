@@ -16,31 +16,31 @@ const LiabilityPopover = () => (
     </OverlayTrigger>
 )
 
-export default function Liabilities(props) {
+export default function Liabilities({ totalLiabilities, totalGoodDebt, newGoodDebt, handleGoodDebtSubmit, handleGoodDebtChange, handleGoodDebtDelete, goodDebtFormInvalid, goodDebtFormRef, totalBadDebt, newBadDebt, handleBadDebtSubmit, handleBadDebtChange, handleBadDebtDelete, badDebtFormInvalid, badDebtFormRef }) {
     return (
         <div className="border">
             <span className="title">
                 <span>LIABILITIES <LiabilityPopover /></span>
-                <span className="right">${props.totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span>
+                <span className="right">${totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span>
             </span>
 
             <GoodDebt
-                totalGoodDebt={props.totalGoodDebt}
-                newGoodDebt={props.newGoodDebt}
-                handleGoodDebtSubmit={props.handleGoodDebtSubmit}
-                handleGoodDebtChange={props.handleGoodDebtChange}
-                handleGoodDebtDelete={props.handleGoodDebtDelete}
-                goodDebtFormInvalid={props.goodDebtFormInvalid}
-                goodDebtFormRef={props.goodDebtFormRef}
+                totalGoodDebt={totalGoodDebt}
+                newGoodDebt={newGoodDebt}
+                handleGoodDebtSubmit={handleGoodDebtSubmit}
+                handleGoodDebtChange={handleGoodDebtChange}
+                handleGoodDebtDelete={handleGoodDebtDelete}
+                goodDebtFormInvalid={goodDebtFormInvalid}
+                goodDebtFormRef={goodDebtFormRef}
             />
             <BadDebt
-                totalBadDebt={props.totalBadDebt}
-                newBadDebt={props.newBadDebt}
-                handleBadDebtSubmit={props.handleBadDebtSubmit}
-                handleBadDebtChange={props.handleBadDebtChange}
-                handleBadDebtDelete={props.handleBadDebtDelete}
-                badDebtFormInvalid={props.badDebtFormInvalid}
-                badDebtFormRef={props.badDebtFormRef}
+                totalBadDebt={totalBadDebt}
+                newBadDebt={newBadDebt}
+                handleBadDebtSubmit={handleBadDebtSubmit}
+                handleBadDebtChange={handleBadDebtChange}
+                handleBadDebtDelete={handleBadDebtDelete}
+                badDebtFormInvalid={badDebtFormInvalid}
+                badDebtFormRef={badDebtFormRef}
             />
         </div>
     )

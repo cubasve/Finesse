@@ -3,16 +3,16 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const paperAssetsOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
-export default function PaperAssets(props) {
+export default function PaperAssets({ totalPaperAssets, handlePaperAssetDelete, paperAssetFormRef, handlePaperAssetSubmit, newPaperAsset, handlePaperAssetChange, paperAssetFormInvalid }) {
     return (
         <>
             <h5>
                 <span>Paper</span>
-                <span className="right">${props.totalPaperAssets.map(elem => elem.amount).reduce(function (acc, num) {
+                <span className="right">${totalPaperAssets.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}</span>
             </h5>
-            {props.totalPaperAssets.map(pa => (
+            {totalPaperAssets.map(pa => (
                 <div key={pa.amount}>
                     <Table borderless hover size="sm">
                         <tbody>
@@ -21,7 +21,7 @@ export default function PaperAssets(props) {
                                     <Button
                                         name={pa.amount}
                                         value={pa._id}
-                                        onClick={props.handlePaperAssetDelete}
+                                        onClick={handlePaperAssetDelete}
                                         variant="danger"
                                         size="sm"
                                         className="delete">X</Button>
@@ -33,13 +33,13 @@ export default function PaperAssets(props) {
                     </Table>
                 </div>
             ))}
-            <Form ref={props.paperAssetFormRef} onSubmit={props.handlePaperAssetSubmit}>
+            <Form ref={paperAssetFormRef} onSubmit={handlePaperAssetSubmit}>
                 <Form.Row>
                     <Form.Group>
                         <Form.Control
                             name="type"
-                            value={props.newPaperAsset.type}
-                            onChange={props.handlePaperAssetChange}
+                            value={newPaperAsset.type}
+                            onChange={handlePaperAssetChange}
                             as="select"
                             size="sm"
                         >
@@ -51,8 +51,8 @@ export default function PaperAssets(props) {
                     <Form.Group>
                         <Form.Control
                             name="amount"
-                            value={props.newPaperAsset.amount}
-                            onChange={props.handlePaperAssetChange}
+                            value={newPaperAsset.amount}
+                            onChange={handlePaperAssetChange}
                             required
                             pattern="[1-9]\d{0,}\.?\d{0,2}"
                             placeholder="Purchase Price"
@@ -64,13 +64,13 @@ export default function PaperAssets(props) {
                         <Form.Control
                             type="hidden"
                             name="category"
-                            value={props.newPaperAsset.category}
-                            onChange={props.handlePaperAssetChange}
+                            value={newPaperAsset.category}
+                            onChange={handlePaperAssetChange}
                         />
                         <Button
                             className="form-submission"
-                            onClick={props.handlePaperAssetSubmit}
-                            disabled={props.paperAssetFormInvalid}
+                            onClick={handlePaperAssetSubmit}
+                            disabled={paperAssetFormInvalid}
                             size="sm"
                         >ADD</Button>
                     </Form.Group>
