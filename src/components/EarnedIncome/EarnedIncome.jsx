@@ -3,10 +3,25 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
-export default function EarnedIncome({ totalEarnedIncome, handleEarnedIncomeDelete, handleEarnedIncomeSubmit, newEarnedIncome, handleEarnedIncomeChange, earnedFormInvalid, earnedFormRef }) {
+function calculateEarnedPercentage(totalIncome, totalEarnedIncome) {
+    // const percentage = Math.floor((totalEarnedIncome / totalIncome) * 100);
+    const percentage = (totalEarnedIncome / totalIncome) * 100;
+    console.log(percentage);
+    const result = percentage.toFixed(1);
+    // console.log('Earned Income:', result);
+    return result;
+    // return percentage;
+}
+
+export default function EarnedIncome({ totalEarnedIncome, handleEarnedIncomeDelete, handleEarnedIncomeSubmit, newEarnedIncome, handleEarnedIncomeChange, earnedFormInvalid, earnedFormRef, totalIncome }) {
+
+    const totalIncomeNumber = totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+    const totalEarnedIncomeNumber = totalEarnedIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
     return (
         <>
             <h5>
+                <span className="left">{calculateEarnedPercentage(totalIncomeNumber, totalEarnedIncomeNumber)}%</span>
                 <span>Earned</span>
                 <span className="right">${totalEarnedIncome.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;

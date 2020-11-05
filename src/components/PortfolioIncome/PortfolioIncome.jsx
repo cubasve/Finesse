@@ -3,11 +3,21 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const portfolioIncomeOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
-export default function PortfolioIncome({ totalPortfolioIncome, handlePortfolioIncomeDelete, portfolioFormRef, handlePortfolioIncomeSubmit, newPortfolioIncome, handlePortfolioIncomeChange, portfolioFormInvalid }) {
+function calculatePortfolioPercentage(totalIncome, totalPortfolioIncome) {
+    const percentage = (totalPortfolioIncome / totalIncome) * 100;
+    const result = percentage.toFixed(1);
+    return result;
+}
+
+export default function PortfolioIncome({ totalPortfolioIncome, handlePortfolioIncomeDelete, portfolioFormRef, handlePortfolioIncomeSubmit, newPortfolioIncome, handlePortfolioIncomeChange, portfolioFormInvalid, totalIncome }) {
+
+    const totalIncomeNumber = totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+    const totalPortfolioIncomeNumber = totalPortfolioIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
 
     return (
         <>
             <h5>
+                <span className="left">{calculatePortfolioPercentage(totalIncomeNumber, totalPortfolioIncomeNumber)}%</span>
                 <span>Portfolio</span>
                 <span className="right">${totalPortfolioIncome.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;

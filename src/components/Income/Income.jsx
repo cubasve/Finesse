@@ -27,6 +27,7 @@ export default function Income({ totalIncome, totalEarnedIncome, newEarnedIncome
 
                 earnedFormInvalid={earnedFormInvalid}
                 earnedFormRef={earnedFormRef}
+                totalIncome={totalIncome}
             />
             <Portfolio
                 totalPortfolioIncome={totalPortfolioIncome}
@@ -37,6 +38,7 @@ export default function Income({ totalIncome, totalEarnedIncome, newEarnedIncome
 
                 portfolioFormInvalid={portfolioFormInvalid}
                 portfolioFormRef={portfolioFormRef}
+                totalIncome={totalIncome}
             />
 
             <Passive
@@ -48,6 +50,7 @@ export default function Income({ totalIncome, totalEarnedIncome, newEarnedIncome
 
                 passiveFormInvalid={passiveFormInvalid}
                 passiveFormRef={passiveFormRef}
+                totalIncome={totalIncome}
             />
         </div>
     )
