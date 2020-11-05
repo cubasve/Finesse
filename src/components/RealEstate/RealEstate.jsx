@@ -3,10 +3,22 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const realEstateOptions = ['Residential', 'Commercial', 'Industrial', 'Vacant Land'];
 
-export default function RealEstate({ totalRealEstate, handleRealEstateDelete, realEstateFormRef, handleRealEstateSubmit, newRealEstate, handleRealEstateChange, realEstateFormInvalid }) {
+function calculateRealEstatePercentage(totalAssets, totalRealEstate) {
+    if (!totalAssets && !totalRealEstate) return 0;
+    const percentage = (totalRealEstate / totalAssets) * 100;
+    const result = percentage.toFixed(1);
+    return result;
+}
+
+export default function RealEstate({ totalRealEstate, handleRealEstateDelete, realEstateFormRef, handleRealEstateSubmit, newRealEstate, handleRealEstateChange, realEstateFormInvalid, totalAssets }) {
+
+    const totalAssetNumber = totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+    const totalRealEstateNumber = totalRealEstate.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
     return (
         <>
             <h5>
+                <span className="left">{calculateRealEstatePercentage(totalAssetNumber, totalRealEstateNumber)}%</span>
                 <span>Real Estate</span>
                 <span className="right">${totalRealEstate.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;

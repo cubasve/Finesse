@@ -4,6 +4,7 @@ import { Table, Form, Button } from 'react-bootstrap';
 const portfolioIncomeOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
 function calculatePortfolioPercentage(totalIncome, totalPortfolioIncome) {
+    if (!totalIncome && !totalPortfolioIncome) return 0;
     const percentage = (totalPortfolioIncome / totalIncome) * 100;
     const result = percentage.toFixed(1);
     return result;

@@ -4,13 +4,25 @@ import { Table, Form, Button } from 'react-bootstrap';
 const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
 function calculateEarnedPercentage(totalIncome, totalEarnedIncome) {
+
+    if (!totalIncome && !totalEarnedIncome) return 0;
+
     // const percentage = Math.floor((totalEarnedIncome / totalIncome) * 100);
     const percentage = (totalEarnedIncome / totalIncome) * 100;
-    console.log(percentage);
+    // console.log(percentage);
     const result = percentage.toFixed(1);
     // console.log('Earned Income:', result);
     return result;
     // return percentage;
+
+
+    // if (totalIncome && totalEarnedIncome) {
+    //     const percentage = (totalEarnedIncome / totalIncome) * 100;
+    //     const result = percentage.toFixed(1);
+    //     return result;
+    // } else {
+    //     return 0;
+    // }
 }
 
 export default function EarnedIncome({ totalEarnedIncome, handleEarnedIncomeDelete, handleEarnedIncomeSubmit, newEarnedIncome, handleEarnedIncomeChange, earnedFormInvalid, earnedFormRef, totalIncome }) {

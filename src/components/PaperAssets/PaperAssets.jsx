@@ -3,10 +3,22 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const paperAssetsOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
-export default function PaperAssets({ totalPaperAssets, handlePaperAssetDelete, paperAssetFormRef, handlePaperAssetSubmit, newPaperAsset, handlePaperAssetChange, paperAssetFormInvalid }) {
+function calculatePaperPercentage(totalAssets, totalPaperAssets) {
+    if (!totalAssets && !totalPaperAssets) return 0;
+    const percentage = (totalPaperAssets / totalAssets) * 100;
+    const result = percentage.toFixed(1);
+    return result;
+}
+
+export default function PaperAssets({ totalPaperAssets, handlePaperAssetDelete, paperAssetFormRef, handlePaperAssetSubmit, newPaperAsset, handlePaperAssetChange, paperAssetFormInvalid, totalAssets }) {
+
+    const totalAssetNumber = totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+    const totalPaperNumber = totalPaperAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
     return (
         <>
             <h5>
+                <span className="left">{calculatePaperPercentage(totalAssetNumber, totalPaperNumber)}%</span>
                 <span>Paper</span>
                 <span className="right">${totalPaperAssets.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;

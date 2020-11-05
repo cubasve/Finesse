@@ -4,6 +4,7 @@ import { Table, Form, Button } from 'react-bootstrap';
 const passiveIncomeOptions = ['Real Estate', 'Business', 'Commodities', 'Royalties', 'Other'];
 
 function calculatePassivePercentage(totalIncome, totalPassiveIncome) {
+    if (!totalIncome && !totalPassiveIncome) return 0;
     const percentage = (totalPassiveIncome / totalIncome) * 100;
     const result = percentage.toFixed(1);
     return result;

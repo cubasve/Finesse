@@ -3,10 +3,22 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const commodityOptions = ['Metals', 'Energy', 'Livestock & Meat', 'Agriculture', 'Cryptocurrency', 'Other'];
 
-export default function Commodities({ totalCommodities, handleCommodityDelete, commodityFormRef, handleCommoditySubmit, newCommodity, handleCommodityChange, commodityFormInvalid }) {
+function calculateCommodityPercentage(totalAssets, totalCommodities) {
+    if (!totalAssets && !totalCommodities) return 0;
+    const percentage = (totalCommodities / totalAssets) * 100;
+    const result = percentage.toFixed(1);
+    return result;
+}
+
+export default function Commodities({ totalCommodities, handleCommodityDelete, commodityFormRef, handleCommoditySubmit, newCommodity, handleCommodityChange, commodityFormInvalid, totalAssets }) {
+
+    const totalAssetNumber = totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+    const totalCommodityNumber = totalCommodities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
     return (
         <>
             <h5>
+                <span className="left">{calculateCommodityPercentage(totalAssetNumber, totalCommodityNumber)}%</span>
                 <span>Commodities</span>
                 <span className="right">${totalCommodities.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;

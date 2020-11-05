@@ -3,10 +3,22 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const businessOptions = ['Sole proprietorship', 'Partnership', 'Corporation'];
 
-export default function Business({ totalBusiness, handleBusinessDelete, businessFormRef, handleBusinessSubmit, newBusiness, handleBusinessChange, businessFormInvalid }) {
+function calculateBusinessPercentage(totalAssets, totalBusiness) {
+    if (!totalAssets && !totalBusiness) return 0;
+    const percentage = (totalBusiness / totalAssets) * 100;
+    const result = percentage.toFixed(1);
+    return result;
+}
+
+export default function Business({ totalBusiness, handleBusinessDelete, businessFormRef, handleBusinessSubmit, newBusiness, handleBusinessChange, businessFormInvalid, totalAssets }) {
+
+    const totalAssetNumber = totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+    const totalBusinessNumber = totalBusiness.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
     return (
         <>
             <h5>
+                <span className="left">{calculateBusinessPercentage(totalAssetNumber, totalBusinessNumber)}%</span>
                 <span>Business</span>
                 <span className="right">${totalBusiness.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;

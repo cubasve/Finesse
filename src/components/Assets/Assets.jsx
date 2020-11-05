@@ -36,6 +36,7 @@ export default function Assets({ totalAssets, totalCash, newCash, handleCashSubm
                 handleCashDelete={handleCashDelete}
                 cashFormInvalid={cashFormInvalid}
                 cashFormRef={cashFormRef}
+                totalAssets={totalAssets}
             />
             <PaperAssets
                 totalPaperAssets={totalPaperAssets}
@@ -45,6 +46,7 @@ export default function Assets({ totalAssets, totalCash, newCash, handleCashSubm
                 handlePaperAssetDelete={handlePaperAssetDelete}
                 paperAssetFormInvalid={paperAssetFormInvalid}
                 paperAssetFormRef={paperAssetFormRef}
+                totalAssets={totalAssets}
             />
             <RealEstate
                 totalRealEstate={totalRealEstate}
@@ -54,6 +56,7 @@ export default function Assets({ totalAssets, totalCash, newCash, handleCashSubm
                 handleRealEstateDelete={handleRealEstateDelete}
                 realEstateFormInvalid={realEstateFormInvalid}
                 realEstateFormRef={realEstateFormRef}
+                totalAssets={totalAssets}
             />
             <Business
                 totalBusiness={totalBusiness}
@@ -63,6 +66,7 @@ export default function Assets({ totalAssets, totalCash, newCash, handleCashSubm
                 handleBusinessDelete={handleBusinessDelete}
                 businessFormInvalid={businessFormInvalid}
                 businessFormRef={businessFormRef}
+                totalAssets={totalAssets}
             />
             <Commodities
                 totalCommodities={totalCommodities}
@@ -72,6 +76,7 @@ export default function Assets({ totalAssets, totalCash, newCash, handleCashSubm
                 handleCommodityDelete={handleCommodityDelete}
                 commodityFormInvalid={commodityFormInvalid}
                 commodityFormRef={commodityFormRef}
+                totalAssets={totalAssets}
             />
         </div>
     )

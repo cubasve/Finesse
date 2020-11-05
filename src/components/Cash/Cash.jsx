@@ -3,10 +3,22 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const cashOptions = ['Chequing Account', 'Savings Account'];
 
-export default function Cash({ totalCash, handleCashDelete, cashFormRef, handleCashSubmit, newCash, handleCashChange, cashFormInvalid }) {
+function calculateCashPercentage(totalAssets, totalCash) {
+    if (!totalAssets && !totalCash) return 0;
+    const percentage = (totalCash / totalAssets) * 100;
+    const result = percentage.toFixed(1);
+    return result;
+}
+
+export default function Cash({ totalCash, handleCashDelete, cashFormRef, handleCashSubmit, newCash, handleCashChange, cashFormInvalid, totalAssets }) {
+
+    const totalAssetNumber = totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+    const totalCashNumber = totalCash.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
     return (
         <>
             <h5>
+                <span className="left">{calculateCashPercentage(totalAssetNumber, totalCashNumber)}%</span>
                 <span>Cash</span>
                 <span className="right">${totalCash.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
