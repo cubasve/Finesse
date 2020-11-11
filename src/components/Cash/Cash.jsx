@@ -10,6 +10,11 @@ function calculateCashPercentage(totalAssets, totalCash) {
     return result;
 }
 
+function calculateTotalCash(totalCashNumber) {
+    if (!totalCashNumber) return 0;
+    return totalCashNumber.toFixed(2);
+}
+
 export default function Cash({ totalCash, handleCashDelete, cashFormRef, handleCashSubmit, newCash, handleCashChange, cashFormInvalid, totalAssets }) {
 
     const totalAssetNumber = totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
@@ -20,9 +25,7 @@ export default function Cash({ totalCash, handleCashDelete, cashFormRef, handleC
             <h5>
                 <span className="left">{calculateCashPercentage(totalAssetNumber, totalCashNumber)}%</span>
                 <span>Cash</span>
-                <span className="right">${totalCash.map(elem => elem.amount).reduce(function (acc, num) {
-                    return acc + num;
-                }, 0)}</span>
+                <span className="right">${calculateTotalCash(totalCashNumber)}</span>
             </h5>
 
             {totalCash.map(ca => (

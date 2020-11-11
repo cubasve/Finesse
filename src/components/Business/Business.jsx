@@ -10,6 +10,11 @@ function calculateBusinessPercentage(totalAssets, totalBusiness) {
     return result;
 }
 
+function calculateTotalBusiness(totalBusinessNumber) {
+    if (!totalBusinessNumber) return 0;
+    return totalBusinessNumber.toFixed(2);
+}
+
 export default function Business({ totalBusiness, handleBusinessDelete, businessFormRef, handleBusinessSubmit, newBusiness, handleBusinessChange, businessFormInvalid, totalAssets }) {
 
     const totalAssetNumber = totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
@@ -20,9 +25,7 @@ export default function Business({ totalBusiness, handleBusinessDelete, business
             <h5>
                 <span className="left">{calculateBusinessPercentage(totalAssetNumber, totalBusinessNumber)}%</span>
                 <span>Business</span>
-                <span className="right">${totalBusiness.map(elem => elem.amount).reduce(function (acc, num) {
-                    return acc + num;
-                }, 0)}</span>
+                <span className="right">${calculateTotalBusiness(totalBusinessNumber)}</span>
             </h5>
             {totalBusiness.map(b => (
                 <div key={b.amount}>

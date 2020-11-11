@@ -16,12 +16,21 @@ const LiabilityPopover = () => (
     </OverlayTrigger>
 )
 
+function calculateTotalLiability(totalLiabilityNumber) {
+    if (!totalLiabilityNumber) return 0;
+    return totalLiabilityNumber.toFixed(2);
+}
+
 export default function Liabilities({ totalLiabilities, totalGoodDebt, newGoodDebt, handleGoodDebtSubmit, handleGoodDebtChange, handleGoodDebtDelete, goodDebtFormInvalid, goodDebtFormRef, totalBadDebt, newBadDebt, handleBadDebtSubmit, handleBadDebtChange, handleBadDebtDelete, badDebtFormInvalid, badDebtFormRef }) {
+
+    const totalLiabilityNumber = totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
     return (
         <div className="border">
             <span className="title">
                 <span>LIABILITIES <LiabilityPopover /></span>
-                <span className="right">${totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span>
+                {/* <span className="right">${totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span> */}
+                <span className="right">${calculateTotalLiability(totalLiabilityNumber)}</span>
             </span>
 
             <GoodDebt

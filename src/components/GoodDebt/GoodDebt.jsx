@@ -23,6 +23,11 @@ function calculateGoodDebtPercentage(totalLiabilities, totalGoodDebt) {
     return result;
 }
 
+function calculateGoodDebt(totalGoodDebtNumber) {
+    if (!totalGoodDebtNumber) return 0;
+    return totalGoodDebtNumber.toFixed(2);
+}
+
 export default function GoodDebt({ totalGoodDebt, handleGoodDebtDelete, goodDebtFormRef, handleGoodDebtSubmit, newGoodDebt, handleGoodDebtChange, goodDebtFormInvalid, totalLiabilities }) {
 
     const totalLiabilityNumber = totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
@@ -33,9 +38,7 @@ export default function GoodDebt({ totalGoodDebt, handleGoodDebtDelete, goodDebt
             <h5>
                 <span className="left">{calculateGoodDebtPercentage(totalLiabilityNumber, totalGoodDebtNumber)}%</span>
                 <span>Good Debt <GoodDebtPopover /></span>
-                <span className="right">${totalGoodDebt.map(elem => elem.amount).reduce(function (acc, num) {
-                    return acc + num;
-                }, 0)}</span>
+                <span className="right">${calculateGoodDebt(totalGoodDebtNumber)}</span>
             </h5>
             {totalGoodDebt.map(gd => (
                 <div key={gd.amount}>

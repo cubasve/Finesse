@@ -10,6 +10,11 @@ function calculatePaperPercentage(totalAssets, totalPaperAssets) {
     return result;
 }
 
+function calculateTotalPaperAsset(totalPaperNumber) {
+    if (!totalPaperNumber) return 0;
+    return totalPaperNumber.toFixed(2);
+}
+
 export default function PaperAssets({ totalPaperAssets, handlePaperAssetDelete, paperAssetFormRef, handlePaperAssetSubmit, newPaperAsset, handlePaperAssetChange, paperAssetFormInvalid, totalAssets }) {
 
     const totalAssetNumber = totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
@@ -20,9 +25,7 @@ export default function PaperAssets({ totalPaperAssets, handlePaperAssetDelete, 
             <h5>
                 <span className="left">{calculatePaperPercentage(totalAssetNumber, totalPaperNumber)}%</span>
                 <span>Paper</span>
-                <span className="right">${totalPaperAssets.map(elem => elem.amount).reduce(function (acc, num) {
-                    return acc + num;
-                }, 0)}</span>
+                <span className="right">${calculateTotalPaperAsset(totalPaperNumber)}</span>
             </h5>
             {totalPaperAssets.map(pa => (
                 <div key={pa.amount}>

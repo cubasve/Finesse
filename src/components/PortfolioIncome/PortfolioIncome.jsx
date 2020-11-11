@@ -11,6 +11,7 @@ function calculatePortfolioPercentage(totalIncome, totalPortfolioIncome) {
 }
 
 function calculateTotalPortfolioIncome(totalPortfolioIncomeNumber) {
+    if (!totalPortfolioIncomeNumber) return 0;
     return totalPortfolioIncomeNumber.toFixed(2);
 }
 

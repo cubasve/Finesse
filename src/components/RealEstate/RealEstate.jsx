@@ -10,6 +10,11 @@ function calculateRealEstatePercentage(totalAssets, totalRealEstate) {
     return result;
 }
 
+function calculateTotalRealEstate(totalRealEstateNumber) {
+    if (!totalRealEstateNumber) return 0;
+    return totalRealEstateNumber.toFixed(2);
+}
+
 export default function RealEstate({ totalRealEstate, handleRealEstateDelete, realEstateFormRef, handleRealEstateSubmit, newRealEstate, handleRealEstateChange, realEstateFormInvalid, totalAssets }) {
 
     const totalAssetNumber = totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
@@ -20,9 +25,7 @@ export default function RealEstate({ totalRealEstate, handleRealEstateDelete, re
             <h5>
                 <span className="left">{calculateRealEstatePercentage(totalAssetNumber, totalRealEstateNumber)}%</span>
                 <span>Real Estate</span>
-                <span className="right">${totalRealEstate.map(elem => elem.amount).reduce(function (acc, num) {
-                    return acc + num;
-                }, 0)}</span>
+                <span className="right">${calculateTotalRealEstate(totalRealEstateNumber)}</span>
             </h5>
 
             {totalRealEstate.map(re => (

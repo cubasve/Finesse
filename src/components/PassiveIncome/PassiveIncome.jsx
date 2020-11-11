@@ -11,6 +11,7 @@ function calculatePassivePercentage(totalIncome, totalPassiveIncome) {
 }
 
 function calculateTotalPassiveIncome(totalPassiveIncomeNumber) {
+    if (!totalPassiveIncomeNumber) return 0;
     return totalPassiveIncomeNumber.toFixed(2);
 }
 

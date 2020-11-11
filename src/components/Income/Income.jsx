@@ -5,6 +5,7 @@ import Portfolio from '../PortfolioIncome/PortfolioIncome';
 import Passive from '../PassiveIncome/PassiveIncome';
 
 function calculateTotalIncome(totalIncomeNumber) {
+    if (!totalIncomeNumber) return 0;
     return totalIncomeNumber.toFixed(2);
 }
 

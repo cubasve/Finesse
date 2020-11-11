@@ -10,6 +10,11 @@ function calculateCommodityPercentage(totalAssets, totalCommodities) {
     return result;
 }
 
+function calculateTotalCommodity(totalCommodityNumber) {
+    if (!totalCommodityNumber) return 0;
+    return totalCommodityNumber.toFixed(2);
+}
+
 export default function Commodities({ totalCommodities, handleCommodityDelete, commodityFormRef, handleCommoditySubmit, newCommodity, handleCommodityChange, commodityFormInvalid, totalAssets }) {
 
     const totalAssetNumber = totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
@@ -20,9 +25,7 @@ export default function Commodities({ totalCommodities, handleCommodityDelete, c
             <h5>
                 <span className="left">{calculateCommodityPercentage(totalAssetNumber, totalCommodityNumber)}%</span>
                 <span>Commodities</span>
-                <span className="right">${totalCommodities.map(elem => elem.amount).reduce(function (acc, num) {
-                    return acc + num;
-                }, 0)}</span>
+                <span className="right">${calculateTotalCommodity(totalCommodityNumber)}</span>
             </h5>
             {totalCommodities.map(c => (
                 <div key={c.amount}>

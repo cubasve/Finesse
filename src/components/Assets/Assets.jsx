@@ -20,13 +20,21 @@ const AssetPopover = () => (
     </OverlayTrigger>
 )
 
+function calculateTotalAsset(totalAssetNumber) {
+    if (!totalAssetNumber) return 0;
+    return totalAssetNumber.toFixed(2);
+}
+
 export default function Assets({ totalAssets, totalCash, newCash, handleCashSubmit, handleCashChange, handleCashDelete, cashFormInvalid, cashFormRef, totalPaperAssets, newPaperAsset, handlePaperAssetSubmit, handlePaperAssetChange, handlePaperAssetDelete, paperAssetFormInvalid, paperAssetFormRef, totalRealEstate, newRealEstate, handleRealEstateSubmit, handleRealEstateChange, handleRealEstateDelete, realEstateFormInvalid, realEstateFormRef, totalBusiness, newBusiness, handleBusinessSubmit, handleBusinessChange, handleBusinessDelete, businessFormInvalid, businessFormRef, totalCommodities, newCommodity, handleCommoditySubmit, handleCommodityChange, handleCommodityDelete, commodityFormInvalid, commodityFormRef }) {
+
+    const totalAssetNumber = totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
 
     return (
         <div className="border">
             <span className="title">
                 <span>ASSETS <AssetPopover /></span>
-                <span className="right">${totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span>
+                {/* <span className="right">${totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span> */}
+                <span className="right">${calculateTotalAsset(totalAssetNumber)}</span>
             </span>
             <Cash
                 totalCash={totalCash}
