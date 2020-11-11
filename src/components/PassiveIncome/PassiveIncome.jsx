@@ -4,10 +4,14 @@ import { Table, Form, Button } from 'react-bootstrap';
 const passiveIncomeOptions = ['Real Estate', 'Business', 'Commodities', 'Royalties', 'Other'];
 
 function calculatePassivePercentage(totalIncome, totalPassiveIncome) {
-    if (!totalIncome && !totalPassiveIncome) return 0;
+    if (!totalIncome || !totalPassiveIncome) return 0;
     const percentage = (totalPassiveIncome / totalIncome) * 100;
     const result = percentage.toFixed(1);
     return result;
+}
+
+function calculateTotalPassiveIncome(totalPassiveIncomeNumber) {
+    return totalPassiveIncomeNumber.toFixed(2);
 }
 
 export default function PassiveIncome({ totalPassiveIncome, handlePassiveIncomeDelete, passiveFormRef, handlePassiveIncomeSubmit, newPassiveIncome, handlePassiveIncomeChange, passiveFormInvalid, totalIncome }) {
@@ -19,9 +23,7 @@ export default function PassiveIncome({ totalPassiveIncome, handlePassiveIncomeD
             <h5>
                 <span className="left">{calculatePassivePercentage(totalIncomeNumber, totalPassiveIncomeNumber)}%</span>
                 <span>Passive</span>
-                <span className="right">${totalPassiveIncome.map(elem => elem.amount).reduce(function (acc, num) {
-                    return acc + num;
-                }, 0)}</span>
+                <span className="right">${calculateTotalPassiveIncome(totalPassiveIncomeNumber)}</span>
             </h5>
             {totalPassiveIncome.map(pi => (
                 <div key={pi.amount}>

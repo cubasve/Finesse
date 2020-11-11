@@ -16,10 +16,22 @@ const BadDebtPopover = () => (
     </OverlayTrigger>
 );
 
-export default function BadDebt({ totalBadDebt, handleBadDebtDelete, badDebtFormRef, handleBadDebtSubmit, newBadDebt, handleBadDebtChange, badDebtFormInvalid }) {
+function calculateBadDebtPercentage(totalLiabilities, totalBadDebt) {
+    if (!totalLiabilities && !totalBadDebt) return 0;
+    const percentage = (totalBadDebt / totalLiabilities) * 100;
+    const result = percentage.toFixed(1);
+    return result;
+}
+
+export default function BadDebt({ totalBadDebt, handleBadDebtDelete, badDebtFormRef, handleBadDebtSubmit, newBadDebt, handleBadDebtChange, badDebtFormInvalid, totalLiabilities }) {
+
+    const totalLiabilityNumber = totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+    const totalBadDebtNumber = totalBadDebt.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
     return (
         <>
             <h5>
+                <span className="left">{calculateBadDebtPercentage(totalLiabilityNumber, totalBadDebtNumber)}%</span>
                 <span>Bad Debt <BadDebtPopover /></span>
                 <span className="right">${totalBadDebt.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;

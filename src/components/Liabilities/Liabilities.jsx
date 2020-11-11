@@ -32,6 +32,7 @@ export default function Liabilities({ totalLiabilities, totalGoodDebt, newGoodDe
                 handleGoodDebtDelete={handleGoodDebtDelete}
                 goodDebtFormInvalid={goodDebtFormInvalid}
                 goodDebtFormRef={goodDebtFormRef}
+                totalLiabilities={totalLiabilities}
             />
             <BadDebt
                 totalBadDebt={totalBadDebt}
@@ -41,6 +42,7 @@ export default function Liabilities({ totalLiabilities, totalGoodDebt, newGoodDe
                 handleBadDebtDelete={handleBadDebtDelete}
                 badDebtFormInvalid={badDebtFormInvalid}
                 badDebtFormRef={badDebtFormRef}
+                totalLiabilities={totalLiabilities}
             />
         </div>
     )

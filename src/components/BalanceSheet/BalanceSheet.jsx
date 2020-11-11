@@ -429,7 +429,8 @@ export default class BalanceSheet extends Component {
         const totalLiabilityNumber = this.state.totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
         return (
             <>
-                <h6>EQUITY/NET WORTH = ASSETS - LIABILITIES = {totalAssetNumber} - {totalLiabilityNumber} = {this.calculateEquity(totalAssetNumber, totalLiabilityNumber)}</h6>
+                <h6>EQUITY/NET WORTH = ASSETS - LIABILITIES</h6>
+                <h6>EQUITY: {totalAssetNumber} - {totalLiabilityNumber} = {this.calculateEquity(totalAssetNumber, totalLiabilityNumber)}</h6>
                 <Assets
                     totalAssets={this.state.totalAssets}
 

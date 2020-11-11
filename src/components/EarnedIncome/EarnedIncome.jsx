@@ -5,7 +5,7 @@ const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
 function calculateEarnedPercentage(totalIncome, totalEarnedIncome) {
 
-    if (!totalIncome && !totalEarnedIncome) return 0;
+    if (!totalIncome || !totalEarnedIncome) return 0;
 
     // const percentage = Math.floor((totalEarnedIncome / totalIncome) * 100);
     const percentage = (totalEarnedIncome / totalIncome) * 100;
@@ -25,6 +25,10 @@ function calculateEarnedPercentage(totalIncome, totalEarnedIncome) {
     // }
 }
 
+function calculateTotalEarnedIncome(totalEarnedIncomeNumber) {
+    return totalEarnedIncomeNumber.toFixed(2);
+}
+
 export default function EarnedIncome({ totalEarnedIncome, handleEarnedIncomeDelete, handleEarnedIncomeSubmit, newEarnedIncome, handleEarnedIncomeChange, earnedFormInvalid, earnedFormRef, totalIncome }) {
 
     const totalIncomeNumber = totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
@@ -35,10 +39,7 @@ export default function EarnedIncome({ totalEarnedIncome, handleEarnedIncomeDele
             <h5>
                 <span className="left">{calculateEarnedPercentage(totalIncomeNumber, totalEarnedIncomeNumber)}%</span>
                 <span>Earned</span>
-                <span className="right">${totalEarnedIncome.map(elem => elem.amount).reduce(function (acc, num) {
-                    return acc + num;
-                }, 0)}
-                </span>
+                <span className="right">${calculateTotalEarnedIncome(totalEarnedIncomeNumber)}</span>
             </h5>
             {totalEarnedIncome.map(ei => (
                 <div key={ei._id}>

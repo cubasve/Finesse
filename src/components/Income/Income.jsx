@@ -4,18 +4,20 @@ import Earned from '../EarnedIncome/EarnedIncome';
 import Portfolio from '../PortfolioIncome/PortfolioIncome';
 import Passive from '../PassiveIncome/PassiveIncome';
 
+function calculateTotalIncome(totalIncomeNumber) {
+    return totalIncomeNumber.toFixed(2);
+}
+
 
 export default function Income({ totalIncome, totalEarnedIncome, newEarnedIncome, handleEarnedIncomeSubmit, handleEarnedIncomeChange, handleEarnedIncomeDelete, earnedFormInvalid, earnedFormRef, totalPortfolioIncome, newPortfolioIncome, handlePortfolioIncomeSubmit, handlePortfolioIncomeChange, handlePortfolioIncomeDelete, portfolioFormInvalid, portfolioFormRef, totalPassiveIncome, newPassiveIncome, handlePassiveIncomeSubmit, handlePassiveIncomeChange, handlePassiveIncomeDelete, passiveFormInvalid, passiveFormRef }) {
+
+    const totalIncomeNumber = totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
     return (
         <div className="border">
             <span className="title">
                 <span>INCOME</span>
-                <span className="right">$
-                    {totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}
-                    {/* {totalIncome.map(elem => elem.amount).reduce(function (acc, num) {
-                        return acc + num;
-                    }, 0)} */}
-                </span>
+                <span className="right">${calculateTotalIncome(totalIncomeNumber)}</span>
             </span>
 
             <Earned

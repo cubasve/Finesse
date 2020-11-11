@@ -320,7 +320,8 @@ export default class IncomeStatement extends Component {
         const totalIncomeNumber = this.state.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
         return (
             <>
-                <h6>CASH FLOW = INCOME - EXPENSES = {totalIncomeNumber} -</h6>
+                <h6>CASH FLOW = INCOME - EXPENSES</h6>
+                {/* <h6>CASH FLOW: {totalIncomeNumber} -</h6> */}
                 <Income
                     totalIncome={this.state.totalIncome}
 
