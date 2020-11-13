@@ -4,7 +4,7 @@ import { Table, Form, Button } from 'react-bootstrap';
 const paperAssetsOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'REIT', 'Other'];
 
 function calculatePaperPercentage(totalAssets, totalPaperAssets) {
-    if (!totalAssets && !totalPaperAssets) return 0;
+    if (!totalAssets || !totalPaperAssets) return 0;
     const percentage = (totalPaperAssets / totalAssets) * 100;
     const result = percentage.toFixed(1);
     return result;

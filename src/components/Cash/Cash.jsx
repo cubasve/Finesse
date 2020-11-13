@@ -4,7 +4,7 @@ import { Table, Form, Button } from 'react-bootstrap';
 const cashOptions = ['Chequing Account', 'Savings Account'];
 
 function calculateCashPercentage(totalAssets, totalCash) {
-    if (!totalAssets && !totalCash) return 0;
+    if (!totalAssets || !totalCash) return 0;
     const percentage = (totalCash / totalAssets) * 100;
     const result = percentage.toFixed(1);
     return result;

@@ -4,7 +4,7 @@ import { Table, Form, Button } from 'react-bootstrap';
 const commodityOptions = ['Metals', 'Energy', 'Livestock & Meat', 'Agriculture', 'Cryptocurrency', 'Other'];
 
 function calculateCommodityPercentage(totalAssets, totalCommodities) {
-    if (!totalAssets && !totalCommodities) return 0;
+    if (!totalAssets || !totalCommodities) return 0;
     const percentage = (totalCommodities / totalAssets) * 100;
     const result = percentage.toFixed(1);
     return result;

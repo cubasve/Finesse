@@ -17,7 +17,7 @@ const GoodDebtPopover = () => (
 );
 
 function calculateGoodDebtPercentage(totalLiabilities, totalGoodDebt) {
-    if (!totalLiabilities && !totalGoodDebt) return 0;
+    if (!totalLiabilities || !totalGoodDebt) return 0;
     const percentage = (totalGoodDebt / totalLiabilities) * 100;
     const result = percentage.toFixed(1);
     return result;

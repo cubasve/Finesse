@@ -4,7 +4,7 @@ import { Table, Form, Button } from 'react-bootstrap';
 const businessOptions = ['Sole proprietorship', 'Partnership', 'Corporation'];
 
 function calculateBusinessPercentage(totalAssets, totalBusiness) {
-    if (!totalAssets && !totalBusiness) return 0;
+    if (!totalAssets || !totalBusiness) return 0;
     const percentage = (totalBusiness / totalAssets) * 100;
     const result = percentage.toFixed(1);
     return result;

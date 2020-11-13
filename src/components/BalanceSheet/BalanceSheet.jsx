@@ -425,7 +425,8 @@ export default class BalanceSheet extends Component {
     // }
 
     calculateEquity = (calculateTotalAsset, calculateTotalLiability) => {
-        let equity = calculateTotalAsset - calculateTotalLiability;
+        if (!calculateTotalAsset && !calculateTotalLiability) return 0;
+        let equity = (calculateTotalAsset - calculateTotalLiability).toFixed(2);
         console.log(equity);
         return equity;
     }
@@ -447,7 +448,7 @@ export default class BalanceSheet extends Component {
             <>
                 <h6>EQUITY/NET WORTH = ASSETS - LIABILITIES</h6>
                 {/* <h6>EQUITY: {totalAssetNumber} - {totalLiabilityNumber} = {this.calculateEquity(totalAssetNumber, totalLiabilityNumber)}</h6> */}
-                <h6>EQUITY: {this.calculateTotalAsset(totalAssetNumber)} - {this.calculateTotalLiability(totalLiabilityNumber)} = {this.calculateEquity(this.calculateTotalAsset(totalAssetNumber), this.calculateTotalLiability(totalLiabilityNumber))}</h6>
+                <h6>EQUITY: {this.calculateTotalAsset(totalAssetNumber)} - {this.calculateTotalLiability(totalLiabilityNumber)} = {this.calculateEquity(totalAssetNumber, totalLiabilityNumber)}</h6>
                 <Assets
                     totalAssets={this.state.totalAssets}
 

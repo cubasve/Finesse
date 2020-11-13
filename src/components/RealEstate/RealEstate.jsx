@@ -4,7 +4,7 @@ import { Table, Form, Button } from 'react-bootstrap';
 const realEstateOptions = ['Residential', 'Commercial', 'Industrial', 'Vacant Land'];
 
 function calculateRealEstatePercentage(totalAssets, totalRealEstate) {
-    if (!totalAssets && !totalRealEstate) return 0;
+    if (!totalAssets || !totalRealEstate) return 0;
     const percentage = (totalRealEstate / totalAssets) * 100;
     const result = percentage.toFixed(1);
     return result;
