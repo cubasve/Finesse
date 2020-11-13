@@ -79,6 +79,7 @@ export default class IncomeStatement extends Component {
         }
     }
 
+    //Earned Income Methods
     handleEarnedIncomeSubmit = async (e) => {
         e.preventDefault();
         if (!this.earnedFormRef.current.checkValidity()) return;
@@ -126,6 +127,7 @@ export default class IncomeStatement extends Component {
         }
     }
 
+    //Portfolio Income Methods
     handlePortfolioIncomeSubmit = async (e) => {
         e.preventDefault();
         if (!this.portfolioFormRef.current.checkValidity()) return;
@@ -173,6 +175,7 @@ export default class IncomeStatement extends Component {
         }
     }
 
+    //Passive Income Methods
     handlePassiveIncomeSubmit = async (e) => {
         e.preventDefault();
         if (!this.passiveFormRef.current.checkValidity()) return;
@@ -220,6 +223,7 @@ export default class IncomeStatement extends Component {
         }
     }
 
+    //Expense Methods
     handleExpenseSubmit = async (e) => {
         e.preventDefault();
         if (!this.expenseFormRef.current.checkValidity()) return;
@@ -265,6 +269,7 @@ export default class IncomeStatement extends Component {
         }
     }
 
+    //Pay Yourself First Methods
     handleSelfFirstSubmit = async (e) => {
         e.preventDefault();
         if (!this.selfFirstFormRef.current.checkValidity()) return;
@@ -320,7 +325,7 @@ export default class IncomeStatement extends Component {
         const totalIncomeNumber = this.state.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
         return (
             <>
-                <h6>CASH FLOW = INCOME - EXPENSES</h6>
+                <h6><strong>CASH FLOW = INCOME - EXPENSES</strong></h6>
                 {/* <h6>CASH FLOW: {totalIncomeNumber} -</h6> */}
                 <Income
                     totalIncome={this.state.totalIncome}

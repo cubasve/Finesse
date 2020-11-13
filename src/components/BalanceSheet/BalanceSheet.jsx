@@ -102,6 +102,7 @@ export default class BalanceSheet extends Component {
         }
     }
 
+    //Paper Asset Methods
     handlePaperAssetSubmit = async (e) => {
         e.preventDefault();
         if (!this.paperAssetFormRef.current.checkValidity()) return;
@@ -147,6 +148,7 @@ export default class BalanceSheet extends Component {
         }
     }
 
+    //Real Estate Methods
     handleRealEstateSubmit = async (e) => {
         e.preventDefault();
         if (!this.realEstateFormRef.current.checkValidity()) return;
@@ -192,6 +194,7 @@ export default class BalanceSheet extends Component {
         }
     }
 
+    //Business Methods
     handleBusinessSubmit = async (e) => {
         e.preventDefault();
         if (!this.businessFormRef.current.checkValidity()) return;
@@ -237,6 +240,7 @@ export default class BalanceSheet extends Component {
         }
     }
 
+    //Commodity Methods
     handleCommoditySubmit = async (e) => {
         e.preventDefault();
         if (!this.commodityFormRef.current.checkValidity()) return;
@@ -282,6 +286,7 @@ export default class BalanceSheet extends Component {
         }
     }
 
+    //Cash Methods
     handleCashSubmit = async (e) => {
         e.preventDefault();
         if (!this.cashFormRef.current.checkValidity()) return;
@@ -327,6 +332,7 @@ export default class BalanceSheet extends Component {
         }
     }
 
+    //Good Debt Methods
     handleGoodDebtSubmit = async (e) => {
         e.preventDefault();
         if (!this.goodDebtFormRef.current.checkValidity()) return;
@@ -372,6 +378,7 @@ export default class BalanceSheet extends Component {
         }
     }
 
+    //Bad Debt Methods
     handleBadDebtSubmit = async (e) => {
         e.preventDefault();
         if (!this.badDebtFormRef.current.checkValidity()) return;
@@ -417,13 +424,7 @@ export default class BalanceSheet extends Component {
         }
     }
 
-
-    // calculateEquity = (totalAssetNumber, totalLiabilityNumber) => {
-    //     let equity = totalAssetNumber - totalLiabilityNumber;
-    //     console.log(equity);
-    //     return equity;
-    // }
-
+    //Equity Calculation Methods
     calculateEquity = (calculateTotalAsset, calculateTotalLiability) => {
         if (!calculateTotalAsset && !calculateTotalLiability) return 0;
         let equity = (calculateTotalAsset - calculateTotalLiability).toFixed(2);
@@ -446,8 +447,7 @@ export default class BalanceSheet extends Component {
         const totalLiabilityNumber = this.state.totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
         return (
             <>
-                <h6>EQUITY/NET WORTH = ASSETS - LIABILITIES</h6>
-                {/* <h6>EQUITY: {totalAssetNumber} - {totalLiabilityNumber} = {this.calculateEquity(totalAssetNumber, totalLiabilityNumber)}</h6> */}
+                <h6><strong>EQUITY/NET WORTH = ASSETS - LIABILITIES</strong></h6>
                 <h6>EQUITY: {this.calculateTotalAsset(totalAssetNumber)} - {this.calculateTotalLiability(totalLiabilityNumber)} = {this.calculateEquity(totalAssetNumber, totalLiabilityNumber)}</h6>
                 <Assets
                     totalAssets={this.state.totalAssets}

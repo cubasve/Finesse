@@ -26,7 +26,7 @@ export default function Expenses({ totalExpenses, handleExpenseDelete, expenseFo
             />
 
             <h5>
-                <span>Expenses</span>
+                <span>Other Expenses</span>
                 <span className="right">${totalExpenses.map(elem => elem.amount).reduce(function (acc, num) {
                     return acc + num;
                 }, 0)}

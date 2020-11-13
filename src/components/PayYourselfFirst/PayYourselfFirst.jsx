@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Popover, OverlayTrigger, Button, Table, Form } from 'react-bootstrap';
 
 const popover = (
@@ -29,7 +29,11 @@ const payYourselfFirstAllocation = (percentage, totalIncome) => {
 // }
 
 export default function PayYourselfFirst({ totalIncome, totalPayYourselfFirst, handleSelfFirstDelete, selfFirstFormRef, handleSelfFirstSubmit, newPayYourselfFirst, handleSelfFirstChange, selfFirstFormInvalid }) {
+
     const totalIncomeNumber = totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+    const [allocation, setAllocation] = useState([]);
+
+    useEffect(() => { setAllocation(payYourselfFirstAllocation) })
 
     return (
         <>
