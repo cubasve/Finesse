@@ -29,6 +29,8 @@ export default class App extends Component {
     return (
       <div className="App">
         <NavBar user={this.state.user} handleLogout={this.handleLogout} />
+        <br />
+        <br />
         <Switch>
 
           <Route exact path="/" render={() => <HomePage user={this.state.user} handleLogout={this.handleLogout} />}></Route>

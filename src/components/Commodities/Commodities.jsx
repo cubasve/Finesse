@@ -6,12 +6,14 @@ const commodityOptions = ['Metals', 'Energy', 'Livestock & Meat', 'Agriculture',
 function calculateCommodityPercentage(totalAssets, totalCommodities) {
     if (!totalAssets || !totalCommodities) return 0;
     const percentage = (totalCommodities / totalAssets) * 100;
+    if (Number.isInteger(percentage)) return percentage;
     const result = percentage.toFixed(1);
     return result;
 }
 
 function calculateTotalCommodity(totalCommodityNumber) {
     if (!totalCommodityNumber) return 0;
+    if (Number.isInteger(totalCommodityNumber)) return totalCommodityNumber;
     return totalCommodityNumber.toFixed(2);
 }
 
@@ -23,7 +25,7 @@ export default function Commodities({ totalCommodities, handleCommodityDelete, c
     return (
         <>
             <h5>
-                <span className="left">{calculateCommodityPercentage(totalAssetNumber, totalCommodityNumber)}%</span>
+                <span className="left percentage">{calculateCommodityPercentage(totalAssetNumber, totalCommodityNumber)}%</span>
                 <span>Commodities</span>
                 <span className="right">${calculateTotalCommodity(totalCommodityNumber)}</span>
             </h5>
@@ -57,6 +59,7 @@ export default function Commodities({ totalCommodities, handleCommodityDelete, c
                             onChange={handleCommodityChange}
                             as="select"
                             size="sm"
+                            className="select"
                         >
                             {commodityOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

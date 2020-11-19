@@ -6,12 +6,14 @@ const businessOptions = ['Sole proprietorship', 'Partnership', 'Corporation'];
 function calculateBusinessPercentage(totalAssets, totalBusiness) {
     if (!totalAssets || !totalBusiness) return 0;
     const percentage = (totalBusiness / totalAssets) * 100;
+    if (Number.isInteger(percentage)) return percentage;
     const result = percentage.toFixed(1);
     return result;
 }
 
 function calculateTotalBusiness(totalBusinessNumber) {
     if (!totalBusinessNumber) return 0;
+    if (Number.isInteger(totalBusinessNumber)) return totalBusinessNumber;
     return totalBusinessNumber.toFixed(2);
 }
 
@@ -23,7 +25,7 @@ export default function Business({ totalBusiness, handleBusinessDelete, business
     return (
         <>
             <h5>
-                <span className="left">{calculateBusinessPercentage(totalAssetNumber, totalBusinessNumber)}%</span>
+                <span className="left percentage">{calculateBusinessPercentage(totalAssetNumber, totalBusinessNumber)}%</span>
                 <span>Business</span>
                 <span className="right">${calculateTotalBusiness(totalBusinessNumber)}</span>
             </h5>
@@ -57,6 +59,7 @@ export default function Business({ totalBusiness, handleBusinessDelete, business
                             onChange={handleBusinessChange}
                             as="select"
                             size="sm"
+                            className="select"
                         >
                             {businessOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

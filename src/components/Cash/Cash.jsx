@@ -6,12 +6,14 @@ const cashOptions = ['Chequing Account', 'Savings Account'];
 function calculateCashPercentage(totalAssets, totalCash) {
     if (!totalAssets || !totalCash) return 0;
     const percentage = (totalCash / totalAssets) * 100;
+    if (Number.isInteger(percentage)) return percentage;
     const result = percentage.toFixed(1);
     return result;
 }
 
 function calculateTotalCash(totalCashNumber) {
     if (!totalCashNumber) return 0;
+    if (Number.isInteger(totalCashNumber)) return totalCashNumber;
     return totalCashNumber.toFixed(2);
 }
 
@@ -23,7 +25,7 @@ export default function Cash({ totalCash, handleCashDelete, cashFormRef, handleC
     return (
         <>
             <h5>
-                <span className="left">{calculateCashPercentage(totalAssetNumber, totalCashNumber)}%</span>
+                <span className="left percentage">{calculateCashPercentage(totalAssetNumber, totalCashNumber)}%</span>
                 <span>Cash</span>
                 <span className="right">${calculateTotalCash(totalCashNumber)}</span>
             </h5>
@@ -60,6 +62,7 @@ export default function Cash({ totalCash, handleCashDelete, cashFormRef, handleC
                             onChange={handleCashChange}
                             as="select"
                             size="sm"
+                            className="select"
                         >
                             {cashOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

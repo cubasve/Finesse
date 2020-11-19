@@ -4,7 +4,15 @@ import { Table, Form, Button } from 'react-bootstrap';
 
 const expenseOptions = ['Taxes', 'Housing', 'Transportation', 'Food', 'Children', 'Debt Payments', 'Entertainment', 'Donations', 'Other'];
 
+function calculateTotalExpenseIncome(totalExpenseNumber) {
+    if (!totalExpenseNumber) return 0;
+    return totalExpenseNumber.toFixed(2);
+}
+
 export default function Expenses({ totalExpenses, handleExpenseDelete, expenseFormRef, handleExpenseSubmit, newExpense, handleExpenseChange, expenseFormInvalid, totalIncome, totalPayYourselfFirst, newPayYourselfFirst, handleSelfFirstSubmit, handleSelfFirstChange, handleSelfFirstDelete, selfFirstFormInvalid, selfFirstFormRef }) {
+
+    const totalExpenseNumber = totalExpenses.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
     return (
         <div className="border">
             <span className="title">
@@ -27,9 +35,7 @@ export default function Expenses({ totalExpenses, handleExpenseDelete, expenseFo
 
             <h5>
                 <span>Other Expenses</span>
-                <span className="right">${totalExpenses.map(elem => elem.amount).reduce(function (acc, num) {
-                    return acc + num;
-                }, 0)}
+                <span className="right">${calculateTotalExpenseIncome(totalExpenseNumber)}
                 </span>
             </h5>
 
@@ -65,6 +71,7 @@ export default function Expenses({ totalExpenses, handleExpenseDelete, expenseFo
                             onChange={handleExpenseChange}
                             as="select"
                             size="sm"
+                            className="select"
                         >
                             {expenseOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

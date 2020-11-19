@@ -19,12 +19,14 @@ const BadDebtPopover = () => (
 function calculateBadDebtPercentage(totalLiabilities, totalBadDebt) {
     if (!totalLiabilities || !totalBadDebt) return 0;
     const percentage = (totalBadDebt / totalLiabilities) * 100;
+    if (Number.isInteger(percentage)) return percentage;
     const result = percentage.toFixed(1);
     return result;
 }
 
 function calculateBadDebt(totalBadDebtNumber) {
     if (!totalBadDebtNumber) return 0;
+    if (Number.isInteger(totalBadDebtNumber)) return totalBadDebtNumber;
     return totalBadDebtNumber.toFixed(2);
 }
 
@@ -36,7 +38,7 @@ export default function BadDebt({ totalBadDebt, handleBadDebtDelete, badDebtForm
     return (
         <>
             <h5>
-                <span className="left">{calculateBadDebtPercentage(totalLiabilityNumber, totalBadDebtNumber)}%</span>
+                <span className="left percentage">{calculateBadDebtPercentage(totalLiabilityNumber, totalBadDebtNumber)}%</span>
                 <span>Bad Debt <BadDebtPopover /></span>
                 <span className="right">${calculateBadDebt(totalBadDebtNumber)}</span>
             </h5>
@@ -71,6 +73,7 @@ export default function BadDebt({ totalBadDebt, handleBadDebtDelete, badDebtForm
                             onChange={handleBadDebtChange}
                             as="select"
                             size="sm"
+                            className="select"
                         >
                             {badDebtOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

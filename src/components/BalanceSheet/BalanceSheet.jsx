@@ -427,18 +427,21 @@ export default class BalanceSheet extends Component {
     //Equity Calculation Methods
     calculateEquity = (calculateTotalAsset, calculateTotalLiability) => {
         if (!calculateTotalAsset && !calculateTotalLiability) return 0;
-        let equity = (calculateTotalAsset - calculateTotalLiability).toFixed(2);
+        let equity = (calculateTotalAsset - calculateTotalLiability);
+        if (Number.isInteger(equity)) return equity;
         console.log(equity);
-        return equity;
+        return equity.toFixed(2);
     }
 
     calculateTotalAsset = (totalAssetNumber) => {
         if (!totalAssetNumber) return 0;
+        if (Number.isInteger(totalAssetNumber)) return totalAssetNumber;
         return totalAssetNumber.toFixed(2);
     }
 
     calculateTotalLiability = (totalLiabilityNumber) => {
         if (!totalLiabilityNumber) return 0;
+        if (Number.isInteger(totalLiabilityNumber)) return totalLiabilityNumber;
         return totalLiabilityNumber.toFixed(2);
     }
 

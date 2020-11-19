@@ -6,12 +6,14 @@ const realEstateOptions = ['Residential', 'Commercial', 'Industrial', 'Vacant La
 function calculateRealEstatePercentage(totalAssets, totalRealEstate) {
     if (!totalAssets || !totalRealEstate) return 0;
     const percentage = (totalRealEstate / totalAssets) * 100;
+    if (Number.isInteger(percentage)) return percentage;
     const result = percentage.toFixed(1);
     return result;
 }
 
 function calculateTotalRealEstate(totalRealEstateNumber) {
     if (!totalRealEstateNumber) return 0;
+    if (Number.isInteger(totalRealEstateNumber)) return totalRealEstateNumber;
     return totalRealEstateNumber.toFixed(2);
 }
 
@@ -23,7 +25,7 @@ export default function RealEstate({ totalRealEstate, handleRealEstateDelete, re
     return (
         <>
             <h5>
-                <span className="left">{calculateRealEstatePercentage(totalAssetNumber, totalRealEstateNumber)}%</span>
+                <span className="left percentage">{calculateRealEstatePercentage(totalAssetNumber, totalRealEstateNumber)}%</span>
                 <span>Real Estate</span>
                 <span className="right">${calculateTotalRealEstate(totalRealEstateNumber)}</span>
             </h5>
@@ -58,6 +60,7 @@ export default function RealEstate({ totalRealEstate, handleRealEstateDelete, re
                             onChange={handleRealEstateChange}
                             as="select"
                             size="sm"
+                            className="select"
                         >
                             {realEstateOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

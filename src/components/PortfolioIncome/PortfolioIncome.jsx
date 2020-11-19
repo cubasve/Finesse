@@ -6,12 +6,14 @@ const portfolioIncomeOptions = ['Stock', 'Bond', 'Index/Mutual Fund', 'GIC', 'RE
 function calculatePortfolioPercentage(totalIncome, totalPortfolioIncome) {
     if (!totalIncome || !totalPortfolioIncome) return 0;
     const percentage = (totalPortfolioIncome / totalIncome) * 100;
+    if (Number.isInteger(percentage)) return percentage;
     const result = percentage.toFixed(1);
     return result;
 }
 
 function calculateTotalPortfolioIncome(totalPortfolioIncomeNumber) {
     if (!totalPortfolioIncomeNumber) return 0;
+    if (Number.isInteger(totalPortfolioIncomeNumber)) return totalPortfolioIncomeNumber;
     return totalPortfolioIncomeNumber.toFixed(2);
 }
 
@@ -23,7 +25,7 @@ export default function PortfolioIncome({ totalPortfolioIncome, handlePortfolioI
     return (
         <>
             <h5>
-                <span className="left">{calculatePortfolioPercentage(totalIncomeNumber, totalPortfolioIncomeNumber)}%</span>
+                <span className="left percentage">{calculatePortfolioPercentage(totalIncomeNumber, totalPortfolioIncomeNumber)}%</span>
                 <span>Portfolio</span>
                 <span className="right">${calculateTotalPortfolioIncome(totalPortfolioIncomeNumber)}</span>
             </h5>
@@ -60,6 +62,7 @@ export default function PortfolioIncome({ totalPortfolioIncome, handlePortfolioI
                             onChange={handlePortfolioIncomeChange}
                             as="select"
                             size="sm"
+                            className="select"
                         >
                             {portfolioIncomeOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

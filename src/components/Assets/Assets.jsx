@@ -22,6 +22,7 @@ const AssetPopover = () => (
 
 function calculateTotalAsset(totalAssetNumber) {
     if (!totalAssetNumber) return 0;
+    if (Number.isInteger(totalAssetNumber)) return totalAssetNumber;
     return totalAssetNumber.toFixed(2);
 }
 

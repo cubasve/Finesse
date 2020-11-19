@@ -5,13 +5,16 @@ const earnedIncomeOptions = ['Job', 'Self-Employment', 'Other'];
 
 function calculateEarnedPercentage(totalIncome, totalEarnedIncome) {
     if (!totalIncome || !totalEarnedIncome) return 0;
+
     const percentage = (totalEarnedIncome / totalIncome) * 100;
+    if (Number.isInteger(percentage)) return percentage;
     const result = percentage.toFixed(1);
     return result;
 }
 
 function calculateTotalEarnedIncome(totalEarnedIncomeNumber) {
     if (!totalEarnedIncomeNumber) return 0;
+    if (Number.isInteger(totalEarnedIncomeNumber)) return totalEarnedIncomeNumber;
     return totalEarnedIncomeNumber.toFixed(2);
 }
 
@@ -23,7 +26,7 @@ export default function EarnedIncome({ totalEarnedIncome, handleEarnedIncomeDele
     return (
         <>
             <h5>
-                <span className="left">{calculateEarnedPercentage(totalIncomeNumber, totalEarnedIncomeNumber)}%</span>
+                <span className="left percentage">{calculateEarnedPercentage(totalIncomeNumber, totalEarnedIncomeNumber)}%</span>
                 <span>Earned</span>
                 <span className="right">${calculateTotalEarnedIncome(totalEarnedIncomeNumber)}</span>
             </h5>
@@ -68,6 +71,7 @@ export default function EarnedIncome({ totalEarnedIncome, handleEarnedIncomeDele
                             onChange={handleEarnedIncomeChange}
                             as="select"
                             size="sm"
+                            className="select"
                         >
                             {earnedIncomeOptions.map(option => (
                                 <option key={option} value={option}>{option}</option>

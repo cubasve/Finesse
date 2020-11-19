@@ -13,8 +13,12 @@ code {
 }
 
 h5 {
-  margin: 5px 5px;
+  margin: 5px;
   color: blue;
+}
+
+.percentage {
+  font-size: 14px;
 }
 
 div.border {
@@ -76,6 +80,7 @@ span.statement {
 .select {
   width: 160px;
 }
+
 .selfFirst {
   display: flex;
   justify-content: center;

@@ -6,12 +6,14 @@ const passiveIncomeOptions = ['Real Estate', 'Business', 'Commodities', 'Royalti
 function calculatePassivePercentage(totalIncome, totalPassiveIncome) {
     if (!totalIncome || !totalPassiveIncome) return 0;
     const percentage = (totalPassiveIncome / totalIncome) * 100;
+    if (Number.isInteger(percentage)) return percentage;
     const result = percentage.toFixed(1);
     return result;
 }
 
 function calculateTotalPassiveIncome(totalPassiveIncomeNumber) {
     if (!totalPassiveIncomeNumber) return 0;
+    if (Number.isInteger(totalPassiveIncomeNumber)) return totalPassiveIncomeNumber;
     return totalPassiveIncomeNumber.toFixed(2);
 }
 
@@ -22,7 +24,7 @@ export default function PassiveIncome({ totalPassiveIncome, handlePassiveIncomeD
     return (
         <>
             <h5>
-                <span className="left">{calculatePassivePercentage(totalIncomeNumber, totalPassiveIncomeNumber)}%</span>
+                <span className="left percentage">{calculatePassivePercentage(totalIncomeNumber, totalPassiveIncomeNumber)}%</span>
                 <span>Passive</span>
                 <span className="right">${calculateTotalPassiveIncome(totalPassiveIncomeNumber)}</span>
             </h5>
@@ -56,6 +58,7 @@ export default function PassiveIncome({ totalPassiveIncome, handlePassiveIncomeD
                             onChange={handlePassiveIncomeChange}
                             as="select"
                             size="sm"
+                            className="select"
                         >
                             {passiveIncomeOptions.map((option) => (
                                 <option key={option} value={option}>{option}</option>

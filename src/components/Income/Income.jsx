@@ -6,6 +6,7 @@ import Passive from '../PassiveIncome/PassiveIncome';
 
 function calculateTotalIncome(totalIncomeNumber) {
     if (!totalIncomeNumber) return 0;
+    if (Number.isInteger(totalIncomeNumber)) return totalIncomeNumber;
     return totalIncomeNumber.toFixed(2);
 }
 
