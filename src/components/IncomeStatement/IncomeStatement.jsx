@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Income from '../../components/Income/Income';
-import Expenses from '../../components/Expenses/Expenses';
+import Expenditure from '../../components/Expenditure/Expenditure';
 import financialStatementService from '../../utils/financialStatementService';
 
 export default class IncomeStatement extends Component {
@@ -355,8 +355,7 @@ export default class IncomeStatement extends Component {
                     passiveFormRef={this.passiveFormRef}
                 />
 
-                <Expenses
-                    totalIncome={this.state.totalIncome}
+                <Expenditure
                     totalExpensesAndSelfFirst={this.state.totalExpensesAndSelfFirst}
 
                     totalExpenses={this.state.totalExpenses}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Popover, OverlayTrigger, Button, Table, Form } from 'react-bootstrap';
 
 const popover = (
@@ -14,57 +14,42 @@ const PayYourselfPopover = () => (
     </OverlayTrigger>
 )
 
-const payYourselfFirstAllocation = (percentage, totalIncome) => {
-    const decimal = percentage / 100;
-    const percentageOfIncome = decimal * totalIncome;
-    const allocation = percentageOfIncome.toFixed(2);
-    return allocation;
-}
 
-// const addTotalAllocation = () => {
-//     let total = 0;
-//     total += payYourselfFirstAllocation();
-//     console.log(total);
-//     return total;
-// }
+export default function PayYourselfFirst({ totalExpensesAndSelfFirst, totalPayYourselfFirst, handleSelfFirstDelete, selfFirstFormRef, handleSelfFirstSubmit, newPayYourselfFirst, handleSelfFirstChange, selfFirstFormInvalid }) {
 
-export default function PayYourselfFirst({ totalIncome, totalPayYourselfFirst, handleSelfFirstDelete, selfFirstFormRef, handleSelfFirstSubmit, newPayYourselfFirst, handleSelfFirstChange, selfFirstFormInvalid }) {
-
-    const totalIncomeNumber = totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
-    const [allocation, setAllocation] = useState([]);
-
-    useEffect(() => { setAllocation(payYourselfFirstAllocation) })
+    const totalSelfFirstNumber = totalPayYourselfFirst.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
 
     return (
         <>
             <h5>
+                <span className="left percentage"></span>
                 <span>Pay Yourself First</span>
                 <PayYourselfPopover />
                 <span className="right">$</span>
             </h5>
-            {
-                totalPayYourselfFirst.map(pi => (
-                    <div key={pi.amount}>
-                        <Table borderless hover size="sm">
-                            <tbody>
-                                <tr>
-                                    <td className="left">
-                                        <Button
-                                            name={pi.amount}
-                                            value={pi._id}
-                                            onClick={handleSelfFirstDelete}
-                                            variant="danger"
-                                            size="sm"
-                                            className="delete">X</Button>
-                                        <strong>{pi.amount}%</strong> Allocation
-                                        </td>
-                                    <td className="right">${payYourselfFirstAllocation(pi.amount, totalIncomeNumber)}</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                    </div>
-                ))
-            }
+            {totalPayYourselfFirst.map(pi => (
+                <div key={pi._id}>
+                    <Table borderless hover size="sm">
+                        <tbody>
+                            <tr>
+                                <td className="left">
+                                    <Button
+                                        name={pi.amount}
+                                        value={pi._id}
+                                        onClick={handleSelfFirstDelete}
+                                        variant="danger"
+                                        size="sm"
+                                        className="delete">X</Button>
+                                    <span></span>
+                                Allocation
+                                </td>
+                                <td className="right">{pi.amount}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                </div>
+            ))}
+
             <Form ref={selfFirstFormRef} onSubmit={handleSelfFirstSubmit} className="selfFirst">
                 <Form.Row>
                     <Form.Group>
@@ -73,20 +58,20 @@ export default function PayYourselfFirst({ totalIncome, totalPayYourselfFirst, h
                             value={newPayYourselfFirst.amount}
                             onChange={handleSelfFirstChange}
                             required
-                            pattern="[1-9]\d{0,1}"
-                            placeholder="% of Total Income"
+                            pattern="[1-9]\d{0,}\.?\d{0,2}"
+                            placeholder="Save/ Invest/ Tithe"
                             autoComplete="off"
                             size="sm"
                         />
                     </Form.Group>
-                    <Form.Group>
+                    {/* <Form.Group>
                         <Form.Control
                             type="hidden"
                             name="class"
                             value={newPayYourselfFirst.class}
                             onChange={handleSelfFirstChange}
                         />
-                    </Form.Group>
+                    </Form.Group> */}
                     <Form.Group>
                         <Form.Control
                             type="hidden"
