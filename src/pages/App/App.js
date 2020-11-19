@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from '../HomePage/HomePage';
-import SignupPage from '../SignupPage/SignUpPage'; //for localhost:3000
-// import SignupPage from '../SignupPage/SignupPage'; //for Heroku deployment
+// import SignupPage from '../SignupPage/SignUpPage'; //for localhost:3000
+import SignupPage from '../SignupPage/SignupPage'; //for Heroku deployment
 
 import LoginPage from '../LoginPage/LoginPage';
 import userService from '../../utils/userService';
