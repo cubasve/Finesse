@@ -9,14 +9,23 @@ function calculateTotalExpenseIncome(totalExpenseNumber) {
     return totalExpenseNumber.toFixed(2);
 }
 
+function calculateExpensePercentage(totalExpensesAndSelfFirst, totalExpenses) {
+    if (!totalExpensesAndSelfFirst || !totalExpenses) return 0;
+    const percentage = (totalExpenses / totalExpensesAndSelfFirst) * 100;
+    if (Number.isInteger(percentage)) return percentage;
+    const result = percentage.toFixed(1);
+    return result;
+}
+
 export default function Expenses({ totalExpensesAndSelfFirst, totalExpenses, handleExpenseDelete, expenseFormRef, handleExpenseSubmit, newExpense, handleExpenseChange, expenseFormInvalid }) {
 
     const totalExpenseNumber = totalExpenses.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+    const totalExpensesAndSelfFirstNumber = totalExpensesAndSelfFirst.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
 
     return (
         <>
             <h5>
-                <span className="left percentage"></span>
+                <span className="left percentage">{calculateExpensePercentage(totalExpensesAndSelfFirstNumber, totalExpenseNumber)}%</span>
                 <span>Other Expenses</span>
                 <span className="right">${calculateTotalExpenseIncome(totalExpenseNumber)}
                 </span>

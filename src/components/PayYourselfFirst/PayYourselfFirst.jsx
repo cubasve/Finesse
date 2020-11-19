@@ -14,19 +14,34 @@ const PayYourselfPopover = () => (
     </OverlayTrigger>
 )
 
+function calculateSelfFirst(totalSelfFirstNumber) {
+    if (!totalSelfFirstNumber) return 0;
+    if (Number.isInteger(totalSelfFirstNumber)) return totalSelfFirstNumber;
+    return totalSelfFirstNumber.toFixed(2);
+}
+
+function calculateSelfFirstPercentage(totalExpensesAndSelfFirst, totalSelfFirstNumber) {
+    if (!totalExpensesAndSelfFirst || !totalSelfFirstNumber) return 0;
+    const percentage = (totalSelfFirstNumber / totalExpensesAndSelfFirst) * 100;
+    if (Number.isInteger(percentage)) return percentage;
+    const result = percentage.toFixed(1);
+    return result;
+}
 
 export default function PayYourselfFirst({ totalExpensesAndSelfFirst, totalPayYourselfFirst, handleSelfFirstDelete, selfFirstFormRef, handleSelfFirstSubmit, newPayYourselfFirst, handleSelfFirstChange, selfFirstFormInvalid }) {
 
     const totalSelfFirstNumber = totalPayYourselfFirst.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+    const totalExpensesAndSelfFirstNumber = totalExpensesAndSelfFirst.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
 
     return (
         <>
             <h5>
-                <span className="left percentage"></span>
+                <span className="left percentage">{calculateSelfFirstPercentage(totalExpensesAndSelfFirstNumber, totalSelfFirstNumber)}%</span>
                 <span>Pay Yourself First</span>
                 <PayYourselfPopover />
-                <span className="right">$</span>
+                <span className="right">${calculateSelfFirst(totalSelfFirstNumber)}</span>
             </h5>
+
             {totalPayYourselfFirst.map(pi => (
                 <div key={pi._id}>
                     <Table borderless hover size="sm">

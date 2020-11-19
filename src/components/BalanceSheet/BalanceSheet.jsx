@@ -452,6 +452,7 @@ export default class BalanceSheet extends Component {
             <>
                 <h6><strong>EQUITY/NET WORTH = ASSETS - LIABILITIES</strong></h6>
                 <h6>EQUITY: {this.calculateTotalAsset(totalAssetNumber)} - {this.calculateTotalLiability(totalLiabilityNumber)} = {this.calculateEquity(totalAssetNumber, totalLiabilityNumber)}</h6>
+
                 <Assets
                     totalAssets={this.state.totalAssets}
 

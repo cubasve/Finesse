@@ -72,6 +72,7 @@ export default class IncomeStatement extends Component {
                         totalPayYourselfFirst: data.user.userFinances.filter(elem => elem.category === 'Self'),
 
                         totalIncome: data.user.userFinances.filter(elem => elem.category === 'Earned' || elem.category === 'Portfolio' || elem.category === 'Passive'),
+                        totalExpensesAndSelfFirst: data.user.userFinances.filter(elem => elem.category === 'Expense' || elem.category === 'Self')
                     })
                 })
         } catch (err) {
@@ -237,6 +238,7 @@ export default class IncomeStatement extends Component {
                 .then(data => {
                     this.setState({
                         totalExpenses: data.user.userFinances.filter(elem => elem.category === 'Expense'),
+                        totalExpensesAndSelfFirst: data.user.userFinances.filter(elem => elem.category === 'Expense' || elem.category === 'Self'),
                         newExpense: {
                             type: 'Taxes',
                             amount: '',
@@ -261,7 +263,8 @@ export default class IncomeStatement extends Component {
             await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
                     this.setState({
-                        totalExpenses: data.user.userFinances.filter(elem => elem.category === 'Expense')
+                        totalExpenses: data.user.userFinances.filter(elem => elem.category === 'Expense'),
+                        totalExpensesAndSelfFirst: data.user.userFinances.filter(elem => elem.category === 'Expense' || elem.category === 'Self')
                     })
                 })
         } catch (err) {
@@ -283,6 +286,7 @@ export default class IncomeStatement extends Component {
                 .then(data => {
                     this.setState({
                         totalPayYourselfFirst: data.user.userFinances.filter(elem => elem.category === 'Self'),
+                        totalExpensesAndSelfFirst: data.user.userFinances.filter(elem => elem.category === 'Expense' || elem.category === 'Self'),
                         newPayYourselfFirst: {
                             // type: 'Self',
                             amount: '',
@@ -307,7 +311,8 @@ export default class IncomeStatement extends Component {
             await financialStatementService.deleteOne({ id: e.target.value })
                 .then(data => {
                     this.setState({
-                        totalPayYourselfFirst: data.user.userFinances.filter(elem => elem.category === 'Self')
+                        totalPayYourselfFirst: data.user.userFinances.filter(elem => elem.category === 'Self'),
+                        totalExpensesAndSelfFirst: data.user.userFinances.filter(elem => elem.category === 'Expense' || elem.category === 'Self')
                     })
                 })
         } catch (err) {
@@ -315,18 +320,35 @@ export default class IncomeStatement extends Component {
         }
     }
 
-    // calculateCashFlow = (totalIncomeNumber, totalExpenseNumber) => {
-    //     let cashFlow = totalIncomeNumber - totalExpenseNumber;
-    //     console.log(cashFlow);
-    //     return cashFlow;
-    // }
+    //Cash Flow Calculations
+    calculateCashFlow = (calculateTotalIncome, calculateTotalExpensesAndSelfFirst) => {
+        if (!calculateTotalIncome && !calculateTotalExpensesAndSelfFirst) return 0;
+        let cashFlow = (calculateTotalIncome - calculateTotalExpensesAndSelfFirst);
+        if (Number.isInteger(cashFlow)) return cashFlow;
+        return cashFlow.toFixed(2);
+    }
+
+    calculateTotalIncome = (totalIncomeNumber) => {
+        if (!totalIncomeNumber) return 0;
+        if (Number.isInteger(totalIncomeNumber)) return totalIncomeNumber;
+        return totalIncomeNumber.toFixed(2);
+    }
+
+    calculateTotalExpensesAndSelfFirst = (totalExpensesAndSelfFirstNumber) => {
+        if (!totalExpensesAndSelfFirstNumber) return 0;
+        if (Number.isInteger(totalExpensesAndSelfFirstNumber)) return totalExpensesAndSelfFirstNumber;
+        return totalExpensesAndSelfFirstNumber.toFixed(2);
+    }
 
     render() {
         const totalIncomeNumber = this.state.totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+        const totalExpensesAndSelfFirstNumber = this.state.totalExpensesAndSelfFirst.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);
+
         return (
             <>
                 <h6><strong>CASH FLOW = INCOME - EXPENSES</strong></h6>
-                {/* <h6>CASH FLOW: {totalIncomeNumber} -</h6> */}
+                <h6>CASH FLOW: {this.calculateTotalIncome(totalIncomeNumber)} - {this.calculateTotalExpensesAndSelfFirst(totalExpensesAndSelfFirstNumber)} = {this.calculateCashFlow(totalIncomeNumber, totalExpensesAndSelfFirstNumber)}</h6>
+
                 <Income
                     totalIncome={this.state.totalIncome}
 
