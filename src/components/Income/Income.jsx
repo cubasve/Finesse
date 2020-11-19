@@ -10,7 +10,6 @@ function calculateTotalIncome(totalIncomeNumber) {
     return totalIncomeNumber.toFixed(2);
 }
 
-
 export default function Income({ totalIncome, totalEarnedIncome, newEarnedIncome, handleEarnedIncomeSubmit, handleEarnedIncomeChange, handleEarnedIncomeDelete, earnedFormInvalid, earnedFormRef, totalPortfolioIncome, newPortfolioIncome, handlePortfolioIncomeSubmit, handlePortfolioIncomeChange, handlePortfolioIncomeDelete, portfolioFormInvalid, portfolioFormRef, totalPassiveIncome, newPassiveIncome, handlePassiveIncomeSubmit, handlePassiveIncomeChange, handlePassiveIncomeDelete, passiveFormInvalid, passiveFormRef }) {
 
     const totalIncomeNumber = totalIncome.map(elem => elem.amount).reduce((acc, num) => acc + num, 0);

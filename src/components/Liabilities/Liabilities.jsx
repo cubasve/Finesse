@@ -18,6 +18,7 @@ const LiabilityPopover = () => (
 
 function calculateTotalLiability(totalLiabilityNumber) {
     if (!totalLiabilityNumber) return 0;
+    if (Number.isInteger(totalLiabilityNumber)) return totalLiabilityNumber;
     return totalLiabilityNumber.toFixed(2);
 }
 
