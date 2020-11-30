@@ -5,8 +5,8 @@
 Finesse is based on the book "Increase Your Financial IQ" by Robert Kiyosaki. It implements the diagrams in the book and has additional features added onto them.
 
 Finesse aims to:
-1. Simplify financial jargon so it is easy for everyone to understand
-2. Teach financial literacy using financial statements
+1. Teach financial literacy using financial statements 
+2. Simplify financial jargon so it is easy for everyone to understand
 
 ### Background Info:
 There is a lot of importance placed on literacy in reading and math, and unfortunately other types of literacy have been overlooked or ignored. This changed when Ontario schools made the decision to implement courses teaching financial literacy (the language of money) and coding into their curriculum.
@@ -51,16 +51,6 @@ Finesse
 - Trello Board: https://trello.com/b/f7luley2/finesse
 
 ## Next Steps: Planned Future Enhancements
-- **Add functionality to Pay Yourself First:**
-The user can input an integer, which represents a percentage, and that gets deducted from the user's paycheque/income source before they pay for their other expenses.
-
-- **Math calculations for each financial statement:**
-    - Income Statement: Cash Flow = Total Income - Total Expenses 
-    - Balance Sheet: Assets = Liabilities + Equity 
-
-- **Add percentages to data inputs:**
-For instance, out of all the income the user has, how much is allocated to earned, portfolio and passive out of 100%?
-
 - **Add validation for the income statement:**
     - If the income exceeds the expenses, then there will be a green border surrounding the income statement.
     - If the income is equal to the expenses (breaking even), then there will be an orange border around the income statement.
