@@ -62,17 +62,3 @@ async function deleteOne(req, res) {
         return res.status(400).json(err);
     }
 }
-
-
-// function deleteOne(req, res) {
-//     try {
-//         req.user.userFinances.remove(req.params.id); //req.user.userFinances.pull(req.params.id)
-//         //req.user.userFinances.id(_id).remove();
-//         req.user.save();
-//         res.json({ user: user });
-//     } catch (err) {
-//         res.status(400).json(err);
-//         console.error(err);
-//         console.log('ERR: DELETE FN')
-//     }
-// }

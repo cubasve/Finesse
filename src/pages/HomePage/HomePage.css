@@ -1,0 +1,24 @@
+.overview {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 200px;
+    margin-top: 100px;
+}
+
+.financial-statement {
+    display: flex;
+    /* align-items: flex-end; */
+    justify-content: space-evenly;
+}
+
+.homepage {
+    margin: 200px 100px;
+}
+
+.cash-flow {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 40px;
+    /* padding: 20px 20px; */
+}

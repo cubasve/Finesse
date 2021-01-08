@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button, Carousel, Image } from 'react-bootstrap';
+import './HomePage.css';
 
 export default function HomePage(props) {
     return (

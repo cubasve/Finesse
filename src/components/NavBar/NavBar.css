@@ -15,4 +15,9 @@
     text-decoration: none;
     color: grey;
 }
-  
+
+@media only screen and (max-width: 1000px) {
+    .mr-auto {
+        text-align: left;
+    }
+}
