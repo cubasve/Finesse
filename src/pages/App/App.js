@@ -8,6 +8,7 @@ import SignupPage from '../SignupPage/SignupPage'; //for Heroku deployment
 import LoginPage from '../LoginPage/LoginPage';
 import userService from '../../utils/userService';
 import FinancialStatementPage from '../FinancialStatementPage/FinancialStatementPage';
+import TfsaPage from '../TfsaPage/TfsaPage';
 import NavBar from '../../components/NavBar/NavBar';
 
 export default class App extends Component {
@@ -44,6 +45,11 @@ export default class App extends Component {
               <Redirect to='/login' />
           )}>
           </Route>
+
+          <Route exact path="/tfsa" render={() => 
+            userService.getUser() ? 
+              <TfsaPage /> : 
+              <Redirect to="login" />} />
 
           <Route exact path="/signup" render={({ history }) => <SignupPage history={history} handleSignupOrLogin={this.handleSignupOrLogin} />}></Route>
 
