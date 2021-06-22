@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import financialStatementService from "../utils/financialStatementService";
 
 const IncomeContext = React.createContext();
+export const IncomeConsumer = IncomeContext.Consumer;
 
-class IncomeProvider extends Component {
+export class IncomeProvider extends Component {
 	state = {
 		totalIncome: [],
 
@@ -34,6 +35,9 @@ class IncomeProvider extends Component {
 		},
 		passiveFormInvalid: true,
 	};
+	earnedFormRef = React.createRef();
+	portfolioFormRef = React.createRef();
+	passiveFormRef = React.createRef();
 
 	//Earned Income Methods
 	handleEarnedIncomeSubmit = async (e) => {
@@ -263,15 +267,18 @@ class IncomeProvider extends Component {
 			handleEarnedIncomeSubmit,
 			handleEarnedIncomeChange,
 			handleEarnedIncomeDelete,
+			earnedFormRef,
 			handlePortfolioIncomeSubmit,
 			handlePortfolioIncomeChange,
 			handlePortfolioIncomeDelete,
+			portfolioFormRef,
 			handlePassiveIncomeSubmit,
 			handlePassiveIncomeChange,
 			handlePassiveIncomeDelete,
+			passiveFormRef,
 		} = this;
 		return (
-			<AuthContext.Provider
+			<IncomeContext.Provider
 				value={{
 					totalIncome,
 					totalEarnedIncome,
@@ -296,7 +303,9 @@ class IncomeProvider extends Component {
 			>
 				{this.props.children}
 				{/* this.props.children = components you want to provide this data to */}
-			</AuthContext.Provider>
+			</IncomeContext.Provider>
 		);
 	}
 }
+
+export default IncomeContext;
