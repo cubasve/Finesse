@@ -14,30 +14,7 @@ function calculateTotalIncome(totalIncomeNumber) {
 	return totalIncomeNumber.toFixed(2);
 }
 
-export default function Income({
-	// totalIncome,
-	// totalEarnedIncome,
-	// newEarnedIncome,
-	// handleEarnedIncomeSubmit,
-	// handleEarnedIncomeChange,
-	// handleEarnedIncomeDelete,
-	// earnedFormInvalid,
-	// earnedFormRef,
-	totalPortfolioIncome,
-	newPortfolioIncome,
-	handlePortfolioIncomeSubmit,
-	handlePortfolioIncomeChange,
-	handlePortfolioIncomeDelete,
-	portfolioFormInvalid,
-	portfolioFormRef,
-	totalPassiveIncome,
-	newPassiveIncome,
-	handlePassiveIncomeSubmit,
-	handlePassiveIncomeChange,
-	handlePassiveIncomeDelete,
-	passiveFormInvalid,
-	passiveFormRef,
-}) {
+export default function Income() {
 	const { totalIncome } = useContext(IncomeContext);
 	const totalIncomeNumber = totalIncome
 		.map((elem) => elem.amount)
@@ -52,37 +29,9 @@ export default function Income({
 				</span>
 			</span>
 
-			<Earned
-			// totalEarnedIncome={totalEarnedIncome}
-			// newEarnedIncome={newEarnedIncome}
-			// handleEarnedIncomeSubmit={handleEarnedIncomeSubmit}
-			// handleEarnedIncomeChange={handleEarnedIncomeChange}
-			// handleEarnedIncomeDelete={handleEarnedIncomeDelete}
-			// earnedFormInvalid={earnedFormInvalid}
-			// earnedFormRef={earnedFormRef}
-			// totalIncome={totalIncome}
-			/>
-			<Portfolio
-				totalPortfolioIncome={totalPortfolioIncome}
-				newPortfolioIncome={newPortfolioIncome}
-				handlePortfolioIncomeSubmit={handlePortfolioIncomeSubmit}
-				handlePortfolioIncomeChange={handlePortfolioIncomeChange}
-				handlePortfolioIncomeDelete={handlePortfolioIncomeDelete}
-				portfolioFormInvalid={portfolioFormInvalid}
-				portfolioFormRef={portfolioFormRef}
-				totalIncome={totalIncome}
-			/>
-
-			<Passive
-				totalPassiveIncome={totalPassiveIncome}
-				newPassiveIncome={newPassiveIncome}
-				handlePassiveIncomeSubmit={handlePassiveIncomeSubmit}
-				handlePassiveIncomeChange={handlePassiveIncomeChange}
-				handlePassiveIncomeDelete={handlePassiveIncomeDelete}
-				passiveFormInvalid={passiveFormInvalid}
-				passiveFormRef={passiveFormRef}
-				totalIncome={totalIncome}
-			/>
+			<Earned />
+			<Portfolio />
+			<Passive />
 		</div>
 	);
 }
