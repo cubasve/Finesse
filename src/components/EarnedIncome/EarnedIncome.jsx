@@ -1,9 +1,6 @@
 import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
-import IncomeContext, {
-	IncomeProvider,
-	IncomeConsumer,
-} from "../../context/IncomeContext";
+import IncomeContext from "../../context/IncomeContext";
 
 const earnedIncomeOptions = ["Job", "Self-Employment", "Other"];
 
@@ -22,18 +19,7 @@ function calculateTotalEarnedIncome(totalEarnedIncomeNumber) {
 	return totalEarnedIncomeNumber.toFixed(2);
 }
 
-export default function EarnedIncome(
-	{
-		// totalEarnedIncome,
-		// handleEarnedIncomeDelete,
-		// handleEarnedIncomeSubmit,
-		// newEarnedIncome,
-		// handleEarnedIncomeChange,
-		// earnedFormInvalid,
-		// earnedFormRef,
-		// totalIncome,
-	}
-) {
+export default function EarnedIncome() {
 	const {
 		totalIncome,
 		totalEarnedIncome,
@@ -44,7 +30,6 @@ export default function EarnedIncome(
 		handleEarnedIncomeDelete,
 		earnedFormRef,
 	} = useContext(IncomeContext);
-	console.log("totalEarnedIncome:", totalEarnedIncome);
 
 	const totalIncomeNumber = totalIncome
 		.map((elem) => elem.amount)
@@ -165,5 +150,3 @@ export default function EarnedIncome(
 		</>
 	);
 }
-
-EarnedIncome.contextType = IncomeContext;
