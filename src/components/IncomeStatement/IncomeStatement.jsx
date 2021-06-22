@@ -96,23 +96,7 @@ export default class IncomeStatement extends Component {
 						)}
 					</h6> */}
 					<Income />
-					<Expenditure
-						totalExpensesAndSelfFirst={this.state.totalExpensesAndSelfFirst}
-						totalExpenses={this.state.totalExpenses}
-						newExpense={this.state.newExpense}
-						handleExpenseSubmit={this.handleExpenseSubmit}
-						handleExpenseChange={this.handleExpenseChange}
-						handleExpenseDelete={this.handleExpenseDelete}
-						expenseFormInvalid={this.state.expenseFormInvalid}
-						expenseFormRef={this.expenseFormRef}
-						totalPayYourselfFirst={this.state.totalPayYourselfFirst}
-						newPayYourselfFirst={this.state.newPayYourselfFirst}
-						handleSelfFirstSubmit={this.handleSelfFirstSubmit}
-						handleSelfFirstChange={this.handleSelfFirstChange}
-						handleSelfFirstDelete={this.handleSelfFirstDelete}
-						selfFirstFormInvalid={this.state.selfFirstFormInvalid}
-						selfFirstFormRef={this.selfFirstFormRef}
-					/>
+					<Expenditure />
 				</IncomeProvider>
 			</>
 		);
