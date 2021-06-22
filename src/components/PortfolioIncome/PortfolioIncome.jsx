@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
 import IncomeContext from "../../context/IncomeContext";
 
@@ -26,16 +26,18 @@ function calculateTotalPortfolioIncome(totalPortfolioIncomeNumber) {
 	return totalPortfolioIncomeNumber.toFixed(2);
 }
 
-export default function PortfolioIncome({
-	totalPortfolioIncome,
-	handlePortfolioIncomeDelete,
-	portfolioFormRef,
-	handlePortfolioIncomeSubmit,
-	newPortfolioIncome,
-	handlePortfolioIncomeChange,
-	portfolioFormInvalid,
-	totalIncome,
-}) {
+export default function PortfolioIncome() {
+	const {
+		totalIncome,
+		totalPortfolioIncome,
+		newPortfolioIncome,
+		portfolioFormInvalid,
+		portfolioFormRef,
+		handlePortfolioIncomeSubmit,
+		handlePortfolioIncomeChange,
+		handlePortfolioIncomeDelete,
+	} = useContext(IncomeContext);
+
 	const totalIncomeNumber = totalIncome
 		.map((elem) => elem.amount)
 		.reduce((acc, num) => acc + num, 0);
