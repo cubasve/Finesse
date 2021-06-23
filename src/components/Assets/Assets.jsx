@@ -47,26 +47,8 @@ export default function Assets() {
 			<Cash />
 			<PaperAssets />
 			<RealEstate />
-			<Business
-				totalBusiness={totalBusiness}
-				newBusiness={newBusiness}
-				handleBusinessSubmit={handleBusinessSubmit}
-				handleBusinessChange={handleBusinessChange}
-				handleBusinessDelete={handleBusinessDelete}
-				businessFormInvalid={businessFormInvalid}
-				businessFormRef={businessFormRef}
-				totalAssets={totalAssets}
-			/>
-			<Commodities
-				totalCommodities={totalCommodities}
-				newCommodity={newCommodity}
-				handleCommoditySubmit={handleCommoditySubmit}
-				handleCommodityChange={handleCommodityChange}
-				handleCommodityDelete={handleCommodityDelete}
-				commodityFormInvalid={commodityFormInvalid}
-				commodityFormRef={commodityFormRef}
-				totalAssets={totalAssets}
-			/>
+			<Business />
+			<Commodities />
 		</div>
 	);
 }
