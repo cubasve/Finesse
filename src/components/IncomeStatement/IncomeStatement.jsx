@@ -1,61 +1,12 @@
 import React, { Component } from "react";
 import Income from "../../components/Income/Income";
 import Expenditure from "../../components/Expenditure/Expenditure";
-import financialStatementService from "../../utils/financialStatementService";
-import IncomeExpenseContext, {
-	IncomeExpenseConsumer,
-} from "../../context/IncomeExpenseContext";
+import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 
 export default class IncomeStatement extends Component {
 	async componentDidMount() {
-		const {
-			handleFetchData,
-			totalIncome,
-			totalExpensesAndSelfFirst,
-			totalEarnedIncome,
-			totalPortfolioIncome,
-			totalPassiveIncome,
-			totalPayYourselfFirst,
-		} = this.context;
-
-		console.log(this.context);
-
+		const { handleFetchData } = this.context;
 		handleFetchData();
-
-		// try {
-		// 	await financialStatementService.show().then((data) => {
-		// 		this.setState({
-		// 			totalEarnedIncome: data.user.userFinances.filter(
-		// 				(elem) => elem.category === "Earned"
-		// 			),
-		// 			totalPortfolioIncome: data.user.userFinances.filter(
-		// 				(elem) => elem.category === "Portfolio"
-		// 			),
-		// 			totalPassiveIncome: data.user.userFinances.filter(
-		// 				(elem) => elem.category === "Passive"
-		// 			),
-
-		// 			totalExpenses: data.user.userFinances.filter(
-		// 				(elem) => elem.category === "Expense"
-		// 			),
-		// 			totalPayYourselfFirst: data.user.userFinances.filter(
-		// 				(elem) => elem.category === "Self"
-		// 			),
-
-		// 			totalIncome: data.user.userFinances.filter(
-		// 				(elem) =>
-		// 					elem.category === "Earned" ||
-		// 					elem.category === "Portfolio" ||
-		// 					elem.category === "Passive"
-		// 			),
-		// 			totalExpensesAndSelfFirst: data.user.userFinances.filter(
-		// 				(elem) => elem.category === "Expense" || elem.category === "Self"
-		// 			),
-		// 		});
-		// 	});
-		// } catch (err) {
-		// 	console.error(err);
-		// }
 	}
 
 	//Cash Flow Calculations
@@ -83,13 +34,7 @@ export default class IncomeStatement extends Component {
 	};
 
 	render() {
-		const {
-			totalIncome,
-			totalExpensesAndSelfFirst,
-			// totalEarnedIncome,
-			// totalPortfolioIncome,
-			// totalPassiveIncome,
-		} = this.context;
+		const { totalIncome, totalExpensesAndSelfFirst } = this.context;
 
 		const totalIncomeNumber = totalIncome
 			.map((elem) => elem.amount)
