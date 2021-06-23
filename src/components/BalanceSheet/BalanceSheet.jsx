@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import Assets from "../../components/Assets/Assets";
 import Liabilities from "../../components/Liabilities/Liabilities";
+import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 
 export default class BalanceSheet extends Component {
 	async componentDidMount() {
-		//
+		const { handleFetchBalanceSheetData } = this.context;
+		handleFetchBalanceSheetData();
 	}
 
 	//Equity Calculation Methods
@@ -29,10 +31,13 @@ export default class BalanceSheet extends Component {
 	};
 
 	render() {
-		const totalAssetNumber = this.state.totalAssets
+		const { totalAssets, totalLiabilities } = this.context;
+
+		const totalAssetNumber = totalAssets
 			.map((elem) => elem.amount)
 			.reduce((acc, num) => acc + num, 0);
-		const totalLiabilityNumber = this.state.totalLiabilities
+
+		const totalLiabilityNumber = totalLiabilities
 			.map((elem) => elem.amount)
 			.reduce((acc, num) => acc + num, 0);
 		return (
@@ -46,62 +51,10 @@ export default class BalanceSheet extends Component {
 					{this.calculateEquity(totalAssetNumber, totalLiabilityNumber)}
 				</h6>
 
-				<Assets
-					totalAssets={this.state.totalAssets}
-					totalPaperAssets={this.state.totalPaperAssets}
-					newPaperAsset={this.state.newPaperAsset}
-					handlePaperAssetSubmit={this.handlePaperAssetSubmit}
-					handlePaperAssetChange={this.handlePaperAssetChange}
-					handlePaperAssetDelete={this.handlePaperAssetDelete}
-					paperAssetFormInvalid={this.state.paperAssetFormInvalid}
-					paperAssetFormRef={this.paperAssetFormRef}
-					totalRealEstate={this.state.totalRealEstate}
-					newRealEstate={this.state.newRealEstate}
-					handleRealEstateSubmit={this.handleRealEstateSubmit}
-					handleRealEstateChange={this.handleRealEstateChange}
-					handleRealEstateDelete={this.handleRealEstateDelete}
-					realEstateFormInvalid={this.state.realEstateFormInvalid}
-					realEstateFormRef={this.realEstateFormRef}
-					totalBusiness={this.state.totalBusiness}
-					newBusiness={this.state.newBusiness}
-					handleBusinessSubmit={this.handleBusinessSubmit}
-					handleBusinessChange={this.handleBusinessChange}
-					handleBusinessDelete={this.handleBusinessDelete}
-					businessFormInvalid={this.state.businessFormInvalid}
-					businessFormRef={this.businessFormRef}
-					totalCommodities={this.state.totalCommodities}
-					newCommodity={this.state.newCommodity}
-					handleCommoditySubmit={this.handleCommoditySubmit}
-					handleCommodityChange={this.handleCommodityChange}
-					handleCommodityDelete={this.handleCommodityDelete}
-					commodityFormInvalid={this.state.commodityFormInvalid}
-					commodityFormRef={this.commodityFormRef}
-					totalCash={this.state.totalCash}
-					newCash={this.state.newCash}
-					handleCashSubmit={this.handleCashSubmit}
-					handleCashChange={this.handleCashChange}
-					handleCashDelete={this.handleCashDelete}
-					cashFormInvalid={this.state.cashFormInvalid}
-					cashFormRef={this.cashFormRef}
-				/>
-				<Liabilities
-					totalLiabilities={this.state.totalLiabilities}
-					totalGoodDebt={this.state.totalGoodDebt}
-					newGoodDebt={this.state.newGoodDebt}
-					handleGoodDebtSubmit={this.handleGoodDebtSubmit}
-					handleGoodDebtChange={this.handleGoodDebtChange}
-					handleGoodDebtDelete={this.handleGoodDebtDelete}
-					goodDebtFormInvalid={this.state.goodDebtFormInvalid}
-					goodDebtFormRef={this.goodDebtFormRef}
-					totalBadDebt={this.state.totalBadDebt}
-					newBadDebt={this.state.newBadDebt}
-					handleBadDebtSubmit={this.handleBadDebtSubmit}
-					handleBadDebtChange={this.handleBadDebtChange}
-					handleBadDebtDelete={this.handleBadDebtDelete}
-					badDebtFormInvalid={this.state.badDebtFormInvalid}
-					badDebtFormRef={this.badDebtFormRef}
-				/>
+				<Assets />
+				<Liabilities />
 			</>
 		);
 	}
 }
+BalanceSheet.contextType = AssetLiabilityContext;
