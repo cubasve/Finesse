@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Popover, OverlayTrigger, Button, Table, Form } from "react-bootstrap";
-import ExpenseContext from "../../context/ExpenseContext";
+import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -48,7 +48,7 @@ export default function PayYourselfFirst() {
 		newPayYourselfFirst,
 		handleSelfFirstChange,
 		selfFirstFormInvalid,
-	} = useContext(ExpenseContext);
+	} = useContext(IncomeExpenseContext);
 
 	const totalSelfFirstNumber = totalPayYourselfFirst
 		.map((elem) => elem.amount)

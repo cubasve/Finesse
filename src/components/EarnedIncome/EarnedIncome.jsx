@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
-import IncomeContext from "../../context/IncomeContext";
+import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 
 const earnedIncomeOptions = ["Job", "Self-Employment", "Other"];
 
@@ -29,7 +29,7 @@ export default function EarnedIncome() {
 		handleEarnedIncomeChange,
 		handleEarnedIncomeDelete,
 		earnedFormRef,
-	} = useContext(IncomeContext);
+	} = useContext(IncomeExpenseContext);
 
 	const totalIncomeNumber = totalIncome
 		.map((elem) => elem.amount)

@@ -3,7 +3,7 @@ import "./Income.css";
 import Earned from "../EarnedIncome/EarnedIncome";
 import Portfolio from "../PortfolioIncome/PortfolioIncome";
 import Passive from "../PassiveIncome/PassiveIncome";
-import IncomeContext from "../../context/IncomeContext";
+import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 
 function calculateTotalIncome(totalIncomeNumber) {
 	if (!totalIncomeNumber) return 0;
@@ -12,7 +12,7 @@ function calculateTotalIncome(totalIncomeNumber) {
 }
 
 export default function Income() {
-	const { totalIncome } = useContext(IncomeContext);
+	const { totalIncome } = useContext(IncomeExpenseContext);
 
 	const totalIncomeNumber = totalIncome
 		.map((elem) => elem.amount)

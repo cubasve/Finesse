@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PayYourselfFirst from "../PayYourselfFirst/PayYourselfFirst";
 import Expenses from "../Expenses/Expenses";
-import ExpenseContext from "../../context/ExpenseContext";
+import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 
 function calculateTotalExpensesAndSelfFirst(totalExpensesAndSelfFirstNumber) {
 	if (!totalExpensesAndSelfFirstNumber) return 0;
@@ -11,7 +11,7 @@ function calculateTotalExpensesAndSelfFirst(totalExpensesAndSelfFirstNumber) {
 }
 
 export default function Expenditure() {
-	const { totalExpensesAndSelfFirst } = useContext(ExpenseContext);
+	const { totalExpensesAndSelfFirst } = useContext(IncomeExpenseContext);
 
 	const totalExpensesAndSelfFirstNumber = totalExpensesAndSelfFirst
 		.map((elem) => elem.amount)

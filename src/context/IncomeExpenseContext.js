@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import financialStatementService from "../utils/financialStatementService";
 
-const IncomeContext = React.createContext();
-export const IncomeConsumer = IncomeContext.Consumer;
+const IncomeExpenseContext = React.createContext();
+export const IncomeExpenseConsumer = IncomeExpenseContext.Consumer;
 
-export class IncomeProvider extends Component {
+export class IncomeExpenseProvider extends Component {
 	state = {
 		totalIncome: [],
+		totalExpensesAndSelfFirst: [],
 
 		totalEarnedIncome: [],
 		newEarnedIncome: {
@@ -34,10 +35,67 @@ export class IncomeProvider extends Component {
 			class: "Income",
 		},
 		passiveFormInvalid: true,
+
+		totalExpenses: [],
+		newExpense: {
+			type: "Taxes",
+			amount: "",
+			category: "Expense",
+			class: "Expense",
+		},
+		expenseFormInvalid: true,
+
+		totalPayYourselfFirst: [],
+		newPayYourselfFirst: {
+			// type: 'Self',
+			amount: "",
+			category: "Self",
+			class: "Self",
+		},
+		selfFirstFormInvalid: true,
 	};
 	earnedFormRef = React.createRef();
 	portfolioFormRef = React.createRef();
 	passiveFormRef = React.createRef();
+	expenseFormRef = React.createRef();
+	selfFirstFormRef = React.createRef();
+
+	handleFetchData = async () => {
+		try {
+			await financialStatementService.show().then((data) => {
+				this.setState({
+					totalEarnedIncome: data.user.userFinances.filter(
+						(elem) => elem.category === "Earned"
+					),
+					totalPortfolioIncome: data.user.userFinances.filter(
+						(elem) => elem.category === "Portfolio"
+					),
+					totalPassiveIncome: data.user.userFinances.filter(
+						(elem) => elem.category === "Passive"
+					),
+
+					totalExpenses: data.user.userFinances.filter(
+						(elem) => elem.category === "Expense"
+					),
+					totalPayYourselfFirst: data.user.userFinances.filter(
+						(elem) => elem.category === "Self"
+					),
+
+					totalIncome: data.user.userFinances.filter(
+						(elem) =>
+							elem.category === "Earned" ||
+							elem.category === "Portfolio" ||
+							elem.category === "Passive"
+					),
+					totalExpensesAndSelfFirst: data.user.userFinances.filter(
+						(elem) => elem.category === "Expense" || elem.category === "Self"
+					),
+				});
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	//Earned Income Methods
 	handleEarnedIncomeSubmit = async (e) => {
@@ -249,6 +307,134 @@ export class IncomeProvider extends Component {
 		}
 	};
 
+	//Expense Methods
+	handleExpenseSubmit = async (e) => {
+		e.preventDefault();
+		if (!this.expenseFormRef.current.checkValidity()) return;
+		try {
+			await financialStatementService
+				.create({
+					type: this.state.newExpense.type,
+					amount: this.state.newExpense.amount,
+					category: this.state.newExpense.category,
+					class: this.state.newExpense.class,
+				})
+				.then((data) => {
+					this.setState({
+						totalExpenses: data.user.userFinances.filter(
+							(elem) => elem.category === "Expense"
+						),
+						totalExpensesAndSelfFirst: data.user.userFinances.filter(
+							(elem) => elem.category === "Expense" || elem.category === "Self"
+						),
+						newExpense: {
+							type: "Taxes",
+							amount: "",
+							category: "Expense",
+							class: "Expense",
+						},
+						expenseFormInvalid: true,
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handleExpenseChange = (e) => {
+		const newExpense = {
+			...this.state.newExpense,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			newExpense: newExpense,
+			expenseFormInvalid: !this.expenseFormRef.current.checkValidity(),
+		});
+	};
+
+	handleExpenseDelete = async (e) => {
+		try {
+			await financialStatementService
+				.deleteOne({ id: e.target.value })
+				.then((data) => {
+					this.setState({
+						totalExpenses: data.user.userFinances.filter(
+							(elem) => elem.category === "Expense"
+						),
+						totalExpensesAndSelfFirst: data.user.userFinances.filter(
+							(elem) => elem.category === "Expense" || elem.category === "Self"
+						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	//Pay Yourself First Methods
+	handleSelfFirstSubmit = async (e) => {
+		e.preventDefault();
+		if (!this.selfFirstFormRef.current.checkValidity()) return;
+		try {
+			await financialStatementService
+				.create({
+					// type: this.state.newPayYourselfFirst.type,
+					amount: this.state.newPayYourselfFirst.amount,
+					category: this.state.newPayYourselfFirst.category,
+					class: this.state.newPayYourselfFirst.class,
+				})
+				.then((data) => {
+					this.setState({
+						totalPayYourselfFirst: data.user.userFinances.filter(
+							(elem) => elem.category === "Self"
+						),
+						totalExpensesAndSelfFirst: data.user.userFinances.filter(
+							(elem) => elem.category === "Expense" || elem.category === "Self"
+						),
+						newPayYourselfFirst: {
+							// type: 'Self',
+							amount: "",
+							category: "Self",
+							class: "Self",
+						},
+						selfFirstFormInvalid: true,
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handleSelfFirstChange = (e) => {
+		const newPayYourselfFirst = {
+			...this.state.newPayYourselfFirst,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			newPayYourselfFirst: newPayYourselfFirst,
+			selfFirstFormInvalid: !this.selfFirstFormRef.current.checkValidity(),
+		});
+	};
+
+	handleSelfFirstDelete = async (e) => {
+		try {
+			await financialStatementService
+				.deleteOne({ id: e.target.value })
+				.then((data) => {
+					this.setState({
+						totalPayYourselfFirst: data.user.userFinances.filter(
+							(elem) => elem.category === "Self"
+						),
+						totalExpensesAndSelfFirst: data.user.userFinances.filter(
+							(elem) => elem.category === "Expense" || elem.category === "Self"
+						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	render() {
 		const {
 			totalIncome,
@@ -261,9 +447,17 @@ export class IncomeProvider extends Component {
 			totalPassiveIncome,
 			newPassiveIncome,
 			passiveFormInvalid,
+			totalExpensesAndSelfFirst,
+			totalExpenses,
+			newExpense,
+			expenseFormInvalid,
+			totalPayYourselfFirst,
+			newPayYourselfFirst,
+			selfFirstFormInvalid,
 		} = this.state;
 
 		const {
+			handleFetchData,
 			handleEarnedIncomeSubmit,
 			handleEarnedIncomeChange,
 			handleEarnedIncomeDelete,
@@ -276,9 +470,18 @@ export class IncomeProvider extends Component {
 			handlePassiveIncomeChange,
 			handlePassiveIncomeDelete,
 			passiveFormRef,
+			expenseFormRef,
+			handleExpenseSubmit,
+			handleExpenseChange,
+			handleExpenseDelete,
+			selfFirstFormRef,
+			handleSelfFirstSubmit,
+			handleSelfFirstChange,
+			handleSelfFirstDelete,
 		} = this;
+
 		return (
-			<IncomeContext.Provider
+			<IncomeExpenseContext.Provider
 				value={{
 					totalIncome,
 					totalEarnedIncome,
@@ -302,13 +505,29 @@ export class IncomeProvider extends Component {
 					handlePassiveIncomeSubmit,
 					handlePassiveIncomeChange,
 					handlePassiveIncomeDelete,
+					totalExpensesAndSelfFirst,
+					totalExpenses,
+					newExpense,
+					expenseFormInvalid,
+					totalPayYourselfFirst,
+					newPayYourselfFirst,
+					selfFirstFormInvalid,
+					expenseFormRef,
+					handleExpenseSubmit,
+					handleExpenseChange,
+					handleExpenseDelete,
+					selfFirstFormRef,
+					handleSelfFirstSubmit,
+					handleSelfFirstChange,
+					handleSelfFirstDelete,
+					handleFetchData,
 				}}
 			>
 				{this.props.children}
 				{/* this.props.children = components you want to provide this data to */}
-			</IncomeContext.Provider>
+			</IncomeExpenseContext.Provider>
 		);
 	}
 }
 
-export default IncomeContext;
+export default IncomeExpenseContext;

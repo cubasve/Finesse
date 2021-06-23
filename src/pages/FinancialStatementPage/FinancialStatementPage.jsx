@@ -1,6 +1,7 @@
 import React from "react";
 import BalanceSheet from "../../components/BalanceSheet/BalanceSheet";
 import IncomeStatement from "../../components/IncomeStatement/IncomeStatement";
+import { IncomeExpenseProvider } from "../../context/IncomeExpenseContext";
 
 export default function FinancialStatementPage() {
 	return (
@@ -9,9 +10,12 @@ export default function FinancialStatementPage() {
 				<span className="statement">BALANCE SHEET</span>
 				<BalanceSheet />
 			</div>
+
 			<div>
-				<span className="statement">INCOME STATEMENT</span>
-				<IncomeStatement />
+				<IncomeExpenseProvider>
+					<span className="statement">INCOME STATEMENT</span>
+					<IncomeStatement />
+				</IncomeExpenseProvider>
 			</div>
 		</div>
 	);

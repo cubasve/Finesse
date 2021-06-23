@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
-import ExpenseContext from "../../context/ExpenseContext";
+import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 
 const expenseOptions = [
 	"Taxes",
@@ -38,7 +38,7 @@ export default function Expenses() {
 		newExpense,
 		handleExpenseChange,
 		expenseFormInvalid,
-	} = useContext(ExpenseContext);
+	} = useContext(IncomeExpenseContext);
 
 	const totalExpenseNumber = totalExpenses
 		.map((elem) => elem.amount)
