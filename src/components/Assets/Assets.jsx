@@ -45,26 +45,8 @@ export default function Assets() {
 				<span className="right">${calculateTotalAsset(totalAssetNumber)}</span>
 			</span>
 			<Cash />
-			<PaperAssets
-				totalPaperAssets={totalPaperAssets}
-				newPaperAsset={newPaperAsset}
-				handlePaperAssetSubmit={handlePaperAssetSubmit}
-				handlePaperAssetChange={handlePaperAssetChange}
-				handlePaperAssetDelete={handlePaperAssetDelete}
-				paperAssetFormInvalid={paperAssetFormInvalid}
-				paperAssetFormRef={paperAssetFormRef}
-				totalAssets={totalAssets}
-			/>
-			<RealEstate
-				totalRealEstate={totalRealEstate}
-				newRealEstate={newRealEstate}
-				handleRealEstateSubmit={handleRealEstateSubmit}
-				handleRealEstateChange={handleRealEstateChange}
-				handleRealEstateDelete={handleRealEstateDelete}
-				realEstateFormInvalid={realEstateFormInvalid}
-				realEstateFormRef={realEstateFormRef}
-				totalAssets={totalAssets}
-			/>
+			<PaperAssets />
+			<RealEstate />
 			<Business
 				totalBusiness={totalBusiness}
 				newBusiness={newBusiness}
