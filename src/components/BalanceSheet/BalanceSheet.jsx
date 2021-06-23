@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Assets from "../../components/Assets/Assets";
 import Liabilities from "../../components/Liabilities/Liabilities";
-import financialStatementService from "../../utils/financialStatementService";
 
 export default class BalanceSheet extends Component {
 	async componentDidMount() {

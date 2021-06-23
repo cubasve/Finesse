@@ -613,8 +613,139 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	render() {
+		const {
+			totalAssets,
+			totalLiabilities,
+			totalPaperAssets,
+			newPaperAsset,
+			paperAssetFormInvalid,
+			totalRealEstate,
+			newRealEstate,
+			realEstateFormInvalid,
+			totalBusiness,
+			newBusiness,
+			businessFormInvalid,
+			totalCommodities,
+			newCommodity,
+			commodityFormInvalid,
+			totalCash,
+			newCash,
+			cashFormInvalid,
+			totalGoodDebt,
+			newGoodDebt,
+			goodDebtFormInvalid,
+			totalBadDebt,
+			newBadDebt,
+			badDebtFormInvalid,
+		} = this.state;
+
+		const {
+			handleFetchBalanceSheetData,
+
+			handlePaperAssetSubmit,
+			handlePaperAssetChange,
+			handlePaperAssetDelete,
+			paperAssetFormRef,
+
+			handleRealEstateSubmit,
+			handleRealEstateChange,
+			handleRealEstateDelete,
+			realEstateFormRef,
+
+			handleBusinessSubmit,
+			handleBusinessChange,
+			handleBusinessDelete,
+			businessFormRef,
+
+			handleCommoditySubmit,
+			handleCommodityChange,
+			handleCommodityDelete,
+			commodityFormRef,
+
+			handleCashSubmit,
+			handleCashChange,
+			handleCashDelete,
+			cashFormRef,
+
+			handleGoodDebtSubmit,
+			handleGoodDebtChange,
+			handleGoodDebtDelete,
+			goodDebtFormRef,
+
+			handleBadDebtSubmit,
+			handleBadDebtChange,
+			handleBadDebtDelete,
+			badDebtFormRef,
+		} = this;
+
+		// const values = {
+
+		// }
+
 		return (
-			<AssetLiabilityContext.Provider>
+			<AssetLiabilityContext.Provider
+				value={{
+					totalAssets,
+					totalLiabilities,
+					totalPaperAssets,
+					newPaperAsset,
+					paperAssetFormInvalid,
+					totalRealEstate,
+					newRealEstate,
+					realEstateFormInvalid,
+					totalBusiness,
+					newBusiness,
+					businessFormInvalid,
+					totalCommodities,
+					newCommodity,
+					commodityFormInvalid,
+					totalCash,
+					newCash,
+					cashFormInvalid,
+					totalGoodDebt,
+					newGoodDebt,
+					goodDebtFormInvalid,
+					totalBadDebt,
+					newBadDebt,
+					badDebtFormInvalid,
+					handleFetchBalanceSheetData,
+
+					handlePaperAssetSubmit,
+					handlePaperAssetChange,
+					handlePaperAssetDelete,
+					paperAssetFormRef,
+
+					handleRealEstateSubmit,
+					handleRealEstateChange,
+					handleRealEstateDelete,
+					realEstateFormRef,
+
+					handleBusinessSubmit,
+					handleBusinessChange,
+					handleBusinessDelete,
+					businessFormRef,
+
+					handleCommoditySubmit,
+					handleCommodityChange,
+					handleCommodityDelete,
+					commodityFormRef,
+
+					handleCashSubmit,
+					handleCashChange,
+					handleCashDelete,
+					cashFormRef,
+
+					handleGoodDebtSubmit,
+					handleGoodDebtChange,
+					handleGoodDebtDelete,
+					goodDebtFormRef,
+
+					handleBadDebtSubmit,
+					handleBadDebtChange,
+					handleBadDebtDelete,
+					badDebtFormRef,
+				}}
+			>
 				{this.props.children}
 			</AssetLiabilityContext.Provider>
 		);
