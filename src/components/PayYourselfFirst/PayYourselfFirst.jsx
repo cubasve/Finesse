@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Popover, OverlayTrigger, Button, Table, Form } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
+import calculatePercentage from "../../utils/calculations";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -62,13 +63,13 @@ export default function PayYourselfFirst() {
 		<>
 			<h5>
 				<span className="left percentage">
-					{calculateSelfFirstPercentage(
+					{calculatePercentage(
 						totalExpensesAndSelfFirstNumber,
 						totalSelfFirstNumber
 					)}
 					%
 				</span>
-				<span>Pay Yourself First</span>
+				<span>Pay Yourself First </span>
 				<PayYourselfPopover />
 				<span className="right">
 					${calculateSelfFirst(totalSelfFirstNumber)}

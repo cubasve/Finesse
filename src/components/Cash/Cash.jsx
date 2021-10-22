@@ -1,16 +1,9 @@
 import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
+import calculatePercentage from "../../utils/calculations";
 
 const cashOptions = ["Chequing Account", "Savings Account"];
-
-function calculateCashPercentage(totalAssets, totalCash) {
-	if (!totalAssets || !totalCash) return 0;
-	const percentage = (totalCash / totalAssets) * 100;
-	if (Number.isInteger(percentage)) return percentage;
-	const result = percentage.toFixed(1);
-	return result;
-}
 
 function calculateTotalCash(totalCashNumber) {
 	if (!totalCashNumber) return 0;
@@ -42,7 +35,7 @@ export default function Cash() {
 		<>
 			<h5>
 				<span className="left percentage">
-					{calculateCashPercentage(totalAssetNumber, totalCashNumber)}%
+					{calculatePercentage(totalAssetNumber, totalCashNumber)}%
 				</span>
 				<span>Cash</span>
 				<span className="right">${calculateTotalCash(totalCashNumber)}</span>

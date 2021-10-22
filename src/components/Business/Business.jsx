@@ -1,16 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
+import calculatePercentage from "../../utils/calculations";
 
 const businessOptions = ["Sole proprietorship", "Partnership", "Corporation"];
-
-function calculateBusinessPercentage(totalAssets, totalBusiness) {
-	if (!totalAssets || !totalBusiness) return 0;
-	const percentage = (totalBusiness / totalAssets) * 100;
-	if (Number.isInteger(percentage)) return percentage;
-	const result = percentage.toFixed(1);
-	return result;
-}
 
 function calculateTotalBusiness(totalBusinessNumber) {
 	if (!totalBusinessNumber) return 0;
@@ -42,7 +35,7 @@ export default function Business() {
 		<>
 			<h5>
 				<span className="left percentage">
-					{calculateBusinessPercentage(totalAssetNumber, totalBusinessNumber)}%
+					{calculatePercentage(totalAssetNumber, totalBusinessNumber)}%
 				</span>
 				<span>Business</span>
 				<span className="right">

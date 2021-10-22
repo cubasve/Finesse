@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import { Table, Popover, OverlayTrigger, Button, Form } from "react-bootstrap";
+import calculatePercentage from "../../utils/calculations";
 
 const goodDebtOptions = [
 	"Real Estate",
@@ -24,14 +25,6 @@ const GoodDebtPopover = () => (
 		</Button>
 	</OverlayTrigger>
 );
-
-function calculateGoodDebtPercentage(totalLiabilities, totalGoodDebt) {
-	if (!totalLiabilities || !totalGoodDebt) return 0;
-	const percentage = (totalGoodDebt / totalLiabilities) * 100;
-	if (Number.isInteger(percentage)) return percentage;
-	const result = percentage.toFixed(1);
-	return result;
-}
 
 function calculateGoodDebt(totalGoodDebtNumber) {
 	if (!totalGoodDebtNumber) return 0;
@@ -63,11 +56,7 @@ export default function GoodDebt() {
 		<>
 			<h5>
 				<span className="left percentage">
-					{calculateGoodDebtPercentage(
-						totalLiabilityNumber,
-						totalGoodDebtNumber
-					)}
-					%
+					{calculatePercentage(totalLiabilityNumber, totalGoodDebtNumber)}%
 				</span>
 				<span>
 					Good Debt <GoodDebtPopover />

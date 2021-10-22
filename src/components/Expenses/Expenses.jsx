@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
+import calculatePercentage from "../../utils/calculations";
 
 const expenseOptions = [
 	"Taxes",
@@ -18,14 +19,6 @@ function calculateTotalExpenseIncome(totalExpenseNumber) {
 	if (!totalExpenseNumber) return 0;
 	if (Number.isInteger(totalExpenseNumber)) return totalExpenseNumber;
 	return totalExpenseNumber.toFixed(2);
-}
-
-function calculateExpensePercentage(totalExpensesAndSelfFirst, totalExpenses) {
-	if (!totalExpensesAndSelfFirst || !totalExpenses) return 0;
-	const percentage = (totalExpenses / totalExpensesAndSelfFirst) * 100;
-	if (Number.isInteger(percentage)) return percentage;
-	const result = percentage.toFixed(1);
-	return result;
 }
 
 export default function Expenses() {
@@ -52,7 +45,7 @@ export default function Expenses() {
 		<>
 			<h5>
 				<span className="left percentage">
-					{calculateExpensePercentage(
+					{calculatePercentage(
 						totalExpensesAndSelfFirstNumber,
 						totalExpenseNumber
 					)}

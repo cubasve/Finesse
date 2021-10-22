@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
+import calculatePercentage from "../../utils/calculations";
 
 const commodityOptions = [
 	"Metals",
@@ -10,14 +11,6 @@ const commodityOptions = [
 	"Cryptocurrency",
 	"Other",
 ];
-
-function calculateCommodityPercentage(totalAssets, totalCommodities) {
-	if (!totalAssets || !totalCommodities) return 0;
-	const percentage = (totalCommodities / totalAssets) * 100;
-	if (Number.isInteger(percentage)) return percentage;
-	const result = percentage.toFixed(1);
-	return result;
-}
 
 function calculateTotalCommodity(totalCommodityNumber) {
 	if (!totalCommodityNumber) return 0;
@@ -49,8 +42,7 @@ export default function Commodities() {
 		<>
 			<h5>
 				<span className="left percentage">
-					{calculateCommodityPercentage(totalAssetNumber, totalCommodityNumber)}
-					%
+					{calculatePercentage(totalAssetNumber, totalCommodityNumber)}%
 				</span>
 				<span>Commodities</span>
 				<span className="right">

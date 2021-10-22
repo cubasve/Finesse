@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
+import calculatePercentage from "../../utils/calculations";
 
 const passiveIncomeOptions = [
 	"Real Estate",
@@ -9,14 +10,6 @@ const passiveIncomeOptions = [
 	"Royalties",
 	"Other",
 ];
-
-function calculatePassivePercentage(totalIncome, totalPassiveIncome) {
-	if (!totalIncome || !totalPassiveIncome) return 0;
-	const percentage = (totalPassiveIncome / totalIncome) * 100;
-	if (Number.isInteger(percentage)) return percentage;
-	const result = percentage.toFixed(1);
-	return result;
-}
 
 function calculateTotalPassiveIncome(totalPassiveIncomeNumber) {
 	if (!totalPassiveIncomeNumber) return 0;
@@ -47,11 +40,7 @@ export default function PassiveIncome() {
 		<>
 			<h5>
 				<span className="left percentage">
-					{calculatePassivePercentage(
-						totalIncomeNumber,
-						totalPassiveIncomeNumber
-					)}
-					%
+					{calculatePercentage(totalIncomeNumber, totalPassiveIncomeNumber)}%
 				</span>
 				<span>Passive</span>
 				<span className="right">

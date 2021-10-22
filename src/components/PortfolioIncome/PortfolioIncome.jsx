@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
+import calculatePercentage from "../../utils/calculations";
 
 const portfolioIncomeOptions = [
 	"Stock",
@@ -10,14 +11,6 @@ const portfolioIncomeOptions = [
 	"REIT",
 	"Other",
 ];
-
-function calculatePortfolioPercentage(totalIncome, totalPortfolioIncome) {
-	if (!totalIncome || !totalPortfolioIncome) return 0;
-	const percentage = (totalPortfolioIncome / totalIncome) * 100;
-	if (Number.isInteger(percentage)) return percentage;
-	const result = percentage.toFixed(1);
-	return result;
-}
 
 function calculateTotalPortfolioIncome(totalPortfolioIncomeNumber) {
 	if (!totalPortfolioIncomeNumber) return 0;
@@ -49,11 +42,7 @@ export default function PortfolioIncome() {
 		<>
 			<h5>
 				<span className="left percentage">
-					{calculatePortfolioPercentage(
-						totalIncomeNumber,
-						totalPortfolioIncomeNumber
-					)}
-					%
+					{calculatePercentage(totalIncomeNumber, totalPortfolioIncomeNumber)}%
 				</span>
 				<span>Portfolio</span>
 				<span className="right">

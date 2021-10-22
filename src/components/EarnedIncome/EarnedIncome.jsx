@@ -1,17 +1,9 @@
 import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
+import calculatePercentage from "../../utils/calculations";
 
 const earnedIncomeOptions = ["Job", "Self-Employment", "Other"];
-
-function calculateEarnedPercentage(totalIncome, totalEarnedIncome) {
-	if (!totalIncome || !totalEarnedIncome) return 0;
-
-	const percentage = (totalEarnedIncome / totalIncome) * 100;
-	if (Number.isInteger(percentage)) return percentage;
-	const result = percentage.toFixed(1);
-	return result;
-}
 
 function calculateTotalEarnedIncome(totalEarnedIncomeNumber) {
 	if (!totalEarnedIncomeNumber) return 0;
@@ -34,6 +26,7 @@ export default function EarnedIncome() {
 	const totalIncomeNumber = totalIncome
 		.map((elem) => elem.amount)
 		.reduce((acc, num) => acc + num, 0);
+
 	const totalEarnedIncomeNumber = totalEarnedIncome
 		.map((elem) => elem.amount)
 		.reduce((acc, num) => acc + num, 0);
@@ -42,11 +35,7 @@ export default function EarnedIncome() {
 		<>
 			<h5>
 				<span className="left percentage">
-					{calculateEarnedPercentage(
-						totalIncomeNumber,
-						totalEarnedIncomeNumber
-					)}
-					%
+					{calculatePercentage(totalIncomeNumber, totalEarnedIncomeNumber)}%
 				</span>
 				<span>Earned</span>
 				<span className="right">

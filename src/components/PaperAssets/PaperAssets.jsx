@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
+import calculatePercentage from "../../utils/calculations";
 
 const paperAssetsOptions = [
 	"Stock",
@@ -10,14 +11,6 @@ const paperAssetsOptions = [
 	"REIT",
 	"Other",
 ];
-
-function calculatePaperPercentage(totalAssets, totalPaperAssets) {
-	if (!totalAssets || !totalPaperAssets) return 0;
-	const percentage = (totalPaperAssets / totalAssets) * 100;
-	if (Number.isInteger(percentage)) return percentage;
-	const result = percentage.toFixed(1);
-	return result;
-}
 
 function calculateTotalPaperAsset(totalPaperNumber) {
 	if (!totalPaperNumber) return 0;
@@ -49,7 +42,7 @@ export default function PaperAssets() {
 		<>
 			<h5>
 				<span className="left percentage">
-					{calculatePaperPercentage(totalAssetNumber, totalPaperNumber)}%
+					{calculatePercentage(totalAssetNumber, totalPaperNumber)}%
 				</span>
 				<span>Paper</span>
 				<span className="right">

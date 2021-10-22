@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Table, Form, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
+import calculatePercentage from "../../utils/calculations";
 
 const realEstateOptions = [
 	"Residential",
@@ -8,14 +9,6 @@ const realEstateOptions = [
 	"Industrial",
 	"Vacant Land",
 ];
-
-function calculateRealEstatePercentage(totalAssets, totalRealEstate) {
-	if (!totalAssets || !totalRealEstate) return 0;
-	const percentage = (totalRealEstate / totalAssets) * 100;
-	if (Number.isInteger(percentage)) return percentage;
-	const result = percentage.toFixed(1);
-	return result;
-}
 
 function calculateTotalRealEstate(totalRealEstateNumber) {
 	if (!totalRealEstateNumber) return 0;
@@ -47,11 +40,7 @@ export default function RealEstate() {
 		<>
 			<h5>
 				<span className="left percentage">
-					{calculateRealEstatePercentage(
-						totalAssetNumber,
-						totalRealEstateNumber
-					)}
-					%
+					{calculatePercentage(totalAssetNumber, totalRealEstateNumber)}%
 				</span>
 				<span>Real Estate</span>
 				<span className="right">
