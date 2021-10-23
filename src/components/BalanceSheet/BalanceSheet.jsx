@@ -14,7 +14,6 @@ export default class BalanceSheet extends Component {
 		if (!calculateTotalAsset && !calculateTotalLiability) return 0;
 		let equity = calculateTotalAsset - calculateTotalLiability;
 		if (Number.isInteger(equity)) return equity;
-		console.log(equity);
 		return equity.toFixed(2);
 	};
 

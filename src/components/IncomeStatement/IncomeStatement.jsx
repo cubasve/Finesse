@@ -10,12 +10,9 @@ export default class IncomeStatement extends Component {
 	}
 
 	//Cash Flow Calculations
-	calculateCashFlow = (
-		calculateTotalIncome,
-		calculateTotalExpensesAndSelfFirst
-	) => {
-		if (!calculateTotalIncome && !calculateTotalExpensesAndSelfFirst) return 0;
-		let cashFlow = calculateTotalIncome - calculateTotalExpensesAndSelfFirst;
+	calculateCashFlow = (income, expense) => {
+		if (!income && !expense) return 0;
+		let cashFlow = income - expense;
 		if (Number.isInteger(cashFlow)) return cashFlow;
 		return cashFlow.toFixed(2);
 	};
@@ -33,6 +30,18 @@ export default class IncomeStatement extends Component {
 		return totalExpensesAndSelfFirstNumber.toFixed(2);
 	};
 
+	determineAmountColor = (cashFlow) => {
+		let threshold = 10;
+		if (cashFlow < 0) {
+			return "red";
+		}
+		if (cashFlow > threshold) {
+			return "green";
+		} else {
+			return "yellow";
+		}
+	};
+
 	render() {
 		const { totalIncome, totalExpensesAndSelfFirst } = this.context;
 
@@ -43,6 +52,11 @@ export default class IncomeStatement extends Component {
 		const totalExpensesAndSelfFirstNumber = totalExpensesAndSelfFirst
 			.map((elem) => elem.amount)
 			.reduce((acc, num) => acc + num, 0);
+
+		const cashFlow = this.calculateCashFlow(
+			totalIncomeNumber,
+			totalExpensesAndSelfFirstNumber
+		);
 
 		return (
 			<>
@@ -55,10 +69,18 @@ export default class IncomeStatement extends Component {
 						totalExpensesAndSelfFirstNumber
 					)}{" "}
 					={" "}
-					{this.calculateCashFlow(
-						totalIncomeNumber,
-						totalExpensesAndSelfFirstNumber
-					)}
+					<span
+						style={{
+							color:
+								cashFlow < 10 && cashFlow > 0
+									? "orange"
+									: cashFlow >= 10
+									? "green"
+									: "red",
+						}}
+					>
+						{cashFlow}
+					</span>
 				</h6>
 				<Income />
 				<Expenditure />

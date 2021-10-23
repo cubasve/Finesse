@@ -10,8 +10,12 @@ export default function calculatePercentage(category, entity) {
 	return result;
 }
 
-export function displayTotalAmount(amount) {
-	if (!amount) return 0;
-	if (Number.isInteger(amount)) return amount;
-	return amount.toFixed(2);
-}
+// function displayTotalAmount(amount) {
+// 	if (!amount) return 0;
+// 	if (Number.isInteger(amount)) return amount;
+// 	return amount.toFixed(2);
+// }
+
+// function determineTotalAmount(entity) {
+// 	return entity.map((elem) => elem.amount).reduce((acc, num) => acc + num, 0);
+// }

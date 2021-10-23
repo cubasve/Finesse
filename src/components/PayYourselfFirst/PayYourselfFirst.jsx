@@ -28,17 +28,6 @@ function calculateSelfFirst(totalSelfFirstNumber) {
 	return totalSelfFirstNumber.toFixed(2);
 }
 
-function calculateSelfFirstPercentage(
-	totalExpensesAndSelfFirst,
-	totalSelfFirstNumber
-) {
-	if (!totalExpensesAndSelfFirst || !totalSelfFirstNumber) return 0;
-	const percentage = (totalSelfFirstNumber / totalExpensesAndSelfFirst) * 100;
-	if (Number.isInteger(percentage)) return percentage;
-	const result = percentage.toFixed(1);
-	return result;
-}
-
 export default function PayYourselfFirst() {
 	const {
 		totalExpensesAndSelfFirst,
