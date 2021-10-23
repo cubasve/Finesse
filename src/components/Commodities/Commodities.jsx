@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Table, Form, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import calculatePercentage from "../../utils/calculations";
+import FormInput from "../common/FormInput";
 
 const commodityOptions = [
 	"Metals",
@@ -73,54 +74,15 @@ export default function Commodities() {
 					</Table>
 				</div>
 			))}
-			<Form ref={commodityFormRef} onSubmit={handleCommoditySubmit}>
-				<Form.Row>
-					<Form.Group>
-						<Form.Control
-							name="type"
-							value={newCommodity.type}
-							onChange={handleCommodityChange}
-							as="select"
-							size="sm"
-							className="select"
-						>
-							{commodityOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</Form.Control>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							name="amount"
-							value={newCommodity.amount}
-							onChange={handleCommodityChange}
-							required
-							pattern="[1-9]\d{0,}\.?\d{0,2}"
-							placeholder="Purchase Price"
-							autoComplete="off"
-							size="sm"
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="category"
-							value={newCommodity.category}
-							onChange={handleCommodityChange}
-						/>
-						<Button
-							className="form-submission"
-							onClick={handleCommoditySubmit}
-							disabled={commodityFormInvalid}
-							size="sm"
-						>
-							ADD
-						</Button>
-					</Form.Group>
-				</Form.Row>
-			</Form>
+			<FormInput
+				formRef={commodityFormRef}
+				handleSubmit={handleCommoditySubmit}
+				handleChange={handleCommodityChange}
+				newEntity={newCommodity}
+				options={commodityOptions}
+				placeholder="Purchase Price"
+				formInvalid={commodityFormInvalid}
+			/>
 		</>
 	);
 }

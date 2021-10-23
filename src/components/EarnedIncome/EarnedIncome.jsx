@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
-import { Table, Form, Button } from "react-bootstrap";
+import { Button, Col, Form, Row, Table } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import calculatePercentage from "../../utils/calculations";
 import { CheckLg, Pencil, Trash, XLg } from "react-bootstrap-icons";
+import FormInput from "../common/FormInput";
 
 const earnedIncomeOptions = ["Job", "Self-Employment", "Other"];
 
@@ -30,6 +31,10 @@ export default function EarnedIncome() {
 	const [editing, setEditing] = useState(false);
 	const handleStartEditing = () => setEditing(true);
 	const handleFinishEditing = () => setEditing(false);
+
+	// const [showModal, setShowModal] = useState(false);
+	// const handleCloseModal = () => setShowModal(false);
+	// const handleShowModal = () => setShowModal(true);
 
 	const totalIncomeNumber = totalIncome
 		.map((elem) => elem.amount)
@@ -80,33 +85,38 @@ export default function EarnedIncome() {
 												<XLg />
 											</Button>
 										</span>
-										<Form.Control
-											name="type"
-											value={ei.type}
-											onChange={handleEarnedIncomeChange}
-											as="select"
-											size="sm"
-											style={{
-												display: "inline",
-												width: "150px",
-											}}
-										>
-											{earnedIncomeOptions.map((option) => (
-												<option key={option} value={option}>
-													{option}
-												</option>
-											))}
-										</Form.Control>
-										<Form.Control
-											name="amount"
-											value={ei.amount}
-											onChange={handleEarnedIncomeChange}
-											required
-											pattern="[1-9]\d{0,}\.?\d{0,2}"
-											autoComplete="off"
-											size="sm"
-											style={{ display: "inline", width: "50px" }}
-										/>
+										<Form>
+											<Row>
+												<Col xs="auto">
+													<Form.Control
+														name="type"
+														value={ei.type}
+														onChange={handleEarnedIncomeChange}
+														as="select"
+														size="sm"
+													>
+														{earnedIncomeOptions.map((option) => (
+															<option key={option} value={option}>
+																{option}
+															</option>
+														))}
+													</Form.Control>
+													<Form.Text muted>Earned Income Type</Form.Text>
+												</Col>
+												<Col xs={3}>
+													<Form.Control
+														name="amount"
+														value={ei.amount}
+														onChange={handleEarnedIncomeChange}
+														required
+														pattern="[1-9]\d{0,}\.?\d{0,2}"
+														autoComplete="off"
+														size="sm"
+														style={{ width: "50px" }}
+													/>
+												</Col>
+											</Row>
+										</Form>
 									</td>
 								) : (
 									<>
@@ -134,6 +144,39 @@ export default function EarnedIncome() {
 											>
 												<Trash />
 											</Button>
+											{/* {ei._id === selected && (
+												<Modal show={showModal} onHide={handleCloseModal}>
+													<Modal.Header closeButton>
+														<Modal.Title>
+															Are you sure you want to delete this entry?
+														</Modal.Title>
+													</Modal.Header>
+													<Modal.Body>
+														Type: <strong>{ei.type}</strong>, Amount: $
+														<strong>{ei.amount}</strong> in the category{" "}
+														<strong>{ei.category}</strong>
+													</Modal.Body>
+													<Modal.Footer>
+														<Button
+															variant="secondary"
+															onClick={handleCloseModal}
+														>
+															Cancel
+														</Button>
+														<Button
+															name={ei.amount}
+															value={ei._id}
+															onClick={() => {
+																handleEarnedIncomeDelete();
+																handleCloseModal();
+															}}
+															variant="danger"
+														>
+															Delete Entry
+														</Button>
+													</Modal.Footer>
+												</Modal>
+											)} */}
 											{ei.type}
 										</td>
 										<td className="right">{ei.amount}</td>
@@ -144,68 +187,15 @@ export default function EarnedIncome() {
 					</Table>
 				</div>
 			))}
-
-			<Form ref={earnedFormRef} onSubmit={handleEarnedIncomeSubmit}>
-				<Form.Row>
-					<Form.Group>
-						<Form.Control
-							name="type"
-							value={newEarnedIncome.type}
-							onChange={handleEarnedIncomeChange}
-							as="select"
-							size="sm"
-							className="select"
-						>
-							{earnedIncomeOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</Form.Control>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							name="amount"
-							value={newEarnedIncome.amount}
-							onChange={handleEarnedIncomeChange}
-							required
-							pattern="[1-9]\d{0,}\.?\d{0,2}"
-							autoComplete="off"
-							placeholder="Salary/Commission"
-							size="sm"
-						/>
-					</Form.Group>
-					{/* <Form.Group>
-                        <Form.Control
-                            type="hidden"
-                            name="class"
-                            value={props.newEarnedIncome.class}
-                            onChange={props.handleEarnedIncomeChange} />
-                    </Form.Group> */}
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="class"
-							value={newEarnedIncome.class}
-							onChange={handleEarnedIncomeChange}
-						/>
-						<Form.Control
-							type="hidden"
-							name="category"
-							value={newEarnedIncome.category}
-							onChange={handleEarnedIncomeChange}
-						/>
-						<Button
-							className="form-submission"
-							onClick={handleEarnedIncomeSubmit}
-							disabled={earnedFormInvalid}
-							size="sm"
-						>
-							ADD
-						</Button>
-					</Form.Group>
-				</Form.Row>
-			</Form>
+			<FormInput
+				formRef={earnedFormRef}
+				handleSubmit={handleEarnedIncomeSubmit}
+				handleChange={handleEarnedIncomeChange}
+				newEntity={newEarnedIncome}
+				options={earnedIncomeOptions}
+				placeholder="Salary/Commission"
+				formInvalid={earnedFormInvalid}
+			/>
 		</>
 	);
 }

@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
-import { Table, Popover, OverlayTrigger, Button, Form } from "react-bootstrap";
+import { Table, Popover, OverlayTrigger, Button } from "react-bootstrap";
 import calculatePercentage from "../../utils/calculations";
+import { InfoLg } from "react-bootstrap-icons";
+import FormInput from "../common/FormInput";
 
 const goodDebtOptions = [
 	"Real Estate",
@@ -20,8 +22,8 @@ const popover = (
 
 const GoodDebtPopover = () => (
 	<OverlayTrigger trigger="click" placement="top" overlay={popover}>
-		<Button variant="success" size="sm">
-			&#8505;
+		<Button variant="info" size="sm">
+			<InfoLg />
 		</Button>
 	</OverlayTrigger>
 );
@@ -87,54 +89,15 @@ export default function GoodDebt() {
 					</Table>
 				</div>
 			))}
-			<Form ref={goodDebtFormRef} onSubmit={handleGoodDebtSubmit}>
-				<Form.Row>
-					<Form.Group>
-						<Form.Control
-							name="type"
-							value={newGoodDebt.type}
-							onChange={handleGoodDebtChange}
-							as="select"
-							size="sm"
-							className="select"
-						>
-							{goodDebtOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</Form.Control>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							name="amount"
-							value={newGoodDebt.amount}
-							onChange={handleGoodDebtChange}
-							required
-							pattern="[1-9]\d{0,}\.?\d{0,2}"
-							placeholder="Debt Value"
-							autoComplete="off"
-							size="sm"
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="category"
-							value={newGoodDebt.category}
-							onChange={handleGoodDebtChange}
-						/>
-						<Button
-							className="form-submission"
-							onClick={handleGoodDebtSubmit}
-							disabled={goodDebtFormInvalid}
-							size="sm"
-						>
-							ADD
-						</Button>
-					</Form.Group>
-				</Form.Row>
-			</Form>
+			<FormInput
+				formRef={goodDebtFormRef}
+				handleSubmit={handleGoodDebtSubmit}
+				handleChange={handleGoodDebtChange}
+				newEntity={newGoodDebt}
+				options={goodDebtOptions}
+				placeholder="Debt Value"
+				formInvalid={goodDebtFormInvalid}
+			/>
 		</>
 	);
 }

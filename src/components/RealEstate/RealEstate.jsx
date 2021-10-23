@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Table, Form, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import calculatePercentage from "../../utils/calculations";
+import FormInput from "../common/FormInput";
 
 const realEstateOptions = [
 	"Residential",
@@ -72,54 +73,15 @@ export default function RealEstate() {
 					</Table>
 				</div>
 			))}
-			<Form ref={realEstateFormRef} onSubmit={handleRealEstateSubmit}>
-				<Form.Row>
-					<Form.Group>
-						<Form.Control
-							name="type"
-							value={newRealEstate.type}
-							onChange={handleRealEstateChange}
-							as="select"
-							size="sm"
-							className="select"
-						>
-							{realEstateOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</Form.Control>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							name="amount"
-							value={newRealEstate.amount}
-							onChange={handleRealEstateChange}
-							required
-							pattern="[1-9]\d{0,}\.?\d{0,2}"
-							placeholder="Purchase Price"
-							autoComplete="off"
-							size="sm"
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="category"
-							value={newRealEstate.category}
-							onChange={handleRealEstateChange}
-						/>
-						<Button
-							className="form-submission"
-							onClick={handleRealEstateSubmit}
-							disabled={realEstateFormInvalid}
-							size="sm"
-						>
-							ADD
-						</Button>
-					</Form.Group>
-				</Form.Row>
-			</Form>
+			<FormInput
+				formRef={realEstateFormRef}
+				handleSubmit={handleRealEstateSubmit}
+				handleChange={handleRealEstateChange}
+				newEntity={newRealEstate}
+				options={realEstateOptions}
+				placeholder="Purchase Price"
+				formInvalid={realEstateFormInvalid}
+			/>
 		</>
 	);
 }

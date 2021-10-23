@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Table, Form, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import calculatePercentage from "../../utils/calculations";
+import FormInput from "../common/FormInput";
 
 const passiveIncomeOptions = [
 	"Real Estate",
@@ -71,61 +72,15 @@ export default function PassiveIncome() {
 					</Table>
 				</div>
 			))}
-			<Form ref={passiveFormRef} onSubmit={handlePassiveIncomeSubmit}>
-				<Form.Row>
-					<Form.Group>
-						<Form.Control
-							name="type"
-							value={newPassiveIncome.type}
-							onChange={handlePassiveIncomeChange}
-							as="select"
-							size="sm"
-							className="select"
-						>
-							{passiveIncomeOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</Form.Control>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							name="amount"
-							value={newPassiveIncome.amount}
-							onChange={handlePassiveIncomeChange}
-							required
-							pattern="[1-9]\d{0,}\.?\d{0,2}"
-							autoComplete="off"
-							size="sm"
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="class"
-							value={newPassiveIncome.class}
-							onChange={handlePassiveIncomeChange}
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="category"
-							value={newPassiveIncome.category}
-							onChange={handlePassiveIncomeChange}
-						/>
-						<Button
-							className="form-submission"
-							onClick={handlePassiveIncomeSubmit}
-							disabled={passiveFormInvalid}
-							size="sm"
-						>
-							ADD
-						</Button>
-					</Form.Group>
-				</Form.Row>
-			</Form>
+			<FormInput
+				formRef={passiveFormRef}
+				handleSubmit={handlePassiveIncomeSubmit}
+				handleChange={handlePassiveIncomeChange}
+				newEntity={newPassiveIncome}
+				options={passiveIncomeOptions}
+				placeholder=""
+				formInvalid={passiveFormInvalid}
+			/>
 		</>
 	);
 }

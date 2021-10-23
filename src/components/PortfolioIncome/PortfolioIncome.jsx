@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Table, Form, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import calculatePercentage from "../../utils/calculations";
+import FormInput from "../common/FormInput";
 
 const portfolioIncomeOptions = [
 	"Stock",
@@ -73,67 +74,15 @@ export default function PortfolioIncome() {
 					</Table>
 				</div>
 			))}
-			<Form
-				ref={portfolioFormRef}
-				onSubmit={handlePortfolioIncomeSubmit}
-				className="form"
-			>
-				<Form.Row>
-					<Form.Group>
-						<Form.Control
-							name="type"
-							value={newPortfolioIncome.type}
-							onChange={handlePortfolioIncomeChange}
-							as="select"
-							size="sm"
-							className="select"
-						>
-							{portfolioIncomeOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</Form.Control>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							name="amount"
-							value={newPortfolioIncome.amount}
-							onChange={handlePortfolioIncomeChange}
-							required
-							pattern="[1-9]\d{0,}\.?\d{0,2}"
-							placeholder="Dividend/Interest"
-							autoComplete="off"
-							size="sm"
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="class"
-							value={newPortfolioIncome.class}
-							onChange={handlePortfolioIncomeChange}
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="category"
-							value={newPortfolioIncome.category}
-							onChange={handlePortfolioIncomeChange}
-						/>
-						<Button
-							type="submit"
-							className="form-submission"
-							onClick={handlePortfolioIncomeSubmit}
-							disabled={portfolioFormInvalid}
-							size="sm"
-						>
-							ADD
-						</Button>
-					</Form.Group>
-				</Form.Row>
-			</Form>
+			<FormInput
+				formRef={portfolioFormRef}
+				handleSubmit={handlePortfolioIncomeSubmit}
+				handleChange={handlePortfolioIncomeChange}
+				newEntity={newPortfolioIncome}
+				options={portfolioIncomeOptions}
+				placeholder="Dividend/Interest"
+				formInvalid={portfolioFormInvalid}
+			/>
 		</>
 	);
 }

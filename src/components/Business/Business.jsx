@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Table, Form, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import calculatePercentage from "../../utils/calculations";
+import FormInput from "../common/FormInput";
 
 const businessOptions = ["Sole proprietorship", "Partnership", "Corporation"];
 
@@ -66,54 +67,15 @@ export default function Business() {
 					</Table>
 				</div>
 			))}
-			<Form ref={businessFormRef} onSubmit={handleBusinessSubmit}>
-				<Form.Row>
-					<Form.Group>
-						<Form.Control
-							name="type"
-							value={newBusiness.type}
-							onChange={handleBusinessChange}
-							as="select"
-							size="sm"
-							className="select"
-						>
-							{businessOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</Form.Control>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							name="amount"
-							value={newBusiness.amount}
-							onChange={handleBusinessChange}
-							pattern="[1-9]\d{0,}\.?\d{0,2}"
-							required
-							placeholder="Company Value"
-							autoComplete="off"
-							size="sm"
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="category"
-							value={newBusiness.category}
-							onChange={handleBusinessChange}
-						/>
-						<Button
-							className="form-submission"
-							onClick={handleBusinessSubmit}
-							disabled={businessFormInvalid}
-							size="sm"
-						>
-							ADD
-						</Button>
-					</Form.Group>
-				</Form.Row>
-			</Form>
+			<FormInput
+				formRef={businessFormRef}
+				handleSubmit={handleBusinessSubmit}
+				handleChange={handleBusinessChange}
+				newEntity={newBusiness}
+				options={businessOptions}
+				placeholder="Company Value"
+				formInvalid={businessFormInvalid}
+			/>
 		</>
 	);
 }

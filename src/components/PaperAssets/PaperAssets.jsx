@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Table, Form, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import calculatePercentage from "../../utils/calculations";
+import FormInput from "../common/FormInput";
 
 const paperAssetsOptions = [
 	"Stock",
@@ -73,54 +74,15 @@ export default function PaperAssets() {
 					</Table>
 				</div>
 			))}
-			<Form ref={paperAssetFormRef} onSubmit={handlePaperAssetSubmit}>
-				<Form.Row>
-					<Form.Group>
-						<Form.Control
-							name="type"
-							value={newPaperAsset.type}
-							onChange={handlePaperAssetChange}
-							as="select"
-							size="sm"
-							className="select"
-						>
-							{paperAssetsOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</Form.Control>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							name="amount"
-							value={newPaperAsset.amount}
-							onChange={handlePaperAssetChange}
-							required
-							pattern="[1-9]\d{0,}\.?\d{0,2}"
-							placeholder="Purchase Price"
-							autoComplete="off"
-							size="sm"
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="category"
-							value={newPaperAsset.category}
-							onChange={handlePaperAssetChange}
-						/>
-						<Button
-							className="form-submission"
-							onClick={handlePaperAssetSubmit}
-							disabled={paperAssetFormInvalid}
-							size="sm"
-						>
-							ADD
-						</Button>
-					</Form.Group>
-				</Form.Row>
-			</Form>
+			<FormInput
+				formRef={paperAssetFormRef}
+				handleSubmit={handlePaperAssetSubmit}
+				handleChange={handlePaperAssetChange}
+				newEntity={newPaperAsset}
+				options={paperAssetsOptions}
+				placeholder="Purchase Price"
+				formInvalid={paperAssetFormInvalid}
+			/>
 		</>
 	);
 }

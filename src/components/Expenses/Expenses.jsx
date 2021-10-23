@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Table, Form, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import calculatePercentage from "../../utils/calculations";
+import FormInput from "../common/FormInput";
 
 const expenseOptions = [
 	"Taxes",
@@ -81,53 +82,15 @@ export default function Expenses() {
 					</Table>
 				</div>
 			))}
-			<Form ref={expenseFormRef} onSubmit={handleExpenseSubmit}>
-				<Form.Row>
-					<Form.Group>
-						<Form.Control
-							name="type"
-							value={newExpense.type}
-							onChange={handleExpenseChange}
-							as="select"
-							size="sm"
-							className="select"
-						>
-							{expenseOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</Form.Control>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							name="amount"
-							value={newExpense.amount}
-							onChange={handleExpenseChange}
-							required
-							pattern="[1-9]\d{0,}\.?\d{0,2}"
-							autoComplete="off"
-							size="sm"
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="category"
-							value={newExpense.category}
-							onChange={handleExpenseChange}
-						/>
-						<Button
-							className="form-submission"
-							onClick={handleExpenseSubmit}
-							disabled={expenseFormInvalid}
-							size="sm"
-						>
-							ADD
-						</Button>
-					</Form.Group>
-				</Form.Row>
-			</Form>
+			<FormInput
+				formRef={expenseFormRef}
+				handleSubmit={handleExpenseSubmit}
+				handleChange={handleExpenseChange}
+				newEntity={newExpense}
+				options={expenseOptions}
+				placeholder=""
+				formInvalid={expenseFormInvalid}
+			/>
 		</>
 	);
 }

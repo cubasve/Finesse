@@ -6,6 +6,7 @@ import Commodities from "../Commodities/Commodities";
 import Cash from "../Cash/Cash";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import { Popover, OverlayTrigger, Button } from "react-bootstrap";
+import { InfoLg } from "react-bootstrap-icons";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -16,8 +17,8 @@ const popover = (
 
 const AssetPopover = () => (
 	<OverlayTrigger trigger="click" placement="top" overlay={popover}>
-		<Button variant="success" size="sm">
-			&#8505;
+		<Button variant="info" size="sm">
+			<InfoLg />
 		</Button>
 	</OverlayTrigger>
 );

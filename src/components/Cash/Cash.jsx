@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
-import { Table, Form, Button } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import calculatePercentage from "../../utils/calculations";
+import FormInput from "../common/FormInput";
 
 const cashOptions = ["Chequing Account", "Savings Account"];
 
@@ -65,55 +66,15 @@ export default function Cash() {
 					</Table>
 				</div>
 			))}
-
-			<Form ref={cashFormRef} onSubmit={handleCashSubmit}>
-				<Form.Row>
-					<Form.Group>
-						<Form.Control
-							name="type"
-							value={newCash.type}
-							onChange={handleCashChange}
-							as="select"
-							size="sm"
-							className="select"
-						>
-							{cashOptions.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</Form.Control>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							name="amount"
-							value={newCash.amount}
-							onChange={handleCashChange}
-							required
-							pattern="[1-9]\d{0,}\.?\d{0,2}"
-							placeholder="Bank Accounts"
-							autoComplete="off"
-							size="sm"
-						/>
-					</Form.Group>
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="category"
-							value={newCash.category}
-							onChange={handleCashChange}
-						/>
-						<Button
-							className="form-submission"
-							onClick={handleCashSubmit}
-							disabled={cashFormInvalid}
-							size="sm"
-						>
-							ADD
-						</Button>
-					</Form.Group>
-				</Form.Row>
-			</Form>
+			<FormInput
+				formRef={cashFormRef}
+				handleSubmit={handleCashSubmit}
+				handleChange={handleCashChange}
+				newEntity={newCash}
+				options={cashOptions}
+				placeholder="Bank Accounts"
+				formInvalid={cashFormInvalid}
+			/>
 		</>
 	);
 }

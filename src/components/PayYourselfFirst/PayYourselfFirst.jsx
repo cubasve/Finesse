@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Popover, OverlayTrigger, Button, Table, Form } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import calculatePercentage from "../../utils/calculations";
+import { InfoLg } from "react-bootstrap-icons";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -16,8 +17,8 @@ const popover = (
 
 const PayYourselfPopover = () => (
 	<OverlayTrigger trigger="click" placement="top" overlay={popover}>
-		<Button variant="success" size="sm">
-			&#8505;
+		<Button variant="info" size="sm">
+			<InfoLg />
 		</Button>
 	</OverlayTrigger>
 );
@@ -90,7 +91,6 @@ export default function PayYourselfFirst() {
 					</Table>
 				</div>
 			))}
-
 			<Form
 				ref={selfFirstFormRef}
 				onSubmit={handleSelfFirstSubmit}

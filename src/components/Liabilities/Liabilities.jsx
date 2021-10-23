@@ -3,6 +3,7 @@ import GoodDebt from "../GoodDebt/GoodDebt";
 import BadDebt from "../BadDebt/BadDebt";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import { Popover, OverlayTrigger, Button } from "react-bootstrap";
+import { InfoLg } from "react-bootstrap-icons";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -14,8 +15,8 @@ const popover = (
 );
 const LiabilityPopover = () => (
 	<OverlayTrigger trigger="click" placement="top" overlay={popover}>
-		<Button variant="success" size="sm">
-			&#8505;
+		<Button variant="info" size="sm">
+			<InfoLg />
 		</Button>
 	</OverlayTrigger>
 );
