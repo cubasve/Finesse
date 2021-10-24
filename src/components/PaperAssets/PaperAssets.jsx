@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
-import calculatePercentage from "../../utils/calculations";
+import {
+	calculatePercentage,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
 const paperAssetsOptions = [
@@ -12,12 +16,6 @@ const paperAssetsOptions = [
 	"REIT",
 	"Other",
 ];
-
-function calculateTotalPaperAsset(totalPaperNumber) {
-	if (!totalPaperNumber) return 0;
-	if (Number.isInteger(totalPaperNumber)) return totalPaperNumber;
-	return totalPaperNumber.toFixed(2);
-}
 
 export default function PaperAssets() {
 	const {
@@ -31,24 +29,17 @@ export default function PaperAssets() {
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
-	const totalAssetNumber = totalAssets
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
-
-	const totalPaperNumber = totalPaperAssets
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalAssetAmount = determineTotalAmount(totalAssets);
+	const totalPaperAmount = determineTotalAmount(totalPaperAssets);
 
 	return (
 		<>
-			<h5>
-				<span className="left percentage">
-					{calculatePercentage(totalAssetNumber, totalPaperNumber)}%
+			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+				<span className="percentage">
+					{calculatePercentage(totalAssetAmount, totalPaperAmount)}%
 				</span>
 				<span>Paper</span>
-				<span className="right">
-					${calculateTotalPaperAsset(totalPaperNumber)}
-				</span>
+				<span>${showTotalAmount(totalPaperAmount)}</span>
 			</h5>
 			{totalPaperAssets.map((pa) => (
 				<div key={pa.amount}>

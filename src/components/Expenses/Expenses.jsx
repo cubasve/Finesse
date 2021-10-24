@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { Table, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
-import calculatePercentage from "../../utils/calculations";
+import {
+	calculatePercentage,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
 const expenseOptions = [
@@ -16,12 +20,6 @@ const expenseOptions = [
 	"Other",
 ];
 
-function calculateTotalExpenseIncome(totalExpenseNumber) {
-	if (!totalExpenseNumber) return 0;
-	if (Number.isInteger(totalExpenseNumber)) return totalExpenseNumber;
-	return totalExpenseNumber.toFixed(2);
-}
-
 export default function Expenses() {
 	const {
 		totalExpensesAndSelfFirst,
@@ -34,28 +32,19 @@ export default function Expenses() {
 		expenseFormInvalid,
 	} = useContext(IncomeExpenseContext);
 
-	const totalExpenseNumber = totalExpenses
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
-
-	const totalExpensesAndSelfFirstNumber = totalExpensesAndSelfFirst
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalExpenseAmount = determineTotalAmount(totalExpenses);
+	const totalExpensesAndPYFAmount = determineTotalAmount(
+		totalExpensesAndSelfFirst
+	);
 
 	return (
 		<>
-			<h5>
-				<span className="left percentage">
-					{calculatePercentage(
-						totalExpensesAndSelfFirstNumber,
-						totalExpenseNumber
-					)}
-					%
+			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+				<span className="percentage">
+					{calculatePercentage(totalExpensesAndPYFAmount, totalExpenseAmount)}%
 				</span>
 				<span>Other Expenses</span>
-				<span className="right">
-					${calculateTotalExpenseIncome(totalExpenseNumber)}
-				</span>
+				<span>${showTotalAmount(totalExpenseAmount)}</span>
 			</h5>
 
 			{totalExpenses.map((ex) => (

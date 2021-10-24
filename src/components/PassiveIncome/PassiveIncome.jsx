@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { Table, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
-import calculatePercentage from "../../utils/calculations";
+import {
+	calculatePercentage,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
 const passiveIncomeOptions = [
@@ -11,13 +15,6 @@ const passiveIncomeOptions = [
 	"Royalties",
 	"Other",
 ];
-
-function calculateTotalPassiveIncome(totalPassiveIncomeNumber) {
-	if (!totalPassiveIncomeNumber) return 0;
-	if (Number.isInteger(totalPassiveIncomeNumber))
-		return totalPassiveIncomeNumber;
-	return totalPassiveIncomeNumber.toFixed(2);
-}
 
 export default function PassiveIncome() {
 	const {
@@ -31,22 +28,17 @@ export default function PassiveIncome() {
 		handlePassiveIncomeDelete,
 	} = useContext(IncomeExpenseContext);
 
-	const totalIncomeNumber = totalIncome
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
-	const totalPassiveIncomeNumber = totalPassiveIncome
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalIncomeAmount = determineTotalAmount(totalIncome);
+	const totalPassiveIncomeAmount = determineTotalAmount(totalPassiveIncome);
+
 	return (
 		<>
-			<h5>
-				<span className="left percentage">
-					{calculatePercentage(totalIncomeNumber, totalPassiveIncomeNumber)}%
+			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+				<span className="percentage">
+					{calculatePercentage(totalIncomeAmount, totalPassiveIncomeAmount)}%
 				</span>
 				<span>Passive</span>
-				<span className="right">
-					${calculateTotalPassiveIncome(totalPassiveIncomeNumber)}
-				</span>
+				<span>${showTotalAmount(totalPassiveIncomeAmount)}</span>
 			</h5>
 			{totalPassiveIncome.map((pi) => (
 				<div key={pi.amount}>

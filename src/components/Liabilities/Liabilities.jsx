@@ -4,6 +4,10 @@ import BadDebt from "../BadDebt/BadDebt";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import { Popover, OverlayTrigger, Button } from "react-bootstrap";
 import { InfoLg } from "react-bootstrap-icons";
+import {
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -21,18 +25,9 @@ const LiabilityPopover = () => (
 	</OverlayTrigger>
 );
 
-function calculateTotalLiability(totalLiabilityNumber) {
-	if (!totalLiabilityNumber) return 0;
-	if (Number.isInteger(totalLiabilityNumber)) return totalLiabilityNumber;
-	return totalLiabilityNumber.toFixed(2);
-}
-
 export default function Liabilities() {
 	const { totalLiabilities } = useContext(AssetLiabilityContext);
-
-	const totalLiabilityNumber = totalLiabilities
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalLiabilityAmount = determineTotalAmount(totalLiabilities);
 
 	return (
 		<div className="border">
@@ -40,10 +35,8 @@ export default function Liabilities() {
 				<span>
 					LIABILITIES <LiabilityPopover />
 				</span>
-				{/* <span className="right">${totalLiabilities.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span> */}
-				<span className="right">
-					${calculateTotalLiability(totalLiabilityNumber)}
-				</span>
+
+				<span className="right">${showTotalAmount(totalLiabilityAmount)}</span>
 			</span>
 
 			<GoodDebt />

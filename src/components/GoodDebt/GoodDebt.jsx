@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import { Table, Popover, OverlayTrigger, Button } from "react-bootstrap";
-import calculatePercentage from "../../utils/calculations";
+import {
+	calculatePercentage,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 import { InfoLg } from "react-bootstrap-icons";
 import FormInput from "../common/FormInput";
 
@@ -28,12 +32,6 @@ const GoodDebtPopover = () => (
 	</OverlayTrigger>
 );
 
-function calculateGoodDebt(totalGoodDebtNumber) {
-	if (!totalGoodDebtNumber) return 0;
-	if (Number.isInteger(totalGoodDebtNumber)) return totalGoodDebtNumber;
-	return totalGoodDebtNumber.toFixed(2);
-}
-
 export default function GoodDebt() {
 	const {
 		totalGoodDebt,
@@ -46,24 +44,19 @@ export default function GoodDebt() {
 		totalLiabilities,
 	} = useContext(AssetLiabilityContext);
 
-	const totalLiabilityNumber = totalLiabilities
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
-
-	const totalGoodDebtNumber = totalGoodDebt
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalLiabilityAmount = determineTotalAmount(totalLiabilities);
+	const totalGoodDebtAmount = determineTotalAmount(totalGoodDebt);
 
 	return (
 		<>
-			<h5>
-				<span className="left percentage">
-					{calculatePercentage(totalLiabilityNumber, totalGoodDebtNumber)}%
+			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+				<span className="percentage">
+					{calculatePercentage(totalLiabilityAmount, totalGoodDebtAmount)}%
 				</span>
 				<span>
 					Good Debt <GoodDebtPopover />
 				</span>
-				<span className="right">${calculateGoodDebt(totalGoodDebtNumber)}</span>
+				<span>${showTotalAmount(totalGoodDebtAmount)}</span>
 			</h5>
 			{totalGoodDebt.map((gd) => (
 				<div key={gd.amount}>

@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { Table, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
-import calculatePercentage from "../../utils/calculations";
+import {
+	calculatePercentage,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
 const portfolioIncomeOptions = [
@@ -12,13 +16,6 @@ const portfolioIncomeOptions = [
 	"REIT",
 	"Other",
 ];
-
-function calculateTotalPortfolioIncome(totalPortfolioIncomeNumber) {
-	if (!totalPortfolioIncomeNumber) return 0;
-	if (Number.isInteger(totalPortfolioIncomeNumber))
-		return totalPortfolioIncomeNumber;
-	return totalPortfolioIncomeNumber.toFixed(2);
-}
 
 export default function PortfolioIncome() {
 	const {
@@ -32,23 +29,17 @@ export default function PortfolioIncome() {
 		handlePortfolioIncomeDelete,
 	} = useContext(IncomeExpenseContext);
 
-	const totalIncomeNumber = totalIncome
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
-	const totalPortfolioIncomeNumber = totalPortfolioIncome
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalIncomeAmount = determineTotalAmount(totalIncome);
+	const totalPortfolioIncomeAmount = determineTotalAmount(totalPortfolioIncome);
 
 	return (
 		<>
-			<h5>
-				<span className="left percentage">
-					{calculatePercentage(totalIncomeNumber, totalPortfolioIncomeNumber)}%
+			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+				<span className="percentage">
+					{calculatePercentage(totalIncomeAmount, totalPortfolioIncomeAmount)}%
 				</span>
 				<span>Portfolio</span>
-				<span className="right">
-					${calculateTotalPortfolioIncome(totalPortfolioIncomeNumber)}
-				</span>
+				<span>${showTotalAmount(totalPortfolioIncomeAmount)}</span>
 			</h5>
 			{totalPortfolioIncome.map((pi) => (
 				<div key={pi.amount}>

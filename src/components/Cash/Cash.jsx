@@ -1,16 +1,14 @@
 import React, { useContext } from "react";
 import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
-import calculatePercentage from "../../utils/calculations";
+import {
+	calculatePercentage,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
 const cashOptions = ["Chequing Account", "Savings Account"];
-
-function calculateTotalCash(totalCashNumber) {
-	if (!totalCashNumber) return 0;
-	if (Number.isInteger(totalCashNumber)) return totalCashNumber;
-	return totalCashNumber.toFixed(2);
-}
 
 export default function Cash() {
 	const {
@@ -24,22 +22,17 @@ export default function Cash() {
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
-	const totalAssetNumber = totalAssets
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
-
-	const totalCashNumber = totalCash
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalAssetAmount = determineTotalAmount(totalAssets);
+	const totalCashAmount = determineTotalAmount(totalCash);
 
 	return (
 		<>
-			<h5>
-				<span className="left percentage">
-					{calculatePercentage(totalAssetNumber, totalCashNumber)}%
+			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+				<span className="percentage">
+					{calculatePercentage(totalAssetAmount, totalCashAmount)}%
 				</span>
 				<span>Cash</span>
-				<span className="right">${calculateTotalCash(totalCashNumber)}</span>
+				<span>${showTotalAmount(totalCashAmount)}</span>
 			</h5>
 
 			{totalCash.map((ca) => (

@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
-import calculatePercentage from "../../utils/calculations";
+import {
+	calculatePercentage,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
 const commodityOptions = [
@@ -12,12 +16,6 @@ const commodityOptions = [
 	"Cryptocurrency",
 	"Other",
 ];
-
-function calculateTotalCommodity(totalCommodityNumber) {
-	if (!totalCommodityNumber) return 0;
-	if (Number.isInteger(totalCommodityNumber)) return totalCommodityNumber;
-	return totalCommodityNumber.toFixed(2);
-}
 
 export default function Commodities() {
 	const {
@@ -31,24 +29,17 @@ export default function Commodities() {
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
-	const totalAssetNumber = totalAssets
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
-
-	const totalCommodityNumber = totalCommodities
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalAssetAmount = determineTotalAmount(totalAssets);
+	const totalCommodityAmount = determineTotalAmount(totalCommodities);
 
 	return (
 		<>
-			<h5>
-				<span className="left percentage">
-					{calculatePercentage(totalAssetNumber, totalCommodityNumber)}%
+			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+				<span className="percentage">
+					{calculatePercentage(totalAssetAmount, totalCommodityAmount)}%
 				</span>
 				<span>Commodities</span>
-				<span className="right">
-					${calculateTotalCommodity(totalCommodityNumber)}
-				</span>
+				<span>${showTotalAmount(totalCommodityAmount)}</span>
 			</h5>
 			{totalCommodities.map((c) => (
 				<div key={c.amount}>

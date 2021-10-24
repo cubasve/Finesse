@@ -1,16 +1,14 @@
 import React, { useContext } from "react";
 import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
-import calculatePercentage from "../../utils/calculations";
+import {
+	calculatePercentage,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
 const businessOptions = ["Sole proprietorship", "Partnership", "Corporation"];
-
-function calculateTotalBusiness(totalBusinessNumber) {
-	if (!totalBusinessNumber) return 0;
-	if (Number.isInteger(totalBusinessNumber)) return totalBusinessNumber;
-	return totalBusinessNumber.toFixed(2);
-}
 
 export default function Business() {
 	const {
@@ -24,24 +22,17 @@ export default function Business() {
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
-	const totalAssetNumber = totalAssets
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
-
-	const totalBusinessNumber = totalBusiness
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalAssetAmount = determineTotalAmount(totalAssets);
+	const totalBusinessAmount = determineTotalAmount(totalBusiness);
 
 	return (
 		<>
-			<h5>
-				<span className="left percentage">
-					{calculatePercentage(totalAssetNumber, totalBusinessNumber)}%
+			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+				<span className="percentage">
+					{calculatePercentage(totalAssetAmount, totalBusinessAmount)}%
 				</span>
 				<span>Business</span>
-				<span className="right">
-					${calculateTotalBusiness(totalBusinessNumber)}
-				</span>
+				<span>${showTotalAmount(totalBusinessAmount)}</span>
 			</h5>
 			{totalBusiness.map((b) => (
 				<div key={b.amount}>

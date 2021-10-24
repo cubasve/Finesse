@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
-import calculatePercentage from "../../utils/calculations";
+import {
+	calculatePercentage,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
 const realEstateOptions = [
@@ -10,12 +14,6 @@ const realEstateOptions = [
 	"Industrial",
 	"Vacant Land",
 ];
-
-function calculateTotalRealEstate(totalRealEstateNumber) {
-	if (!totalRealEstateNumber) return 0;
-	if (Number.isInteger(totalRealEstateNumber)) return totalRealEstateNumber;
-	return totalRealEstateNumber.toFixed(2);
-}
 
 export default function RealEstate() {
 	const {
@@ -29,24 +27,17 @@ export default function RealEstate() {
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
-	const totalAssetNumber = totalAssets
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
-
-	const totalRealEstateNumber = totalRealEstate
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalAssetAmount = determineTotalAmount(totalAssets);
+	const totalRealEstateAmount = determineTotalAmount(totalRealEstate);
 
 	return (
 		<>
-			<h5>
-				<span className="left percentage">
-					{calculatePercentage(totalAssetNumber, totalRealEstateNumber)}%
+			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+				<span className="percentage">
+					{calculatePercentage(totalAssetAmount, totalRealEstateAmount)}%
 				</span>
 				<span>Real Estate</span>
-				<span className="right">
-					${calculateTotalRealEstate(totalRealEstateNumber)}
-				</span>
+				<span>${showTotalAmount(totalRealEstateAmount)}</span>
 			</h5>
 
 			{totalRealEstate.map((re) => (

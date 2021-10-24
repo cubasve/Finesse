@@ -147,8 +147,31 @@ export class IncomeExpenseProvider extends Component {
 
 	handleEarnedIncomeDelete = async (e) => {
 		try {
+			console.log("e", e.target.value);
 			await financialStatementService
 				.deleteOne({ id: e.target.value })
+				.then((data) => {
+					this.setState({
+						totalEarnedIncome: data.user.userFinances.filter(
+							(elem) => elem.category === "Earned"
+						),
+						totalIncome: data.user.userFinances.filter(
+							(elem) =>
+								elem.category === "Earned" ||
+								elem.category === "Portfolio" ||
+								elem.category === "Passive"
+						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handleEarnedIncomeUpdate = async (e) => {
+		try {
+			await financialStatementService
+				.update({ id: e.target.value })
 				.then((data) => {
 					this.setState({
 						totalEarnedIncome: data.user.userFinances.filter(
@@ -217,6 +240,7 @@ export class IncomeExpenseProvider extends Component {
 
 	handlePortfolioIncomeDelete = async (e) => {
 		try {
+			console.log("e", e.target.value);
 			await financialStatementService
 				.deleteOne({ id: e.target.value })
 				.then((data) => {

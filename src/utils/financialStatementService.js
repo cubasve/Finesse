@@ -48,6 +48,7 @@ function update(financialStatement) {
 }
 
 function deleteOne(financialStatement) {
+	console.log("deleteOne", financialStatement);
 	const options = {
 		method: "DELETE",
 		headers: {

@@ -1,17 +1,15 @@
 import React, { useContext, useState } from "react";
-import { Button, Col, Form, Row, Table } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row, Table } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
-import calculatePercentage from "../../utils/calculations";
+import {
+	calculatePercentage,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 import { CheckLg, Pencil, Trash, XLg } from "react-bootstrap-icons";
 import FormInput from "../common/FormInput";
 
 const earnedIncomeOptions = ["Job", "Self-Employment", "Other"];
-
-function calculateTotalEarnedIncome(totalEarnedIncomeNumber) {
-	if (!totalEarnedIncomeNumber) return 0;
-	if (Number.isInteger(totalEarnedIncomeNumber)) return totalEarnedIncomeNumber;
-	return totalEarnedIncomeNumber.toFixed(2);
-}
 
 export default function EarnedIncome() {
 	const {
@@ -32,28 +30,21 @@ export default function EarnedIncome() {
 	const handleStartEditing = () => setEditing(true);
 	const handleFinishEditing = () => setEditing(false);
 
-	// const [showModal, setShowModal] = useState(false);
-	// const handleCloseModal = () => setShowModal(false);
-	// const handleShowModal = () => setShowModal(true);
+	const [showModal, setShowModal] = useState(false);
+	const handleCloseModal = () => setShowModal(false);
+	const handleShowModal = () => setShowModal(true);
 
-	const totalIncomeNumber = totalIncome
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
-
-	const totalEarnedIncomeNumber = totalEarnedIncome
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalIncomeAmount = determineTotalAmount(totalIncome);
+	const totalEarnedIncomeAmount = determineTotalAmount(totalEarnedIncome);
 
 	return (
 		<>
-			<h5>
-				<span className="left percentage">
-					{calculatePercentage(totalIncomeNumber, totalEarnedIncomeNumber)}%
+			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+				<span className="percentage">
+					{calculatePercentage(totalIncomeAmount, totalEarnedIncomeAmount)}%
 				</span>
 				<span>Earned</span>
-				<span className="right">
-					${calculateTotalEarnedIncome(totalEarnedIncomeNumber)}
-				</span>
+				<span>${showTotalAmount(totalEarnedIncomeAmount)}</span>
 			</h5>
 			{totalEarnedIncome.map((ei) => (
 				<div key={ei._id}>
@@ -101,7 +92,7 @@ export default function EarnedIncome() {
 															</option>
 														))}
 													</Form.Control>
-													<Form.Text muted>Earned Income Type</Form.Text>
+													<Form.Text muted>Type</Form.Text>
 												</Col>
 												<Col xs={3}>
 													<Form.Control
@@ -114,13 +105,14 @@ export default function EarnedIncome() {
 														size="sm"
 														style={{ width: "50px" }}
 													/>
+													<Form.Text muted>Amount</Form.Text>
 												</Col>
 											</Row>
 										</Form>
 									</td>
 								) : (
 									<>
-										<td className="left">
+										<td style={{ display: "flex" }}>
 											<Button
 												name={ei.amount}
 												value={ei._id}
@@ -137,14 +129,14 @@ export default function EarnedIncome() {
 											<Button
 												name={ei.amount}
 												value={ei._id}
-												onClick={handleEarnedIncomeDelete}
+												onClick={handleShowModal}
 												variant="danger"
 												size="sm"
 												className="delete"
 											>
 												<Trash />
 											</Button>
-											{/* {ei._id === selected && (
+											{ei._id === selected && (
 												<Modal show={showModal} onHide={handleCloseModal}>
 													<Modal.Header closeButton>
 														<Modal.Title>
@@ -176,10 +168,16 @@ export default function EarnedIncome() {
 														</Button>
 													</Modal.Footer>
 												</Modal>
-											)} */}
+											)}
 											{ei.type}
+											<span
+												style={{
+													display: "flex",
+													flexGrow: 1,
+												}}
+											></span>
+											{ei.amount}
 										</td>
-										<td className="right">{ei.amount}</td>
 									</>
 								)}
 							</tr>

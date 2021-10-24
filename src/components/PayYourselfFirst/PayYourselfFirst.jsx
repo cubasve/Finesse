@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { Popover, OverlayTrigger, Button, Table, Form } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
-import calculatePercentage from "../../utils/calculations";
+import {
+	calculatePercentage,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 import { InfoLg } from "react-bootstrap-icons";
 
 const popover = (
@@ -23,12 +27,6 @@ const PayYourselfPopover = () => (
 	</OverlayTrigger>
 );
 
-function calculateSelfFirst(totalSelfFirstNumber) {
-	if (!totalSelfFirstNumber) return 0;
-	if (Number.isInteger(totalSelfFirstNumber)) return totalSelfFirstNumber;
-	return totalSelfFirstNumber.toFixed(2);
-}
-
 export default function PayYourselfFirst() {
 	const {
 		totalExpensesAndSelfFirst,
@@ -41,29 +39,21 @@ export default function PayYourselfFirst() {
 		selfFirstFormInvalid,
 	} = useContext(IncomeExpenseContext);
 
-	const totalSelfFirstNumber = totalPayYourselfFirst
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
-
-	const totalExpensesAndSelfFirstNumber = totalExpensesAndSelfFirst
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalSelfFirstAmount = determineTotalAmount(totalPayYourselfFirst);
+	const totalExpensesAndPYFAmount = determineTotalAmount(
+		totalExpensesAndSelfFirst
+	);
 
 	return (
 		<>
-			<h5>
-				<span className="left percentage">
-					{calculatePercentage(
-						totalExpensesAndSelfFirstNumber,
-						totalSelfFirstNumber
-					)}
+			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+				<span className="percentage">
+					{calculatePercentage(totalExpensesAndPYFAmount, totalSelfFirstAmount)}
 					%
 				</span>
 				<span>Pay Yourself First </span>
 				<PayYourselfPopover />
-				<span className="right">
-					${calculateSelfFirst(totalSelfFirstNumber)}
-				</span>
+				<span>${showTotalAmount(totalSelfFirstAmount)}</span>
 			</h5>
 
 			{totalPayYourselfFirst.map((pi) => (

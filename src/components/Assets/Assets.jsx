@@ -7,6 +7,10 @@ import Cash from "../Cash/Cash";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import { Popover, OverlayTrigger, Button } from "react-bootstrap";
 import { InfoLg } from "react-bootstrap-icons";
+import {
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -23,18 +27,9 @@ const AssetPopover = () => (
 	</OverlayTrigger>
 );
 
-function calculateTotalAsset(totalAssetNumber) {
-	if (!totalAssetNumber) return 0;
-	if (Number.isInteger(totalAssetNumber)) return totalAssetNumber;
-	return totalAssetNumber.toFixed(2);
-}
-
 export default function Assets() {
 	const { totalAssets } = useContext(AssetLiabilityContext);
-
-	const totalAssetNumber = totalAssets
-		.map((elem) => elem.amount)
-		.reduce((acc, num) => acc + num, 0);
+	const totalAssetAmount = determineTotalAmount(totalAssets);
 
 	return (
 		<div className="border">
@@ -42,8 +37,7 @@ export default function Assets() {
 				<span>
 					ASSETS <AssetPopover />
 				</span>
-				{/* <span className="right">${totalAssets.map(elem => elem.amount).reduce((acc, num) => acc + num, 0)}</span> */}
-				<span className="right">${calculateTotalAsset(totalAssetNumber)}</span>
+				<span className="right">${showTotalAmount(totalAssetAmount)}</span>
 			</span>
 			<Cash />
 			<PaperAssets />
