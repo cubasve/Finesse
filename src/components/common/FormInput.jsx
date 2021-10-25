@@ -42,13 +42,6 @@ export default function FormInput(props) {
 						size="sm"
 					/>
 				</Form.Group>
-				{/* <Form.Group>
-                        <Form.Control
-                            type="hidden"
-                            name="class"
-                            value={props.newEarnedIncome.class}
-                            onChange={props.handleEarnedIncomeChange} />
-                    </Form.Group> */}
 				<Form.Group>
 					<Form.Control
 						type="hidden"

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Col, Form, Modal, Row, Table } from "react-bootstrap";
+import { Button, Col, Form, Modal, Table } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculatePercentage,
@@ -16,9 +16,12 @@ export default function EarnedIncome() {
 		totalIncome,
 		totalEarnedIncome,
 		newEarnedIncome,
+		updatedEarnedIncome,
 		earnedFormInvalid,
 		handleEarnedIncomeSubmit,
 		handleEarnedIncomeChange,
+		handleEarnedIncomeUpdateChange,
+		handleGetCurrentEarnedIncome,
 		handleEarnedIncomeDelete,
 		handleEarnedIncomeUpdate,
 		earnedFormRef,
@@ -37,6 +40,8 @@ export default function EarnedIncome() {
 	const totalIncomeAmount = determineTotalAmount(totalIncome);
 	const totalEarnedIncomeAmount = determineTotalAmount(totalEarnedIncome);
 
+	console.log("updatedEarnedIncome", updatedEarnedIncome);
+
 	return (
 		<>
 			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
@@ -46,43 +51,47 @@ export default function EarnedIncome() {
 				<span>Earned</span>
 				<span>${showTotalAmount(totalEarnedIncomeAmount)}</span>
 			</h5>
-			{totalEarnedIncome.map((ei) => (
-				<div key={ei._id}>
+			{totalEarnedIncome.map(({ _id, amount, category, type }) => (
+				<div key={_id}>
 					<Table borderless hover size="sm">
 						<tbody>
 							<tr>
-								{editing && ei._id === selected ? (
-									<td
-										style={{
-											display: "flex",
-											justifyContent: "space-between",
-										}}
-									>
-										<span>
-											<Button
-												variant="success"
-												size="sm"
-												onClick={handleEarnedIncomeUpdate}
-												className="delete"
-											>
-												<CheckLg />
-											</Button>
-											<Button
-												onClick={handleFinishEditing}
-												size="sm"
-												variant="secondary"
-												className="delete"
-											>
-												<XLg />
-											</Button>
-										</span>
-										<Form>
-											<Row>
-												<Col xs="auto">
+								{editing && _id === selected ? (
+									<td>
+										<Form
+											style={{ width: 360 }}
+											onSubmit={handleEarnedIncomeUpdate}
+										>
+											<Form.Row>
+												<Form.Group as={Col} md="1">
+													<Button
+														variant="success"
+														size="sm"
+														onClick={handleEarnedIncomeUpdate}
+														className="form-submission"
+														disabled={
+															updatedEarnedIncome.type === type &&
+															updatedEarnedIncome.amount === amount
+														}
+													>
+														<CheckLg />
+													</Button>
+												</Form.Group>
+												<Form.Group as={Col} md="2">
+													<Button
+														onClick={handleFinishEditing}
+														size="sm"
+														variant="secondary"
+														className="delete"
+													>
+														<XLg />
+													</Button>
+												</Form.Group>
+												<Form.Group as={Col}>
 													<Form.Control
 														name="type"
-														value={ei.type}
-														onChange={handleEarnedIncomeChange}
+														value={updatedEarnedIncome.type}
+														onChange={handleEarnedIncomeUpdateChange}
 														as="select"
 														size="sm"
 													>
@@ -93,92 +102,90 @@ export default function EarnedIncome() {
 														))}
 													</Form.Control>
 													<Form.Text muted>Type</Form.Text>
-												</Col>
-												<Col xs={3}>
+												</Form.Group>
+												<Form.Group as={Col} md="2">
 													<Form.Control
 														name="amount"
-														value={ei.amount}
-														onChange={handleEarnedIncomeChange}
+														value={updatedEarnedIncome.amount}
+														onChange={handleEarnedIncomeUpdateChange}
 														required
 														pattern="[1-9]\d{0,}\.?\d{0,2}"
 														autoComplete="off"
 														size="sm"
-														style={{ width: "50px" }}
 													/>
 													<Form.Text muted>Amount</Form.Text>
-												</Col>
-											</Row>
+												</Form.Group>
+											</Form.Row>
 										</Form>
 									</td>
 								) : (
-									<>
-										<td style={{ display: "flex" }}>
-											<Button
-												name={ei.amount}
-												value={ei._id}
-												onClick={() => {
-													setSelected(ei._id);
-													handleStartEditing();
-												}}
-												variant="warning"
-												size="sm"
-												className="delete"
-											>
-												<Pencil />
-											</Button>
-											<Button
-												name={ei.amount}
-												value={ei._id}
-												onClick={handleShowModal}
-												variant="danger"
-												size="sm"
-												className="delete"
-											>
-												<Trash />
-											</Button>
-											{ei._id === selected && (
-												<Modal show={showModal} onHide={handleCloseModal}>
-													<Modal.Header closeButton>
-														<Modal.Title>
-															Are you sure you want to delete this entry?
-														</Modal.Title>
-													</Modal.Header>
-													<Modal.Body>
-														Type: <strong>{ei.type}</strong>, Amount: $
-														<strong>{ei.amount}</strong> in the category{" "}
-														<strong>{ei.category}</strong>
-													</Modal.Body>
-													<Modal.Footer>
-														<Button
-															variant="secondary"
-															onClick={handleCloseModal}
-														>
-															Cancel
-														</Button>
-														<Button
-															name={ei.amount}
-															value={ei._id}
-															onClick={() => {
-																handleEarnedIncomeDelete();
-																handleCloseModal();
-															}}
-															variant="danger"
-														>
-															Delete Entry
-														</Button>
-													</Modal.Footer>
-												</Modal>
-											)}
-											{ei.type}
-											<span
-												style={{
-													display: "flex",
-													flexGrow: 1,
-												}}
-											></span>
-											{ei.amount}
-										</td>
-									</>
+									<td style={{ display: "flex" }}>
+										<Button
+											name={amount}
+											value={_id}
+											onClick={() => {
+												setSelected(_id);
+												handleGetCurrentEarnedIncome(_id);
+												handleStartEditing();
+											}}
+											variant="warning"
+											size="sm"
+											className="delete"
+										>
+											<Pencil />
+										</Button>
+										<Button
+											name={amount}
+											value={_id}
+											onClick={() => {
+												setSelected(_id);
+												handleShowModal();
+											}}
+											variant="danger"
+											size="sm"
+											className="delete"
+										>
+											<Trash />
+										</Button>
+										{_id === selected && (
+											<Modal show={showModal} onHide={handleCloseModal}>
+												<Modal.Header closeButton>
+													<Modal.Title>
+														Are you sure you want to delete this entry?
+													</Modal.Title>
+												</Modal.Header>
+												<Modal.Body>
+													Type: <strong>{type}</strong>, Amount: $
+													<strong>{amount}</strong> in the category{" "}
+													<strong>{category}</strong>
+												</Modal.Body>
+												<Modal.Footer>
+													<Button
+														variant="secondary"
+														onClick={handleCloseModal}
+													>
+														Cancel
+													</Button>
+													<Button
+														name={amount}
+														value={_id}
+														onClick={handleEarnedIncomeDelete}
+														variant="danger"
+													>
+														Delete Entry
+													</Button>
+												</Modal.Footer>
+											</Modal>
+										)}
+										{type}
+										<span
+											style={{
+												display: "flex",
+												flexGrow: 1,
+											}}
+										></span>
+										{amount}
+									</td>
 								)}
 							</tr>
 						</tbody>

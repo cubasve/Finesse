@@ -55,7 +55,7 @@ export default function PortfolioIncome() {
 										size="sm"
 										className="delete"
 									>
-										X
+										&#9985;
 									</Button>
 									{pi.type}
 								</td>

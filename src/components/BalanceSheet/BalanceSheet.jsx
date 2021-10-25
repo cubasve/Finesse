@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import Assets from "../../components/Assets/Assets";
 import Liabilities from "../../components/Liabilities/Liabilities";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
+import {
+	calculateDifference,
+	determineColor,
+	determineTotalAmount,
+	showTotalAmount,
+} from "../../utils/calculations";
 
 export default class BalanceSheet extends Component {
 	async componentDidMount() {
@@ -9,45 +15,28 @@ export default class BalanceSheet extends Component {
 		handleFetchBalanceSheetData();
 	}
 
-	//Equity Calculation Methods
-	calculateEquity = (calculateTotalAsset, calculateTotalLiability) => {
-		if (!calculateTotalAsset && !calculateTotalLiability) return 0;
-		let equity = calculateTotalAsset - calculateTotalLiability;
-		if (Number.isInteger(equity)) return equity;
-		return equity.toFixed(2);
-	};
-
-	calculateTotalAsset = (totalAssetNumber) => {
-		if (!totalAssetNumber) return 0;
-		if (Number.isInteger(totalAssetNumber)) return totalAssetNumber;
-		return totalAssetNumber.toFixed(2);
-	};
-
-	calculateTotalLiability = (totalLiabilityNumber) => {
-		if (!totalLiabilityNumber) return 0;
-		if (Number.isInteger(totalLiabilityNumber)) return totalLiabilityNumber;
-		return totalLiabilityNumber.toFixed(2);
-	};
-
 	render() {
 		const { totalAssets, totalLiabilities } = this.context;
 
-		const totalAssetNumber = totalAssets
-			.map((elem) => elem.amount)
-			.reduce((acc, num) => acc + num, 0);
+		const totalAssetAmount = determineTotalAmount(totalAssets);
+		const totalLiabilityAmount = determineTotalAmount(totalLiabilities);
+		const equity = calculateDifference(totalAssetAmount, totalLiabilityAmount);
 
-		const totalLiabilityNumber = totalLiabilities
-			.map((elem) => elem.amount)
-			.reduce((acc, num) => acc + num, 0);
 		return (
 			<>
 				<h6>
 					<strong>EQUITY/NET WORTH = ASSETS - LIABILITIES</strong>
 				</h6>
 				<h6>
-					EQUITY: {this.calculateTotalAsset(totalAssetNumber)} -{" "}
-					{this.calculateTotalLiability(totalLiabilityNumber)} ={" "}
-					{this.calculateEquity(totalAssetNumber, totalLiabilityNumber)}
+					EQUITY: {showTotalAmount(totalAssetAmount)} -{" "}
+					{showTotalAmount(totalLiabilityAmount)} ={" "}
+					<span
+						style={{
+							color: determineColor(equity),
+						}}
+					>
+						{equity}
+					</span>
 				</h6>
 
 				<Assets />
