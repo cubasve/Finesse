@@ -3,8 +3,8 @@ import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import {
 	calculatePercentage,
-	determineTotalAmount,
-	showTotalAmount,
+	calculateSum,
+	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
@@ -22,8 +22,8 @@ export default function Business() {
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
-	const totalAssetAmount = determineTotalAmount(totalAssets);
-	const totalBusinessAmount = determineTotalAmount(totalBusiness);
+	const totalAssetAmount = calculateSum(totalAssets);
+	const totalBusinessAmount = calculateSum(totalBusiness);
 
 	return (
 		<>
@@ -32,7 +32,7 @@ export default function Business() {
 					{calculatePercentage(totalAssetAmount, totalBusinessAmount)}%
 				</span>
 				<span>Business</span>
-				<span>${showTotalAmount(totalBusinessAmount)}</span>
+				<span>{formatAmount(totalBusinessAmount)}</span>
 			</h5>
 			{totalBusiness.map((b) => (
 				<div key={b.amount}>

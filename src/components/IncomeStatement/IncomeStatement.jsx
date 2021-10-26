@@ -5,8 +5,8 @@ import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculateDifference,
 	determineColor,
-	determineTotalAmount,
-	showTotalAmount,
+	calculateSum,
+	formatAmount,
 } from "../../utils/calculations";
 
 export default class IncomeStatement extends Component {
@@ -18,10 +18,8 @@ export default class IncomeStatement extends Component {
 	render() {
 		const { totalIncome, totalExpensesAndSelfFirst } = this.context;
 
-		const totalIncomeAmount = determineTotalAmount(totalIncome);
-		const totalExpensesAndPYFAmount = determineTotalAmount(
-			totalExpensesAndSelfFirst
-		);
+		const totalIncomeAmount = calculateSum(totalIncome);
+		const totalExpensesAndPYFAmount = calculateSum(totalExpensesAndSelfFirst);
 		const cashFlow = calculateDifference(
 			totalIncomeAmount,
 			totalExpensesAndPYFAmount
@@ -33,14 +31,14 @@ export default class IncomeStatement extends Component {
 					<strong>CASH FLOW = INCOME - EXPENSES</strong>
 				</h6>
 				<h6>
-					CASH FLOW: {showTotalAmount(totalIncomeAmount)} -{" "}
-					{showTotalAmount(totalExpensesAndPYFAmount)} ={" "}
+					CASH FLOW: {formatAmount(totalIncomeAmount)} -{" "}
+					{formatAmount(totalExpensesAndPYFAmount)} ={" "}
 					<span
 						style={{
 							color: determineColor(cashFlow),
 						}}
 					>
-						{cashFlow}
+						{formatAmount(cashFlow)}
 					</span>
 				</h6>
 				<Income />

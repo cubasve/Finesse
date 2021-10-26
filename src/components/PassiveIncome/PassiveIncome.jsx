@@ -3,8 +3,8 @@ import { Table, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculatePercentage,
-	determineTotalAmount,
-	showTotalAmount,
+	calculateSum,
+	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
@@ -28,8 +28,8 @@ export default function PassiveIncome() {
 		handlePassiveIncomeDelete,
 	} = useContext(IncomeExpenseContext);
 
-	const totalIncomeAmount = determineTotalAmount(totalIncome);
-	const totalPassiveIncomeAmount = determineTotalAmount(totalPassiveIncome);
+	const totalIncomeAmount = calculateSum(totalIncome);
+	const totalPassiveIncomeAmount = calculateSum(totalPassiveIncome);
 
 	return (
 		<>
@@ -38,7 +38,7 @@ export default function PassiveIncome() {
 					{calculatePercentage(totalIncomeAmount, totalPassiveIncomeAmount)}%
 				</span>
 				<span>Passive</span>
-				<span>${showTotalAmount(totalPassiveIncomeAmount)}</span>
+				<span>{formatAmount(totalPassiveIncomeAmount)}</span>
 			</h5>
 			{totalPassiveIncome.map((pi) => (
 				<div key={pi.amount}>

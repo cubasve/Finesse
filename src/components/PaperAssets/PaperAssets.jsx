@@ -3,8 +3,8 @@ import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import {
 	calculatePercentage,
-	determineTotalAmount,
-	showTotalAmount,
+	calculateSum,
+	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
@@ -29,8 +29,8 @@ export default function PaperAssets() {
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
-	const totalAssetAmount = determineTotalAmount(totalAssets);
-	const totalPaperAmount = determineTotalAmount(totalPaperAssets);
+	const totalAssetAmount = calculateSum(totalAssets);
+	const totalPaperAmount = calculateSum(totalPaperAssets);
 
 	return (
 		<>
@@ -39,7 +39,7 @@ export default function PaperAssets() {
 					{calculatePercentage(totalAssetAmount, totalPaperAmount)}%
 				</span>
 				<span>Paper</span>
-				<span>${showTotalAmount(totalPaperAmount)}</span>
+				<span>{formatAmount(totalPaperAmount)}</span>
 			</h5>
 			{totalPaperAssets.map((pa) => (
 				<div key={pa.amount}>

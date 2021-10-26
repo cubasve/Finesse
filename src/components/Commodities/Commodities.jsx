@@ -3,8 +3,8 @@ import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import {
 	calculatePercentage,
-	determineTotalAmount,
-	showTotalAmount,
+	calculateSum,
+	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
@@ -29,8 +29,8 @@ export default function Commodities() {
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
-	const totalAssetAmount = determineTotalAmount(totalAssets);
-	const totalCommodityAmount = determineTotalAmount(totalCommodities);
+	const totalAssetAmount = calculateSum(totalAssets);
+	const totalCommodityAmount = calculateSum(totalCommodities);
 
 	return (
 		<>
@@ -39,7 +39,7 @@ export default function Commodities() {
 					{calculatePercentage(totalAssetAmount, totalCommodityAmount)}%
 				</span>
 				<span>Commodities</span>
-				<span>${showTotalAmount(totalCommodityAmount)}</span>
+				<span>{formatAmount(totalCommodityAmount)}</span>
 			</h5>
 			{totalCommodities.map((c) => (
 				<div key={c.amount}>

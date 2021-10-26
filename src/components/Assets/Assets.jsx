@@ -7,10 +7,7 @@ import Cash from "../Cash/Cash";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import { Popover, OverlayTrigger, Button } from "react-bootstrap";
 import { InfoLg } from "react-bootstrap-icons";
-import {
-	determineTotalAmount,
-	showTotalAmount,
-} from "../../utils/calculations";
+import { calculateSum, formatAmount } from "../../utils/calculations";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -29,7 +26,7 @@ const AssetPopover = () => (
 
 export default function Assets() {
 	const { totalAssets } = useContext(AssetLiabilityContext);
-	const totalAssetAmount = determineTotalAmount(totalAssets);
+	const totalAssetAmount = calculateSum(totalAssets);
 
 	return (
 		<div className="border">
@@ -37,7 +34,7 @@ export default function Assets() {
 				<span>
 					ASSETS <AssetPopover />
 				</span>
-				<span className="right">${showTotalAmount(totalAssetAmount)}</span>
+				<span className="right">{formatAmount(totalAssetAmount)}</span>
 			</span>
 			<Cash />
 			<PaperAssets />

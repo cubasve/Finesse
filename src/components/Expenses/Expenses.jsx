@@ -3,8 +3,8 @@ import { Table, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculatePercentage,
-	determineTotalAmount,
-	showTotalAmount,
+	calculateSum,
+	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
@@ -32,10 +32,8 @@ export default function Expenses() {
 		expenseFormInvalid,
 	} = useContext(IncomeExpenseContext);
 
-	const totalExpenseAmount = determineTotalAmount(totalExpenses);
-	const totalExpensesAndPYFAmount = determineTotalAmount(
-		totalExpensesAndSelfFirst
-	);
+	const totalExpenseAmount = calculateSum(totalExpenses);
+	const totalExpensesAndPYFAmount = calculateSum(totalExpensesAndSelfFirst);
 
 	return (
 		<>
@@ -44,7 +42,7 @@ export default function Expenses() {
 					{calculatePercentage(totalExpensesAndPYFAmount, totalExpenseAmount)}%
 				</span>
 				<span>Other Expenses</span>
-				<span>${showTotalAmount(totalExpenseAmount)}</span>
+				<span>{formatAmount(totalExpenseAmount)}</span>
 			</h5>
 
 			{totalExpenses.map((ex) => (

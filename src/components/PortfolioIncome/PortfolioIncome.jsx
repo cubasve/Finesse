@@ -3,8 +3,8 @@ import { Table, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculatePercentage,
-	determineTotalAmount,
-	showTotalAmount,
+	calculateSum,
+	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 
@@ -29,8 +29,8 @@ export default function PortfolioIncome() {
 		handlePortfolioIncomeDelete,
 	} = useContext(IncomeExpenseContext);
 
-	const totalIncomeAmount = determineTotalAmount(totalIncome);
-	const totalPortfolioIncomeAmount = determineTotalAmount(totalPortfolioIncome);
+	const totalIncomeAmount = calculateSum(totalIncome);
+	const totalPortfolioIncomeAmount = calculateSum(totalPortfolioIncome);
 
 	return (
 		<>
@@ -39,7 +39,7 @@ export default function PortfolioIncome() {
 					{calculatePercentage(totalIncomeAmount, totalPortfolioIncomeAmount)}%
 				</span>
 				<span>Portfolio</span>
-				<span>${showTotalAmount(totalPortfolioIncomeAmount)}</span>
+				<span>{formatAmount(totalPortfolioIncomeAmount)}</span>
 			</h5>
 			{totalPortfolioIncome.map((pi) => (
 				<div key={pi.amount}>

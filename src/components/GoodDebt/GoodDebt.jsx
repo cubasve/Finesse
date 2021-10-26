@@ -3,8 +3,8 @@ import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import { Table, Popover, OverlayTrigger, Button } from "react-bootstrap";
 import {
 	calculatePercentage,
-	determineTotalAmount,
-	showTotalAmount,
+	calculateSum,
+	formatAmount,
 } from "../../utils/calculations";
 import { InfoLg } from "react-bootstrap-icons";
 import FormInput from "../common/FormInput";
@@ -44,8 +44,8 @@ export default function GoodDebt() {
 		totalLiabilities,
 	} = useContext(AssetLiabilityContext);
 
-	const totalLiabilityAmount = determineTotalAmount(totalLiabilities);
-	const totalGoodDebtAmount = determineTotalAmount(totalGoodDebt);
+	const totalLiabilityAmount = calculateSum(totalLiabilities);
+	const totalGoodDebtAmount = calculateSum(totalGoodDebt);
 
 	return (
 		<>
@@ -56,7 +56,7 @@ export default function GoodDebt() {
 				<span>
 					Good Debt <GoodDebtPopover />
 				</span>
-				<span>${showTotalAmount(totalGoodDebtAmount)}</span>
+				<span>{formatAmount(totalGoodDebtAmount)}</span>
 			</h5>
 			{totalGoodDebt.map((gd) => (
 				<div key={gd.amount}>

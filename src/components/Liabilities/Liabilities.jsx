@@ -4,10 +4,7 @@ import BadDebt from "../BadDebt/BadDebt";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import { Popover, OverlayTrigger, Button } from "react-bootstrap";
 import { InfoLg } from "react-bootstrap-icons";
-import {
-	determineTotalAmount,
-	showTotalAmount,
-} from "../../utils/calculations";
+import { calculateSum, formatAmount } from "../../utils/calculations";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -27,7 +24,7 @@ const LiabilityPopover = () => (
 
 export default function Liabilities() {
 	const { totalLiabilities } = useContext(AssetLiabilityContext);
-	const totalLiabilityAmount = determineTotalAmount(totalLiabilities);
+	const totalLiabilityAmount = calculateSum(totalLiabilities);
 
 	return (
 		<div className="border">
@@ -36,7 +33,7 @@ export default function Liabilities() {
 					LIABILITIES <LiabilityPopover />
 				</span>
 
-				<span className="right">${showTotalAmount(totalLiabilityAmount)}</span>
+				<span className="right">{formatAmount(totalLiabilityAmount)}</span>
 			</span>
 
 			<GoodDebt />

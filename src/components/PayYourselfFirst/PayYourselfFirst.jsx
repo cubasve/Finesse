@@ -3,8 +3,8 @@ import { Popover, OverlayTrigger, Button, Table, Form } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculatePercentage,
-	determineTotalAmount,
-	showTotalAmount,
+	calculateSum,
+	formatAmount,
 } from "../../utils/calculations";
 import { InfoLg } from "react-bootstrap-icons";
 
@@ -39,10 +39,8 @@ export default function PayYourselfFirst() {
 		selfFirstFormInvalid,
 	} = useContext(IncomeExpenseContext);
 
-	const totalSelfFirstAmount = determineTotalAmount(totalPayYourselfFirst);
-	const totalExpensesAndPYFAmount = determineTotalAmount(
-		totalExpensesAndSelfFirst
-	);
+	const totalSelfFirstAmount = calculateSum(totalPayYourselfFirst);
+	const totalExpensesAndPYFAmount = calculateSum(totalExpensesAndSelfFirst);
 
 	return (
 		<>
@@ -51,9 +49,11 @@ export default function PayYourselfFirst() {
 					{calculatePercentage(totalExpensesAndPYFAmount, totalSelfFirstAmount)}
 					%
 				</span>
-				<span>Pay Yourself First </span>
-				<PayYourselfPopover />
-				<span>${showTotalAmount(totalSelfFirstAmount)}</span>
+				<span>
+					Pay Yourself First <PayYourselfPopover />
+				</span>
+
+				<span>{formatAmount(totalSelfFirstAmount)}</span>
 			</h5>
 
 			{totalPayYourselfFirst.map((pi) => (

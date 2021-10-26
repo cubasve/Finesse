@@ -5,8 +5,8 @@ import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import {
 	calculateDifference,
 	determineColor,
-	determineTotalAmount,
-	showTotalAmount,
+	calculateSum,
+	formatAmount,
 } from "../../utils/calculations";
 
 export default class BalanceSheet extends Component {
@@ -18,8 +18,8 @@ export default class BalanceSheet extends Component {
 	render() {
 		const { totalAssets, totalLiabilities } = this.context;
 
-		const totalAssetAmount = determineTotalAmount(totalAssets);
-		const totalLiabilityAmount = determineTotalAmount(totalLiabilities);
+		const totalAssetAmount = calculateSum(totalAssets);
+		const totalLiabilityAmount = calculateSum(totalLiabilities);
 		const equity = calculateDifference(totalAssetAmount, totalLiabilityAmount);
 
 		return (
@@ -28,14 +28,14 @@ export default class BalanceSheet extends Component {
 					<strong>EQUITY/NET WORTH = ASSETS - LIABILITIES</strong>
 				</h6>
 				<h6>
-					EQUITY: {showTotalAmount(totalAssetAmount)} -{" "}
-					{showTotalAmount(totalLiabilityAmount)} ={" "}
+					EQUITY: {formatAmount(totalAssetAmount)} -{" "}
+					{formatAmount(totalLiabilityAmount)} ={" "}
 					<span
 						style={{
 							color: determineColor(equity),
 						}}
 					>
-						{equity}
+						{formatAmount(equity)}
 					</span>
 				</h6>
 
