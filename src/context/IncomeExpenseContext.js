@@ -26,6 +26,7 @@ export class IncomeExpenseProvider extends Component {
 			category: "Portfolio",
 			class: "Income",
 		},
+		updatedPortfolioIncome: {},
 		portfolioFormInvalid: true,
 
 		totalPassiveIncome: [],
@@ -102,8 +103,14 @@ export class IncomeExpenseProvider extends Component {
 		const currentEarnedIncome = this.state.totalEarnedIncome.find(
 			({ _id }) => _id === id
 		);
-		console.log("currentEarnedIncome", currentEarnedIncome);
 		this.setState({ updatedEarnedIncome: currentEarnedIncome });
+	};
+
+	handleGetCurrentPortfolioIncome = (id) => {
+		const currentPortfolioIncome = this.state.totalPortfolioIncome.find(
+			({ _id }) => _id === id
+		);
+		this.setState({ updatedPortfolioIncome: currentPortfolioIncome });
 	};
 
 	//Earned Income Methods
@@ -159,7 +166,6 @@ export class IncomeExpenseProvider extends Component {
 			...this.state.updatedEarnedIncome,
 			[e.target.name]: e.target.value,
 		};
-		console.log(updatedEarnedIncome);
 		this.setState({
 			updatedEarnedIncome: updatedEarnedIncome,
 		});
@@ -167,7 +173,6 @@ export class IncomeExpenseProvider extends Component {
 
 	handleEarnedIncomeDelete = async (e) => {
 		try {
-			console.log("e", e.target.value);
 			await financialStatementService
 				.deleteOne({ id: e.target.value })
 				.then((data) => {
@@ -188,16 +193,16 @@ export class IncomeExpenseProvider extends Component {
 		}
 	};
 
-	handleEarnedIncomeUpdate = async (e) => {
-		e.preventDefault();
+	handleEarnedIncomeUpdateSubmit = async (e) => {
+		// e.preventDefault();
 		try {
 			await financialStatementService
 				.update({
+					id: e.target.value,
 					type: this.state.updatedEarnedIncome.type,
 					amount: this.state.updatedEarnedIncome.amount,
 				})
 				.then((data) => {
-					console.log(data);
 					this.setState({
 						totalEarnedIncome: data.user.userFinances.filter(
 							(elem) => elem.category === "Earned"
@@ -264,9 +269,18 @@ export class IncomeExpenseProvider extends Component {
 		});
 	};
 
+	handlePortfolioIncomeUpdateChange = (e) => {
+		const updatedPortfolioIncome = {
+			...this.state.updatedPortfolioIncome,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			updatedPortfolioIncome: updatedPortfolioIncome,
+		});
+	};
+
 	handlePortfolioIncomeDelete = async (e) => {
 		try {
-			console.log("e", e.target.value);
 			await financialStatementService
 				.deleteOne({ id: e.target.value })
 				.then((data) => {
@@ -280,6 +294,34 @@ export class IncomeExpenseProvider extends Component {
 								elem.category === "Portfolio" ||
 								elem.category === "Passive"
 						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handlePortfolioIncomeUpdateSubmit = async (e) => {
+		// e.preventDefault();
+		try {
+			await financialStatementService
+				.update({
+					id: e.target.value,
+					type: this.state.updatedPortfolioIncome.type,
+					amount: this.state.updatedPortfolioIncome.amount,
+				})
+				.then((data) => {
+					this.setState({
+						totalPortfolioIncome: data.user.userFinances.filter(
+							(elem) => elem.category === "Portfolio"
+						),
+						totalIncome: data.user.userFinances.filter(
+							(elem) =>
+								elem.category === "Earned" ||
+								elem.category === "Portfolio" ||
+								elem.category === "Passive"
+						),
+						updatedPortfolioIncome: {},
 					});
 				});
 		} catch (err) {
@@ -494,6 +536,7 @@ export class IncomeExpenseProvider extends Component {
 			earnedFormInvalid,
 			totalPortfolioIncome,
 			newPortfolioIncome,
+			updatedPortfolioIncome,
 			portfolioFormInvalid,
 			totalPassiveIncome,
 			newPassiveIncome,
@@ -509,24 +552,33 @@ export class IncomeExpenseProvider extends Component {
 
 		const {
 			handleFetchData,
+
 			handleEarnedIncomeSubmit,
 			handleEarnedIncomeChange,
 			handleEarnedIncomeUpdateChange,
+			handleEarnedIncomeUpdateSubmit,
 			handleGetCurrentEarnedIncome,
 			handleEarnedIncomeDelete,
 			earnedFormRef,
+
 			handlePortfolioIncomeSubmit,
 			handlePortfolioIncomeChange,
 			handlePortfolioIncomeDelete,
+			handleGetCurrentPortfolioIncome,
+			handlePortfolioIncomeUpdateChange,
+			handlePortfolioIncomeUpdateSubmit,
 			portfolioFormRef,
+
 			handlePassiveIncomeSubmit,
 			handlePassiveIncomeChange,
 			handlePassiveIncomeDelete,
 			passiveFormRef,
+
 			expenseFormRef,
 			handleExpenseSubmit,
 			handleExpenseChange,
 			handleExpenseDelete,
+
 			selfFirstFormRef,
 			handleSelfFirstSubmit,
 			handleSelfFirstChange,
@@ -537,45 +589,61 @@ export class IncomeExpenseProvider extends Component {
 			<IncomeExpenseContext.Provider
 				value={{
 					totalIncome,
+
 					totalEarnedIncome,
 					newEarnedIncome,
 					updatedEarnedIncome,
 					earnedFormInvalid,
 					earnedFormRef,
+
 					totalPortfolioIncome,
 					newPortfolioIncome,
+					updatedPortfolioIncome,
 					portfolioFormInvalid,
 					portfolioFormRef,
+
 					totalPassiveIncome,
 					newPassiveIncome,
 					passiveFormInvalid,
 					passiveFormRef,
+
 					handleEarnedIncomeSubmit,
 					handleEarnedIncomeChange,
 					handleEarnedIncomeUpdateChange,
+					handleEarnedIncomeUpdateSubmit,
 					handleGetCurrentEarnedIncome,
 					handleEarnedIncomeDelete,
+
 					handlePortfolioIncomeSubmit,
 					handlePortfolioIncomeChange,
 					handlePortfolioIncomeDelete,
+					handleGetCurrentPortfolioIncome,
+					handlePortfolioIncomeUpdateChange,
+					handlePortfolioIncomeUpdateSubmit,
+
 					handlePassiveIncomeSubmit,
 					handlePassiveIncomeChange,
 					handlePassiveIncomeDelete,
+
 					totalExpensesAndSelfFirst,
 					totalExpenses,
 					newExpense,
 					expenseFormInvalid,
+					expenseFormRef,
+
 					totalPayYourselfFirst,
 					newPayYourselfFirst,
 					selfFirstFormInvalid,
-					expenseFormRef,
+					selfFirstFormRef,
+
 					handleExpenseSubmit,
 					handleExpenseChange,
 					handleExpenseDelete,
-					selfFirstFormRef,
+
 					handleSelfFirstSubmit,
 					handleSelfFirstChange,
 					handleSelfFirstDelete,
+
 					handleFetchData,
 				}}
 			>

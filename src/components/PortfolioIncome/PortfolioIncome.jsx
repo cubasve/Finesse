@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
-import { Table, Button } from "react-bootstrap";
+import React, { useContext, useState } from "react";
+import { Button, Col, Form, Modal, Table } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculatePercentage,
 	calculateSum,
 	formatAmount,
+	formatEntry,
 } from "../../utils/calculations";
+import { Pencil, Trash, XLg } from "react-bootstrap-icons";
 import FormInput from "../common/FormInput";
 
 const portfolioIncomeOptions = [
@@ -24,13 +26,27 @@ export default function PortfolioIncome() {
 		newPortfolioIncome,
 		portfolioFormInvalid,
 		portfolioFormRef,
+		updatedPortfolioIncome,
 		handlePortfolioIncomeSubmit,
 		handlePortfolioIncomeChange,
 		handlePortfolioIncomeDelete,
+		handleGetCurrentPortfolioIncome,
+		handlePortfolioIncomeUpdateChange,
+		handlePortfolioIncomeUpdateSubmit,
 	} = useContext(IncomeExpenseContext);
 
 	const totalIncomeAmount = calculateSum(totalIncome);
 	const totalPortfolioIncomeAmount = calculateSum(totalPortfolioIncome);
+
+	const [selected, setSelected] = useState("");
+
+	const [editing, setEditing] = useState(false);
+	const handleStartEditing = () => setEditing(true);
+	const handleFinishEditing = () => setEditing(false);
+
+	const [showModal, setShowModal] = useState(false);
+	const handleCloseModal = () => setShowModal(false);
+	const handleShowModal = () => setShowModal(true);
 
 	return (
 		<>
@@ -41,29 +57,142 @@ export default function PortfolioIncome() {
 				<span>Portfolio</span>
 				<span>{formatAmount(totalPortfolioIncomeAmount)}</span>
 			</h5>
-			{totalPortfolioIncome.map((pi) => (
-				<div key={pi.amount}>
-					<Table borderless hover size="sm">
-						<tbody>
-							<tr>
-								<td className="left">
+			{totalPortfolioIncome.map(({ _id, amount, category, type }) => (
+				<Table borderless hover key={_id} size="sm">
+					<tbody>
+						<tr>
+							{editing && _id === selected ? (
+								<td>
+									<Form
+										style={{ width: 360 }}
+										onSubmit={handlePortfolioIncomeUpdateSubmit}
+									>
+										<Form.Row>
+											<Form.Group as={Col} md="1">
+												<Button
+													variant="success"
+													size="sm"
+													type="submit"
+													onClick={handlePortfolioIncomeUpdateSubmit}
+													value={_id}
+													disabled={
+														updatedPortfolioIncome.type === type &&
+														updatedPortfolioIncome.amount === amount
+													}
+												>
+													&#10003;
+												</Button>
+											</Form.Group>
+											<Form.Group as={Col} md="2">
+												<Button
+													onClick={handleFinishEditing}
+													size="sm"
+													variant="secondary"
+													className="delete"
+												>
+													<XLg />
+												</Button>
+											</Form.Group>
+											<Form.Group as={Col}>
+												<Form.Control
+													name="type"
+													value={updatedPortfolioIncome.type}
+													onChange={handlePortfolioIncomeUpdateChange}
+													as="select"
+													size="sm"
+												>
+													{portfolioIncomeOptions.map((option) => (
+														<option key={option} value={option}>
+															{option}
+														</option>
+													))}
+												</Form.Control>
+												<Form.Text muted>Type</Form.Text>
+											</Form.Group>
+											<Form.Group as={Col} md="3">
+												<Form.Control
+													name="amount"
+													value={updatedPortfolioIncome.amount}
+													onChange={handlePortfolioIncomeUpdateChange}
+													required
+													pattern="[1-9]\d{0,}\.?\d{0,2}"
+													autoComplete="off"
+													size="sm"
+												/>
+												<Form.Text muted>Amount</Form.Text>
+											</Form.Group>
+										</Form.Row>
+									</Form>
+								</td>
+							) : (
+								<td style={{ display: "flex" }}>
 									<Button
-										name={pi.amount}
-										value={pi._id}
-										onClick={handlePortfolioIncomeDelete}
+										name={amount}
+										value={_id}
+										onClick={() => {
+											setSelected(_id);
+											handleGetCurrentPortfolioIncome(_id);
+											handleStartEditing();
+										}}
+										variant="warning"
+										size="sm"
+										className="delete"
+									>
+										<Pencil />
+									</Button>
+									<Button
+										name={amount}
+										value={_id}
+										onClick={() => {
+											setSelected(_id);
+											handleShowModal();
+										}}
 										variant="danger"
 										size="sm"
 										className="delete"
 									>
-										&#9985;
+										<Trash />
 									</Button>
-									{pi.type}
+									{_id === selected && (
+										<Modal show={showModal} onHide={handleCloseModal}>
+											<Modal.Header closeButton>
+												<Modal.Title>
+													Are you sure you want to delete this entry?
+												</Modal.Title>
+											</Modal.Header>
+											<Modal.Body>
+												Type: <strong>{type}</strong>, Amount:{" "}
+												<strong>{formatAmount(amount)}</strong> in the{" "}
+												<strong>{category}</strong> category
+											</Modal.Body>
+											<Modal.Footer>
+												<Button variant="secondary" onClick={handleCloseModal}>
+													Cancel
+												</Button>
+												<Button
+													name={amount}
+													value={_id}
+													onClick={handlePortfolioIncomeDelete}
+													variant="danger"
+												>
+													Delete Entry
+												</Button>
+											</Modal.Footer>
+										</Modal>
+									)}
+									{type}
+									<span
+										style={{
+											display: "flex",
+											flexGrow: 1,
+										}}
+									></span>
+									{formatEntry(amount)}
 								</td>
-								<td className="right">{pi.amount}</td>
-							</tr>
-						</tbody>
-					</Table>
-				</div>
+							)}
+						</tr>
+					</tbody>
+				</Table>
 			))}
 			<FormInput
 				formRef={portfolioFormRef}

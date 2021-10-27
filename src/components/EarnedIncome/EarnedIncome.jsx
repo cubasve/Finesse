@@ -31,7 +31,6 @@ export default function EarnedIncome() {
 	const [selected, setSelected] = useState("");
 
 	const [editing, setEditing] = useState(false);
-	console.log("editing", editing);
 	const handleStartEditing = () => setEditing(true);
 	const handleFinishEditing = () => setEditing(false);
 
@@ -41,8 +40,6 @@ export default function EarnedIncome() {
 
 	const totalIncomeAmount = calculateSum(totalIncome);
 	const totalEarnedIncomeAmount = calculateSum(totalEarnedIncome);
-
-	console.log("updatedEarnedIncome", updatedEarnedIncome);
 
 	return (
 		<>
@@ -68,6 +65,7 @@ export default function EarnedIncome() {
 												<Button
 													variant="success"
 													size="sm"
+													type="submit"
 													onClick={handleEarnedIncomeUpdateSubmit}
 													value={_id}
 													disabled={
@@ -75,9 +73,7 @@ export default function EarnedIncome() {
 														updatedEarnedIncome.amount === amount
 													}
 												>
-													{/* &#10004; */}
 													&#10003;
-													{/* &#9989; */}
 												</Button>
 											</Form.Group>
 											<Form.Group as={Col} md="2">

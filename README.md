@@ -77,3 +77,13 @@ Finesse
 
 - **Add formatting for numbers:**
   Add a comma after every third place
+
+- **Add class field in financialStatement model:**
+  Class: Income, Expense, Asset, Liability (for easier filtering and better organization)
+
+- **Add more categories for 'Expenses':**
+  - Necessity: Taxes, Housing, Transportation, Food, etc.
+  - Emergency: emergency fund of $1,000
+  - Investment: Pay yourself first
+  - Learning:
+  - Fun (Treat yourself)
