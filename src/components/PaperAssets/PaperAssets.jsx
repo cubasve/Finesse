@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import {
 	calculatePercentage,
@@ -7,8 +6,9 @@ import {
 	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
+import EntityTable from "../common/EntityTable";
 
-const paperAssetsOptions = [
+const paperAssetOptions = [
 	"Stock",
 	"Bond",
 	"Index/Mutual Fund",
@@ -24,8 +24,12 @@ export default function PaperAssets() {
 		paperAssetFormRef,
 		handlePaperAssetSubmit,
 		newPaperAsset,
+		updatedPaperAsset,
 		handlePaperAssetChange,
 		paperAssetFormInvalid,
+		handleGetCurrentPaperAsset,
+		handlePaperAssetUpdateChange,
+		handlePaperAssetUpdateSubmit,
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
@@ -41,36 +45,21 @@ export default function PaperAssets() {
 				<span>Paper</span>
 				<span>{formatAmount(totalPaperAmount)}</span>
 			</h5>
-			{totalPaperAssets.map((pa) => (
-				<div key={pa.amount}>
-					<Table borderless hover size="sm">
-						<tbody>
-							<tr>
-								<td className="left">
-									<Button
-										name={pa.amount}
-										value={pa._id}
-										onClick={handlePaperAssetDelete}
-										variant="danger"
-										size="sm"
-										className="delete"
-									>
-										X
-									</Button>
-									{pa.type}
-								</td>
-								<td className="right">{pa.amount}</td>
-							</tr>
-						</tbody>
-					</Table>
-				</div>
-			))}
+			<EntityTable
+				totalEntity={totalPaperAssets}
+				handleUpdateSubmit={handlePaperAssetUpdateSubmit}
+				updatedEntity={updatedPaperAsset}
+				handleUpdateChange={handlePaperAssetUpdateChange}
+				options={paperAssetOptions}
+				handleGetCurrentEntity={handleGetCurrentPaperAsset}
+				handleDelete={handlePaperAssetDelete}
+			/>
 			<FormInput
 				formRef={paperAssetFormRef}
 				handleSubmit={handlePaperAssetSubmit}
 				handleChange={handlePaperAssetChange}
 				newEntity={newPaperAsset}
-				options={paperAssetsOptions}
+				options={paperAssetOptions}
 				placeholder="Purchase Price"
 				formInvalid={paperAssetFormInvalid}
 			/>

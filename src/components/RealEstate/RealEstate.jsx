@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import {
 	calculatePercentage,
@@ -7,6 +6,7 @@ import {
 	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
+import EntityTable from "../common/EntityTable";
 
 const realEstateOptions = [
 	"Residential",
@@ -22,8 +22,12 @@ export default function RealEstate() {
 		realEstateFormRef,
 		handleRealEstateSubmit,
 		newRealEstate,
+		updatedRealEstate,
 		handleRealEstateChange,
 		realEstateFormInvalid,
+		handleGetCurrentRealEstate,
+		handleRealEstateUpdateChange,
+		handleRealEstateUpdateSubmit,
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
@@ -39,31 +43,15 @@ export default function RealEstate() {
 				<span>Real Estate</span>
 				<span>{formatAmount(totalRealEstateAmount)}</span>
 			</h5>
-
-			{totalRealEstate.map((re) => (
-				<div key={re.amount}>
-					<Table borderless hover size="sm">
-						<tbody>
-							<tr>
-								<td className="left">
-									<Button
-										name={re.amount}
-										value={re._id}
-										onClick={handleRealEstateDelete}
-										variant="danger"
-										size="sm"
-										className="delete"
-									>
-										X
-									</Button>
-									{re.type}
-								</td>
-								<td className="right">{re.amount}</td>
-							</tr>
-						</tbody>
-					</Table>
-				</div>
-			))}
+			<EntityTable
+				totalEntity={totalRealEstate}
+				handleUpdateSubmit={handleRealEstateUpdateSubmit}
+				updatedEntity={updatedRealEstate}
+				handleUpdateChange={handleRealEstateUpdateChange}
+				options={realEstateOptions}
+				handleGetCurrentEntity={handleGetCurrentRealEstate}
+				handleDelete={handleRealEstateDelete}
+			/>
 			<FormInput
 				formRef={realEstateFormRef}
 				handleSubmit={handleRealEstateSubmit}

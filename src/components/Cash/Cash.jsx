@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import {
 	calculatePercentage,
@@ -7,6 +6,7 @@ import {
 	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
+import EntityTable from "../common/EntityTable";
 
 const cashOptions = ["Chequing Account", "Savings Account"];
 
@@ -17,8 +17,12 @@ export default function Cash() {
 		cashFormRef,
 		handleCashSubmit,
 		newCash,
+		updatedCash,
 		handleCashChange,
 		cashFormInvalid,
+		handleGetCurrentCash,
+		handleCashUpdateChange,
+		handleCashUpdateSubmit,
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
@@ -34,31 +38,15 @@ export default function Cash() {
 				<span>Cash</span>
 				<span>{formatAmount(totalCashAmount)}</span>
 			</h5>
-
-			{totalCash.map((ca) => (
-				<div key={ca.amount}>
-					<Table borderless hover size="sm">
-						<tbody>
-							<tr>
-								<td className="left">
-									<Button
-										name={ca.amount}
-										value={ca._id}
-										onClick={handleCashDelete}
-										variant="danger"
-										size="sm"
-										className="delete"
-									>
-										X
-									</Button>
-									{ca.type}
-								</td>
-								<td className="right">{ca.amount}</td>
-							</tr>
-						</tbody>
-					</Table>
-				</div>
-			))}
+			<EntityTable
+				totalEntity={totalCash}
+				handleUpdateSubmit={handleCashUpdateSubmit}
+				updatedEntity={updatedCash}
+				handleUpdateChange={handleCashUpdateChange}
+				options={cashOptions}
+				handleGetCurrentEntity={handleGetCurrentCash}
+				handleDelete={handleCashDelete}
+			/>
 			<FormInput
 				formRef={cashFormRef}
 				handleSubmit={handleCashSubmit}

@@ -23,10 +23,8 @@ export default function EntityTable(props) {
 		handleDelete,
 	} = props;
 	const [selected, setSelected] = useState("");
-	console.log("selected", selected);
 
 	const [editing, setEditing] = useState(false);
-	console.log("editing", editing);
 	const handleStartEditing = () => setEditing(true);
 	const handleFinishEditing = () => setEditing(false);
 

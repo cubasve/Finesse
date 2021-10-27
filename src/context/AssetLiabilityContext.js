@@ -16,6 +16,7 @@ export class AssetLiabilityProvider extends Component {
 			category: "Paper",
 			class: "Asset",
 		},
+		updatedPaperAsset: {},
 		paperAssetFormInvalid: true,
 
 		totalRealEstate: [],
@@ -25,6 +26,7 @@ export class AssetLiabilityProvider extends Component {
 			category: "RealEstate",
 			class: "Asset",
 		},
+		updatedRealEstate: {},
 		realEstateFormInvalid: true,
 
 		totalBusiness: [],
@@ -52,6 +54,7 @@ export class AssetLiabilityProvider extends Component {
 			category: "Cash",
 			class: "Asset",
 		},
+		updatedCash: {},
 		cashFormInvalid: true,
 
 		totalGoodDebt: [],
@@ -127,6 +130,25 @@ export class AssetLiabilityProvider extends Component {
 		}
 	};
 
+	handleGetCurrentCash = (id) => {
+		const currentCash = this.state.totalCash.find(({ _id }) => _id === id);
+		this.setState({ updatedCash: currentCash });
+	};
+
+	handleGetCurrentPaperAsset = (id) => {
+		const currentPaperAsset = this.state.totalPaperAssets.find(
+			({ _id }) => _id === id
+		);
+		this.setState({ updatedPaperAsset: currentPaperAsset });
+	};
+
+	handleGetCurrentRealEstate = (id) => {
+		const currentRealEstate = this.state.totalRealEstate.find(
+			({ _id }) => _id === id
+		);
+		this.setState({ updatedRealEstate: currentRealEstate });
+	};
+
 	//Paper Asset Methods
 	handlePaperAssetSubmit = async (e) => {
 		e.preventDefault();
@@ -175,6 +197,16 @@ export class AssetLiabilityProvider extends Component {
 		});
 	};
 
+	handlePaperAssetUpdateChange = (e) => {
+		const updatedPaperAsset = {
+			...this.state.updatedPaperAsset,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			updatedPaperAsset: updatedPaperAsset,
+		});
+	};
+
 	handlePaperAssetDelete = async (e) => {
 		try {
 			await financialStatementService
@@ -192,6 +224,36 @@ export class AssetLiabilityProvider extends Component {
 								elem.category === "Commodity" ||
 								elem.category === "Cash"
 						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handlePaperAssetUpdateSubmit = async (e) => {
+		// e.preventDefault();
+		try {
+			await financialStatementService
+				.update({
+					id: e.target.value,
+					type: this.state.updatedPaperAsset.type,
+					amount: this.state.updatedPaperAsset.amount,
+				})
+				.then((data) => {
+					this.setState({
+						totalPaperAssets: data.user.userFinances.filter(
+							(elem) => elem.category === "Paper"
+						),
+						totalAssets: data.user.userFinances.filter(
+							(elem) =>
+								elem.category === "Paper" ||
+								elem.category === "RealEstate" ||
+								elem.category === "Business" ||
+								elem.category === "Commodity" ||
+								elem.category === "Cash"
+						),
+						updatedPaperAsset: {},
 					});
 				});
 		} catch (err) {
@@ -247,6 +309,16 @@ export class AssetLiabilityProvider extends Component {
 		});
 	};
 
+	handleRealEstateUpdateChange = (e) => {
+		const updatedRealEstate = {
+			...this.state.updatedRealEstate,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			updatedRealEstate: updatedRealEstate,
+		});
+	};
+
 	handleRealEstateDelete = async (e) => {
 		try {
 			await financialStatementService
@@ -264,6 +336,36 @@ export class AssetLiabilityProvider extends Component {
 								elem.category === "Commodity" ||
 								elem.category === "Cash"
 						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handleRealEstateUpdateSubmit = async (e) => {
+		// e.preventDefault();
+		try {
+			await financialStatementService
+				.update({
+					id: e.target.value,
+					type: this.state.updatedRealEstate.type,
+					amount: this.state.updatedRealEstate.amount,
+				})
+				.then((data) => {
+					this.setState({
+						totalRealEstate: data.user.userFinances.filter(
+							(elem) => elem.category === "RealEstate"
+						),
+						totalAssets: data.user.userFinances.filter(
+							(elem) =>
+								elem.category === "Paper" ||
+								elem.category === "RealEstate" ||
+								elem.category === "Business" ||
+								elem.category === "Commodity" ||
+								elem.category === "Cash"
+						),
+						updatedRealEstate: {},
 					});
 				});
 		} catch (err) {
@@ -460,6 +562,16 @@ export class AssetLiabilityProvider extends Component {
 		});
 	};
 
+	handleCashUpdateChange = (e) => {
+		const updatedCash = {
+			...this.state.updatedCash,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			updatedCash: updatedCash,
+		});
+	};
+
 	handleCashDelete = async (e) => {
 		try {
 			await financialStatementService
@@ -477,6 +589,36 @@ export class AssetLiabilityProvider extends Component {
 								elem.category === "Commodity" ||
 								elem.category === "Cash"
 						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handleCashUpdateSubmit = async (e) => {
+		// e.preventDefault();
+		try {
+			await financialStatementService
+				.update({
+					id: e.target.value,
+					type: this.state.updatedCash.type,
+					amount: this.state.updatedCash.amount,
+				})
+				.then((data) => {
+					this.setState({
+						totalCash: data.user.userFinances.filter(
+							(elem) => elem.category === "Cash"
+						),
+						totalAssets: data.user.userFinances.filter(
+							(elem) =>
+								elem.category === "Paper" ||
+								elem.category === "RealEstate" ||
+								elem.category === "Business" ||
+								elem.category === "Commodity" ||
+								elem.category === "Cash"
+						),
+						updatedCash: {},
 					});
 				});
 		} catch (err) {
@@ -616,24 +758,34 @@ export class AssetLiabilityProvider extends Component {
 		const {
 			totalAssets,
 			totalLiabilities,
+
 			totalPaperAssets,
 			newPaperAsset,
+			updatedPaperAsset,
 			paperAssetFormInvalid,
+
 			totalRealEstate,
 			newRealEstate,
+			updatedRealEstate,
 			realEstateFormInvalid,
+
 			totalBusiness,
 			newBusiness,
 			businessFormInvalid,
+
 			totalCommodities,
 			newCommodity,
 			commodityFormInvalid,
+
 			totalCash,
 			newCash,
+			updatedCash,
 			cashFormInvalid,
+
 			totalGoodDebt,
 			newGoodDebt,
 			goodDebtFormInvalid,
+
 			totalBadDebt,
 			newBadDebt,
 			badDebtFormInvalid,
@@ -645,11 +797,17 @@ export class AssetLiabilityProvider extends Component {
 			handlePaperAssetSubmit,
 			handlePaperAssetChange,
 			handlePaperAssetDelete,
+			handleGetCurrentPaperAsset,
+			handlePaperAssetUpdateChange,
+			handlePaperAssetUpdateSubmit,
 			paperAssetFormRef,
 
 			handleRealEstateSubmit,
 			handleRealEstateChange,
 			handleRealEstateDelete,
+			handleGetCurrentRealEstate,
+			handleRealEstateUpdateChange,
+			handleRealEstateUpdateSubmit,
 			realEstateFormRef,
 
 			handleBusinessSubmit,
@@ -665,6 +823,9 @@ export class AssetLiabilityProvider extends Component {
 			handleCashSubmit,
 			handleCashChange,
 			handleCashDelete,
+			handleGetCurrentCash,
+			handleCashUpdateChange,
+			handleCashUpdateSubmit,
 			cashFormRef,
 
 			handleGoodDebtSubmit,
@@ -687,24 +848,34 @@ export class AssetLiabilityProvider extends Component {
 				value={{
 					totalAssets,
 					totalLiabilities,
+
 					totalPaperAssets,
 					newPaperAsset,
+					updatedPaperAsset,
 					paperAssetFormInvalid,
+
 					totalRealEstate,
 					newRealEstate,
+					updatedRealEstate,
 					realEstateFormInvalid,
+
 					totalBusiness,
 					newBusiness,
 					businessFormInvalid,
+
 					totalCommodities,
 					newCommodity,
 					commodityFormInvalid,
+
 					totalCash,
 					newCash,
+					updatedCash,
 					cashFormInvalid,
+
 					totalGoodDebt,
 					newGoodDebt,
 					goodDebtFormInvalid,
+
 					totalBadDebt,
 					newBadDebt,
 					badDebtFormInvalid,
@@ -713,11 +884,17 @@ export class AssetLiabilityProvider extends Component {
 					handlePaperAssetSubmit,
 					handlePaperAssetChange,
 					handlePaperAssetDelete,
+					handleGetCurrentPaperAsset,
+					handlePaperAssetUpdateChange,
+					handlePaperAssetUpdateSubmit,
 					paperAssetFormRef,
 
 					handleRealEstateSubmit,
 					handleRealEstateChange,
 					handleRealEstateDelete,
+					handleGetCurrentRealEstate,
+					handleRealEstateUpdateChange,
+					handleRealEstateUpdateSubmit,
 					realEstateFormRef,
 
 					handleBusinessSubmit,
@@ -733,6 +910,9 @@ export class AssetLiabilityProvider extends Component {
 					handleCashSubmit,
 					handleCashChange,
 					handleCashDelete,
+					handleGetCurrentCash,
+					handleCashUpdateChange,
+					handleCashUpdateSubmit,
 					cashFormRef,
 
 					handleGoodDebtSubmit,
