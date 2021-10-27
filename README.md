@@ -82,8 +82,12 @@ Finesse
   Class: Income, Expense, Asset, Liability (for easier filtering and better organization)
 
 - **Add more categories for 'Expenses':**
+
   - Necessity: Taxes, Housing, Transportation, Food, etc.
   - Emergency: emergency fund of $1,000
   - Investment: Pay yourself first
   - Learning:
   - Fun (Treat yourself)
+
+- **Edit only 1 entry at a time:**
+  - A user can edit multiple entries in different categories at once, but when the submit button is clicked, it updates the very last entry the user was on

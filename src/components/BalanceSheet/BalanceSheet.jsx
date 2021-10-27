@@ -22,8 +22,23 @@ export default class BalanceSheet extends Component {
 		const totalLiabilityAmount = calculateSum(totalLiabilities);
 		const equity = calculateDifference(totalAssetAmount, totalLiabilityAmount);
 
+		const getColor = (asset, liability, cashFlow) => {
+			// A blank balance sheet
+			if (asset === 0 && liability === 0) return "blue";
+			return determineColor(equity);
+		};
+
 		return (
 			<>
+				<span
+					style={{
+						fontSize: "24px",
+						fontWeight: 500,
+						color: getColor(totalAssetAmount, totalLiabilityAmount, equity),
+					}}
+				>
+					BALANCE SHEET
+				</span>
 				<h6>
 					<strong>EQUITY/NET WORTH = ASSETS - LIABILITIES</strong>
 				</h6>

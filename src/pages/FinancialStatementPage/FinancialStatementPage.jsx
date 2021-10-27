@@ -9,14 +9,12 @@ export default function FinancialStatementPage() {
 		<div className="FinancialStatement">
 			<div>
 				<AssetLiabilityProvider>
-					<span className="statement">BALANCE SHEET</span>
 					<BalanceSheet />
 				</AssetLiabilityProvider>
 			</div>
 
 			<div>
 				<IncomeExpenseProvider>
-					<span className="statement">INCOME STATEMENT</span>
 					<IncomeStatement />
 				</IncomeExpenseProvider>
 			</div>
