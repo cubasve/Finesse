@@ -1,5 +1,14 @@
 import React, { useContext, useState } from "react";
-import { Button, Col, Form, Modal, Table } from "react-bootstrap";
+import {
+	Button,
+	ButtonGroup,
+	Col,
+	Dropdown,
+	DropdownButton,
+	Form,
+	Modal,
+	Table,
+} from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculatePercentage,
@@ -119,7 +128,54 @@ export default function EarnedIncome() {
 								</td>
 							) : (
 								<td style={{ display: "flex" }}>
-									<Button
+									<DropdownButton
+										as={ButtonGroup}
+										variant="outline-secondary"
+										size="sm"
+										className="delete"
+									>
+										<Dropdown.Item>
+											<Button
+												name={amount}
+												value={_id}
+												onClick={() => {
+													setSelected(_id);
+													handleGetCurrentEarnedIncome(_id);
+													handleStartEditing();
+												}}
+												variant="link"
+												className="delete"
+												style={{
+													textDecoration: "none",
+													color: "black",
+												}}
+											>
+												<Pencil />
+												{""} Edit
+											</Button>
+										</Dropdown.Item>
+										<Dropdown.Item>
+											<Button
+												name={amount}
+												value={_id}
+												onClick={() => {
+													setSelected(_id);
+													handleShowModal();
+												}}
+												variant="link"
+												style={{
+													textDecoration: "none",
+													color: "black",
+												}}
+												className="delete"
+											>
+												<Trash />
+												{""} Delete
+											</Button>
+										</Dropdown.Item>
+									</DropdownButton>
+
+									{/* <Button
 										name={amount}
 										value={_id}
 										onClick={() => {
@@ -145,7 +201,7 @@ export default function EarnedIncome() {
 										className="delete"
 									>
 										<Trash />
-									</Button>
+									</Button> */}
 									{_id === selected && (
 										<Modal show={showModal} onHide={handleCloseModal}>
 											<Modal.Header closeButton>

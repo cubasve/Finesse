@@ -134,7 +134,7 @@ export default function PortfolioIncome() {
 											handleGetCurrentPortfolioIncome(_id);
 											handleStartEditing();
 										}}
-										variant="warning"
+										variant="outline-warning"
 										size="sm"
 										className="delete"
 									>
@@ -147,7 +147,7 @@ export default function PortfolioIncome() {
 											setSelected(_id);
 											handleShowModal();
 										}}
-										variant="danger"
+										variant="outline-danger"
 										size="sm"
 										className="delete"
 									>

@@ -36,6 +36,7 @@ export class IncomeExpenseProvider extends Component {
 			category: "Passive",
 			class: "Income",
 		},
+		updatedPassiveIncome: {},
 		passiveFormInvalid: true,
 
 		totalExpenses: [],
@@ -111,6 +112,13 @@ export class IncomeExpenseProvider extends Component {
 			({ _id }) => _id === id
 		);
 		this.setState({ updatedPortfolioIncome: currentPortfolioIncome });
+	};
+
+	handleGetCurrentPassiveIncome = (id) => {
+		const currentPassiveIncome = this.state.totalPassiveIncome.find(
+			({ _id }) => _id === id
+		);
+		this.setState({ updatedPassiveIncome: currentPassiveIncome });
 	};
 
 	//Earned Income Methods
@@ -377,6 +385,16 @@ export class IncomeExpenseProvider extends Component {
 		});
 	};
 
+	handlePassiveIncomeUpdateChange = (e) => {
+		const updatedPassiveIncome = {
+			...this.state.updatedPassiveIncome,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			updatedPassiveIncome: updatedPassiveIncome,
+		});
+	};
+
 	handlePassiveIncomeDelete = async (e) => {
 		try {
 			await financialStatementService
@@ -392,6 +410,34 @@ export class IncomeExpenseProvider extends Component {
 								elem.category === "Portfolio" ||
 								elem.category === "Passive"
 						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handlePassiveIncomeUpdateSubmit = async (e) => {
+		// e.preventDefault();
+		try {
+			await financialStatementService
+				.update({
+					id: e.target.value,
+					type: this.state.updatedPassiveIncome.type,
+					amount: this.state.updatedPassiveIncome.amount,
+				})
+				.then((data) => {
+					this.setState({
+						totalPassiveIncome: data.user.userFinances.filter(
+							(elem) => elem.category === "Passive"
+						),
+						totalIncome: data.user.userFinances.filter(
+							(elem) =>
+								elem.category === "Earned" ||
+								elem.category === "Portfolio" ||
+								elem.category === "Passive"
+						),
+						updatedPassiveIncome: {},
 					});
 				});
 		} catch (err) {
@@ -530,21 +576,27 @@ export class IncomeExpenseProvider extends Component {
 	render() {
 		const {
 			totalIncome,
+
 			totalEarnedIncome,
 			newEarnedIncome,
 			updatedEarnedIncome,
 			earnedFormInvalid,
+
 			totalPortfolioIncome,
 			newPortfolioIncome,
 			updatedPortfolioIncome,
 			portfolioFormInvalid,
+
 			totalPassiveIncome,
 			newPassiveIncome,
+			updatedPassiveIncome,
 			passiveFormInvalid,
+
 			totalExpensesAndSelfFirst,
 			totalExpenses,
 			newExpense,
 			expenseFormInvalid,
+
 			totalPayYourselfFirst,
 			newPayYourselfFirst,
 			selfFirstFormInvalid,
@@ -572,6 +624,9 @@ export class IncomeExpenseProvider extends Component {
 			handlePassiveIncomeSubmit,
 			handlePassiveIncomeChange,
 			handlePassiveIncomeDelete,
+			handleGetCurrentPassiveIncome,
+			handlePassiveIncomeUpdateChange,
+			handlePassiveIncomeUpdateSubmit,
 			passiveFormRef,
 
 			expenseFormRef,
@@ -604,6 +659,7 @@ export class IncomeExpenseProvider extends Component {
 
 					totalPassiveIncome,
 					newPassiveIncome,
+					updatedPassiveIncome,
 					passiveFormInvalid,
 					passiveFormRef,
 
@@ -624,6 +680,9 @@ export class IncomeExpenseProvider extends Component {
 					handlePassiveIncomeSubmit,
 					handlePassiveIncomeChange,
 					handlePassiveIncomeDelete,
+					handleGetCurrentPassiveIncome,
+					handlePassiveIncomeUpdateChange,
+					handlePassiveIncomeUpdateSubmit,
 
 					totalExpensesAndSelfFirst,
 					totalExpenses,
