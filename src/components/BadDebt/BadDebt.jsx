@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
-import { Table, Popover, OverlayTrigger, Button } from "react-bootstrap";
+import { Popover, OverlayTrigger, Button } from "react-bootstrap";
 import {
 	calculatePercentage,
 	calculateSum,
@@ -8,6 +8,7 @@ import {
 } from "../../utils/calculations";
 import { InfoLg } from "react-bootstrap-icons";
 import FormInput from "../common/FormInput";
+import EntityTable from "../common/EntityTable";
 
 const badDebtOptions = [
 	"Home Mortgage",
@@ -39,8 +40,12 @@ export default function BadDebt() {
 		badDebtFormRef,
 		handleBadDebtSubmit,
 		newBadDebt,
+		updatedBadDebt,
 		handleBadDebtChange,
 		badDebtFormInvalid,
+		handleGetCurrentBadDebt,
+		handleBadDebtUpdateChange,
+		handleBadDebtUpdateSubmit,
 		totalLiabilities,
 	} = useContext(AssetLiabilityContext);
 
@@ -58,30 +63,15 @@ export default function BadDebt() {
 				</span>
 				<span>{formatAmount(totalBadDebtAmount)}</span>
 			</h5>
-			{totalBadDebt.map((bd) => (
-				<div key={bd.amount}>
-					<Table borderless hover size="sm">
-						<tbody>
-							<tr>
-								<td className="left">
-									<Button
-										name={bd.amount}
-										value={bd._id}
-										onClick={handleBadDebtDelete}
-										variant="danger"
-										size="sm"
-										className="delete"
-									>
-										X
-									</Button>
-									{bd.type}
-								</td>
-								<td className="right">{bd.amount}</td>
-							</tr>
-						</tbody>
-					</Table>
-				</div>
-			))}
+			<EntityTable
+				totalEntity={totalBadDebt}
+				handleUpdateSubmit={handleBadDebtUpdateSubmit}
+				updatedEntity={updatedBadDebt}
+				handleUpdateChange={handleBadDebtUpdateChange}
+				options={badDebtOptions}
+				handleGetCurrentEntity={handleGetCurrentBadDebt}
+				handleDelete={handleBadDebtDelete}
+			/>
 			<FormInput
 				formRef={badDebtFormRef}
 				handleSubmit={handleBadDebtSubmit}

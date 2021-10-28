@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import {
 	calculatePercentage,
@@ -7,6 +6,7 @@ import {
 	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
+import EntityTable from "../common/EntityTable";
 
 const commodityOptions = [
 	"Metals",
@@ -24,8 +24,12 @@ export default function Commodities() {
 		commodityFormRef,
 		handleCommoditySubmit,
 		newCommodity,
+		updatedCommodity,
 		handleCommodityChange,
 		commodityFormInvalid,
+		handleGetCurrentCommodity,
+		handleCommodityUpdateChange,
+		handleCommodityUpdateSubmit,
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
@@ -41,30 +45,15 @@ export default function Commodities() {
 				<span>Commodities</span>
 				<span>{formatAmount(totalCommodityAmount)}</span>
 			</h5>
-			{totalCommodities.map((c) => (
-				<div key={c.amount}>
-					<Table borderless hover size="sm">
-						<tbody>
-							<tr>
-								<td className="left">
-									<Button
-										name={c.amount}
-										value={c._id}
-										onClick={handleCommodityDelete}
-										variant="danger"
-										size="sm"
-										className="delete"
-									>
-										X
-									</Button>
-									{c.type}
-								</td>
-								<td className="right">{c.amount}</td>
-							</tr>
-						</tbody>
-					</Table>
-				</div>
-			))}
+			<EntityTable
+				totalEntity={totalCommodities}
+				handleUpdateSubmit={handleCommodityUpdateSubmit}
+				updatedEntity={updatedCommodity}
+				handleUpdateChange={handleCommodityUpdateChange}
+				options={commodityOptions}
+				handleGetCurrentEntity={handleGetCurrentCommodity}
+				handleDelete={handleCommodityDelete}
+			/>
 			<FormInput
 				formRef={commodityFormRef}
 				handleSubmit={handleCommoditySubmit}

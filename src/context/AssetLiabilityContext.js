@@ -36,6 +36,7 @@ export class AssetLiabilityProvider extends Component {
 			category: "Business",
 			class: "Asset",
 		},
+		updatedBusiness: {},
 		businessFormInvalid: true,
 
 		totalCommodities: [],
@@ -45,6 +46,7 @@ export class AssetLiabilityProvider extends Component {
 			category: "Commodity",
 			class: "Asset",
 		},
+		updatedCommodity: {},
 		commodityFormInvalid: true,
 
 		totalCash: [],
@@ -64,6 +66,7 @@ export class AssetLiabilityProvider extends Component {
 			category: "GoodDebt",
 			class: "Liability",
 		},
+		updatedGoodDebt: {},
 		goodDebtFormInvalid: true,
 
 		totalBadDebt: [],
@@ -73,6 +76,7 @@ export class AssetLiabilityProvider extends Component {
 			category: "BadDebt",
 			class: "Liability",
 		},
+		updatedBadDebt: {},
 		badDebtFormInvalid: true,
 	};
 
@@ -147,6 +151,34 @@ export class AssetLiabilityProvider extends Component {
 			({ _id }) => _id === id
 		);
 		this.setState({ updatedRealEstate: currentRealEstate });
+	};
+
+	handleGetCurrentBusiness = (id) => {
+		const currentBusiness = this.state.totalBusiness.find(
+			({ _id }) => _id === id
+		);
+		this.setState({ updatedBusiness: currentBusiness });
+	};
+
+	handleGetCurrentCommodity = (id) => {
+		const currentCommodity = this.state.totalCommodities.find(
+			({ _id }) => _id === id
+		);
+		this.setState({ updatedCommodity: currentCommodity });
+	};
+
+	handleGetCurrentGoodDebt = (id) => {
+		const currentGoodDebt = this.state.totalGoodDebt.find(
+			({ _id }) => _id === id
+		);
+		this.setState({ updatedGoodDebt: currentGoodDebt });
+	};
+
+	handleGetCurrentBadDebt = (id) => {
+		const currentBadDebt = this.state.totalBadDebt.find(
+			({ _id }) => _id === id
+		);
+		this.setState({ updatedBadDebt: currentBadDebt });
 	};
 
 	//Paper Asset Methods
@@ -421,6 +453,16 @@ export class AssetLiabilityProvider extends Component {
 		});
 	};
 
+	handleBusinessUpdateChange = (e) => {
+		const updatedBusiness = {
+			...this.state.updatedBusiness,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			updatedBusiness: updatedBusiness,
+		});
+	};
+
 	handleBusinessDelete = async (e) => {
 		try {
 			await financialStatementService
@@ -438,6 +480,36 @@ export class AssetLiabilityProvider extends Component {
 								elem.category === "Commodity" ||
 								elem.category === "Cash"
 						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handleBusinessUpdateSubmit = async (e) => {
+		// e.preventDefault();
+		try {
+			await financialStatementService
+				.update({
+					id: e.target.value,
+					type: this.state.updatedBusiness.type,
+					amount: this.state.updatedBusiness.amount,
+				})
+				.then((data) => {
+					this.setState({
+						totalBusiness: data.user.userFinances.filter(
+							(elem) => elem.category === "Business"
+						),
+						totalAssets: data.user.userFinances.filter(
+							(elem) =>
+								elem.category === "Paper" ||
+								elem.category === "RealEstate" ||
+								elem.category === "Business" ||
+								elem.category === "Commodity" ||
+								elem.category === "Cash"
+						),
+						updatedBusiness: {},
 					});
 				});
 		} catch (err) {
@@ -493,6 +565,16 @@ export class AssetLiabilityProvider extends Component {
 		});
 	};
 
+	handleCommodityUpdateChange = (e) => {
+		const updatedCommodity = {
+			...this.state.updatedCommodity,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			updatedCommodity: updatedCommodity,
+		});
+	};
+
 	handleCommodityDelete = async (e) => {
 		try {
 			await financialStatementService
@@ -510,6 +592,36 @@ export class AssetLiabilityProvider extends Component {
 								elem.category === "Commodity" ||
 								elem.category === "Cash"
 						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handleCommodityUpdateSubmit = async (e) => {
+		// e.preventDefault();
+		try {
+			await financialStatementService
+				.update({
+					id: e.target.value,
+					type: this.state.updatedCommodity.type,
+					amount: this.state.updatedCommodity.amount,
+				})
+				.then((data) => {
+					this.setState({
+						totalCommodities: data.user.userFinances.filter(
+							(elem) => elem.category === "Commodity"
+						),
+						totalAssets: data.user.userFinances.filter(
+							(elem) =>
+								elem.category === "Paper" ||
+								elem.category === "RealEstate" ||
+								elem.category === "Business" ||
+								elem.category === "Commodity" ||
+								elem.category === "Cash"
+						),
+						updatedCommodity: {},
 					});
 				});
 		} catch (err) {
@@ -670,6 +782,16 @@ export class AssetLiabilityProvider extends Component {
 		});
 	};
 
+	handleGoodDebtUpdateChange = (e) => {
+		const updatedGoodDebt = {
+			...this.state.updatedGoodDebt,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			updatedGoodDebt: updatedGoodDebt,
+		});
+	};
+
 	handleGoodDebtDelete = async (e) => {
 		try {
 			await financialStatementService
@@ -683,6 +805,32 @@ export class AssetLiabilityProvider extends Component {
 							(elem) =>
 								elem.category === "GoodDebt" || elem.category === "BadDebt"
 						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handleGoodDebtUpdateSubmit = async (e) => {
+		// e.preventDefault();
+		try {
+			await financialStatementService
+				.update({
+					id: e.target.value,
+					type: this.state.updatedGoodDebt.type,
+					amount: this.state.updatedGoodDebt.amount,
+				})
+				.then((data) => {
+					this.setState({
+						totalGoodDebt: data.user.userFinances.filter(
+							(elem) => elem.category === "GoodDebt"
+						),
+						totalLiabilities: data.user.userFinances.filter(
+							(elem) =>
+								elem.category === "GoodDebt" || elem.category === "BadDebt"
+						),
+						updatedGoodDebt: {},
 					});
 				});
 		} catch (err) {
@@ -734,6 +882,16 @@ export class AssetLiabilityProvider extends Component {
 		});
 	};
 
+	handleBadDebtUpdateChange = (e) => {
+		const updatedBadDebt = {
+			...this.state.updatedBadDebt,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			updatedBadDebt: updatedBadDebt,
+		});
+	};
+
 	handleBadDebtDelete = async (e) => {
 		try {
 			await financialStatementService
@@ -747,6 +905,32 @@ export class AssetLiabilityProvider extends Component {
 							(elem) =>
 								elem.category === "GoodDebt" || elem.category === "BadDebt"
 						),
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handleBadDebtUpdateSubmit = async (e) => {
+		// e.preventDefault();
+		try {
+			await financialStatementService
+				.update({
+					id: e.target.value,
+					type: this.state.updatedBadDebt.type,
+					amount: this.state.updatedBadDebt.amount,
+				})
+				.then((data) => {
+					this.setState({
+						totalBadDebt: data.user.userFinances.filter(
+							(elem) => elem.category === "BadDebt"
+						),
+						totalLiabilities: data.user.userFinances.filter(
+							(elem) =>
+								elem.category === "GoodDebt" || elem.category === "BadDebt"
+						),
+						updatedBadDebt: {},
 					});
 				});
 		} catch (err) {
@@ -771,10 +955,12 @@ export class AssetLiabilityProvider extends Component {
 
 			totalBusiness,
 			newBusiness,
+			updatedBusiness,
 			businessFormInvalid,
 
 			totalCommodities,
 			newCommodity,
+			updatedCommodity,
 			commodityFormInvalid,
 
 			totalCash,
@@ -784,10 +970,12 @@ export class AssetLiabilityProvider extends Component {
 
 			totalGoodDebt,
 			newGoodDebt,
+			updatedGoodDebt,
 			goodDebtFormInvalid,
 
 			totalBadDebt,
 			newBadDebt,
+			updatedBadDebt,
 			badDebtFormInvalid,
 		} = this.state;
 
@@ -813,11 +1001,17 @@ export class AssetLiabilityProvider extends Component {
 			handleBusinessSubmit,
 			handleBusinessChange,
 			handleBusinessDelete,
+			handleGetCurrentBusiness,
+			handleBusinessUpdateChange,
+			handleBusinessUpdateSubmit,
 			businessFormRef,
 
 			handleCommoditySubmit,
 			handleCommodityChange,
 			handleCommodityDelete,
+			handleGetCurrentCommodity,
+			handleCommodityUpdateChange,
+			handleCommodityUpdateSubmit,
 			commodityFormRef,
 
 			handleCashSubmit,
@@ -831,11 +1025,17 @@ export class AssetLiabilityProvider extends Component {
 			handleGoodDebtSubmit,
 			handleGoodDebtChange,
 			handleGoodDebtDelete,
+			handleGetCurrentGoodDebt,
+			handleGoodDebtUpdateChange,
+			handleGoodDebtUpdateSubmit,
 			goodDebtFormRef,
 
 			handleBadDebtSubmit,
 			handleBadDebtChange,
 			handleBadDebtDelete,
+			handleGetCurrentBadDebt,
+			handleBadDebtUpdateChange,
+			handleBadDebtUpdateSubmit,
 			badDebtFormRef,
 		} = this;
 
@@ -861,10 +1061,12 @@ export class AssetLiabilityProvider extends Component {
 
 					totalBusiness,
 					newBusiness,
+					updatedBusiness,
 					businessFormInvalid,
 
 					totalCommodities,
 					newCommodity,
+					updatedCommodity,
 					commodityFormInvalid,
 
 					totalCash,
@@ -874,10 +1076,12 @@ export class AssetLiabilityProvider extends Component {
 
 					totalGoodDebt,
 					newGoodDebt,
+					updatedGoodDebt,
 					goodDebtFormInvalid,
 
 					totalBadDebt,
 					newBadDebt,
+					updatedBadDebt,
 					badDebtFormInvalid,
 					handleFetchBalanceSheetData,
 
@@ -900,11 +1104,17 @@ export class AssetLiabilityProvider extends Component {
 					handleBusinessSubmit,
 					handleBusinessChange,
 					handleBusinessDelete,
+					handleGetCurrentBusiness,
+					handleBusinessUpdateChange,
+					handleBusinessUpdateSubmit,
 					businessFormRef,
 
 					handleCommoditySubmit,
 					handleCommodityChange,
 					handleCommodityDelete,
+					handleGetCurrentCommodity,
+					handleCommodityUpdateChange,
+					handleCommodityUpdateSubmit,
 					commodityFormRef,
 
 					handleCashSubmit,
@@ -918,11 +1128,17 @@ export class AssetLiabilityProvider extends Component {
 					handleGoodDebtSubmit,
 					handleGoodDebtChange,
 					handleGoodDebtDelete,
+					handleGetCurrentGoodDebt,
+					handleGoodDebtUpdateChange,
+					handleGoodDebtUpdateSubmit,
 					goodDebtFormRef,
 
 					handleBadDebtSubmit,
 					handleBadDebtChange,
 					handleBadDebtDelete,
+					handleGetCurrentBadDebt,
+					handleBadDebtUpdateChange,
+					handleBadDebtUpdateSubmit,
 					badDebtFormRef,
 				}}
 			>

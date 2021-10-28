@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Table, Button } from "react-bootstrap";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import {
 	calculatePercentage,
@@ -7,6 +6,7 @@ import {
 	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
+import EntityTable from "../common/EntityTable";
 
 const businessOptions = ["Sole proprietorship", "Partnership", "Corporation"];
 
@@ -17,8 +17,12 @@ export default function Business() {
 		businessFormRef,
 		handleBusinessSubmit,
 		newBusiness,
+		updatedBusiness,
 		handleBusinessChange,
 		businessFormInvalid,
+		handleGetCurrentBusiness,
+		handleBusinessUpdateChange,
+		handleBusinessUpdateSubmit,
 		totalAssets,
 	} = useContext(AssetLiabilityContext);
 
@@ -34,30 +38,15 @@ export default function Business() {
 				<span>Business</span>
 				<span>{formatAmount(totalBusinessAmount)}</span>
 			</h5>
-			{totalBusiness.map((b) => (
-				<div key={b.amount}>
-					<Table borderless hover size="sm">
-						<tbody>
-							<tr>
-								<td className="left">
-									<Button
-										name={b.amount}
-										value={b._id}
-										onClick={handleBusinessDelete}
-										variant="danger"
-										size="sm"
-										className="delete"
-									>
-										X
-									</Button>
-									{b.type}
-								</td>
-								<td className="right">{b.amount}</td>
-							</tr>
-						</tbody>
-					</Table>
-				</div>
-			))}
+			<EntityTable
+				totalEntity={totalBusiness}
+				handleUpdateSubmit={handleBusinessUpdateSubmit}
+				updatedEntity={updatedBusiness}
+				handleUpdateChange={handleBusinessUpdateChange}
+				options={businessOptions}
+				handleGetCurrentEntity={handleGetCurrentBusiness}
+				handleDelete={handleBusinessDelete}
+			/>
 			<FormInput
 				formRef={businessFormRef}
 				handleSubmit={handleBusinessSubmit}
