@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Popover, OverlayTrigger, Button, Table, Form } from "react-bootstrap";
+import { Popover, OverlayTrigger, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculatePercentage,
@@ -7,6 +7,10 @@ import {
 	formatAmount,
 } from "../../utils/calculations";
 import { InfoLg } from "react-bootstrap-icons";
+import FormInput from "../common/FormInput";
+import EntityTable from "../common/EntityTable";
+
+const selfFirstOptions = ["Invest", "Save"];
 
 const popover = (
 	<Popover id="popover-basic">
@@ -35,7 +39,11 @@ export default function PayYourselfFirst() {
 		selfFirstFormRef,
 		handleSelfFirstSubmit,
 		newPayYourselfFirst,
+		updatedPayYourselfFirst,
 		handleSelfFirstChange,
+		handleGetCurrentPayYourselfFirst,
+		handleSelfFirstUpdateChange,
+		handleSelfFirstUpdateSubmit,
 		selfFirstFormInvalid,
 	} = useContext(IncomeExpenseContext);
 
@@ -55,77 +63,24 @@ export default function PayYourselfFirst() {
 
 				<span>{formatAmount(totalSelfFirstAmount)}</span>
 			</h5>
-
-			{totalPayYourselfFirst.map((pi) => (
-				<div key={pi._id}>
-					<Table borderless hover size="sm">
-						<tbody>
-							<tr>
-								<td className="left">
-									<Button
-										name={pi.amount}
-										value={pi._id}
-										onClick={handleSelfFirstDelete}
-										variant="danger"
-										size="sm"
-										className="delete"
-									>
-										X
-									</Button>
-									<span></span>
-									Allocation
-								</td>
-								<td className="right">{pi.amount}</td>
-							</tr>
-						</tbody>
-					</Table>
-				</div>
-			))}
-			<Form
-				ref={selfFirstFormRef}
-				onSubmit={handleSelfFirstSubmit}
-				className="selfFirst"
-			>
-				<Form.Row>
-					<Form.Group>
-						<Form.Control
-							name="amount"
-							value={newPayYourselfFirst.amount}
-							onChange={handleSelfFirstChange}
-							required
-							pattern="[1-9]\d{0,}\.?\d{0,2}"
-							placeholder="Save/ Invest/ Tithe"
-							autoComplete="off"
-							size="sm"
-						/>
-					</Form.Group>
-					{/* <Form.Group>
-                        <Form.Control
-                            type="hidden"
-                            name="class"
-                            value={newPayYourselfFirst.class}
-                            onChange={handleSelfFirstChange}
-                        />
-                    </Form.Group> */}
-					<Form.Group>
-						<Form.Control
-							type="hidden"
-							name="category"
-							value={newPayYourselfFirst.category}
-							onChange={handleSelfFirstChange}
-						/>
-						<Button
-							type="submit"
-							className="form-submission"
-							onClick={handleSelfFirstSubmit}
-							disabled={selfFirstFormInvalid}
-							size="sm"
-						>
-							ADD
-						</Button>
-					</Form.Group>
-				</Form.Row>
-			</Form>
+			<EntityTable
+				totalEntity={totalPayYourselfFirst}
+				handleUpdateSubmit={handleSelfFirstUpdateSubmit}
+				updatedEntity={updatedPayYourselfFirst}
+				handleUpdateChange={handleSelfFirstUpdateChange}
+				options={selfFirstOptions}
+				handleGetCurrentEntity={handleGetCurrentPayYourselfFirst}
+				handleDelete={handleSelfFirstDelete}
+			/>
+			<FormInput
+				formRef={selfFirstFormRef}
+				handleSubmit={handleSelfFirstSubmit}
+				handleChange={handleSelfFirstChange}
+				newEntity={newPayYourselfFirst}
+				options={selfFirstOptions}
+				placeholder="Save/ Invest/ Tithe"
+				formInvalid={selfFirstFormInvalid}
+			/>
 		</>
 	);
 }

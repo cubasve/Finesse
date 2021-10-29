@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Table, Button } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculatePercentage,
@@ -7,6 +6,7 @@ import {
 	formatAmount,
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
+import EntityTable from "../common/EntityTable";
 
 const expenseOptions = [
 	"Taxes",
@@ -28,7 +28,11 @@ export default function Expenses() {
 		expenseFormRef,
 		handleExpenseSubmit,
 		newExpense,
+		updatedExpense,
 		handleExpenseChange,
+		handleGetCurrentExpense,
+		handleExpenseUpdateChange,
+		handleExpenseUpdateSubmit,
 		expenseFormInvalid,
 	} = useContext(IncomeExpenseContext);
 
@@ -44,31 +48,15 @@ export default function Expenses() {
 				<span>Other Expenses</span>
 				<span>{formatAmount(totalExpenseAmount)}</span>
 			</h5>
-
-			{totalExpenses.map((ex) => (
-				<div key={ex.amount}>
-					<Table borderless hover size="sm">
-						<tbody>
-							<tr>
-								<td className="left">
-									<Button
-										name={ex.amount}
-										value={ex._id}
-										onClick={handleExpenseDelete}
-										variant="danger"
-										size="sm"
-										className="delete"
-									>
-										X
-									</Button>
-									{ex.type}
-								</td>
-								<td className="right">{ex.amount}</td>
-							</tr>
-						</tbody>
-					</Table>
-				</div>
-			))}
+			<EntityTable
+				totalEntity={totalExpenses}
+				handleUpdateSubmit={handleExpenseUpdateSubmit}
+				updatedEntity={updatedExpense}
+				handleUpdateChange={handleExpenseUpdateChange}
+				options={expenseOptions}
+				handleGetCurrentEntity={handleGetCurrentExpense}
+				handleDelete={handleExpenseDelete}
+			/>
 			<FormInput
 				formRef={expenseFormRef}
 				handleSubmit={handleExpenseSubmit}
