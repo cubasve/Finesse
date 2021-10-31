@@ -75,9 +75,6 @@ Finesse
 - **Add charts:**
   The chart will show the user's monthly financial statement - Add additional comparison charts for different months and years
 
-- **Add formatting for numbers:**
-  Add a comma after every third place
-
 - **Add class field in financialStatement model:**
   Class: Income, Expense, Asset, Liability (for easier filtering and better organization)
 
