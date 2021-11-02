@@ -11,6 +11,7 @@ import FinancialStatementPage from "../FinancialStatementPage/FinancialStatement
 import TfsaPage from "../TfsaPage/TfsaPage";
 import NavBar from "../../components/NavBar/NavBar";
 import OverviewPage from "../OverviewPage/OverviewPage";
+import { ViewProvider } from "../../context/ViewContext";
 
 export default class App extends Component {
 	state = {
@@ -28,75 +29,81 @@ export default class App extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<NavBar user={this.state.user} handleLogout={this.handleLogout} />
-				<br />
-				<br />
-				<Switch>
-					<Route
-						exact
-						path="/"
-						render={() => (
-							<HomePage
-								user={this.state.user}
-								handleLogout={this.handleLogout}
-							/>
-						)}
-					></Route>
+			<ViewProvider>
+				<div className="App">
+					<NavBar user={this.state.user} handleLogout={this.handleLogout} />
+					<br />
+					<br />
+					<Switch>
+						<Route
+							exact
+							path="/"
+							render={() => (
+								<HomePage
+									user={this.state.user}
+									handleLogout={this.handleLogout}
+								/>
+							)}
+						></Route>
 
-					<Route
-						exact
-						path="/financialstatement"
-						render={() =>
-							userService.getUser() ? (
-								<main>
-									<FinancialStatementPage />
-								</main>
-							) : (
-								<Redirect to="/login" />
-							)
-						}
-					></Route>
+						<Route
+							exact
+							path="/financialstatement"
+							render={() =>
+								userService.getUser() ? (
+									<main>
+										<FinancialStatementPage />
+									</main>
+								) : (
+									<Redirect to="/login" />
+								)
+							}
+						></Route>
 
-					<Route
-						exact
-						path="/tfsa"
-						render={() =>
-							userService.getUser() ? <TfsaPage /> : <Redirect to="login" />
-						}
-					/>
+						<Route
+							exact
+							path="/tfsa"
+							render={() =>
+								userService.getUser() ? <TfsaPage /> : <Redirect to="login" />
+							}
+						/>
 
-					<Route
-						exact
-						path="/signup"
-						render={({ history }) => (
-							<SignupPage
-								history={history}
-								handleSignupOrLogin={this.handleSignupOrLogin}
-							/>
-						)}
-					></Route>
+						<Route
+							exact
+							path="/signup"
+							render={({ history }) => (
+								<SignupPage
+									history={history}
+									handleSignupOrLogin={this.handleSignupOrLogin}
+								/>
+							)}
+						></Route>
 
-					<Route
-						exact
-						path="/login"
-						render={({ history }) => (
-							<LoginPage
-								history={history}
-								handleSignupOrLogin={this.handleSignupOrLogin}
-							/>
-						)}
-					></Route>
+						<Route
+							exact
+							path="/login"
+							render={({ history }) => (
+								<LoginPage
+									history={history}
+									handleSignupOrLogin={this.handleSignupOrLogin}
+								/>
+							)}
+						></Route>
 
-					<Route
-						exact
-						path="/overview"
-						render={() =>
-							userService.getUser() ? <OverviewPage /> : <Redirect to="login" />
-						}
-					/>
-				</Switch>
-			</div>
+						<Route
+							exact
+							path="/overview"
+							render={() =>
+								userService.getUser() ? (
+									<OverviewPage />
+								) : (
+									<Redirect to="login" />
+								)
+							}
+						/>
+					</Switch>
+				</div>
+			</ViewProvider>
 		);
 	}
 }
