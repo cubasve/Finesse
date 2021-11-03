@@ -8,7 +8,6 @@ import {
 	calculateSum,
 	formatAmount,
 } from "../../utils/calculations";
-import DoughnutChart from "../common/DoughnutChart";
 
 export default class IncomeStatement extends Component {
 	async componentDidMount() {
@@ -63,7 +62,6 @@ export default class IncomeStatement extends Component {
 				</h6>
 				<Income />
 				<Expenditure />
-				<DoughnutChart />
 			</>
 		);
 	}

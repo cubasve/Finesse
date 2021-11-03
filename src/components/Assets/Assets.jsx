@@ -50,7 +50,11 @@ export default function Assets() {
 		<div className="border">
 			<div style={{ display: "flex", justifyContent: "space-between" }}>
 				<span>
-					<Button onClick={handleViewChange} size="sm" variant="outline-dark">
+					<Button
+						onClick={handleViewChange}
+						size="sm"
+						variant="outline-success"
+					>
 						{chartView ? <PieChart /> : <ListUl />}
 					</Button>
 				</span>

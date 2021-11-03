@@ -39,9 +39,9 @@ export default function EntityTable(props) {
 					<tr>
 						{editing && _id === selected ? (
 							<td>
-								<Form style={{ width: 360 }} onSubmit={handleUpdateSubmit}>
+								<Form onSubmit={handleUpdateSubmit}>
 									<Form.Row>
-										<Form.Group as={Col} md="1">
+										<Form.Group as={Col} xs="1">
 											<Button
 												variant="success"
 												size="sm"
@@ -56,12 +56,11 @@ export default function EntityTable(props) {
 												&#10003;
 											</Button>
 										</Form.Group>
-										<Form.Group as={Col} md="2">
+										<Form.Group as={Col} xs="2">
 											<Button
 												onClick={handleFinishEditing}
 												size="sm"
 												variant="secondary"
-												className="delete"
 											>
 												<XLg />
 											</Button>
@@ -82,7 +81,7 @@ export default function EntityTable(props) {
 											</Form.Control>
 											<Form.Text muted>Type</Form.Text>
 										</Form.Group>
-										<Form.Group as={Col} md="3">
+										<Form.Group as={Col} xs="3">
 											<Form.Control
 												name="amount"
 												value={updatedEntity.amount}
