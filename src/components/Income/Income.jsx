@@ -27,15 +27,16 @@ export default function Income() {
 
 	return (
 		<div className="border">
-			<span className="title">
-				<span className="left">
+			<div style={{ display: "flex", justifyContent: "space-between" }}>
+				<span>
 					<Button onClick={handleViewChange} size="sm" variant="outline-dark">
 						{chartView ? <PieChart /> : <ListUl />}
 					</Button>
 				</span>
-				<span>INCOME</span>
-				<span className="right">{formatAmount(totalIncomeAmount)}</span>
-			</span>
+				<span className="title">INCOME</span>
+				<span className="title">{formatAmount(totalIncomeAmount)}</span>
+			</div>
+
 			{chartView ? (
 				<DoughnutChart
 					backgroundColor={[

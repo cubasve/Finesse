@@ -38,14 +38,6 @@ div.FinancialStatement {
 	/* align-items: center; */
 }
 
-.left {
-	float: left;
-}
-
-.right {
-	float: right;
-}
-
 .select {
 	width: 160px;
 }

@@ -5,12 +5,12 @@ export const ViewContext = createContext();
 //chartView: false;
 
 export function ViewProvider({ children }) {
-	const storedView = localStorage.getItem(JSON.parse("chartView"));
+	const storedView = localStorage.getItem("chartView");
 	const [chartView, setChartView] = useState(storedView ?? false);
 
 	const handleViewChange = () => {
-		setChartView(true);
-		localStorage.setItem("chartView", JSON.stringify(true));
+		setChartView(!chartView);
+		localStorage.setItem("chartView", JSON.stringify(!chartView));
 	};
 
 	const context = {

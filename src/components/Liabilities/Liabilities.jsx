@@ -5,6 +5,9 @@ import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import { Popover, OverlayTrigger, Button } from "react-bootstrap";
 import { InfoLg } from "react-bootstrap-icons";
 import { calculateSum, formatAmount } from "../../utils/calculations";
+import DoughnutChart from "../common/DoughnutChart";
+import { ListUl, PieChart } from "react-bootstrap-icons";
+import { ViewContext } from "../../context/ViewContext";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -23,21 +26,48 @@ const LiabilityPopover = () => (
 );
 
 export default function Liabilities() {
-	const { totalLiabilities } = useContext(AssetLiabilityContext);
+	const { totalBadDebt, totalGoodDebt, totalLiabilities } = useContext(
+		AssetLiabilityContext
+	);
+
+	const { chartView, handleViewChange } = useContext(ViewContext);
+
 	const totalLiabilityAmount = calculateSum(totalLiabilities);
+	const totalGoodDebtAmount = calculateSum(totalGoodDebt);
+	const totalBadDebtAmount = calculateSum(totalBadDebt);
 
 	return (
 		<div className="border">
-			<span className="title">
+			<div style={{ display: "flex", justifyContent: "space-between" }}>
 				<span>
+					<Button onClick={handleViewChange} size="sm" variant="outline-dark">
+						{chartView ? <PieChart /> : <ListUl />}
+					</Button>
+				</span>
+				<span className="title">
 					LIABILITIES <LiabilityPopover />
 				</span>
+				<span className="title">{formatAmount(totalLiabilityAmount)}</span>
+			</div>
 
-				<span className="right">{formatAmount(totalLiabilityAmount)}</span>
-			</span>
-
-			<GoodDebt />
-			<BadDebt />
+			{chartView ? (
+				<DoughnutChart
+					backgroundColor={[
+						"rgba(153, 102, 255, 0.2)",
+						"rgba(255, 159, 64, 0.2)",
+					]}
+					borderColor={["rgba(153, 102, 255, 1)", "rgba(255, 159, 64, 1)"]}
+					borderWidth={1}
+					data={[totalGoodDebtAmount, totalBadDebtAmount]}
+					labels={["Good Debt", "Bad Debt"]}
+					title="Liability Types"
+				/>
+			) : (
+				<>
+					<GoodDebt />
+					<BadDebt />
+				</>
+			)}
 		</div>
 	);
 }
