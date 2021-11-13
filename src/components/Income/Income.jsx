@@ -7,8 +7,8 @@ import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import { calculateSum, formatAmount } from "../../utils/calculations";
 import DoughnutChart from "../common/DoughnutChart";
 import { ListUl, PieChart } from "react-bootstrap-icons";
-import { Button } from "react-bootstrap";
 import { ViewContext } from "../../context/ViewContext";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function Income() {
 	const {
@@ -25,17 +25,29 @@ export default function Income() {
 	const totalPortfolioIncomeAmount = calculateSum(totalPortfolioIncome);
 	const totalPassiveIncomeAmount = calculateSum(totalPassiveIncome);
 
+	const renderTooltip = (props) => (
+		<Tooltip id="button-tooltip" {...props}>
+			{chartView ? "Chart View" : "List View"}
+		</Tooltip>
+	);
+
 	return (
 		<div className="border">
 			<div style={{ display: "flex", justifyContent: "space-between" }}>
 				<span>
-					<Button
-						onClick={handleViewChange}
-						size="sm"
-						variant="outline-success"
+					<OverlayTrigger
+						placement="top"
+						delay={{ show: 0, hide: 400 }}
+						overlay={renderTooltip}
 					>
-						{chartView ? <PieChart /> : <ListUl />}
-					</Button>
+						<Button
+							onClick={handleViewChange}
+							size="sm"
+							variant="outline-primary"
+						>
+							{chartView ? <PieChart /> : <ListUl />}
+						</Button>
+					</OverlayTrigger>
 				</span>
 				<span className="title">INCOME</span>
 				<span className="title">{formatAmount(totalIncomeAmount)}</span>

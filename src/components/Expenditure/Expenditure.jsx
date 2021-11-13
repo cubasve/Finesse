@@ -6,7 +6,7 @@ import { calculateSum, formatAmount } from "../../utils/calculations";
 import DoughnutChart from "../common/DoughnutChart";
 import { ListUl, PieChart } from "react-bootstrap-icons";
 import { ViewContext } from "../../context/ViewContext";
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function Expenditure() {
 	const { totalExpenses, totalExpensesAndSelfFirst } =
@@ -16,17 +16,30 @@ export default function Expenditure() {
 
 	const totalExpenseAndPYFAmount = calculateSum(totalExpensesAndSelfFirst);
 	const totalExpenseAmount = calculateSum(totalExpenses);
+
+	const renderTooltip = (props) => (
+		<Tooltip id="button-tooltip" {...props}>
+			{chartView ? "Chart View" : "List View"}
+		</Tooltip>
+	);
+
 	return (
 		<div className="border">
 			<div style={{ display: "flex", justifyContent: "space-between" }}>
 				<span>
-					<Button
-						onClick={handleViewChange}
-						size="sm"
-						variant="outline-success"
+					<OverlayTrigger
+						placement="top"
+						delay={{ show: 0, hide: 400 }}
+						overlay={renderTooltip}
 					>
-						{chartView ? <PieChart /> : <ListUl />}
-					</Button>
+						<Button
+							onClick={handleViewChange}
+							size="sm"
+							variant="outline-primary"
+						>
+							{chartView ? <PieChart /> : <ListUl />}
+						</Button>
+					</OverlayTrigger>
 				</span>
 				<span className="title">EXPENSES</span>
 				<span className="title">{formatAmount(totalExpenseAndPYFAmount)}</span>

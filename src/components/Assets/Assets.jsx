@@ -5,12 +5,12 @@ import Business from "../Business/Business";
 import Commodities from "../Commodities/Commodities";
 import Cash from "../Cash/Cash";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
-import { Popover, OverlayTrigger, Button } from "react-bootstrap";
 import { InfoLg } from "react-bootstrap-icons";
 import { calculateSum, formatAmount } from "../../utils/calculations";
 import DoughnutChart from "../common/DoughnutChart";
-import { ListUl, PieChart } from "react-bootstrap-icons";
+import { Button, OverlayTrigger, Popover, Tooltip } from "react-bootstrap";
 import { ViewContext } from "../../context/ViewContext";
+import { ListUl, PieChart } from "react-bootstrap-icons";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -46,17 +46,29 @@ export default function Assets() {
 	const totalBusinessAmount = calculateSum(totalBusiness);
 	const totalCommodityAmount = calculateSum(totalCommodities);
 
+	const renderTooltip = (props) => (
+		<Tooltip id="button-tooltip" {...props}>
+			{chartView ? "Chart View" : "List View"}
+		</Tooltip>
+	);
+
 	return (
 		<div className="border">
 			<div style={{ display: "flex", justifyContent: "space-between" }}>
 				<span>
-					<Button
-						onClick={handleViewChange}
-						size="sm"
-						variant="outline-success"
+					<OverlayTrigger
+						placement="top"
+						delay={{ show: 0, hide: 400 }}
+						overlay={renderTooltip}
 					>
-						{chartView ? <PieChart /> : <ListUl />}
-					</Button>
+						<Button
+							onClick={handleViewChange}
+							size="sm"
+							variant="outline-primary"
+						>
+							{chartView ? <PieChart /> : <ListUl />}
+						</Button>
+					</OverlayTrigger>
 				</span>
 				<span className="title">
 					ASSETS <AssetPopover />

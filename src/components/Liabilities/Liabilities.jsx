@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import GoodDebt from "../GoodDebt/GoodDebt";
 import BadDebt from "../BadDebt/BadDebt";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
-import { Popover, OverlayTrigger, Button } from "react-bootstrap";
+import { Popover, OverlayTrigger, Button, Tooltip } from "react-bootstrap";
 import { InfoLg } from "react-bootstrap-icons";
 import { calculateSum, formatAmount } from "../../utils/calculations";
 import DoughnutChart from "../common/DoughnutChart";
@@ -36,17 +36,29 @@ export default function Liabilities() {
 	const totalGoodDebtAmount = calculateSum(totalGoodDebt);
 	const totalBadDebtAmount = calculateSum(totalBadDebt);
 
+	const renderTooltip = (props) => (
+		<Tooltip id="button-tooltip" {...props}>
+			{chartView ? "Chart View" : "List View"}
+		</Tooltip>
+	);
+
 	return (
 		<div className="border">
 			<div style={{ display: "flex", justifyContent: "space-between" }}>
 				<span>
-					<Button
-						onClick={handleViewChange}
-						size="sm"
-						variant="outline-success"
+					<OverlayTrigger
+						placement="top"
+						delay={{ show: 0, hide: 400 }}
+						overlay={renderTooltip}
 					>
-						{chartView ? <PieChart /> : <ListUl />}
-					</Button>
+						<Button
+							onClick={handleViewChange}
+							size="sm"
+							variant="outline-primary"
+						>
+							{chartView ? <PieChart /> : <ListUl />}
+						</Button>
+					</OverlayTrigger>
 				</span>
 				<span className="title">
 					LIABILITIES <LiabilityPopover />

@@ -18,8 +18,5 @@ export default function DoughnutChart(props) {
 		],
 	};
 
-	return (
-		<Doughnut data={doughnutData} />
-		/* <Bar data={doughnutData} /> */
-	);
+	return <Doughnut data={doughnutData} />;
 }
