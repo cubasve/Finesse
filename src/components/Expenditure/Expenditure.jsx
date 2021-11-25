@@ -27,11 +27,7 @@ export default function Expenditure() {
 		<div className="border">
 			<div style={{ display: "flex", justifyContent: "space-between" }}>
 				<span>
-					<OverlayTrigger
-						placement="top"
-						delay={{ show: 0, hide: 400 }}
-						overlay={renderTooltip}
-					>
+					<OverlayTrigger placement="top" overlay={renderTooltip}>
 						<Button
 							onClick={handleViewChange}
 							size="sm"

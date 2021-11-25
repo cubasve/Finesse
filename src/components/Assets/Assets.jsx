@@ -21,7 +21,7 @@ const popover = (
 
 const AssetPopover = () => (
 	<OverlayTrigger trigger="click" placement="top" overlay={popover}>
-		<Button variant="info" size="sm">
+		<Button variant="info" size="sm" style={{ borderRadius: 50 }}>
 			<InfoLg />
 		</Button>
 	</OverlayTrigger>
@@ -56,11 +56,7 @@ export default function Assets() {
 		<div className="border">
 			<div style={{ display: "flex", justifyContent: "space-between" }}>
 				<span>
-					<OverlayTrigger
-						placement="top"
-						delay={{ show: 0, hide: 400 }}
-						overlay={renderTooltip}
-					>
+					<OverlayTrigger placement="top" overlay={renderTooltip}>
 						<Button
 							onClick={handleViewChange}
 							size="sm"

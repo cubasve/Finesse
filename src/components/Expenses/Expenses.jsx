@@ -12,6 +12,7 @@ const expenseOptions = [
 	"Taxes",
 	"Housing",
 	"Transportation",
+	"Insurance",
 	"Food",
 	"Children",
 	"Debt Payments",
