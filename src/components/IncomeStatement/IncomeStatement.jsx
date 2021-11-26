@@ -8,11 +8,18 @@ import {
 	calculateSum,
 	formatAmount,
 } from "../../utils/calculations";
+import { Spinner } from "react-bootstrap";
 
 export default class IncomeStatement extends Component {
+	state = {
+		loading: false,
+	};
+
 	async componentDidMount() {
 		const { handleFetchData } = this.context;
+		this.setState({ loading: true });
 		handleFetchData();
+		this.setState({ loading: false });
 	}
 
 	render() {
@@ -50,8 +57,14 @@ export default class IncomeStatement extends Component {
 						{formatAmount(cashFlow)}
 					</span>
 				</h6>
-				<Income />
-				<Expenditure />
+				{this.state.loading ? (
+					<Spinner animation="border" size="lg" />
+				) : (
+					<>
+						<Income />
+						<Expenditure />
+					</>
+				)}
 			</>
 		);
 	}

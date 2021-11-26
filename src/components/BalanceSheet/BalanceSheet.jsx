@@ -8,11 +8,18 @@ import {
 	calculateSum,
 	formatAmount,
 } from "../../utils/calculations";
+import { Spinner } from "react-bootstrap";
 
 export default class BalanceSheet extends Component {
+	state = {
+		loading: false,
+	};
+
 	async componentDidMount() {
 		const { handleFetchBalanceSheetData } = this.context;
+		this.setState({ loading: false });
 		handleFetchBalanceSheetData();
+		this.setState({ loading: false });
 	}
 
 	render() {
@@ -47,9 +54,14 @@ export default class BalanceSheet extends Component {
 						{formatAmount(equity)}
 					</span>
 				</h6>
-
-				<Assets />
-				<Liabilities />
+				{this.state.loading ? (
+					<Spinner animation="border" size="lg" />
+				) : (
+					<>
+						<Assets />
+						<Liabilities />
+					</>
+				)}
 			</>
 		);
 	}
