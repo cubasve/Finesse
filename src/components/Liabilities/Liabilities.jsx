@@ -64,11 +64,8 @@ export default function Liabilities() {
 
 			{chartView ? (
 				<DoughnutChart
-					backgroundColor={[
-						"rgba(153, 102, 255, 0.2)",
-						"rgba(255, 159, 64, 0.2)",
-					]}
-					borderColor={["rgba(153, 102, 255, 1)", "rgba(255, 159, 64, 1)"]}
+					backgroundColor={["rgb(0,128,0)", "rgb(139, 69, 19)"]}
+					borderColor={["rgb(0,128,0)", "rgb(139, 69, 19)"]}
 					borderWidth={1}
 					data={[totalGoodDebtAmount, totalBadDebtAmount]}
 					labels={["Good Debt", "Bad Debt"]}
