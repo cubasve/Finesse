@@ -4,6 +4,23 @@ const Schema = mongoose.Schema;
 
 const SALT_ROUNDS = 6;
 
+const earned = new Schema({
+	type: {
+		type: String,
+		enum: ["Job", "Self-Employment", "Other"],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["Earned"],
+	},
+});
+
 const userFinances = new Schema({
 	type: {
 		type: String,
@@ -23,8 +40,6 @@ const userFinances = new Schema({
 			"Livestock & Meat",
 			"Agriculture",
 			"Cryptocurrency",
-			"Job",
-			"Self-Employment",
 			"Taxes",
 			"Housing",
 			"Transportation",
@@ -51,6 +66,8 @@ const userFinances = new Schema({
 			"Vacant Land",
 			"Invest",
 			"Save",
+			"Job",
+			"Self-Employment",
 		],
 	},
 	amount: Number,
@@ -88,6 +105,7 @@ const userSchema = new Schema(
 		email: { type: String, required: true, lowercase: true, unique: true },
 		password: String,
 		userFinances: [userFinances],
+		earned: [earned],
 	},
 	{
 		timestamps: true,

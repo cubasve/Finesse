@@ -43,12 +43,12 @@ export default function FormInput(props) {
 					/>
 				</Form.Group>
 				<Form.Group>
-					<Form.Control
+					{/* <Form.Control
 						type="hidden"
 						name="class"
 						value={newEntity.class}
 						onChange={handleChange}
-					/>
+					/> */}
 					<Form.Control
 						type="hidden"
 						name="category"

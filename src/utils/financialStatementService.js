@@ -21,6 +21,21 @@ function show() {
 	return fetch(BASE_URL, options).then((res) => res.json());
 }
 
+// function showTest() {
+// 	const options = {
+// 		method: "GET",
+// 		headers: {
+// 			"Content-type": "application/json",
+// 			Authorization: "Bearer " + tokenService.getToken(),
+// 		},
+// 		body: JSON.stringify(financialStatement),
+// 	};
+// 	return fetch(
+// 		`${BASE_URL}/${financialStatement.year}/${financialStatement.month}`,
+// 		options
+// 	).then((res) => res.json());
+// }
+
 function create(financialStatement) {
 	const options = {
 		method: "POST",

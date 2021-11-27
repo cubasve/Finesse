@@ -20,13 +20,24 @@ async function show(req, res) {
 async function create(req, res) {
 	try {
 		const user = await User.findById({ _id: req.user._id });
+		console.log(req.body);
 		//req.user = user you get back from token VS user = User.findById(...) is the user document from Mongoose
-		user.userFinances.push({
-			type: req.body.type,
-			amount: req.body.amount,
-			category: req.body.category,
-		});
-		await user.save();
+		// user.userFinances.push({
+		// 	type: req.body.type,
+		// 	amount: req.body.amount,
+		// 	category: req.body.category,
+		// });
+		const { type, amount, month, year, category } = req.body;
+		if (category === "Earned") {
+			user.earned.push({
+				type,
+				amount,
+				month,
+				year,
+				category,
+			});
+			await user.save();
+		}
 		res.json({ user: user });
 	} catch (err) {
 		console.error(err);

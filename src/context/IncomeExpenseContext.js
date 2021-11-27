@@ -14,7 +14,8 @@ export class IncomeExpenseProvider extends Component {
 			type: "Job",
 			amount: "",
 			category: "Earned",
-			class: "Income",
+			month: 11,
+			year: 2021,
 		},
 		updatedEarnedIncome: {},
 		earnedFormInvalid: true,
@@ -69,9 +70,10 @@ export class IncomeExpenseProvider extends Component {
 		try {
 			await financialStatementService.show().then((data) => {
 				this.setState({
-					totalEarnedIncome: data.user.userFinances.filter(
-						(elem) => elem.category === "Earned"
-					),
+					// totalEarnedIncome: data.user.userFinances.filter(
+					// 	(elem) => elem.category === "Earned"
+					// ),
+					totalEarnedIncome: data.user.earned,
 					totalPortfolioIncome: data.user.userFinances.filter(
 						(elem) => elem.category === "Portfolio"
 					),
@@ -142,29 +144,32 @@ export class IncomeExpenseProvider extends Component {
 		e.preventDefault();
 		if (!this.earnedFormRef.current.checkValidity()) return;
 		try {
+			const { type, amount, category } = this.state.newEarnedIncome;
 			await financialStatementService
 				.create({
-					type: this.state.newEarnedIncome.type,
-					amount: this.state.newEarnedIncome.amount,
-					category: this.state.newEarnedIncome.category,
-					class: this.state.newEarnedIncome.class,
+					type,
+					amount,
+					category,
+					month: 11,
+					year: 2021,
 				})
 				.then((data) => {
 					this.setState({
-						totalEarnedIncome: data.user.userFinances.filter(
-							(elem) => elem.category === "Earned"
-						),
+						totalEarnedIncome: data.user.earned,
+						// totalEarnedIncome: data.user.userFinances.filter(
+						// 	(elem) => elem.category === "Earned"
+						// ),
 						totalIncome: data.user.userFinances.filter(
 							(elem) =>
-								elem.category === "Earned" ||
-								elem.category === "Portfolio" ||
-								elem.category === "Passive"
+								// elem.category === "Earned" ||
+								elem.category === "Portfolio" || elem.category === "Passive"
 						),
 						newEarnedIncome: {
 							type: "Job",
 							amount: "",
 							category: "Earned",
-							class: "Income",
+							month: 11,
+							year: 2021,
 						},
 						earnedFormInvalid: true,
 					});
@@ -179,6 +184,7 @@ export class IncomeExpenseProvider extends Component {
 			...this.state.newEarnedIncome,
 			[e.target.name]: e.target.value,
 		};
+		console.log("newEarnedIncome", newEarnedIncome);
 		this.setState({
 			newEarnedIncome: newEarnedIncome,
 			earnedFormInvalid: !this.earnedFormRef.current.checkValidity(),

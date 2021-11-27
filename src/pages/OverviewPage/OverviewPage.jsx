@@ -7,7 +7,12 @@ export default function OverviewPage() {
 	return (
 		<Card style={{ margin: 30 }} border="dark">
 			<Card.Body>
-				<Tabs activeKey={tab} onSelect={(tab) => setTab(tab)} className="mb-3">
+				<Tabs
+					activeKey={tab}
+					onSelect={(tab) => setTab(tab)}
+					className="mb-3"
+					variant="pills"
+				>
 					<Tab eventKey="1" title="Equity & Cash Flow">
 						<BarChart
 							title="Bar Chart Test"
