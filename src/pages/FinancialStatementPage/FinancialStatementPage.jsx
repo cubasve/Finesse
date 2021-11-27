@@ -46,7 +46,7 @@ export default function FinancialStatementPage() {
 	const createdUserYear = new Date(user.createdAt).getFullYear();
 	const currentYear = new Date().getFullYear();
 	const currentMonth = monthOptions[new Date().getMonth() + 1];
-
+	console.log(user);
 	const generateYearOptions = (startYear, endYear) => {
 		const result = [];
 		for (let i = startYear; i <= endYear; i++) {

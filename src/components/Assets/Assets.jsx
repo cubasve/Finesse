@@ -75,18 +75,18 @@ export default function Assets() {
 			{chartView ? (
 				<DoughnutChart
 					backgroundColor={[
-						"rgba(213, 186, 152)",
+						"rgba(245, 222, 179)",
 						"rgba(14, 155, 209)",
 						"rgba(128, 0, 32)",
 						"rgba(237, 47, 50)",
-						"rgba(177, 26, 39)",
+						"rgb(172,30,68)",
 					]}
 					borderColor={[
-						"rgba(213, 186, 152)",
+						"rgba(245, 222, 179)",
 						"rgba(14, 155, 209)",
 						"rgba(128, 0, 32)",
 						"rgba(237, 47, 50)",
-						"rgba(177, 26, 39)",
+						"rgb(172,30,68)",
 					]}
 					borderWidth={1}
 					data={[
