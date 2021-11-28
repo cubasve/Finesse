@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PayYourselfFirst from "../PayYourselfFirst/PayYourselfFirst";
-import Expenses from "../Expenses/Expenses";
+import Necessities from "../Necessities/Necessities";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import { calculateSum, formatAmount } from "../../utils/calculations";
 import DoughnutChart from "../common/DoughnutChart";
@@ -9,13 +9,13 @@ import { ViewContext } from "../../context/ViewContext";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function Expenditure() {
-	const { totalExpenses, totalPayYourselfFirst, totalExpenseAndPYFAmount } =
+	const { totalNecessities, totalPayYourselfFirst, totalExpenseAndPYFAmount } =
 		useContext(IncomeExpenseContext);
 
 	const { chartView, handleViewChange } = useContext(ViewContext);
 
 	const totalPYFAmount = calculateSum(totalPayYourselfFirst);
-	const totalExpenseAmount = calculateSum(totalExpenses);
+	const totalNecessityAmount = calculateSum(totalNecessities);
 
 	const renderTooltip = (props) => (
 		<Tooltip id="button-tooltip" {...props}>
@@ -46,14 +46,14 @@ export default function Expenditure() {
 					backgroundColor={["rgb(0,128,0)", "rgb(139, 69, 19)"]}
 					borderColor={["rgb(0,128,0)", "rgb(139, 69, 19)"]}
 					borderWidth={1}
-					data={[totalPYFAmount, totalExpenseAmount]}
-					labels={["Self First", "Expenses"]}
+					data={[totalPYFAmount, totalNecessityAmount]}
+					labels={["Self First", "Necessities"]}
 					title="Expense Types"
 				/>
 			) : (
 				<>
 					<PayYourselfFirst />
-					<Expenses />
+					<Necessities />
 				</>
 			)}
 		</div>

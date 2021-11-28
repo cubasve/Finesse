@@ -55,7 +55,24 @@ async function create(req, res) {
 				category,
 			});
 			await user.save();
+		} else if (category === "Necessity") {
+			user.necessities.push({
+				type,
+				amount,
+				month,
+				year,
+				category,
+			});
+		} else if (category === "Self") {
+			user.selfFirst.push({
+				type,
+				amount,
+				month,
+				year,
+				category,
+			});
 		}
+
 		res.json({ user: user });
 	} catch (err) {
 		console.error(err);
@@ -77,6 +94,14 @@ async function update(req, res) {
 			await user.save();
 		} else if (category === "Passive") {
 			const entityToUpdate = user.passive.id(id);
+			entityToUpdate.set({ type, amount });
+			await user.save();
+		} else if (category === "Necessity") {
+			const entityToUpdate = user.necessities.id(id);
+			entityToUpdate.set({ type, amount });
+			await user.save();
+		} else if (category === "Self") {
+			const entityToUpdate = user.selfFirst.id(id);
 			entityToUpdate.set({ type, amount });
 			await user.save();
 		}
@@ -115,6 +140,14 @@ async function deleteOne(req, res) {
 			await user.save();
 		} else if (category === "Passive") {
 			const entityToDelete = user.passive.id(id);
+			entityToDelete.remove();
+			await user.save();
+		} else if (category === "Necessity") {
+			const entityToDelete = user.necessities.id(id);
+			entityToDelete.remove();
+			await user.save();
+		} else if (category === "Self") {
+			const entityToDelete = user.selfFirst.id(id);
 			entityToDelete.remove();
 			await user.save();
 		}

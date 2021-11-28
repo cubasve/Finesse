@@ -55,6 +55,176 @@ const passive = new Schema({
 	},
 });
 
+const selfFirst = new Schema({
+	type: {
+		type: String,
+		enum: ["Invest", "Save"],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["Self"],
+	},
+});
+
+const necessities = new Schema({
+	type: {
+		type: String,
+		enum: [
+			"Taxes",
+			"Housing",
+			"Transportation",
+			"Insurance",
+			"Food",
+			"Children",
+			"Debt Payments",
+			"Entertainment",
+			"Donations",
+			"Other",
+		],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["Necessity"],
+	},
+});
+
+const cash = new Schema({
+	type: {
+		type: String,
+		enum: ["Chequing Account", "Savings Account"],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["Cash"],
+	},
+});
+
+const paper = new Schema({
+	type: {
+		type: String,
+		enum: ["Stock", "Bond", "Index/Mutual Fund", "GIC", "REIT", "Other"],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["Paper"],
+	},
+});
+
+const realEstate = new Schema({
+	type: {
+		type: String,
+		enum: ["Residential", "Commercial", "Industrial", "Vacant Land"],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["RealEstate"],
+	},
+});
+
+const business = new Schema({
+	type: {
+		type: String,
+		enum: ["Sole proprietorship", "Partnership", "Corporation"],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["Business"],
+	},
+});
+
+const commodities = new Schema({
+	type: {
+		type: String,
+		enum: ["Sole proprietorship", "Partnership", "Corporation"],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["Commodity"],
+	},
+});
+
+const goodDebt = new Schema({
+	type: {
+		type: String,
+		enum: ["Real Estate", "Business", "Paper", "Commodities", "Other"],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["GoodDebt"],
+	},
+});
+
+const badDebt = new Schema({
+	type: {
+		type: String,
+		enum: [
+			"Home Mortgage",
+			"Car Loans",
+			"Credit Cards",
+			"School Loans",
+			"Other",
+		],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["BadDebt"],
+	},
+});
+
 const userFinances = new Schema({
 	type: {
 		type: String,
@@ -111,7 +281,7 @@ const userFinances = new Schema({
 			"Earned",
 			"Portfolio",
 			"Passive",
-			"Expense",
+			"Necessity",
 			"Self",
 			"Paper",
 			"RealEstate",
@@ -139,9 +309,22 @@ const userSchema = new Schema(
 		email: { type: String, required: true, lowercase: true, unique: true },
 		password: String,
 		userFinances: [userFinances],
+		// INCOME
 		earned: [earned],
 		portfolio: [portfolio],
 		passive: [passive],
+		//EXPENSES
+		selfFirst: [selfFirst],
+		necessities: [necessities],
+		// ASSETS
+		cash: [cash],
+		paper: [paper],
+		realEstate: [realEstate],
+		business: [business],
+		commodities: [commodities],
+		// LIABILITIES
+		goodDebt: [goodDebt],
+		badDebt: [badDebt],
 	},
 	{
 		timestamps: true,

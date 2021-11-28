@@ -42,22 +42,24 @@ export class IncomeExpenseProvider extends Component {
 		updatedPassiveIncome: {},
 		passiveFormInvalid: true,
 
-		totalExpenses: [],
-		newExpense: {
+		totalNecessities: [],
+		newNecessity: {
 			type: "Taxes",
 			amount: "",
-			category: "Expense",
-			class: "Expense",
+			category: "Necessity",
+			month: 11,
+			year: 2021,
 		},
-		updatedExpense: {},
-		expenseFormInvalid: true,
+		updatedNecessity: {},
+		necessityFormInvalid: true,
 
 		totalPayYourselfFirst: [],
 		newPayYourselfFirst: {
 			type: "Invest",
 			amount: "",
 			category: "Self",
-			class: "Expense",
+			month: 11,
+			year: 2021,
 		},
 		updatedPayYourselfFirst: {},
 		selfFirstFormInvalid: true,
@@ -65,29 +67,24 @@ export class IncomeExpenseProvider extends Component {
 	earnedFormRef = React.createRef();
 	portfolioFormRef = React.createRef();
 	passiveFormRef = React.createRef();
-	expenseFormRef = React.createRef();
+	necessityFormRef = React.createRef();
 	selfFirstFormRef = React.createRef();
 
 	handleFetchData = async () => {
 		try {
 			await financialStatementService.show().then((data) => {
-				const { earned, portfolio, passive } = data.user;
+				const { earned, portfolio, passive, selfFirst, necessities } =
+					data.user;
 				this.setState({
 					totalEarnedIncome: earned,
 					totalPortfolioIncome: portfolio,
 					totalPassiveIncome: passive,
 
-					totalExpenses: data.user.userFinances.filter(
-						(elem) => elem.category === "Expense"
-					),
-					totalPayYourselfFirst: data.user.userFinances.filter(
-						(elem) => elem.category === "Self"
-					),
+					totalNecessities: necessities,
+					totalPayYourselfFirst: selfFirst,
 
 					totalIncome: [...earned, ...portfolio, ...passive],
-					totalExpensesAndSelfFirst: data.user.userFinances.filter(
-						(elem) => elem.category === "Expense" || elem.category === "Self"
-					),
+					totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
 				});
 			});
 		} catch (err) {
@@ -116,11 +113,11 @@ export class IncomeExpenseProvider extends Component {
 		this.setState({ updatedPassiveIncome: currentPassiveIncome });
 	};
 
-	handleGetCurrentExpense = (id) => {
-		const currentExpense = this.state.totalExpenses.find(
+	handleGetCurrentNecessity = (id) => {
+		const currentNecessity = this.state.totalNecessities.find(
 			({ _id }) => _id === id
 		);
-		this.setState({ updatedExpense: currentExpense });
+		this.setState({ updatedNecessity: currentNecessity });
 	};
 
 	handleGetCurrentPayYourselfFirst = (id) => {
@@ -426,33 +423,33 @@ export class IncomeExpenseProvider extends Component {
 		}
 	};
 
-	/*---------EXPENSE METHODS-------- */
-	handleExpenseSubmit = async (e) => {
+	/*---------NECESSITY METHODS-------- */
+	handleNecessitySubmit = async (e) => {
 		e.preventDefault();
-		if (!this.expenseFormRef.current.checkValidity()) return;
+		if (!this.necessityFormRef.current.checkValidity()) return;
 		try {
+			const { type, amount, category } = this.state.newNecessity;
 			await financialStatementService
 				.create({
-					type: this.state.newExpense.type,
-					amount: this.state.newExpense.amount,
-					category: this.state.newExpense.category,
-					class: this.state.newExpense.class,
+					type,
+					amount,
+					category,
+					month: 11,
+					year: 2021,
 				})
 				.then((data) => {
+					const { necessities, selfFirst } = data.user;
 					this.setState({
-						totalExpenses: data.user.userFinances.filter(
-							(elem) => elem.category === "Expense"
-						),
-						totalExpensesAndSelfFirst: data.user.userFinances.filter(
-							(elem) => elem.category === "Expense" || elem.category === "Self"
-						),
-						newExpense: {
+						totalNecessities: necessities,
+						totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
+						newNecessity: {
 							type: "Taxes",
 							amount: "",
-							category: "Expense",
-							class: "Expense",
+							category: "Necessity",
+							month: 11,
+							year: 2021,
 						},
-						expenseFormInvalid: true,
+						necessityFormInvalid: true,
 					});
 				});
 		} catch (err) {
@@ -460,39 +457,39 @@ export class IncomeExpenseProvider extends Component {
 		}
 	};
 
-	handleExpenseChange = (e) => {
-		const newExpense = {
-			...this.state.newExpense,
+	handleNecessityChange = (e) => {
+		const newNecessity = {
+			...this.state.newNecessity,
 			[e.target.name]: e.target.value,
 		};
 		this.setState({
-			newExpense: newExpense,
-			expenseFormInvalid: !this.expenseFormRef.current.checkValidity(),
+			newNecessity: newNecessity,
+			necessityFormInvalid: !this.necessityFormRef.current.checkValidity(),
 		});
 	};
 
-	handleExpenseUpdateChange = (e) => {
-		const updatedExpense = {
-			...this.state.updatedExpense,
+	handleNecessityUpdateChange = (e) => {
+		const updatedNecessity = {
+			...this.state.updatedNecessity,
 			[e.target.name]: e.target.value,
 		};
 		this.setState({
-			updatedExpense: updatedExpense,
+			updatedNecessity: updatedNecessity,
 		});
 	};
 
-	handleExpenseDelete = async (e) => {
+	handleNecessityDelete = async (e) => {
+		const entity = this.state.totalEarnedIncome.find(
+			({ _id }) => _id === e.target.value
+		);
 		try {
 			await financialStatementService
-				.deleteOne({ id: e.target.value })
+				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
+					const { necessities, selfFirst } = data.user;
 					this.setState({
-						totalExpenses: data.user.userFinances.filter(
-							(elem) => elem.category === "Expense"
-						),
-						totalExpensesAndSelfFirst: data.user.userFinances.filter(
-							(elem) => elem.category === "Expense" || elem.category === "Self"
-						),
+						totalNecessities: necessities,
+						totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
 					});
 				});
 		} catch (err) {
@@ -500,24 +497,23 @@ export class IncomeExpenseProvider extends Component {
 		}
 	};
 
-	handleExpenseUpdateSubmit = async (e) => {
+	handleNecessityUpdateSubmit = async (e) => {
 		// e.preventDefault();
 		try {
+			const { type, amount, category } = this.state.updatedNecessity;
 			await financialStatementService
 				.update({
 					id: e.target.value,
-					type: this.state.updatedExpense.type,
-					amount: this.state.updatedExpense.amount,
+					type,
+					amount,
+					category,
 				})
 				.then((data) => {
+					const { necessities, selfFirst } = data.user;
 					this.setState({
-						totalExpenses: data.user.userFinances.filter(
-							(elem) => elem.category === "Expense"
-						),
-						totalExpensesAndSelfFirst: data.user.userFinances.filter(
-							(elem) => elem.category === "Expense" || elem.category === "Self"
-						),
-						updatedExpense: {},
+						totalNecessities: necessities,
+						totalExpensesAndSelfFirst: [...necessities, ...selfFirst],
+						updatedNecessity: {},
 					});
 				});
 		} catch (err) {
@@ -530,26 +526,26 @@ export class IncomeExpenseProvider extends Component {
 		e.preventDefault();
 		if (!this.selfFirstFormRef.current.checkValidity()) return;
 		try {
+			const { type, amount, category } = this.state.newPayYourselfFirst;
 			await financialStatementService
 				.create({
-					type: this.state.newPayYourselfFirst.type,
-					amount: this.state.newPayYourselfFirst.amount,
-					category: this.state.newPayYourselfFirst.category,
-					class: this.state.newPayYourselfFirst.class,
+					type,
+					amount,
+					category,
+					month: 11,
+					year: 2021,
 				})
 				.then((data) => {
+					const { selfFirst, necessities } = data.user;
 					this.setState({
-						totalPayYourselfFirst: data.user.userFinances.filter(
-							(elem) => elem.category === "Self"
-						),
-						totalExpensesAndSelfFirst: data.user.userFinances.filter(
-							(elem) => elem.category === "Expense" || elem.category === "Self"
-						),
+						totalPayYourselfFirst: selfFirst,
+						totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
 						newPayYourselfFirst: {
 							type: "Invest",
 							amount: "",
 							category: "Self",
-							class: "Self",
+							month: 11,
+							year: 2021,
 						},
 						selfFirstFormInvalid: true,
 					});
@@ -581,17 +577,17 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handleSelfFirstDelete = async (e) => {
+		const entity = this.state.totalPayYourselfFirst.find(
+			({ _id }) => _id === e.target.value
+		);
 		try {
 			await financialStatementService
-				.deleteOne({ id: e.target.value })
+				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
+					const { selfFirst, necessities } = data.user;
 					this.setState({
-						totalPayYourselfFirst: data.user.userFinances.filter(
-							(elem) => elem.category === "Self"
-						),
-						totalExpensesAndSelfFirst: data.user.userFinances.filter(
-							(elem) => elem.category === "Expense" || elem.category === "Self"
-						),
+						totalPayYourselfFirst: selfFirst,
+						totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
 					});
 				});
 		} catch (err) {
@@ -602,20 +598,19 @@ export class IncomeExpenseProvider extends Component {
 	handleSelfFirstUpdateSubmit = async (e) => {
 		// e.preventDefault();
 		try {
+			const { type, amount, category } = this.state.updatedSelfFirst;
 			await financialStatementService
 				.update({
 					id: e.target.value,
-					type: this.state.updatedPayYourselfFirst.type,
-					amount: this.state.updatedPayYourselfFirst.amount,
+					type,
+					amount,
+					category,
 				})
 				.then((data) => {
+					const { selfFirst, necessities } = data.user;
 					this.setState({
-						totalPayYourselfFirst: data.user.userFinances.filter(
-							(elem) => elem.category === "Self"
-						),
-						totalExpensesAndSelfFirst: data.user.userFinances.filter(
-							(elem) => elem.category === "Expense" || elem.category === "Self"
-						),
+						totalPayYourselfFirst: selfFirst,
+						totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
 						updatedPayYourselfFirst: {},
 					});
 				});
@@ -644,10 +639,10 @@ export class IncomeExpenseProvider extends Component {
 			passiveFormInvalid,
 
 			totalExpensesAndSelfFirst,
-			totalExpenses,
-			newExpense,
-			updatedExpense,
-			expenseFormInvalid,
+			totalNecessities,
+			newNecessity,
+			updatedNecessity,
+			necessityFormInvalid,
 
 			totalPayYourselfFirst,
 			newPayYourselfFirst,
@@ -682,13 +677,13 @@ export class IncomeExpenseProvider extends Component {
 			handlePassiveIncomeUpdateSubmit,
 			passiveFormRef,
 
-			handleExpenseSubmit,
-			handleExpenseChange,
-			handleExpenseDelete,
-			handleGetCurrentExpense,
-			handleExpenseUpdateChange,
-			handleExpenseUpdateSubmit,
-			expenseFormRef,
+			handleNecessitySubmit,
+			handleNecessityChange,
+			handleNecessityDelete,
+			handleGetCurrentNecessity,
+			handleNecessityUpdateChange,
+			handleNecessityUpdateSubmit,
+			necessityFormRef,
 
 			handleSelfFirstSubmit,
 			handleSelfFirstChange,
@@ -744,11 +739,11 @@ export class IncomeExpenseProvider extends Component {
 					handlePassiveIncomeUpdateSubmit,
 
 					totalExpensesAndSelfFirst,
-					totalExpenses,
-					newExpense,
-					updatedExpense,
-					expenseFormInvalid,
-					expenseFormRef,
+					totalNecessities,
+					newNecessity,
+					updatedNecessity,
+					necessityFormInvalid,
+					necessityFormRef,
 
 					totalPayYourselfFirst,
 					newPayYourselfFirst,
@@ -756,12 +751,12 @@ export class IncomeExpenseProvider extends Component {
 					selfFirstFormInvalid,
 					selfFirstFormRef,
 
-					handleExpenseSubmit,
-					handleExpenseChange,
-					handleExpenseDelete,
-					handleGetCurrentExpense,
-					handleExpenseUpdateChange,
-					handleExpenseUpdateSubmit,
+					handleNecessitySubmit,
+					handleNecessityChange,
+					handleNecessityDelete,
+					handleGetCurrentNecessity,
+					handleNecessityUpdateChange,
+					handleNecessityUpdateSubmit,
 
 					handleSelfFirstSubmit,
 					handleSelfFirstChange,
