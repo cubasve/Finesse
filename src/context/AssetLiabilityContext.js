@@ -181,7 +181,7 @@ export class AssetLiabilityProvider extends Component {
 		this.setState({ updatedBadDebt: currentBadDebt });
 	};
 
-	//Paper Asset Methods
+	/*---------PAPER ASSET METHODS-------- */
 	handlePaperAssetSubmit = async (e) => {
 		e.preventDefault();
 		if (!this.paperAssetFormRef.current.checkValidity()) return;
@@ -293,7 +293,7 @@ export class AssetLiabilityProvider extends Component {
 		}
 	};
 
-	//Real Estate Methods
+	/*---------REAL ESTATE METHODS-------- */
 	handleRealEstateSubmit = async (e) => {
 		e.preventDefault();
 		if (!this.realEstateFormRef.current.checkValidity()) return;
@@ -405,7 +405,7 @@ export class AssetLiabilityProvider extends Component {
 		}
 	};
 
-	//Business Methods
+	/*---------BUSINESS METHODS-------- */
 	handleBusinessSubmit = async (e) => {
 		e.preventDefault();
 		if (!this.businessFormRef.current.checkValidity()) return;
@@ -517,7 +517,7 @@ export class AssetLiabilityProvider extends Component {
 		}
 	};
 
-	//Commodity Methods
+	/*---------COMMODITY METHODS-------- */
 	handleCommoditySubmit = async (e) => {
 		e.preventDefault();
 		if (!this.commodityFormRef.current.checkValidity()) return;
@@ -629,7 +629,7 @@ export class AssetLiabilityProvider extends Component {
 		}
 	};
 
-	//Cash Methods
+	/*---------CASH METHODS-------- */
 	handleCashSubmit = async (e) => {
 		e.preventDefault();
 		if (!this.cashFormRef.current.checkValidity()) return;
@@ -738,7 +738,7 @@ export class AssetLiabilityProvider extends Component {
 		}
 	};
 
-	//Good Debt Methods
+	/*---------GOOD DEBT METHODS-------- */
 	handleGoodDebtSubmit = async (e) => {
 		e.preventDefault();
 		if (!this.goodDebtFormRef.current.checkValidity()) return;
@@ -838,7 +838,7 @@ export class AssetLiabilityProvider extends Component {
 		}
 	};
 
-	//Bad Debt Methods
+	/*---------BAD DEBT METHODS-------- */
 	handleBadDebtSubmit = async (e) => {
 		e.preventDefault();
 		if (!this.badDebtFormRef.current.checkValidity()) return;

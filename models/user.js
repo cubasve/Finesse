@@ -21,6 +21,40 @@ const earned = new Schema({
 	},
 });
 
+const portfolio = new Schema({
+	type: {
+		type: String,
+		enum: ["Stock", "Bond", "Index/Mutual Fund", "GIC", "REIT", "Other"],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["Portfolio"],
+	},
+});
+
+const passive = new Schema({
+	type: {
+		type: String,
+		enum: ["Real Estate", "Business", "Commodities", "Royalties", "Other"],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["Passive"],
+	},
+});
+
 const userFinances = new Schema({
 	type: {
 		type: String,
@@ -106,6 +140,8 @@ const userSchema = new Schema(
 		password: String,
 		userFinances: [userFinances],
 		earned: [earned],
+		portfolio: [portfolio],
+		passive: [passive],
 	},
 	{
 		timestamps: true,

@@ -25,7 +25,8 @@ export class IncomeExpenseProvider extends Component {
 			type: "Stock",
 			amount: "",
 			category: "Portfolio",
-			class: "Income",
+			month: 11,
+			year: 2021,
 		},
 		updatedPortfolioIncome: {},
 		portfolioFormInvalid: true,
@@ -35,7 +36,8 @@ export class IncomeExpenseProvider extends Component {
 			type: "Real Estate",
 			amount: "",
 			category: "Passive",
-			class: "Income",
+			month: 11,
+			year: 2021,
 		},
 		updatedPassiveIncome: {},
 		passiveFormInvalid: true,
@@ -69,17 +71,11 @@ export class IncomeExpenseProvider extends Component {
 	handleFetchData = async () => {
 		try {
 			await financialStatementService.show().then((data) => {
+				const { earned, portfolio, passive } = data.user;
 				this.setState({
-					// totalEarnedIncome: data.user.userFinances.filter(
-					// 	(elem) => elem.category === "Earned"
-					// ),
-					totalEarnedIncome: data.user.earned,
-					totalPortfolioIncome: data.user.userFinances.filter(
-						(elem) => elem.category === "Portfolio"
-					),
-					totalPassiveIncome: data.user.userFinances.filter(
-						(elem) => elem.category === "Passive"
-					),
+					totalEarnedIncome: earned,
+					totalPortfolioIncome: portfolio,
+					totalPassiveIncome: passive,
 
 					totalExpenses: data.user.userFinances.filter(
 						(elem) => elem.category === "Expense"
@@ -88,12 +84,7 @@ export class IncomeExpenseProvider extends Component {
 						(elem) => elem.category === "Self"
 					),
 
-					totalIncome: data.user.userFinances.filter(
-						(elem) =>
-							elem.category === "Earned" ||
-							elem.category === "Portfolio" ||
-							elem.category === "Passive"
-					),
+					totalIncome: [...earned, ...portfolio, ...passive],
 					totalExpensesAndSelfFirst: data.user.userFinances.filter(
 						(elem) => elem.category === "Expense" || elem.category === "Self"
 					),
@@ -139,7 +130,7 @@ export class IncomeExpenseProvider extends Component {
 		this.setState({ updatedPayYourselfFirst: currentPayYourselfFirst });
 	};
 
-	//Earned Income Methods
+	/*---------EARNED INCOME METHODS-------- */
 	handleEarnedIncomeSubmit = async (e) => {
 		e.preventDefault();
 		if (!this.earnedFormRef.current.checkValidity()) return;
@@ -154,16 +145,10 @@ export class IncomeExpenseProvider extends Component {
 					year: 2021,
 				})
 				.then((data) => {
+					const { earned, portfolio, passive } = data.user;
 					this.setState({
-						totalEarnedIncome: data.user.earned,
-						// totalEarnedIncome: data.user.userFinances.filter(
-						// 	(elem) => elem.category === "Earned"
-						// ),
-						totalIncome: data.user.userFinances.filter(
-							(elem) =>
-								// elem.category === "Earned" ||
-								elem.category === "Portfolio" || elem.category === "Passive"
-						),
+						totalEarnedIncome: earned,
+						totalIncome: [...earned, ...portfolio, ...passive],
 						newEarnedIncome: {
 							type: "Job",
 							amount: "",
@@ -202,20 +187,18 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handleEarnedIncomeDelete = async (e) => {
+		const entity = this.state.totalEarnedIncome.find(
+			({ _id }) => _id === e.target.value
+		);
+		console.log("e.target.value", e.target.value, "entity", entity);
 		try {
 			await financialStatementService
-				.deleteOne({ id: e.target.value })
+				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
+					const { earned, portfolio, passive } = data.user;
 					this.setState({
-						totalEarnedIncome: data.user.userFinances.filter(
-							(elem) => elem.category === "Earned"
-						),
-						totalIncome: data.user.userFinances.filter(
-							(elem) =>
-								elem.category === "Earned" ||
-								elem.category === "Portfolio" ||
-								elem.category === "Passive"
-						),
+						totalEarnedIncome: earned,
+						totalIncome: [...earned, ...portfolio, ...passive],
 					});
 				});
 		} catch (err) {
@@ -226,23 +209,19 @@ export class IncomeExpenseProvider extends Component {
 	handleEarnedIncomeUpdateSubmit = async (e) => {
 		// e.preventDefault();
 		try {
+			const { type, amount, category } = this.state.updatedEarnedIncome;
 			await financialStatementService
 				.update({
 					id: e.target.value,
-					type: this.state.updatedEarnedIncome.type,
-					amount: this.state.updatedEarnedIncome.amount,
+					type,
+					amount,
+					category,
 				})
 				.then((data) => {
+					const { earned, portfolio, passive } = data.user;
 					this.setState({
-						totalEarnedIncome: data.user.userFinances.filter(
-							(elem) => elem.category === "Earned"
-						),
-						totalIncome: data.user.userFinances.filter(
-							(elem) =>
-								elem.category === "Earned" ||
-								elem.category === "Portfolio" ||
-								elem.category === "Passive"
-						),
+						totalEarnedIncome: earned,
+						totalIncome: [...earned, ...portfolio, ...passive],
 						updatedEarnedIncome: {},
 					});
 				});
@@ -251,34 +230,31 @@ export class IncomeExpenseProvider extends Component {
 		}
 	};
 
-	//Portfolio Income Methods
+	/*---------PORTFOLIO INCOME METHODS-------- */
 	handlePortfolioIncomeSubmit = async (e) => {
 		e.preventDefault();
 		if (!this.portfolioFormRef.current.checkValidity()) return;
 		try {
+			const { type, amount, category } = this.state.newPortfolioIncome;
 			await financialStatementService
 				.create({
-					type: this.state.newPortfolioIncome.type,
-					amount: this.state.newPortfolioIncome.amount,
-					category: this.state.newPortfolioIncome.category,
-					class: this.state.newPortfolioIncome.class,
+					type,
+					amount,
+					category,
+					month: 11,
+					year: 2021,
 				})
 				.then((data) => {
+					const { earned, portfolio, passive } = data.user;
 					this.setState({
-						totalPortfolioIncome: data.user.userFinances.filter(
-							(elem) => elem.category === "Portfolio"
-						),
-						totalIncome: data.user.userFinances.filter(
-							(elem) =>
-								elem.category === "Earned" ||
-								elem.category === "Portfolio" ||
-								elem.category === "Passive"
-						),
+						totalPortfolioIncome: portfolio,
+						totalIncome: [...earned, ...portfolio, ...passive],
 						newPortfolioIncome: {
 							type: "Stock",
 							amount: "",
 							category: "Portfolio",
-							class: "Income",
+							month: 11,
+							year: 2021,
 						},
 						portfolioFormInvalid: true,
 					});
@@ -310,20 +286,17 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handlePortfolioIncomeDelete = async (e) => {
+		const entity = this.state.totalPortfolioIncome.find(
+			({ _id }) => _id === e.target.value
+		);
 		try {
 			await financialStatementService
-				.deleteOne({ id: e.target.value })
+				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
+					const { earned, portfolio, passive } = data.user;
 					this.setState({
-						totalPortfolioIncome: data.user.userFinances.filter(
-							(elem) => elem.category === "Portfolio"
-						),
-						totalIncome: data.user.userFinances.filter(
-							(elem) =>
-								elem.category === "Earned" ||
-								elem.category === "Portfolio" ||
-								elem.category === "Passive"
-						),
+						totalPortfolioIncome: portfolio,
+						totalIncome: [...earned, ...portfolio, ...passive],
 					});
 				});
 		} catch (err) {
@@ -334,23 +307,19 @@ export class IncomeExpenseProvider extends Component {
 	handlePortfolioIncomeUpdateSubmit = async (e) => {
 		// e.preventDefault();
 		try {
+			const { type, amount, category } = this.state.updatedPortfolioIncome;
 			await financialStatementService
 				.update({
 					id: e.target.value,
-					type: this.state.updatedPortfolioIncome.type,
-					amount: this.state.updatedPortfolioIncome.amount,
+					type,
+					amount,
+					category,
 				})
 				.then((data) => {
+					const { earned, portfolio, passive } = data.user;
 					this.setState({
-						totalPortfolioIncome: data.user.userFinances.filter(
-							(elem) => elem.category === "Portfolio"
-						),
-						totalIncome: data.user.userFinances.filter(
-							(elem) =>
-								elem.category === "Earned" ||
-								elem.category === "Portfolio" ||
-								elem.category === "Passive"
-						),
+						totalPortfolioIncome: portfolio,
+						totalIncome: [...earned, ...portfolio, ...passive],
 						updatedPortfolioIncome: {},
 					});
 				});
@@ -359,34 +328,31 @@ export class IncomeExpenseProvider extends Component {
 		}
 	};
 
-	//Passive Income Methods
+	/*---------PASSIVE INCOME METHODS-------- */
 	handlePassiveIncomeSubmit = async (e) => {
 		e.preventDefault();
 		if (!this.passiveFormRef.current.checkValidity()) return;
 		try {
+			const { type, amount, category } = this.state.newPassiveIncome;
 			await financialStatementService
 				.create({
-					type: this.state.newPassiveIncome.type,
-					amount: this.state.newPassiveIncome.amount,
-					category: this.state.newPassiveIncome.category,
-					class: this.state.newPassiveIncome.class,
+					type,
+					amount,
+					category,
+					month: 11,
+					year: 2021,
 				})
 				.then((data) => {
+					const { earned, portfolio, passive } = data.user;
 					this.setState({
-						totalPassiveIncome: data.user.userFinances.filter(
-							(elem) => elem.category === "Passive"
-						),
-						totalIncome: data.user.userFinances.filter(
-							(elem) =>
-								elem.category === "Earned" ||
-								elem.category === "Portfolio" ||
-								elem.category === "Passive"
-						),
+						totalPassiveIncome: passive,
+						totalIncome: [...earned, ...portfolio, ...passive],
 						newPassiveIncome: {
 							type: "Real Estate",
 							amount: "",
 							category: "Passive",
-							class: "Income",
+							month: 11,
+							year: 2021,
 						},
 						passiveFormInvalid: true,
 					});
@@ -418,20 +384,17 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handlePassiveIncomeDelete = async (e) => {
+		const entity = this.state.totalPassiveIncome.find(
+			({ _id }) => _id === e.target.value
+		);
 		try {
 			await financialStatementService
-				.deleteOne({ id: e.target.value })
+				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
+					const { earned, portfolio, passive } = data.user;
 					this.setState({
-						totalPassiveIncome: data.user.userFinances.filter(
-							(elem) => elem.category === "Passive"
-						),
-						totalIncome: data.user.userFinances.filter(
-							(elem) =>
-								elem.category === "Earned" ||
-								elem.category === "Portfolio" ||
-								elem.category === "Passive"
-						),
+						totalPassiveIncome: passive,
+						totalIncome: [...earned, ...portfolio, ...passive],
 					});
 				});
 		} catch (err) {
@@ -442,23 +405,19 @@ export class IncomeExpenseProvider extends Component {
 	handlePassiveIncomeUpdateSubmit = async (e) => {
 		// e.preventDefault();
 		try {
+			const { type, amount, category } = this.state.updatedPassiveIncome;
 			await financialStatementService
 				.update({
 					id: e.target.value,
-					type: this.state.updatedPassiveIncome.type,
-					amount: this.state.updatedPassiveIncome.amount,
+					type,
+					amount,
+					category,
 				})
 				.then((data) => {
+					const { earned, portfolio, passive } = data.user;
 					this.setState({
-						totalPassiveIncome: data.user.userFinances.filter(
-							(elem) => elem.category === "Passive"
-						),
-						totalIncome: data.user.userFinances.filter(
-							(elem) =>
-								elem.category === "Earned" ||
-								elem.category === "Portfolio" ||
-								elem.category === "Passive"
-						),
+						totalPassiveIncome: passive,
+						totalIncome: [...earned, ...portfolio, ...passive],
 						updatedPassiveIncome: {},
 					});
 				});
@@ -467,7 +426,7 @@ export class IncomeExpenseProvider extends Component {
 		}
 	};
 
-	//Expense Methods
+	/*---------EXPENSE METHODS-------- */
 	handleExpenseSubmit = async (e) => {
 		e.preventDefault();
 		if (!this.expenseFormRef.current.checkValidity()) return;
@@ -566,7 +525,7 @@ export class IncomeExpenseProvider extends Component {
 		}
 	};
 
-	//Pay Yourself First Methods
+	/*---------PAY YOURSELF FIRST METHODS-------- */
 	handleSelfFirstSubmit = async (e) => {
 		e.preventDefault();
 		if (!this.selfFirstFormRef.current.checkValidity()) return;

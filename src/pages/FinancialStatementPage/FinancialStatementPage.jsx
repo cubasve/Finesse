@@ -30,7 +30,6 @@ export default function FinancialStatementPage() {
 	const currentYear = new Date().getFullYear();
 	const currentMonth = new Date().getMonth() + 1;
 
-	console.log(user);
 	const generateYearOptions = (startYear, endYear) => {
 		const result = [];
 		for (let i = startYear; i <= endYear; i++) {
