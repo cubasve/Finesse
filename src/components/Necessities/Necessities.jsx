@@ -39,7 +39,6 @@ export default function Necessities() {
 
 	const totalNecessityAmount = calculateSum(totalNecessities);
 	const totalExpensesAndPYFAmount = calculateSum(totalExpensesAndSelfFirst);
-
 	return (
 		<>
 			<h5 style={{ display: "flex", justifyContent: "space-between" }}>

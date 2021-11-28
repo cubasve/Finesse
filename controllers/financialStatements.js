@@ -63,6 +63,7 @@ async function create(req, res) {
 				year,
 				category,
 			});
+			await user.save();
 		} else if (category === "Self") {
 			user.selfFirst.push({
 				type,
@@ -71,6 +72,7 @@ async function create(req, res) {
 				year,
 				category,
 			});
+			await user.save();
 		}
 
 		res.json({ user: user });

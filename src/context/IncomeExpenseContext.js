@@ -166,7 +166,6 @@ export class IncomeExpenseProvider extends Component {
 			...this.state.newEarnedIncome,
 			[e.target.name]: e.target.value,
 		};
-		console.log("newEarnedIncome", newEarnedIncome);
 		this.setState({
 			newEarnedIncome: newEarnedIncome,
 			earnedFormInvalid: !this.earnedFormRef.current.checkValidity(),
@@ -187,7 +186,6 @@ export class IncomeExpenseProvider extends Component {
 		const entity = this.state.totalEarnedIncome.find(
 			({ _id }) => _id === e.target.value
 		);
-		console.log("e.target.value", e.target.value, "entity", entity);
 		try {
 			await financialStatementService
 				.deleteOne({ id: entity._id, category: entity.category })
@@ -479,7 +477,7 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handleNecessityDelete = async (e) => {
-		const entity = this.state.totalEarnedIncome.find(
+		const entity = this.state.totalNecessities.find(
 			({ _id }) => _id === e.target.value
 		);
 		try {
@@ -598,7 +596,7 @@ export class IncomeExpenseProvider extends Component {
 	handleSelfFirstUpdateSubmit = async (e) => {
 		// e.preventDefault();
 		try {
-			const { type, amount, category } = this.state.updatedSelfFirst;
+			const { type, amount, category } = this.state.updatedPayYourselfFirst;
 			await financialStatementService
 				.update({
 					id: e.target.value,
