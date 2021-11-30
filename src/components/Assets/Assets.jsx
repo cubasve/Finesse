@@ -9,7 +9,7 @@ import { InfoLg } from "react-bootstrap-icons";
 import { calculateSum, formatAmount } from "../../utils/calculations";
 import DoughnutChart from "../common/DoughnutChart";
 import { Button, OverlayTrigger, Popover, Tooltip } from "react-bootstrap";
-import { ViewContext } from "../../context/ViewContext";
+import { FinancialStatementContext } from "../../context/FinancialStatementContext";
 import { ListUl, PieChart } from "react-bootstrap-icons";
 
 const popover = (
@@ -37,7 +37,7 @@ export default function Assets() {
 		totalRealEstate,
 	} = useContext(AssetLiabilityContext);
 
-	const { chartView, handleViewChange } = useContext(ViewContext);
+	const { chartView, handleViewChange } = useContext(FinancialStatementContext);
 
 	const totalAssetAmount = calculateSum(totalAssets);
 	const totalCashAmount = calculateSum(totalCash);

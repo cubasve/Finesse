@@ -5,14 +5,14 @@ import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import { calculateSum, formatAmount } from "../../utils/calculations";
 import DoughnutChart from "../common/DoughnutChart";
 import { ListUl, PieChart } from "react-bootstrap-icons";
-import { ViewContext } from "../../context/ViewContext";
+import { FinancialStatementContext } from "../../context/FinancialStatementContext";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function Expenditure() {
 	const { totalNecessities, totalPayYourselfFirst, totalExpenseAndPYFAmount } =
 		useContext(IncomeExpenseContext);
 
-	const { chartView, handleViewChange } = useContext(ViewContext);
+	const { chartView, handleViewChange } = useContext(FinancialStatementContext);
 
 	const totalPYFAmount = calculateSum(totalPayYourselfFirst);
 	const totalNecessityAmount = calculateSum(totalNecessities);

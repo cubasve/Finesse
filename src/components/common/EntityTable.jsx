@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import {
 	Button,
 	ButtonGroup,
@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import { formatAmount, formatEntry } from "../../utils/calculations";
 import { Pencil, Trash, XLg } from "react-bootstrap-icons";
+import { FinancialStatementContext } from "../../context/FinancialStatementContext";
 
 export default function EntityTable(props) {
 	const {
@@ -22,15 +23,17 @@ export default function EntityTable(props) {
 		handleGetCurrentEntity,
 		handleDelete,
 	} = props;
-	const [selected, setSelected] = useState("");
 
-	const [editing, setEditing] = useState(false);
-	const handleStartEditing = () => setEditing(true);
-	const handleFinishEditing = () => setEditing(false);
-
-	const [showModal, setShowModal] = useState(false);
-	const handleCloseModal = () => setShowModal(false);
-	const handleShowModal = () => setShowModal(true);
+	const {
+		selected,
+		editing,
+		showModal,
+		setSelected,
+		handleStartEditing,
+		handleFinishEditing,
+		handleCloseModal,
+		handleShowModal,
+	} = useContext(FinancialStatementContext);
 
 	return (
 		<Table borderless hover size="sm">

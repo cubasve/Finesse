@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import financialStatementService from "../utils/financialStatementService";
-
 const IncomeExpenseContext = React.createContext();
 export const IncomeExpenseConsumer = IncomeExpenseContext.Consumer;
 
@@ -132,14 +131,15 @@ export class IncomeExpenseProvider extends Component {
 		e.preventDefault();
 		if (!this.earnedFormRef.current.checkValidity()) return;
 		try {
-			const { type, amount, category } = this.state.newEarnedIncome;
+			const { type, amount, category, month, year } =
+				this.state.newEarnedIncome;
 			await financialStatementService
 				.create({
 					type,
 					amount,
 					category,
-					month: 11,
-					year: 2021,
+					month,
+					year,
 				})
 				.then((data) => {
 					const { earned, portfolio, passive } = data.user;
@@ -202,12 +202,16 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handleEarnedIncomeUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		console.log(
+			"this.state.updatedEarnedIncome",
+			this.state.updatedEarnedIncome
+		);
+		e.preventDefault();
 		try {
-			const { type, amount, category } = this.state.updatedEarnedIncome;
+			const { type, amount, category, _id } = this.state.updatedEarnedIncome;
 			await financialStatementService
 				.update({
-					id: e.target.value,
+					id: _id,
 					type,
 					amount,
 					category,
@@ -230,14 +234,15 @@ export class IncomeExpenseProvider extends Component {
 		e.preventDefault();
 		if (!this.portfolioFormRef.current.checkValidity()) return;
 		try {
-			const { type, amount, category } = this.state.newPortfolioIncome;
+			const { type, amount, category, month, year } =
+				this.state.newPortfolioIncome;
 			await financialStatementService
 				.create({
 					type,
 					amount,
 					category,
-					month: 11,
-					year: 2021,
+					month,
+					year,
 				})
 				.then((data) => {
 					const { earned, portfolio, passive } = data.user;
@@ -328,14 +333,15 @@ export class IncomeExpenseProvider extends Component {
 		e.preventDefault();
 		if (!this.passiveFormRef.current.checkValidity()) return;
 		try {
-			const { type, amount, category } = this.state.newPassiveIncome;
+			const { type, amount, category, month, year } =
+				this.state.newPassiveIncome;
 			await financialStatementService
 				.create({
 					type,
 					amount,
 					category,
-					month: 11,
-					year: 2021,
+					month,
+					year,
 				})
 				.then((data) => {
 					const { earned, portfolio, passive } = data.user;
@@ -426,14 +432,14 @@ export class IncomeExpenseProvider extends Component {
 		e.preventDefault();
 		if (!this.necessityFormRef.current.checkValidity()) return;
 		try {
-			const { type, amount, category } = this.state.newNecessity;
+			const { type, amount, category, month, year } = this.state.newNecessity;
 			await financialStatementService
 				.create({
 					type,
 					amount,
 					category,
-					month: 11,
-					year: 2021,
+					month,
+					year,
 				})
 				.then((data) => {
 					const { necessities, selfFirst } = data.user;
@@ -524,14 +530,15 @@ export class IncomeExpenseProvider extends Component {
 		e.preventDefault();
 		if (!this.selfFirstFormRef.current.checkValidity()) return;
 		try {
-			const { type, amount, category } = this.state.newPayYourselfFirst;
+			const { type, amount, category, month, year } =
+				this.state.newPayYourselfFirst;
 			await financialStatementService
 				.create({
 					type,
 					amount,
 					category,
-					month: 11,
-					year: 2021,
+					month,
+					year,
 				})
 				.then((data) => {
 					const { selfFirst, necessities } = data.user;

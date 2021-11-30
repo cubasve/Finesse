@@ -11,7 +11,7 @@ import FinancialStatementPage from "../FinancialStatementPage/FinancialStatement
 import TfsaPage from "../TfsaPage/TfsaPage";
 import NavBar from "../../components/NavBar/NavBar";
 import OverviewPage from "../OverviewPage/OverviewPage";
-import { ViewProvider } from "../../context/ViewContext";
+import { FinancialStatementProvider } from "../../context/FinancialStatementContext";
 import { IncomeExpenseProvider } from "../../context/IncomeExpenseContext";
 import { AssetLiabilityProvider } from "../../context/AssetLiabilityContext";
 
@@ -31,7 +31,7 @@ export default class App extends Component {
 
 	render() {
 		return (
-			<ViewProvider>
+			<FinancialStatementProvider>
 				<IncomeExpenseProvider>
 					<AssetLiabilityProvider>
 						<div className="App">
@@ -113,7 +113,7 @@ export default class App extends Component {
 						</div>
 					</AssetLiabilityProvider>
 				</IncomeExpenseProvider>
-			</ViewProvider>
+			</FinancialStatementProvider>
 		);
 	}
 }

@@ -7,6 +7,7 @@ import {
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 import EntityTable from "../common/EntityTable";
+import FinancialStatementContext from "../../context/FinancialStatementContext";
 
 const earnedIncomeOptions = ["Job", "Self-Employment", "Other"];
 
@@ -25,6 +26,8 @@ export default function EarnedIncome() {
 		handleEarnedIncomeUpdateSubmit,
 		earnedFormRef,
 	} = useContext(IncomeExpenseContext);
+
+	const { handleFinishEditing } = useContext(FinancialStatementContext);
 
 	const totalIncomeAmount = calculateSum(totalIncome);
 	const totalEarnedIncomeAmount = calculateSum(totalEarnedIncome);

@@ -7,7 +7,7 @@ import { InfoLg } from "react-bootstrap-icons";
 import { calculateSum, formatAmount } from "../../utils/calculations";
 import DoughnutChart from "../common/DoughnutChart";
 import { ListUl, PieChart } from "react-bootstrap-icons";
-import { ViewContext } from "../../context/ViewContext";
+import { FinancialStatementContext } from "../../context/FinancialStatementContext";
 
 const popover = (
 	<Popover id="popover-basic">
@@ -30,7 +30,7 @@ export default function Liabilities() {
 		AssetLiabilityContext
 	);
 
-	const { chartView, handleViewChange } = useContext(ViewContext);
+	const { chartView, handleViewChange } = useContext(FinancialStatementContext);
 
 	const totalLiabilityAmount = calculateSum(totalLiabilities);
 	const totalGoodDebtAmount = calculateSum(totalGoodDebt);
