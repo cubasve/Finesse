@@ -171,7 +171,14 @@ const business = new Schema({
 const commodities = new Schema({
 	type: {
 		type: String,
-		enum: ["Sole proprietorship", "Partnership", "Corporation"],
+		enum: [
+			"Metals",
+			"Energy",
+			"Livestock & Meat",
+			"Agriculture",
+			"Cryptocurrency",
+			"Other",
+		],
 	},
 	amount: Number,
 	month: {

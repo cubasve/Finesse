@@ -73,6 +73,51 @@ async function create(req, res) {
 				category,
 			});
 			await user.save();
+		} else if (category === "Paper") {
+			user.paper.push({
+				type,
+				amount,
+				month,
+				year,
+				category,
+			});
+			await user.save();
+		} else if (category === "RealEstate") {
+			user.realEstate.push({
+				type,
+				amount,
+				month,
+				year,
+				category,
+			});
+			await user.save();
+		} else if (category === "Business") {
+			user.business.push({
+				type,
+				amount,
+				month,
+				year,
+				category,
+			});
+			await user.save();
+		} else if (category === "Commodity") {
+			user.commodities.push({
+				type,
+				amount,
+				month,
+				year,
+				category,
+			});
+			await user.save();
+		} else if (category === "Cash") {
+			user.cash.push({
+				type,
+				amount,
+				month,
+				year,
+				category,
+			});
+			await user.save();
 		}
 
 		res.json({ user: user });
@@ -106,20 +151,27 @@ async function update(req, res) {
 			const entityToUpdate = user.selfFirst.id(id);
 			entityToUpdate.set({ type, amount });
 			await user.save();
+		} else if (category === "Paper") {
+			const entityToUpdate = user.paper.id(id);
+			entityToUpdate.set({ type, amount });
+			await user.save();
+		} else if (category === "RealEstate") {
+			const entityToUpdate = user.realEstate.id(id);
+			entityToUpdate.set({ type, amount });
+			await user.save();
+		} else if (category === "Business") {
+			const entityToUpdate = user.business.id(id);
+			entityToUpdate.set({ type, amount });
+			await user.save();
+		} else if (category === "Commodity") {
+			const entityToUpdate = user.commodities.id(id);
+			entityToUpdate.set({ type, amount });
+			await user.save();
+		} else if (category === "Cash") {
+			const entityToUpdate = user.cash.id(id);
+			entityToUpdate.set({ type, amount });
+			await user.save();
 		}
-		res.json({ user: user });
-	} catch (err) {
-		console.error(err);
-		return res.status(400).json(err);
-	}
-}
-
-async function updateExample(req, res) {
-	try {
-		const user = await User.findById({ _id: req.user._id });
-		const id = user.userFinances.id(req.body.id);
-		id.set({ type: req.body.type, amount: req.body.amount });
-		await user.save();
 		res.json({ user: user });
 	} catch (err) {
 		console.error(err);
@@ -152,22 +204,27 @@ async function deleteOne(req, res) {
 			const entityToDelete = user.selfFirst.id(id);
 			entityToDelete.remove();
 			await user.save();
+		} else if (category === "Paper") {
+			const entityToDelete = user.paper.id(id);
+			entityToDelete.remove();
+			await user.save();
+		} else if (category === "RealEstate") {
+			const entityToDelete = user.realEstate.id(id);
+			entityToDelete.remove();
+			await user.save();
+		} else if (category === "Business") {
+			const entityToDelete = user.business.id(id);
+			entityToDelete.remove();
+			await user.save();
+		} else if (category === "Commodity") {
+			const entityToDelete = user.commodities.id(id);
+			entityToDelete.remove();
+			await user.save();
+		} else if (category === "Cash") {
+			const entityToDelete = user.cash.id(id);
+			entityToDelete.remove();
+			await user.save();
 		}
-		res.json({ user: user });
-	} catch (err) {
-		console.error(err);
-		return res.status(400).json(err);
-	}
-}
-
-async function deleteEarnedIncome(req, res) {
-	try {
-		const user = await User.findById({ _id: req.user._id });
-		const id = user.earned.id(req.body.id);
-		id.remove(); //or just req.body.id
-		//id.pull(req.body)
-		//id.pull()
-		await user.save();
 		res.json({ user: user });
 	} catch (err) {
 		console.error(err);

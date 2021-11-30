@@ -14,7 +14,8 @@ export class AssetLiabilityProvider extends Component {
 			type: "Stock",
 			amount: "",
 			category: "Paper",
-			class: "Asset",
+			month: 11,
+			year: 2021,
 		},
 		updatedPaperAsset: {},
 		paperAssetFormInvalid: true,
@@ -24,7 +25,8 @@ export class AssetLiabilityProvider extends Component {
 			type: "Residential",
 			amount: "",
 			category: "RealEstate",
-			class: "Asset",
+			month: 11,
+			year: 2021,
 		},
 		updatedRealEstate: {},
 		realEstateFormInvalid: true,
@@ -34,7 +36,8 @@ export class AssetLiabilityProvider extends Component {
 			type: "Sole proprietorship",
 			amount: "",
 			category: "Business",
-			class: "Asset",
+			month: 11,
+			year: 2021,
 		},
 		updatedBusiness: {},
 		businessFormInvalid: true,
@@ -44,7 +47,8 @@ export class AssetLiabilityProvider extends Component {
 			type: "Metals",
 			amount: "",
 			category: "Commodity",
-			class: "Asset",
+			month: 11,
+			year: 2021,
 		},
 		updatedCommodity: {},
 		commodityFormInvalid: true,
@@ -54,7 +58,8 @@ export class AssetLiabilityProvider extends Component {
 			type: "Chequing Account",
 			amount: "",
 			category: "Cash",
-			class: "Asset",
+			month: 11,
+			year: 2021,
 		},
 		updatedCash: {},
 		cashFormInvalid: true,
@@ -64,7 +69,8 @@ export class AssetLiabilityProvider extends Component {
 			type: "Real Estate",
 			amount: "",
 			category: "GoodDebt",
-			class: "Liability",
+			month: 11,
+			year: 2021,
 		},
 		updatedGoodDebt: {},
 		goodDebtFormInvalid: true,
@@ -74,7 +80,8 @@ export class AssetLiabilityProvider extends Component {
 			type: "Home Mortgage",
 			amount: "",
 			category: "BadDebt",
-			class: "Liability",
+			month: 11,
+			year: 2021,
 		},
 		updatedBadDebt: {},
 		badDebtFormInvalid: true,
@@ -91,22 +98,13 @@ export class AssetLiabilityProvider extends Component {
 	handleFetchBalanceSheetData = async () => {
 		try {
 			await financialStatementService.show().then((data) => {
+				const { paper, realEstate, business, commodities, cash } = data.user;
 				this.setState({
-					totalPaperAssets: data.user.userFinances.filter(
-						(elem) => elem.category === "Paper"
-					),
-					totalRealEstate: data.user.userFinances.filter(
-						(elem) => elem.category === "RealEstate"
-					),
-					totalBusiness: data.user.userFinances.filter(
-						(elem) => elem.category === "Business"
-					),
-					totalCommodities: data.user.userFinances.filter(
-						(elem) => elem.category === "Commodity"
-					),
-					totalCash: data.user.userFinances.filter(
-						(elem) => elem.category === "Cash"
-					),
+					totalPaperAssets: paper,
+					totalRealEstate: realEstate,
+					totalBusiness: business,
+					totalCommodities: commodities,
+					totalCash: cash,
 
 					totalGoodDebt: data.user.userFinances.filter(
 						(elem) => elem.category === "GoodDebt"
@@ -186,17 +184,19 @@ export class AssetLiabilityProvider extends Component {
 		e.preventDefault();
 		if (!this.paperAssetFormRef.current.checkValidity()) return;
 		try {
+			const { type, amount, category, month, year } = this.state.newPaperAsset;
 			await financialStatementService
 				.create({
-					type: this.state.newPaperAsset.type,
-					amount: this.state.newPaperAsset.amount,
-					category: this.state.newPaperAsset.category,
+					type,
+					amount,
+					category,
+					month,
+					year,
 				})
 				.then((data) => {
+					const { paper } = data.user;
 					this.setState({
-						totalPaperAssets: data.user.userFinances.filter(
-							(elem) => elem.category === "Paper"
-						),
+						totalPaperAssets: paper,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -209,6 +209,8 @@ export class AssetLiabilityProvider extends Component {
 							type: "Stock",
 							amount: "",
 							category: "Paper",
+							month: 11,
+							year: 2021,
 						},
 						paperAssetFormInvalid: true,
 					});
@@ -240,14 +242,16 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handlePaperAssetDelete = async (e) => {
+		const entity = this.state.totalPaperAssets.find(
+			({ _id }) => _id === e.target.value
+		);
 		try {
 			await financialStatementService
-				.deleteOne({ id: e.target.value })
+				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
+					const { paper } = data.user;
 					this.setState({
-						totalPaperAssets: data.user.userFinances.filter(
-							(elem) => elem.category === "Paper"
-						),
+						totalPaperAssets: paper,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -266,17 +270,18 @@ export class AssetLiabilityProvider extends Component {
 	handlePaperAssetUpdateSubmit = async (e) => {
 		// e.preventDefault();
 		try {
+			const { type, amount, category } = this.state.updatedPaperAsset;
 			await financialStatementService
 				.update({
 					id: e.target.value,
-					type: this.state.updatedPaperAsset.type,
-					amount: this.state.updatedPaperAsset.amount,
+					type,
+					amount,
+					category,
 				})
 				.then((data) => {
+					const { paper } = data.user;
 					this.setState({
-						totalPaperAssets: data.user.userFinances.filter(
-							(elem) => elem.category === "Paper"
-						),
+						totalPaperAssets: paper,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -298,17 +303,19 @@ export class AssetLiabilityProvider extends Component {
 		e.preventDefault();
 		if (!this.realEstateFormRef.current.checkValidity()) return;
 		try {
+			const { type, amount, category, month, year } = this.state.newRealEstate;
 			await financialStatementService
 				.create({
-					type: this.state.newRealEstate.type,
-					amount: this.state.newRealEstate.amount,
-					category: this.state.newRealEstate.category,
+					type,
+					amount,
+					category,
+					month,
+					year,
 				})
 				.then((data) => {
+					const { realEstate } = data.user;
 					this.setState({
-						totalRealEstate: data.user.userFinances.filter(
-							(elem) => elem.category === "RealEstate"
-						),
+						totalRealEstate: realEstate,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -321,6 +328,8 @@ export class AssetLiabilityProvider extends Component {
 							type: "Residential",
 							amount: "",
 							category: "RealEstate",
+							month: 11,
+							year: 2021,
 						},
 						realEstateFormInvalid: true,
 					});
@@ -352,14 +361,16 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handleRealEstateDelete = async (e) => {
+		const entity = this.state.totalRealEstate.find(
+			({ _id }) => _id === e.target.value
+		);
 		try {
 			await financialStatementService
-				.deleteOne({ id: e.target.value })
+				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
+					const { realEstate } = data.user;
 					this.setState({
-						totalRealEstate: data.user.userFinances.filter(
-							(elem) => elem.category === "RealEstate"
-						),
+						totalRealEstate: realEstate,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -378,17 +389,18 @@ export class AssetLiabilityProvider extends Component {
 	handleRealEstateUpdateSubmit = async (e) => {
 		// e.preventDefault();
 		try {
+			const { type, amount, category } = this.state.updatedRealEstate;
 			await financialStatementService
 				.update({
 					id: e.target.value,
-					type: this.state.updatedRealEstate.type,
-					amount: this.state.updatedRealEstate.amount,
+					type,
+					amount,
+					category,
 				})
 				.then((data) => {
+					const { realEstate } = data.user;
 					this.setState({
-						totalRealEstate: data.user.userFinances.filter(
-							(elem) => elem.category === "RealEstate"
-						),
+						totalRealEstate: realEstate,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -410,17 +422,19 @@ export class AssetLiabilityProvider extends Component {
 		e.preventDefault();
 		if (!this.businessFormRef.current.checkValidity()) return;
 		try {
+			const { type, amount, category, month, year } = this.state.newBusiness;
 			await financialStatementService
 				.create({
-					type: this.state.newBusiness.type,
-					amount: this.state.newBusiness.amount,
-					category: this.state.newBusiness.category,
+					type,
+					amount,
+					category,
+					month,
+					year,
 				})
 				.then((data) => {
+					const { business } = data.user;
 					this.setState({
-						totalBusiness: data.user.userFinances.filter(
-							(elem) => elem.category === "Business"
-						),
+						totalBusiness: business,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -433,6 +447,8 @@ export class AssetLiabilityProvider extends Component {
 							type: "Sole proprietorship",
 							amount: "",
 							category: "Business",
+							month: 11,
+							year: 2021,
 						},
 						businessFormInvalid: true,
 					});
@@ -464,14 +480,16 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handleBusinessDelete = async (e) => {
+		const entity = this.state.totalBusiness.find(
+			({ _id }) => _id === e.target.value
+		);
 		try {
 			await financialStatementService
-				.deleteOne({ id: e.target.value })
+				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
+					const { business } = data.user;
 					this.setState({
-						totalBusiness: data.user.userFinances.filter(
-							(elem) => elem.category === "Business"
-						),
+						totalBusiness: business,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -490,17 +508,18 @@ export class AssetLiabilityProvider extends Component {
 	handleBusinessUpdateSubmit = async (e) => {
 		// e.preventDefault();
 		try {
+			const { type, amount, category } = this.state.updatedBusiness;
 			await financialStatementService
 				.update({
 					id: e.target.value,
-					type: this.state.updatedBusiness.type,
-					amount: this.state.updatedBusiness.amount,
+					type,
+					amount,
+					category,
 				})
 				.then((data) => {
+					const { business } = data.user;
 					this.setState({
-						totalBusiness: data.user.userFinances.filter(
-							(elem) => elem.category === "Business"
-						),
+						totalBusiness: business,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -522,17 +541,19 @@ export class AssetLiabilityProvider extends Component {
 		e.preventDefault();
 		if (!this.commodityFormRef.current.checkValidity()) return;
 		try {
+			const { type, amount, category, month, year } = this.state.newCommodity;
 			await financialStatementService
 				.create({
-					type: this.state.newCommodity.type,
-					amount: this.state.newCommodity.amount,
-					category: this.state.newCommodity.category,
+					type,
+					amount,
+					category,
+					month,
+					year,
 				})
 				.then((data) => {
+					const { commodities } = data.user;
 					this.setState({
-						totalCommodities: data.user.userFinances.filter(
-							(elem) => elem.category === "Commodity"
-						),
+						totalCommodities: commodities,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -545,6 +566,8 @@ export class AssetLiabilityProvider extends Component {
 							type: "Metals",
 							amount: "",
 							category: "Commodity",
+							month: 11,
+							year: 2021,
 						},
 						commodityFormInvalid: true,
 					});
@@ -576,14 +599,16 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handleCommodityDelete = async (e) => {
+		const entity = this.state.totalCommodities.find(
+			({ _id }) => _id === e.target.value
+		);
 		try {
 			await financialStatementService
-				.deleteOne({ id: e.target.value })
+				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
+					const { commodities } = data.user;
 					this.setState({
-						totalCommodities: data.user.userFinances.filter(
-							(elem) => elem.category === "Commodity"
-						),
+						totalCommodities: commodities,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -602,17 +627,18 @@ export class AssetLiabilityProvider extends Component {
 	handleCommodityUpdateSubmit = async (e) => {
 		// e.preventDefault();
 		try {
+			const { type, amount, category } = this.state.updatedCommodity;
 			await financialStatementService
 				.update({
 					id: e.target.value,
-					type: this.state.updatedCommodity.type,
-					amount: this.state.updatedCommodity.amount,
+					type,
+					amount,
+					category,
 				})
 				.then((data) => {
+					const { commodities } = data.user;
 					this.setState({
-						totalCommodities: data.user.userFinances.filter(
-							(elem) => elem.category === "Commodity"
-						),
+						totalCommodities: commodities,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -634,17 +660,19 @@ export class AssetLiabilityProvider extends Component {
 		e.preventDefault();
 		if (!this.cashFormRef.current.checkValidity()) return;
 		try {
+			const { type, amount, category, month, year } = this.state.newCash;
 			await financialStatementService
 				.create({
-					type: this.state.newCash.type,
-					amount: this.state.newCash.amount,
-					category: this.state.newCash.category,
+					type,
+					amount,
+					category,
+					month,
+					year,
 				})
 				.then((data) => {
+					const { cash } = data.user;
 					this.setState({
-						totalCash: data.user.userFinances.filter(
-							(elem) => elem.category === "Cash"
-						),
+						totalCash: cash,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -657,6 +685,8 @@ export class AssetLiabilityProvider extends Component {
 							type: "Chequing Account",
 							amount: "",
 							category: "Cash",
+							month: 11,
+							year: 2021,
 						},
 						cashFormInvalid: true,
 					});
@@ -685,14 +715,16 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handleCashDelete = async (e) => {
+		const entity = this.state.totalCash.find(
+			({ _id }) => _id === e.target.value
+		);
 		try {
 			await financialStatementService
-				.deleteOne({ id: e.target.value })
+				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
+					const { cash } = data.user;
 					this.setState({
-						totalCash: data.user.userFinances.filter(
-							(elem) => elem.category === "Cash"
-						),
+						totalCash: cash,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
@@ -711,17 +743,18 @@ export class AssetLiabilityProvider extends Component {
 	handleCashUpdateSubmit = async (e) => {
 		// e.preventDefault();
 		try {
+			const { type, amount, category } = this.state.updatedCash;
 			await financialStatementService
 				.update({
 					id: e.target.value,
-					type: this.state.updatedCash.type,
-					amount: this.state.updatedCash.amount,
+					type,
+					amount,
+					category,
 				})
 				.then((data) => {
+					const { cash } = data.user;
 					this.setState({
-						totalCash: data.user.userFinances.filter(
-							(elem) => elem.category === "Cash"
-						),
+						totalCash: cash,
 						totalAssets: data.user.userFinances.filter(
 							(elem) =>
 								elem.category === "Paper" ||
