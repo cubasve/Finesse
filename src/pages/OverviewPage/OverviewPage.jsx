@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import BarChart from "../../components/common/BarChart";
-import { Card, Tabs, Tab } from "react-bootstrap";
+import { Card, Tabs, Tab, Accordion } from "react-bootstrap";
 import userService from "../../utils/userService";
 
 export default function OverviewPage() {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Income from "../../components/Income/Income";
-import Expenditure from "../../components/Expenditure/Expenditure";
+import Expenses from "../../components/Expenses/Expenses";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculateDifference,
@@ -23,14 +23,11 @@ export default class IncomeStatement extends Component {
 	}
 
 	render() {
-		const { totalIncome, totalExpensesAndSelfFirst } = this.context;
+		const { totalIncome, totalExpenses } = this.context;
 
 		const totalIncomeAmount = calculateSum(totalIncome);
-		const totalExpensesAndPYFAmount = calculateSum(totalExpensesAndSelfFirst);
-		const cashFlow = calculateDifference(
-			totalIncomeAmount,
-			totalExpensesAndPYFAmount
-		);
+		const totalExpenseAmount = calculateSum(totalExpenses);
+		const cashFlow = calculateDifference(totalIncomeAmount, totalExpenseAmount);
 
 		return (
 			<>
@@ -48,7 +45,7 @@ export default class IncomeStatement extends Component {
 				</h6>
 				<h6>
 					CASH FLOW: {formatAmount(totalIncomeAmount)} -{" "}
-					{formatAmount(totalExpensesAndPYFAmount)} ={" "}
+					{formatAmount(totalExpenseAmount)} ={" "}
 					<span
 						style={{
 							color: determineColor(cashFlow),
@@ -62,7 +59,7 @@ export default class IncomeStatement extends Component {
 				) : (
 					<>
 						<Income />
-						<Expenditure />
+						<Expenses />
 					</>
 				)}
 			</>

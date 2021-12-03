@@ -7,7 +7,7 @@ import {
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 import EntityTable from "../common/EntityTable";
-import FinancialStatementContext from "../../context/FinancialStatementContext";
+import { Badge } from "react-bootstrap";
 
 const earnedIncomeOptions = ["Job", "Self-Employment", "Other"];
 
@@ -27,8 +27,6 @@ export default function EarnedIncome() {
 		earnedFormRef,
 	} = useContext(IncomeExpenseContext);
 
-	const { handleFinishEditing } = useContext(FinancialStatementContext);
-
 	const totalIncomeAmount = calculateSum(totalIncome);
 	const totalEarnedIncomeAmount = calculateSum(totalEarnedIncome);
 
@@ -38,7 +36,20 @@ export default function EarnedIncome() {
 				<span className="percentage">
 					{calculatePercentage(totalIncomeAmount, totalEarnedIncomeAmount)}%
 				</span>
-				<span>Earned</span>
+				<span>
+					Earned
+					<Badge
+						pill
+						bg="primary"
+						style={{
+							fontSize: 12,
+							position: "absolute",
+							backgroundColor: "yellow",
+						}}
+					>
+						{calculatePercentage(totalIncomeAmount, totalEarnedIncomeAmount)}%
+					</Badge>
+				</span>
 				<span>{formatAmount(totalEarnedIncomeAmount)}</span>
 			</h5>
 			<EntityTable

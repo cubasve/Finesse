@@ -6,7 +6,7 @@ export const IncomeExpenseConsumer = IncomeExpenseContext.Consumer;
 export class IncomeExpenseProvider extends Component {
 	state = {
 		totalIncome: [],
-		totalExpensesAndSelfFirst: [],
+		totalExpenses: [],
 
 		totalEarnedIncome: [],
 		newEarnedIncome: {
@@ -83,7 +83,7 @@ export class IncomeExpenseProvider extends Component {
 					totalPayYourselfFirst: selfFirst,
 
 					totalIncome: [...earned, ...portfolio, ...passive],
-					totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
+					totalExpenses: [...selfFirst, ...necessities],
 				});
 			});
 		} catch (err) {
@@ -445,7 +445,7 @@ export class IncomeExpenseProvider extends Component {
 					const { necessities, selfFirst } = data.user;
 					this.setState({
 						totalNecessities: necessities,
-						totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
+						totalExpenses: [...selfFirst, ...necessities],
 						newNecessity: {
 							type: "Taxes",
 							amount: "",
@@ -493,7 +493,7 @@ export class IncomeExpenseProvider extends Component {
 					const { necessities, selfFirst } = data.user;
 					this.setState({
 						totalNecessities: necessities,
-						totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
+						totalExpenses: [...selfFirst, ...necessities],
 					});
 				});
 		} catch (err) {
@@ -516,7 +516,7 @@ export class IncomeExpenseProvider extends Component {
 					const { necessities, selfFirst } = data.user;
 					this.setState({
 						totalNecessities: necessities,
-						totalExpensesAndSelfFirst: [...necessities, ...selfFirst],
+						totalExpenses: [...necessities, ...selfFirst],
 						updatedNecessity: {},
 					});
 				});
@@ -544,7 +544,7 @@ export class IncomeExpenseProvider extends Component {
 					const { selfFirst, necessities } = data.user;
 					this.setState({
 						totalPayYourselfFirst: selfFirst,
-						totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
+						totalExpenses: [...selfFirst, ...necessities],
 						newPayYourselfFirst: {
 							type: "Invest",
 							amount: "",
@@ -592,7 +592,7 @@ export class IncomeExpenseProvider extends Component {
 					const { selfFirst, necessities } = data.user;
 					this.setState({
 						totalPayYourselfFirst: selfFirst,
-						totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
+						totalExpenses: [...selfFirst, ...necessities],
 					});
 				});
 		} catch (err) {
@@ -615,7 +615,7 @@ export class IncomeExpenseProvider extends Component {
 					const { selfFirst, necessities } = data.user;
 					this.setState({
 						totalPayYourselfFirst: selfFirst,
-						totalExpensesAndSelfFirst: [...selfFirst, ...necessities],
+						totalExpenses: [...selfFirst, ...necessities],
 						updatedPayYourselfFirst: {},
 					});
 				});
@@ -643,7 +643,7 @@ export class IncomeExpenseProvider extends Component {
 			updatedPassiveIncome,
 			passiveFormInvalid,
 
-			totalExpensesAndSelfFirst,
+			totalExpenses,
 			totalNecessities,
 			newNecessity,
 			updatedNecessity,
@@ -743,7 +743,7 @@ export class IncomeExpenseProvider extends Component {
 					handlePassiveIncomeUpdateChange,
 					handlePassiveIncomeUpdateSubmit,
 
-					totalExpensesAndSelfFirst,
+					totalExpenses,
 					totalNecessities,
 					newNecessity,
 					updatedNecessity,

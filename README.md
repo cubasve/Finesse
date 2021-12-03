@@ -87,4 +87,8 @@ Finesse
   - Fun (Treat yourself)
 
 - **Edit only 1 entry at a time:**
+
   - A user can edit multiple entries in different categories at once, but when the submit button is clicked, it updates the very last entry the user was on
+
+- **Add note field:**
+  - Allow a user to input an optional note for an entry

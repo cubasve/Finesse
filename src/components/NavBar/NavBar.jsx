@@ -1,39 +1,67 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './NavBar.css';
-import { Navbar, Nav, Form } from 'react-bootstrap';
+import React from "react";
+import "./NavBar.css";
+import { Navbar, Nav } from "react-bootstrap";
 
-export default function NavBar(props) {
-    let nav = props.user ?
-        <div>
-            <Form inline>
-                <Nav>
-                    <Link to="" className="NavBar-link" onClick={props.handleLogout}>Log Out</Link>
-                </Nav>
-            </Form>
-        </div>
-        :
-        <div>
-            <Form inline>
-                <Nav className="NavBar-user">
-                    <Link to="/login" className="NavBar-link">Log In</Link>
-                    <Link to="/signup" className="NavBar-link">Sign Up</Link>
-                </Nav>
-            </Form>
-        </div>
+export default function NavBar({ handleLogout, user }) {
+	let nav = user ? (
+		<div>
+			<Nav>
+				<Nav.Link href="/" className="NavBar-link" onClick={handleLogout}>
+					Log Out
+					{/* <NavDropdown title={user.name} id="basic-nav-dropdown">
+						<NavDropdown.Item href="/">
+							<Button
+								onClick={handleLogout}
+								variant="link"
+								style={{
+									textDecoration: "none",
+									padding: 0,
+									textAlign: "left",
+								}}
+							>
+								Log Out
+							</Button>
+						</NavDropdown.Item>
+					</NavDropdown> */}
+				</Nav.Link>
+			</Nav>
+		</div>
+	) : (
+		<div>
+			<Nav className="NavBar-user">
+				<Nav.Link href="/login" className="NavBar-link">
+					Log In
+				</Nav.Link>
+				<Nav.Link href="/signup" className="NavBar-link">
+					Sign Up
+				</Nav.Link>
+			</Nav>
+		</div>
+	);
 
-    return (
-        <div className='NavBar'>
-            <Navbar expand="lg" bg="dark" variant="dark" fixed="top">
-                <Navbar.Brand href="/" className="NavBar-link">FINESSE</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto">
-                        {props.user && <Link className="NavBar-link" to='/financialstatement'>{props.user.name}'s Financial Statement</Link>}
-                    </Nav>
-                    {nav}
-                </Navbar.Collapse>
-            </Navbar>
-        </div >
-    );
+	return (
+		<div className="NavBar">
+			<Navbar expand="lg" bg="dark" variant="dark" fixed="top">
+				<Navbar.Brand href="/" className="NavBar-link">
+					FINESSE
+				</Navbar.Brand>
+				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+				<Navbar.Collapse id="responsive-navbar-nav">
+					<Nav className="me-auto">
+						{user && (
+							<>
+								<Nav.Link className="NavBar-link" href="/financialstatement">
+									{user.name}'s Financial Statement
+								</Nav.Link>
+								<Nav.Link className="NavBar-link" href="/overview">
+									Overview
+								</Nav.Link>
+							</>
+						)}
+					</Nav>
+					{nav}
+				</Navbar.Collapse>
+			</Navbar>
+		</div>
+	);
 }

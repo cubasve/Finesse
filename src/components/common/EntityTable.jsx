@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import {
+	// Badge,
 	Button,
 	ButtonGroup,
 	Col,
@@ -10,7 +11,7 @@ import {
 	Table,
 } from "react-bootstrap";
 import { formatAmount, formatEntry } from "../../utils/calculations";
-import { Pencil, Trash, XLg } from "react-bootstrap-icons";
+import { Pencil, Trash, XLg /* FileEarmark */ } from "react-bootstrap-icons";
 import { FinancialStatementContext } from "../../context/FinancialStatementContext";
 
 export default function EntityTable(props) {
@@ -150,7 +151,6 @@ export default function EntityTable(props) {
 										</Button>
 									</Dropdown.Item>
 								</DropdownButton>
-
 								{/* <Button
 										name={amount}
 										value={_id}
@@ -205,7 +205,10 @@ export default function EntityTable(props) {
 										</Modal.Footer>
 									</Modal>
 								)}
-								{type}
+								{type}{" "}
+								{/* <Badge pill>
+									<FileEarmark />
+								</Badge> */}
 								<span
 									style={{
 										display: "flex",

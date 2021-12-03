@@ -23,7 +23,7 @@ const necessityOptions = [
 
 export default function Necessities() {
 	const {
-		totalExpensesAndSelfFirst,
+		totalExpenses,
 		totalNecessities,
 		handleNecessityDelete,
 		necessityFormRef,
@@ -38,13 +38,12 @@ export default function Necessities() {
 	} = useContext(IncomeExpenseContext);
 
 	const totalNecessityAmount = calculateSum(totalNecessities);
-	const totalExpensesAndPYFAmount = calculateSum(totalExpensesAndSelfFirst);
+	const totalExpenseAmount = calculateSum(totalExpenses);
 	return (
 		<>
 			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
 				<span className="percentage">
-					{calculatePercentage(totalExpensesAndPYFAmount, totalNecessityAmount)}
-					%
+					{calculatePercentage(totalExpenseAmount, totalNecessityAmount)}%
 				</span>
 				<span>Necessities</span>
 				<span>{formatAmount(totalNecessityAmount)}</span>

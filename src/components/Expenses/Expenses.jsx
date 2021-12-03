@@ -8,14 +8,15 @@ import { ListUl, PieChart } from "react-bootstrap-icons";
 import { FinancialStatementContext } from "../../context/FinancialStatementContext";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
-export default function Expenditure() {
-	const { totalNecessities, totalPayYourselfFirst, totalExpenseAndPYFAmount } =
+export default function Expenses() {
+	const { totalNecessities, totalPayYourselfFirst, totalExpenses } =
 		useContext(IncomeExpenseContext);
 
 	const { chartView, handleViewChange } = useContext(FinancialStatementContext);
 
 	const totalPYFAmount = calculateSum(totalPayYourselfFirst);
 	const totalNecessityAmount = calculateSum(totalNecessities);
+	const totalExpenseAmount = calculateSum(totalExpenses);
 
 	const renderTooltip = (props) => (
 		<Tooltip id="button-tooltip" {...props}>
@@ -38,7 +39,7 @@ export default function Expenditure() {
 					</OverlayTrigger>
 				</span>
 				<span className="title">EXPENSES</span>
-				<span className="title">{formatAmount(totalExpenseAndPYFAmount)}</span>
+				<span className="title">{formatAmount(totalExpenseAmount)}</span>
 			</div>
 
 			{chartView ? (

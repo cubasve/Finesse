@@ -33,7 +33,7 @@ const PayYourselfPopover = () => (
 
 export default function PayYourselfFirst() {
 	const {
-		totalExpensesAndSelfFirst,
+		totalExpenses,
 		totalPayYourselfFirst,
 		handleSelfFirstDelete,
 		selfFirstFormRef,
@@ -48,7 +48,7 @@ export default function PayYourselfFirst() {
 	} = useContext(IncomeExpenseContext);
 
 	const totalSelfFirstAmount = calculateSum(totalPayYourselfFirst);
-	const totalExpensesAndPYFAmount = calculateSum(totalExpensesAndSelfFirst);
+	const totalExpensesAndPYFAmount = calculateSum(totalExpenses);
 
 	return (
 		<>
