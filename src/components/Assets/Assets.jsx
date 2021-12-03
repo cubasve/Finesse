@@ -22,7 +22,7 @@ const popover = (
 const AssetPopover = () => (
 	<OverlayTrigger trigger="click" placement="top" overlay={popover}>
 		<Button variant="info" size="sm" style={{ borderRadius: 50 }}>
-			<InfoLg />
+			<InfoLg color="white" />
 		</Button>
 	</OverlayTrigger>
 );

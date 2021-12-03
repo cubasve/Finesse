@@ -40,11 +40,11 @@ export default function EarnedIncome() {
 					Earned
 					<Badge
 						pill
-						bg="primary"
 						style={{
-							fontSize: 12,
+							backgroundColor: "red",
+							fontSize: 11,
 							position: "absolute",
-							backgroundColor: "yellow",
+							borderRadius: 50,
 						}}
 					>
 						{calculatePercentage(totalIncomeAmount, totalEarnedIncomeAmount)}%

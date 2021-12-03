@@ -9,6 +9,7 @@ import {
 	Form,
 	Modal,
 	Table,
+	Row,
 } from "react-bootstrap";
 import { formatAmount, formatEntry } from "../../utils/calculations";
 import { Pencil, Trash, XLg /* FileEarmark */ } from "react-bootstrap-icons";
@@ -44,8 +45,8 @@ export default function EntityTable(props) {
 						{editing && _id === selected ? (
 							<td>
 								<Form onSubmit={handleUpdateSubmit}>
-									<Form.Row>
-										<Form.Group as={Col} xs="1">
+									<Row>
+										<Form.Group as={Col} xs="1" style={{ marginRight: 3 }}>
 											<Button
 												variant="success"
 												size="sm"
@@ -97,7 +98,7 @@ export default function EntityTable(props) {
 											/>
 											<Form.Text muted>Amount</Form.Text>
 										</Form.Group>
-									</Form.Row>
+									</Row>
 								</Form>
 							</td>
 						) : (

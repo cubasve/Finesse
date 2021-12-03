@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, Form } from "react-bootstrap";
-
+import { Button, Col, Form, Row } from "react-bootstrap";
 export default function FormInput(props) {
 	const {
 		formRef,
@@ -12,25 +11,27 @@ export default function FormInput(props) {
 		formInvalid,
 	} = props;
 	return (
-		<Form ref={formRef} onSubmit={handleSubmit}>
-			<Form.Row>
-				<Form.Group>
-					<Form.Control
-						name="type"
-						value={newEntity.type}
-						onChange={handleChange}
-						as="select"
-						size="sm"
-						className="select"
-					>
-						{options.map((option) => (
-							<option key={option} value={option}>
-								{option}
-							</option>
-						))}
-					</Form.Control>
-				</Form.Group>
-				<Form.Group>
+		<Form ref={formRef} onSubmit={handleSubmit} style={{ marginBottom: 5 }}>
+			<Row>
+				<Col>
+					<Form.Group as={Col} style={{ padding: 0 }}>
+						<Form.Control
+							name="type"
+							value={newEntity.type}
+							onChange={handleChange}
+							as="select"
+							size="sm"
+						>
+							{options.map((option) => (
+								<option key={option} value={option}>
+									{option}
+								</option>
+							))}
+						</Form.Control>
+					</Form.Group>
+				</Col>
+
+				<Form.Group as={Col} xs={5} style={{ padding: 0 }}>
 					<Form.Control
 						name="amount"
 						value={newEntity.amount}
@@ -42,13 +43,7 @@ export default function FormInput(props) {
 						size="sm"
 					/>
 				</Form.Group>
-				<Form.Group>
-					{/* <Form.Control
-						type="hidden"
-						name="class"
-						value={newEntity.class}
-						onChange={handleChange}
-					/> */}
+				<Form.Group as={Col} xs={2} style={{ padding: 0 }}>
 					<Form.Control
 						type="hidden"
 						name="category"
@@ -64,7 +59,7 @@ export default function FormInput(props) {
 						ADD
 					</Button>
 				</Form.Group>
-			</Form.Row>
+			</Row>
 		</Form>
 	);
 }

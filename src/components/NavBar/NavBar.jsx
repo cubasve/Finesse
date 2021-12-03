@@ -42,21 +42,16 @@ export default function NavBar({ handleLogout, user }) {
 	return (
 		<div className="NavBar">
 			<Navbar expand="lg" bg="dark" variant="dark" fixed="top">
-				<Navbar.Brand href="/" className="NavBar-link">
+				<Navbar.Brand href={user ? "/overview" : "/"} className="NavBar-link">
 					FINESSE
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				<Navbar.Collapse id="responsive-navbar-nav">
 					<Nav className="me-auto">
 						{user && (
-							<>
-								<Nav.Link className="NavBar-link" href="/financialstatement">
-									{user.name}'s Financial Statement
-								</Nav.Link>
-								<Nav.Link className="NavBar-link" href="/overview">
-									Overview
-								</Nav.Link>
-							</>
+							<Nav.Link className="NavBar-link" href="/financialstatement">
+								{user.name}'s Financial Statement
+							</Nav.Link>
 						)}
 					</Nav>
 					{nav}
