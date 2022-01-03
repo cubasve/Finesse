@@ -14,9 +14,7 @@ const necessityOptions = [
 	"Transportation",
 	"Insurance",
 	"Food",
-	"Children",
 	"Debt Payments",
-	"Entertainment",
 	"Donations",
 	"Other",
 ];
@@ -63,7 +61,7 @@ export default function Necessities() {
 				handleChange={handleNecessityChange}
 				newEntity={newNecessity}
 				options={necessityOptions}
-				placeholder=""
+				placeholder="Fixed costs"
 				formInvalid={necessityFormInvalid}
 			/>
 		</>

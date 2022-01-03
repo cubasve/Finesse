@@ -16,9 +16,10 @@ const popover = (
 	<Popover id="popover-basic">
 		<Popover.Title as="h3">Pay Yourself First</Popover.Title>
 		<Popover.Content>
-			Prioritize your financial future by deducting a percentage of your
-			paycheque FIRST before you pay for other expenses. As your income
-			increases, this percentage should increase accordingly.
+			The government gets paid via taxes. Banks get paid via debt, mortgage, and
+			investment fees. All the bills get paid. Everyone gets paid, but you.
+			Prioritize your financial future by deducting a percentage of your income
+			FIRST before you pay for other expenses (Tip: Automate it!)
 		</Popover.Content>
 	</Popover>
 );

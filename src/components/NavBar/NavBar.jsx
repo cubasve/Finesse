@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./NavBar.css";
 import { Navbar, Nav } from "react-bootstrap";
+import FinancialStatementContext from "../../context/FinancialStatementContext";
 
 export default function NavBar({ handleLogout, user }) {
+	const { currentYear, currentMonth } = useContext(FinancialStatementContext);
 	let nav = user ? (
 		<div>
 			<Nav>
@@ -49,7 +51,10 @@ export default function NavBar({ handleLogout, user }) {
 				<Navbar.Collapse id="responsive-navbar-nav">
 					<Nav className="me-auto">
 						{user && (
-							<Nav.Link className="NavBar-link" href="/financialstatement">
+							<Nav.Link
+								className="NavBar-link"
+								href={`/financialstatement/${currentYear}/${currentMonth}`}
+							>
 								{user.name}'s Financial Statement
 							</Nav.Link>
 						)}

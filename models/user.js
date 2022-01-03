@@ -100,6 +100,30 @@ const necessities = new Schema({
 	},
 });
 
+const treatYourself = new Schema({
+	type: {
+		type: String,
+		enum: [
+			"Shopping",
+			"Services",
+			"Entertainment",
+			"Events",
+			"Dining out",
+			"Other",
+		],
+	},
+	amount: Number,
+	month: {
+		type: Number,
+		match: [1 - 12],
+	},
+	year: { type: Number, match: [/\d{4}/] },
+	category: {
+		type: String,
+		enum: ["Fun"],
+	},
+});
+
 const cash = new Schema({
 	type: {
 		type: String,
@@ -244,6 +268,7 @@ const userSchema = new Schema(
 		//EXPENSES
 		selfFirst: [selfFirst],
 		necessities: [necessities],
+		fun: [treatYourself],
 		// ASSETS
 		cash: [cash],
 		paper: [paper],

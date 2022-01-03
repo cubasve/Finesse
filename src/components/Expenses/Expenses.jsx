@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import PayYourselfFirst from "../PayYourselfFirst/PayYourselfFirst";
 import Necessities from "../Necessities/Necessities";
+import Fun from "../Fun/Fun";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import { calculateSum, formatAmount } from "../../utils/calculations";
 import DoughnutChart from "../common/DoughnutChart";
@@ -9,13 +10,18 @@ import { FinancialStatementContext } from "../../context/FinancialStatementConte
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function Expenses() {
-	const { totalNecessities, totalPayYourselfFirst, totalExpenses } =
-		useContext(IncomeExpenseContext);
+	const {
+		totalNecessities,
+		totalPayYourselfFirst,
+		totalExpenses,
+		totalTreatYourself,
+	} = useContext(IncomeExpenseContext);
 
 	const { chartView, handleViewChange } = useContext(FinancialStatementContext);
 
 	const totalPYFAmount = calculateSum(totalPayYourselfFirst);
 	const totalNecessityAmount = calculateSum(totalNecessities);
+	const totalTreatYourselfAmount = calculateSum(totalTreatYourself);
 	const totalExpenseAmount = calculateSum(totalExpenses);
 
 	const renderTooltip = (props) => (
@@ -44,17 +50,30 @@ export default function Expenses() {
 
 			{chartView ? (
 				<DoughnutChart
-					backgroundColor={["rgb(0,128,0)", "rgb(139, 69, 19)"]}
-					borderColor={["rgb(0,128,0)", "rgb(139, 69, 19)"]}
+					backgroundColor={[
+						"rgb(0,128,0)",
+						"rgb(139, 69, 19)",
+						"rgb(191, 64, 191)",
+					]}
+					borderColor={[
+						"rgb(0,128,0)",
+						"rgb(139, 69, 19)",
+						"rgb(191, 64, 191)",
+					]}
 					borderWidth={1}
-					data={[totalPYFAmount, totalNecessityAmount]}
-					labels={["Self First", "Necessities"]}
+					data={[
+						totalPYFAmount,
+						totalNecessityAmount,
+						totalTreatYourselfAmount,
+					]}
+					labels={["Self First", "Necessities", "Fun"]}
 					title="Expense Types"
 				/>
 			) : (
 				<>
 					<PayYourselfFirst />
 					<Necessities />
+					<Fun />
 				</>
 			)}
 		</div>

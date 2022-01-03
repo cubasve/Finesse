@@ -16,12 +16,11 @@ function show() {
 			"Content-type": "application/json",
 			Authorization: "Bearer " + tokenService.getToken(),
 		},
-		//body: JSON.stringify(financialStatement)
 	};
 	return fetch(BASE_URL, options).then((res) => res.json());
 }
 
-// function showTest() {
+// function showTest(financialStatement) {
 // 	const options = {
 // 		method: "GET",
 // 		headers: {
@@ -57,7 +56,7 @@ function update(financialStatement) {
 		},
 		body: JSON.stringify(financialStatement),
 	};
-	return fetch(BASE_URL + "/" + financialStatement.id, options).then((res) =>
+	return fetch(`${BASE_URL}/${financialStatement.id}`, options).then((res) =>
 		res.json()
 	);
 }

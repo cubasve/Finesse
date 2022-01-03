@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, Button, Image } from "react-bootstrap";
 import "./HomePage.css";
+import FinancialStatementContext from "../../context/FinancialStatementContext";
 
-export default function HomePage(props) {
+export default function HomePage() {
+	const { currentYear, currentMonth } = useContext(FinancialStatementContext);
+
 	return (
 		<>
 			<div className="overview">
@@ -62,7 +65,10 @@ export default function HomePage(props) {
 								Income is equal to expenses. No assets or liabilities.
 							</Card.Text>
 						</Card.Body>
-						<Button variant="primary" href="/financialstatement">
+						<Button
+							variant="primary"
+							href={`/financialstatement/${currentYear}/${currentMonth}`}
+						>
 							Find Out!
 						</Button>
 					</Card>
@@ -75,7 +81,10 @@ export default function HomePage(props) {
 								No assets. Income pays for liabilities through expense column.
 							</Card.Text>
 						</Card.Body>
-						<Button variant="primary" href="/financialstatement">
+						<Button
+							variant="primary"
+							href={`/financialstatement/${currentYear}/${currentMonth}`}
+						>
 							Find Out!
 						</Button>
 					</Card>
@@ -88,7 +97,10 @@ export default function HomePage(props) {
 								Liabilities buy assets and assets are the income source.
 							</Card.Text>
 						</Card.Body>
-						<Button variant="primary" href="/financialstatement">
+						<Button
+							variant="primary"
+							href={`/financialstatement/${currentYear}/${currentMonth}`}
+						>
 							Find Out!
 						</Button>
 					</Card>

@@ -7,7 +7,6 @@ import {
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 import EntityTable from "../common/EntityTable";
-import { Badge } from "react-bootstrap";
 
 const earnedIncomeOptions = ["Job", "Self-Employment", "Other"];
 
@@ -38,7 +37,7 @@ export default function EarnedIncome() {
 				</span>
 				<span>
 					Earned
-					<Badge
+					{/* <Badge
 						pill
 						style={{
 							backgroundColor: "red",
@@ -48,7 +47,7 @@ export default function EarnedIncome() {
 						}}
 					>
 						{calculatePercentage(totalIncomeAmount, totalEarnedIncomeAmount)}%
-					</Badge>
+					</Badge> */}
 				</span>
 				<span>{formatAmount(totalEarnedIncomeAmount)}</span>
 			</h5>

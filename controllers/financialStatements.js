@@ -130,6 +130,15 @@ async function create(req, res) {
 				category,
 			});
 			await user.save();
+		} else if (category === "Fun") {
+			user.fun.push({
+				type,
+				amount,
+				month,
+				year,
+				category,
+			});
+			await user.save();
 		}
 		res.json({ user: user });
 	} catch (err) {
@@ -190,6 +199,10 @@ async function update(req, res) {
 			const entityToUpdate = user.badDebt.id(id);
 			entityToUpdate.set({ type, amount });
 			await user.save();
+		} else if (category === "Fun") {
+			const entityToUpdate = user.fun.id(id);
+			entityToUpdate.set({ type, amount });
+			await user.save();
 		}
 		res.json({ user: user });
 	} catch (err) {
@@ -248,6 +261,10 @@ async function deleteOne(req, res) {
 			await user.save();
 		} else if (category === "BadDebt") {
 			const entityToDelete = user.badDebt.id(id);
+			entityToDelete.remove();
+			await user.save();
+		} else if (category === "Fun") {
+			const entityToDelete = user.fun.id(id);
 			entityToDelete.remove();
 			await user.save();
 		}

@@ -4,6 +4,7 @@ import "./LoginPage.css";
 import userService from "../../utils/userService";
 import { Card } from "react-bootstrap";
 import { Coin } from "react-bootstrap-icons";
+import FinancialStatementContext from "../../context/FinancialStatementContext";
 
 export default class LoginPage extends Component {
 	state = {
@@ -19,11 +20,14 @@ export default class LoginPage extends Component {
 
 	handleSubmit = async (e) => {
 		e.preventDefault();
+		const { currentMonth, currentYear } = this.context;
 		try {
 			//Update to call login instead of signup
 			await userService.login(this.state);
 			this.props.handleSignupOrLogin();
-			this.props.history.push("/financialstatement");
+			this.props.history.push(
+				`/financialstatement/${currentYear}/${currentMonth}`
+			);
 		} catch (err) {
 			console.error(err);
 		}
@@ -77,3 +81,5 @@ export default class LoginPage extends Component {
 		);
 	}
 }
+
+LoginPage.contextType = FinancialStatementContext;

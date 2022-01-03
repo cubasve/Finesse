@@ -62,17 +62,29 @@ export class IncomeExpenseProvider extends Component {
 		},
 		updatedPayYourselfFirst: {},
 		selfFirstFormInvalid: true,
+
+		totalTreatYourself: [],
+		newTreatYourself: {
+			type: "Shopping",
+			amount: "",
+			category: "Fun",
+			month: 11,
+			year: 2021,
+		},
+		updatedTreatYourself: {},
+		treatYourselfFormInvalid: true,
 	};
 	earnedFormRef = React.createRef();
 	portfolioFormRef = React.createRef();
 	passiveFormRef = React.createRef();
 	necessityFormRef = React.createRef();
 	selfFirstFormRef = React.createRef();
+	treatYourselfFormRef = React.createRef();
 
 	handleFetchData = async () => {
 		try {
 			await financialStatementService.show().then((data) => {
-				const { earned, portfolio, passive, selfFirst, necessities } =
+				const { earned, portfolio, passive, selfFirst, necessities, fun } =
 					data.user;
 				this.setState({
 					totalEarnedIncome: earned,
@@ -81,9 +93,10 @@ export class IncomeExpenseProvider extends Component {
 
 					totalNecessities: necessities,
 					totalPayYourselfFirst: selfFirst,
+					totalTreatYourself: fun,
 
 					totalIncome: [...earned, ...portfolio, ...passive],
-					totalExpenses: [...selfFirst, ...necessities],
+					totalExpenses: [...selfFirst, ...necessities, ...fun],
 				});
 			});
 		} catch (err) {
@@ -124,6 +137,13 @@ export class IncomeExpenseProvider extends Component {
 			({ _id }) => _id === id
 		);
 		this.setState({ updatedPayYourselfFirst: currentPayYourselfFirst });
+	};
+
+	handleGetCurrentTreatYourself = (id) => {
+		const currentTreatYourself = this.state.totalTreatYourself.find(
+			({ _id }) => _id === id
+		);
+		this.setState({ updatedTreatYourself: currentTreatYourself });
 	};
 
 	/*---------EARNED INCOME METHODS-------- */
@@ -442,10 +462,10 @@ export class IncomeExpenseProvider extends Component {
 					year,
 				})
 				.then((data) => {
-					const { necessities, selfFirst } = data.user;
+					const { necessities, selfFirst, fun } = data.user;
 					this.setState({
 						totalNecessities: necessities,
-						totalExpenses: [...selfFirst, ...necessities],
+						totalExpenses: [...selfFirst, ...necessities, ...fun],
 						newNecessity: {
 							type: "Taxes",
 							amount: "",
@@ -490,10 +510,10 @@ export class IncomeExpenseProvider extends Component {
 			await financialStatementService
 				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
-					const { necessities, selfFirst } = data.user;
+					const { necessities, selfFirst, fun } = data.user;
 					this.setState({
 						totalNecessities: necessities,
-						totalExpenses: [...selfFirst, ...necessities],
+						totalExpenses: [...selfFirst, ...necessities, ...fun],
 					});
 				});
 		} catch (err) {
@@ -513,10 +533,10 @@ export class IncomeExpenseProvider extends Component {
 					category,
 				})
 				.then((data) => {
-					const { necessities, selfFirst } = data.user;
+					const { necessities, selfFirst, fun } = data.user;
 					this.setState({
 						totalNecessities: necessities,
-						totalExpenses: [...necessities, ...selfFirst],
+						totalExpenses: [...necessities, ...selfFirst, ...fun],
 						updatedNecessity: {},
 					});
 				});
@@ -541,10 +561,10 @@ export class IncomeExpenseProvider extends Component {
 					year,
 				})
 				.then((data) => {
-					const { selfFirst, necessities } = data.user;
+					const { selfFirst, necessities, fun } = data.user;
 					this.setState({
 						totalPayYourselfFirst: selfFirst,
-						totalExpenses: [...selfFirst, ...necessities],
+						totalExpenses: [...selfFirst, ...necessities, ...fun],
 						newPayYourselfFirst: {
 							type: "Invest",
 							amount: "",
@@ -589,10 +609,10 @@ export class IncomeExpenseProvider extends Component {
 			await financialStatementService
 				.deleteOne({ id: entity._id, category: entity.category })
 				.then((data) => {
-					const { selfFirst, necessities } = data.user;
+					const { selfFirst, necessities, fun } = data.user;
 					this.setState({
 						totalPayYourselfFirst: selfFirst,
-						totalExpenses: [...selfFirst, ...necessities],
+						totalExpenses: [...selfFirst, ...necessities, ...fun],
 					});
 				});
 		} catch (err) {
@@ -612,10 +632,10 @@ export class IncomeExpenseProvider extends Component {
 					category,
 				})
 				.then((data) => {
-					const { selfFirst, necessities } = data.user;
+					const { selfFirst, necessities, fun } = data.user;
 					this.setState({
 						totalPayYourselfFirst: selfFirst,
-						totalExpenses: [...selfFirst, ...necessities],
+						totalExpenses: [...selfFirst, ...necessities, ...fun],
 						updatedPayYourselfFirst: {},
 					});
 				});
@@ -624,6 +644,107 @@ export class IncomeExpenseProvider extends Component {
 		}
 	};
 
+	/*---------TREAT YOURSELF METHODS-------- */
+	handleTreatYourselfSubmit = async (e) => {
+		e.preventDefault();
+		if (!this.treatYourselfFormRef.current.checkValidity()) return;
+		try {
+			const { type, amount, category, month, year } =
+				this.state.newTreatYourself;
+			await financialStatementService
+				.create({
+					type,
+					amount,
+					category,
+					month,
+					year,
+				})
+				.then((data) => {
+					const { selfFirst, necessities, fun } = data.user;
+					this.setState({
+						totalTreatYourself: fun,
+						totalExpenses: [...selfFirst, ...necessities, ...fun],
+						newTreatYourself: {
+							type: "Shopping",
+							amount: "",
+							category: "Fun",
+							month: 11,
+							year: 2021,
+						},
+						treatYourselfFormInvalid: true,
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handleTreatYourselfChange = (e) => {
+		const newTreatYourself = {
+			...this.state.newTreatYourself,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			newTreatYourself,
+			treatYourselfFormInvalid:
+				!this.treatYourselfFormRef.current.checkValidity(),
+		});
+	};
+
+	handleTreatYourselfUpdateChange = (e) => {
+		const updatedTreatYourself = {
+			...this.state.updatedTreatYourself,
+			[e.target.name]: e.target.value,
+		};
+		this.setState({
+			updatedTreatYourself,
+		});
+	};
+
+	handleTreatYourselfDelete = async (e) => {
+		const entity = this.state.totalTreatYourself.find(
+			({ _id }) => _id === e.target.value
+		);
+		try {
+			await financialStatementService
+				.deleteOne({ id: entity._id, category: entity.category })
+				.then((data) => {
+					const { necessities, selfFirst, fun } = data.user;
+					this.setState({
+						totalTreatYourself: fun,
+						totalExpenses: [...selfFirst, ...necessities, ...fun],
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	handleTreatYourselfUpdateSubmit = async (e) => {
+		// e.preventDefault();
+		try {
+			const { type, amount, category } = this.state.updatedTreatYourself;
+			await financialStatementService
+				.update({
+					id: e.target.value,
+					type,
+					amount,
+					category,
+				})
+				.then((data) => {
+					const { necessities, selfFirst, fun } = data.user;
+					this.setState({
+						totalTreatYourself: fun,
+						totalExpenses: [...necessities, ...selfFirst, ...fun],
+						updatedTreatYourself: {},
+					});
+				});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	/*---------RENDER-------- */
 	render() {
 		const {
 			totalIncome,
@@ -644,6 +765,7 @@ export class IncomeExpenseProvider extends Component {
 			passiveFormInvalid,
 
 			totalExpenses,
+
 			totalNecessities,
 			newNecessity,
 			updatedNecessity,
@@ -653,6 +775,11 @@ export class IncomeExpenseProvider extends Component {
 			newPayYourselfFirst,
 			updatedPayYourselfFirst,
 			selfFirstFormInvalid,
+
+			totalTreatYourself,
+			newTreatYourself,
+			updatedTreatYourself,
+			treatYourselfFormInvalid,
 		} = this.state;
 
 		const {
@@ -697,6 +824,14 @@ export class IncomeExpenseProvider extends Component {
 			handleSelfFirstUpdateChange,
 			handleSelfFirstUpdateSubmit,
 			selfFirstFormRef,
+
+			handleTreatYourselfSubmit,
+			handleTreatYourselfChange,
+			handleTreatYourselfDelete,
+			handleGetCurrentTreatYourself,
+			handleTreatYourselfUpdateChange,
+			handleTreatYourselfUpdateSubmit,
+			treatYourselfFormRef,
 		} = this;
 
 		return (
@@ -756,6 +891,12 @@ export class IncomeExpenseProvider extends Component {
 					selfFirstFormInvalid,
 					selfFirstFormRef,
 
+					totalTreatYourself,
+					newTreatYourself,
+					updatedTreatYourself,
+					treatYourselfFormInvalid,
+					treatYourselfFormRef,
+
 					handleNecessitySubmit,
 					handleNecessityChange,
 					handleNecessityDelete,
@@ -769,6 +910,13 @@ export class IncomeExpenseProvider extends Component {
 					handleGetCurrentPayYourselfFirst,
 					handleSelfFirstUpdateChange,
 					handleSelfFirstUpdateSubmit,
+
+					handleTreatYourselfSubmit,
+					handleTreatYourselfChange,
+					handleTreatYourselfDelete,
+					handleGetCurrentTreatYourself,
+					handleTreatYourselfUpdateChange,
+					handleTreatYourselfUpdateSubmit,
 
 					handleFetchData,
 				}}
