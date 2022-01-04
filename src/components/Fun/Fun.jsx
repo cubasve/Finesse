@@ -7,6 +7,8 @@ import {
 } from "../../utils/calculations";
 import FormInput from "../common/FormInput";
 import EntityTable from "../common/EntityTable";
+import { Popover, OverlayTrigger } from "react-bootstrap";
+import { InfoCircle } from "react-bootstrap-icons";
 
 const funOptions = [
 	"Shopping",
@@ -16,6 +18,19 @@ const funOptions = [
 	"Dining out",
 	"Other",
 ];
+
+const popover = (
+	<Popover id="popover-basic">
+		<Popover.Title as="h3">Fun</Popover.Title>
+		<Popover.Content>Guilt-free spending money</Popover.Content>
+	</Popover>
+);
+
+const TreatYourselfPopover = () => (
+	<OverlayTrigger trigger="click" placement="top" overlay={popover}>
+		<InfoCircle color="black" style={{ cursor: "pointer" }} />
+	</OverlayTrigger>
+);
 
 export default function TreatYourself() {
 	const {
@@ -37,11 +52,19 @@ export default function TreatYourself() {
 	const totalExpenseAmount = calculateSum(totalExpenses);
 	return (
 		<>
-			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+			<h5
+				style={{
+					alignItems: "center",
+					display: "flex",
+					justifyContent: "space-between",
+				}}
+			>
 				<span className="percentage">
 					{calculatePercentage(totalExpenseAmount, totalTreatYourselfAmount)}%
 				</span>
-				<span>Fun</span>
+				<span>
+					Fun <TreatYourselfPopover />
+				</span>
 				<span>{formatAmount(totalTreatYourselfAmount)}</span>
 			</h5>
 			<EntityTable

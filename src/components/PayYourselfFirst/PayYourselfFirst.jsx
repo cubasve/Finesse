@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { Popover, OverlayTrigger, Button } from "react-bootstrap";
+import { Popover, OverlayTrigger } from "react-bootstrap";
 import IncomeExpenseContext from "../../context/IncomeExpenseContext";
 import {
 	calculatePercentage,
 	calculateSum,
 	formatAmount,
 } from "../../utils/calculations";
-import { InfoLg } from "react-bootstrap-icons";
+import { InfoCircle } from "react-bootstrap-icons";
 import FormInput from "../common/FormInput";
 import EntityTable from "../common/EntityTable";
 
@@ -26,9 +26,7 @@ const popover = (
 
 const PayYourselfPopover = () => (
 	<OverlayTrigger trigger="click" placement="top" overlay={popover}>
-		<Button variant="info" size="sm" style={{ borderRadius: 50 }}>
-			<InfoLg color="white" />
-		</Button>
+		<InfoCircle color="black" style={{ cursor: "pointer" }} />
 	</OverlayTrigger>
 );
 
@@ -53,7 +51,13 @@ export default function PayYourselfFirst() {
 
 	return (
 		<>
-			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+			<h5
+				style={{
+					alignItems: "center",
+					display: "flex",
+					justifyContent: "space-between",
+				}}
+			>
 				<span className="percentage">
 					{calculatePercentage(totalExpensesAndPYFAmount, totalSelfFirstAmount)}
 					%

@@ -31,7 +31,13 @@ export default function Business() {
 
 	return (
 		<>
-			<h5 style={{ display: "flex", justifyContent: "space-between" }}>
+			<h5
+				style={{
+					alignItems: "center",
+					display: "flex",
+					justifyContent: "space-between",
+				}}
+			>
 				<span className="percentage">
 					{calculatePercentage(totalAssetAmount, totalBusinessAmount)}%
 				</span>

@@ -38,7 +38,7 @@ export default function EntityTable(props) {
 	} = useContext(FinancialStatementContext);
 
 	return (
-		<Table borderless hover size="sm">
+		<Table borderless hover size="sm" style={{ marginBottom: 5 }}>
 			{totalEntity.map(({ _id, amount, category, type }) => (
 				<tbody key={_id}>
 					<tr>

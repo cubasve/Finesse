@@ -35,7 +35,7 @@ export default class BalanceSheet extends Component {
 					style={{
 						fontSize: "24px",
 						fontWeight: 500,
-						color: "red",
+						color: "maroon",
 					}}
 				>
 					BALANCE SHEET
@@ -44,14 +44,14 @@ export default class BalanceSheet extends Component {
 					<strong>EQUITY/NET WORTH = ASSETS - LIABILITIES</strong>
 				</h6>
 				<h6>
-					EQUITY: {formatAmount(totalAssetAmount)} -{" "}
-					{formatAmount(totalLiabilityAmount)} ={" "}
+					EQUITY:{" "}
 					<span
 						style={{
 							color: determineColor(equity),
 						}}
 					>
-						{formatAmount(equity)}
+						{formatAmount(totalAssetAmount)} -{" "}
+						{formatAmount(totalLiabilityAmount)} = {formatAmount(equity)}
 					</span>
 				</h6>
 				{this.state.loading ? (

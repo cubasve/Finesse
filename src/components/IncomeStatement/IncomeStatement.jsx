@@ -35,7 +35,7 @@ export default class IncomeStatement extends Component {
 					style={{
 						fontSize: "24px",
 						fontWeight: 500,
-						color: "red",
+						color: "maroon",
 					}}
 				>
 					INCOME STATEMENT
@@ -44,14 +44,14 @@ export default class IncomeStatement extends Component {
 					<strong>CASH FLOW = INCOME - EXPENSES</strong>
 				</h6>
 				<h6>
-					CASH FLOW: {formatAmount(totalIncomeAmount)} -{" "}
-					{formatAmount(totalExpenseAmount)} ={" "}
+					CASH FLOW:{" "}
 					<span
 						style={{
 							color: determineColor(cashFlow),
 						}}
 					>
-						{formatAmount(cashFlow)}
+						{formatAmount(totalIncomeAmount)} -{" "}
+						{formatAmount(totalExpenseAmount)} = {formatAmount(cashFlow)}
 					</span>
 				</h6>
 				{this.state.loading ? (

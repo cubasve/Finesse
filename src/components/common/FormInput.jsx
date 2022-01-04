@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
+
 export default function FormInput(props) {
 	const {
 		formRef,
@@ -10,26 +11,25 @@ export default function FormInput(props) {
 		placeholder,
 		formInvalid,
 	} = props;
+
 	return (
-		<Form ref={formRef} onSubmit={handleSubmit} style={{ marginBottom: 5 }}>
+		<Form ref={formRef} onSubmit={handleSubmit} style={{ paddingBottom: 7 }}>
 			<Row>
-				<Col>
-					<Form.Group as={Col} style={{ padding: 0 }}>
-						<Form.Control
-							name="type"
-							value={newEntity.type}
-							onChange={handleChange}
-							as="select"
-							size="sm"
-						>
-							{options.map((option) => (
-								<option key={option} value={option}>
-									{option}
-								</option>
-							))}
-						</Form.Control>
-					</Form.Group>
-				</Col>
+				<Form.Group as={Col} style={{ paddingRight: 0 }}>
+					<Form.Control
+						name="type"
+						value={newEntity.type}
+						onChange={handleChange}
+						as="select"
+						size="sm"
+					>
+						{options.map((option) => (
+							<option key={option} value={option}>
+								{option}
+							</option>
+						))}
+					</Form.Control>
+				</Form.Group>
 
 				<Form.Group as={Col} xs={5} style={{ padding: 0 }}>
 					<Form.Control
@@ -43,7 +43,7 @@ export default function FormInput(props) {
 						size="sm"
 					/>
 				</Form.Group>
-				<Form.Group as={Col} xs={2} style={{ padding: 0 }}>
+				<Form.Group as={Col} xs={2} style={{ paddingLeft: 0 }}>
 					<Form.Control
 						type="hidden"
 						name="category"

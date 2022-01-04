@@ -5,7 +5,7 @@ import Business from "../Business/Business";
 import Commodities from "../Commodities/Commodities";
 import Cash from "../Cash/Cash";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
-import { InfoLg } from "react-bootstrap-icons";
+import { InfoCircle } from "react-bootstrap-icons";
 import { calculateSum, formatAmount } from "../../utils/calculations";
 import DoughnutChart from "../common/DoughnutChart";
 import { Button, OverlayTrigger, Popover, Tooltip } from "react-bootstrap";
@@ -21,9 +21,7 @@ const popover = (
 
 const AssetPopover = () => (
 	<OverlayTrigger trigger="click" placement="top" overlay={popover}>
-		<Button variant="info" size="sm" style={{ borderRadius: 50 }}>
-			<InfoLg color="white" />
-		</Button>
+		<InfoCircle color="black" style={{ cursor: "pointer" }} />
 	</OverlayTrigger>
 );
 

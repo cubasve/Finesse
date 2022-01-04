@@ -3,7 +3,7 @@ import GoodDebt from "../GoodDebt/GoodDebt";
 import BadDebt from "../BadDebt/BadDebt";
 import AssetLiabilityContext from "../../context/AssetLiabilityContext";
 import { Popover, OverlayTrigger, Button, Tooltip } from "react-bootstrap";
-import { InfoLg } from "react-bootstrap-icons";
+import { InfoCircle } from "react-bootstrap-icons";
 import { calculateSum, formatAmount } from "../../utils/calculations";
 import DoughnutChart from "../common/DoughnutChart";
 import { ListUl, PieChart } from "react-bootstrap-icons";
@@ -19,9 +19,7 @@ const popover = (
 );
 const LiabilityPopover = () => (
 	<OverlayTrigger trigger="click" placement="top" overlay={popover}>
-		<Button variant="info" size="sm" style={{ borderRadius: 50 }}>
-			<InfoLg color="white" />
-		</Button>
+		<InfoCircle color="black" style={{ cursor: "pointer" }} />
 	</OverlayTrigger>
 );
 
