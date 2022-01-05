@@ -29,7 +29,7 @@ export default class App extends Component {
 	};
 
 	render() {
-		const { currentMonth, currentYear } = this.context;
+		const { month, year } = this.context;
 
 		return (
 			<IncomeExpenseProvider>
@@ -52,7 +52,7 @@ export default class App extends Component {
 
 							<Route
 								exact
-								path={`/financialstatement/${currentYear}/${currentMonth}`}
+								path={`/financialstatement/${year}/${month}`}
 								render={() =>
 									userService.getUser() ? (
 										<main>

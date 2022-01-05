@@ -20,6 +20,13 @@ const monthOptions = {
 };
 
 export function FinancialStatementProvider({ children }) {
+	const user = userService.getUser();
+	const createdAccountYear = user
+		? new Date(user.createdAt).getFullYear()
+		: new Date().getFullYear();
+	const currentYear = new Date().getFullYear();
+	const currentMonth = new Date().getMonth() + 1;
+
 	const storedView = localStorage.getItem("chartView");
 	const [chartView, setChartView] = useState(JSON.parse(storedView) ?? false);
 	/**
@@ -30,12 +37,11 @@ export function FinancialStatementProvider({ children }) {
 	const [editing, setEditing] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
-	const user = userService.getUser();
-	const createdAccountYear = user
-		? new Date(user.createdAt).getFullYear()
-		: new Date().getFullYear();
-	const currentYear = new Date().getFullYear();
-	const currentMonth = new Date().getMonth() + 1;
+	const [month, setMonth] = useState(currentMonth);
+	const [year, setYear] = useState(currentYear);
+
+	const handleMonthChange = (e) => setMonth(e.target.value);
+	const handleYearChange = (e) => setYear(e.target.value);
 
 	const handleViewChange = () => {
 		setChartView(!chartView);
@@ -75,6 +81,11 @@ export function FinancialStatementProvider({ children }) {
 		handleFinishEditing,
 		handleCloseModal,
 		handleShowModal,
+
+		month,
+		year,
+		handleMonthChange,
+		handleYearChange,
 	};
 
 	return (

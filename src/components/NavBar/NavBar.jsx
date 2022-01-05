@@ -1,30 +1,41 @@
 import React, { useContext } from "react";
 import "./NavBar.css";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav /* NavDropdown, Button */ } from "react-bootstrap";
 import FinancialStatementContext from "../../context/FinancialStatementContext";
+//import { PersonCircle } from "react-bootstrap-icons";
 
 export default function NavBar({ handleLogout, user }) {
-	const { currentYear, currentMonth } = useContext(FinancialStatementContext);
+	const { year, month } = useContext(FinancialStatementContext);
 	let nav = user ? (
 		<div>
 			<Nav>
 				<Nav.Link href="/" className="NavBar-link" onClick={handleLogout}>
 					Log Out
-					{/* <NavDropdown title={user.name} id="basic-nav-dropdown">
-						<NavDropdown.Item href="/">
-							<Button
-								onClick={handleLogout}
-								variant="link"
-								style={{
-									textDecoration: "none",
-									padding: 0,
-									textAlign: "left",
-								}}
-							>
-								Log Out
-							</Button>
-						</NavDropdown.Item>
-					</NavDropdown> */}
+					{/* <NavDropdown
+					align="end"
+					title={
+						<>
+							{user.name}
+							<PersonCircle size={25} />
+						</>
+					}
+					id="basic-nav-dropdown"
+				>
+					<NavDropdown.Item href="/">
+						<Button
+							onClick={handleLogout}
+							variant="link"
+							style={{
+								textDecoration: "none",
+								padding: 0,
+								textAlign: "left",
+								color: "black",
+							}}
+						>
+							Log Out
+						</Button>
+					</NavDropdown.Item>
+				</NavDropdown> */}
 				</Nav.Link>
 			</Nav>
 		</div>
@@ -53,7 +64,7 @@ export default function NavBar({ handleLogout, user }) {
 						{user && (
 							<Nav.Link
 								className="NavBar-link"
-								href={`/financialstatement/${currentYear}/${currentMonth}`}
+								href={`/financialstatement/${year}/${month}`}
 							>
 								{user.name}'s Financial Statement
 							</Nav.Link>

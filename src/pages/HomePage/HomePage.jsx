@@ -4,52 +4,78 @@ import "./HomePage.css";
 import FinancialStatementContext from "../../context/FinancialStatementContext";
 
 export default function HomePage() {
-	const { currentYear, currentMonth } = useContext(FinancialStatementContext);
+	const { year, month } = useContext(FinancialStatementContext);
+
+	const financialStatementData = [
+		{
+			header: "Financial Statement 1",
+			title: "Income Statement",
+			text: "Contains income and expenses",
+			background: "dark",
+			color: "white",
+		},
+		{
+			header: "Financial Statement 2",
+			title: "Balance Sheet",
+			text: "Contains assets and liabilities",
+			background: "secondary",
+			color: "white",
+		},
+		{
+			header: "Financial Statement 3",
+			title: "Cash Flow Statement",
+			text: "The direction of cash flow",
+			background: "light",
+			color: "",
+		},
+	];
+
+	const casesData = [
+		{
+			picture: "./Case1.png",
+			title: "CASE 1",
+			text: "Income is equal to expenses. No assets or liabilities.",
+		},
+		{
+			picture: "./Case2.png",
+			title: "CASE 2",
+			text: "No assets. Income pays for liabilities through expense column.",
+		},
+		{
+			picture: "./Case3.png",
+			title: "CASE 3",
+			text: "Liabilities buy assets and assets are the income source.",
+		},
+	];
 
 	return (
 		<>
 			<div className="overview">
 				<div>
 					<div>
-						<h1> ACCOUNTING WITH FINESSE</h1>
-						<br />
-						<h3> Become Financially Literate Using Financial Statements</h3>
-						<br />
-						<Image src="./Overview.png" fluid />
-						<br />
-						<br />
-						<br />
+						<h1 style={{ marginBottom: 25 }}> ACCOUNTING WITH FINESSE</h1>
+						<h3 style={{ marginBottom: 25 }}>
+							Become Financially Literate Using Financial Statements
+						</h3>
+						<Image src="./Overview.png" fluid style={{ marginBottom: 50 }} />
 					</div>
 					<div className="financial-statement">
-						<Card
-							style={{ width: "13rem", height: "12rem" }}
-							bg="dark"
-							text="white"
-						>
-							<Card.Header>Financial Statement 1</Card.Header>
-							<Card.Body>
-								<Card.Title>Income Statement</Card.Title>
-								<Card.Text>Contains income and expenses</Card.Text>
-							</Card.Body>
-						</Card>
-						<Card
-							style={{ width: "13rem", height: "12rem" }}
-							bg="secondary"
-							text="white"
-						>
-							<Card.Header>Financial Statement 2</Card.Header>
-							<Card.Body>
-								<Card.Title>Balance Sheet</Card.Title>
-								<Card.Text>Contains assets and liabilities</Card.Text>
-							</Card.Body>
-						</Card>
-						<Card style={{ width: "13rem", height: "12rem" }} bg="light">
-							<Card.Header>Financial Statement 3</Card.Header>
-							<Card.Body>
-								<Card.Title>Cash Flow Statement</Card.Title>
-								<Card.Text>The direction of cash flow</Card.Text>
-							</Card.Body>
-						</Card>
+						{financialStatementData.map(
+							({ header, title, text, background, color }) => (
+								<Card
+									key={title}
+									style={{ width: "13rem", height: "12rem" }}
+									bg={background}
+									text={color}
+								>
+									<Card.Header>{header}</Card.Header>
+									<Card.Body>
+										<Card.Title>{title}</Card.Title>
+										<Card.Text>{text}</Card.Text>
+									</Card.Body>
+								</Card>
+							)
+						)}
 					</div>
 				</div>
 			</div>
@@ -57,53 +83,21 @@ export default function HomePage() {
 			<div className="homepage">
 				<h2>WHERE IS YOUR CASH FLOWING?</h2>
 				<div className="cash-flow">
-					<Card style={{ width: "18rem" }}>
-						<Card.Img variant="top" src="./Case1.png" />
-						<Card.Body>
-							<Card.Title>CASE 1</Card.Title>
-							<Card.Text>
-								Income is equal to expenses. No assets or liabilities.
-							</Card.Text>
-						</Card.Body>
-						<Button
-							variant="primary"
-							href={`/financialstatement/${currentYear}/${currentMonth}`}
-						>
-							Find Out!
-						</Button>
-					</Card>
-
-					<Card style={{ width: "18rem" }}>
-						<Card.Img variant="top" src="./Case2.png" />
-						<Card.Body>
-							<Card.Title>CASE 2</Card.Title>
-							<Card.Text>
-								No assets. Income pays for liabilities through expense column.
-							</Card.Text>
-						</Card.Body>
-						<Button
-							variant="primary"
-							href={`/financialstatement/${currentYear}/${currentMonth}`}
-						>
-							Find Out!
-						</Button>
-					</Card>
-
-					<Card style={{ width: "18rem" }}>
-						<Card.Img variant="top" src="./Case3.png" />
-						<Card.Body>
-							<Card.Title>CASE 3</Card.Title>
-							<Card.Text>
-								Liabilities buy assets and assets are the income source.
-							</Card.Text>
-						</Card.Body>
-						<Button
-							variant="primary"
-							href={`/financialstatement/${currentYear}/${currentMonth}`}
-						>
-							Find Out!
-						</Button>
-					</Card>
+					{casesData.map(({ picture, title, text }) => (
+						<Card key={title} style={{ width: "18rem" }}>
+							<Card.Img variant="top" src={picture} />
+							<Card.Body>
+								<Card.Title>{title}</Card.Title>
+								<Card.Text>{text}</Card.Text>
+							</Card.Body>
+							<Button
+								variant="primary"
+								href={`/financialstatement/${year}/${month}`}
+							>
+								Find Out!
+							</Button>
+						</Card>
+					))}
 				</div>
 			</div>
 

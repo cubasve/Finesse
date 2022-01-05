@@ -20,14 +20,12 @@ export default class LoginPage extends Component {
 
 	handleSubmit = async (e) => {
 		e.preventDefault();
-		const { currentMonth, currentYear } = this.context;
+		const { month, year } = this.context;
 		try {
 			//Update to call login instead of signup
 			await userService.login(this.state);
 			this.props.handleSignupOrLogin();
-			this.props.history.push(
-				`/financialstatement/${currentYear}/${currentMonth}`
-			);
+			this.props.history.push(`/financialstatement/${year}/${month}`);
 		} catch (err) {
 			console.error(err);
 		}

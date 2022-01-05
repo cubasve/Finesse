@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import BalanceSheet from "../../components/BalanceSheet/BalanceSheet";
 import IncomeStatement from "../../components/IncomeStatement/IncomeStatement";
 // import {
@@ -7,41 +7,17 @@ import IncomeStatement from "../../components/IncomeStatement/IncomeStatement";
 // 	CloudDownload,
 // } from "react-bootstrap-icons";
 import { Form } from "react-bootstrap";
-import userService from "../../utils/userService";
-
-const monthOptions = {
-	January: 1,
-	February: 2,
-	March: 3,
-	April: 4,
-	May: 5,
-	June: 6,
-	July: 7,
-	August: 8,
-	September: 9,
-	October: 10,
-	November: 11,
-	December: 12,
-};
+import FinancialStatementContext from "../../context/FinancialStatementContext";
 
 export default function FinancialStatementPage() {
-	const user = userService.getUser();
-	const createdUserYear = new Date(user.createdAt).getFullYear();
-	const currentYear = new Date().getFullYear();
-	const currentMonth = new Date().getMonth() + 1;
-
-	const generateYearOptions = (startYear, endYear) => {
-		const result = [];
-		for (let i = startYear; i <= endYear; i++) {
-			result.push(i);
-		}
-		return result;
-	};
-
-	const yearOptions =
-		currentYear - createdUserYear > 5
-			? generateYearOptions(createdUserYear, currentYear)
-			: generateYearOptions(createdUserYear - 4, createdUserYear);
+	const {
+		yearOptions,
+		monthOptions,
+		month,
+		handleMonthChange,
+		year,
+		handleYearChange,
+	} = useContext(FinancialStatementContext);
 
 	return (
 		<div>
@@ -58,9 +34,10 @@ export default function FinancialStatementPage() {
 				<span>
 					<Form.Control
 						as="select"
-						defaultValue={currentYear}
+						onChange={handleYearChange}
 						size="sm"
 						style={{ width: 100 }}
+						value={year}
 					>
 						{yearOptions.map((year) => (
 							<option key={year} value={year}>
@@ -73,9 +50,10 @@ export default function FinancialStatementPage() {
 				<span>
 					<Form.Control
 						as="select"
-						defaultValue={currentMonth}
+						onChange={handleMonthChange}
 						size="sm"
 						style={{ width: 120 }}
+						value={month}
 					>
 						{Object.keys(monthOptions).map((month, index) => (
 							<option key={month} value={index + 1}>
