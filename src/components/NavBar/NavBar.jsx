@@ -55,7 +55,10 @@ export default function NavBar({ handleLogout, user }) {
 	return (
 		<div className="NavBar">
 			<Navbar expand="lg" bg="dark" variant="dark" fixed="top">
-				<Navbar.Brand href={user ? "/overview" : "/"} className="NavBar-link">
+				<Navbar.Brand
+					/*href={user ? "/overview" : "/"}*/ href="/"
+					className="NavBar-link"
+				>
 					FINESSE
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />

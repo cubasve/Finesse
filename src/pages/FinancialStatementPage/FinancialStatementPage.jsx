@@ -21,7 +21,7 @@ export default function FinancialStatementPage() {
 
 	return (
 		<div>
-			<h5
+			{/* <h5
 				style={{
 					display: "flex",
 					justifyContent: "center",
@@ -62,7 +62,7 @@ export default function FinancialStatementPage() {
 						))}
 					</Form.Control>
 				</span>
-			</h5>
+			</h5> */}
 			<div className="FinancialStatement">
 				<div>
 					<BalanceSheet />

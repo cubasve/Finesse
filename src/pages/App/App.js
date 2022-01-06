@@ -94,7 +94,7 @@ export default class App extends Component {
 								)}
 							></Route>
 
-							<Route
+							{/* <Route
 								exact
 								path="/overview"
 								render={() =>
@@ -104,7 +104,7 @@ export default class App extends Component {
 										<Redirect to="login" />
 									)
 								}
-							/>
+							/> */}
 						</Switch>
 					</div>
 				</AssetLiabilityProvider>
