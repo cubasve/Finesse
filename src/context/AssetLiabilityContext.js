@@ -266,7 +266,7 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handlePaperAssetUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedPaperAsset;
 			await financialStatementService
@@ -383,7 +383,7 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handleRealEstateUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedRealEstate;
 			await financialStatementService
@@ -500,7 +500,7 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handleBusinessUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedBusiness;
 			await financialStatementService
@@ -618,7 +618,7 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handleCommodityUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedCommodity;
 			await financialStatementService
@@ -733,7 +733,7 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handleCashUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedCash;
 			await financialStatementService
@@ -837,7 +837,7 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handleGoodDebtUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedGoodDebt;
 			await financialStatementService
@@ -935,7 +935,7 @@ export class AssetLiabilityProvider extends Component {
 	};
 
 	handleBadDebtUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedBadDebt;
 			await financialStatementService

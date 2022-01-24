@@ -52,11 +52,11 @@ export default class App extends Component {
 
 							<Route
 								exact
-								path={`/financialstatement/${year}/${month}`}
-								render={() =>
+								path="/financialstatement/:year/:month"
+								render={({ match }) =>
 									userService.getUser() ? (
 										<main>
-											<FinancialStatementPage />
+											<FinancialStatementPage match={match} />
 										</main>
 									) : (
 										<Redirect to="/login" />
@@ -94,7 +94,7 @@ export default class App extends Component {
 								)}
 							></Route>
 
-							{/* <Route
+							<Route
 								exact
 								path="/overview"
 								render={() =>
@@ -104,7 +104,7 @@ export default class App extends Component {
 										<Redirect to="login" />
 									)
 								}
-							/> */}
+							/>
 						</Switch>
 					</div>
 				</AssetLiabilityProvider>

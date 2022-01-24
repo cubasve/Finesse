@@ -9,7 +9,8 @@ import IncomeStatement from "../../components/IncomeStatement/IncomeStatement";
 import { Form } from "react-bootstrap";
 import FinancialStatementContext from "../../context/FinancialStatementContext";
 
-export default function FinancialStatementPage() {
+export default function FinancialStatementPage({ match }) {
+	console.log(match.params);
 	const {
 		yearOptions,
 		monthOptions,
@@ -19,9 +20,11 @@ export default function FinancialStatementPage() {
 		handleYearChange,
 	} = useContext(FinancialStatementContext);
 
+	console.log("month", month, "year", year);
+
 	return (
 		<div>
-			{/* <h5
+			<h5
 				style={{
 					display: "flex",
 					justifyContent: "center",
@@ -62,7 +65,7 @@ export default function FinancialStatementPage() {
 						))}
 					</Form.Control>
 				</span>
-			</h5> */}
+			</h5>
 			<div className="FinancialStatement">
 				<div>
 					<BalanceSheet />

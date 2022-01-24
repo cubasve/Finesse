@@ -222,10 +222,6 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handleEarnedIncomeUpdateSubmit = async (e) => {
-		console.log(
-			"this.state.updatedEarnedIncome",
-			this.state.updatedEarnedIncome
-		);
 		e.preventDefault();
 		try {
 			const { type, amount, category, _id } = this.state.updatedEarnedIncome;
@@ -325,7 +321,7 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handlePortfolioIncomeUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedPortfolioIncome;
 			await financialStatementService
@@ -424,7 +420,7 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handlePassiveIncomeUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedPassiveIncome;
 			await financialStatementService
@@ -522,7 +518,7 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handleNecessityUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedNecessity;
 			await financialStatementService
@@ -621,7 +617,7 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handleSelfFirstUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedPayYourselfFirst;
 			await financialStatementService
@@ -721,7 +717,7 @@ export class IncomeExpenseProvider extends Component {
 	};
 
 	handleTreatYourselfUpdateSubmit = async (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		try {
 			const { type, amount, category } = this.state.updatedTreatYourself;
 			await financialStatementService

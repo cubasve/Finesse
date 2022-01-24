@@ -51,7 +51,10 @@ export default function EntityTable(props) {
 												variant="success"
 												size="sm"
 												type="submit"
-												onClick={handleUpdateSubmit}
+												onClick={(e) => {
+													handleUpdateSubmit(e);
+													handleFinishEditing();
+												}}
 												value={_id}
 												disabled={
 													updatedEntity.type === type &&
