@@ -20,7 +20,8 @@ export default class LoginPage extends Component {
 
 	handleSubmit = async (e) => {
 		e.preventDefault();
-		const { month, year } = this.context;
+		const { monthYear } = this.context;
+		const { month, year } = monthYear;
 		try {
 			//Update to call login instead of signup
 			await userService.login(this.state);

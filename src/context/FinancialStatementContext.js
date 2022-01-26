@@ -27,7 +27,7 @@ export function FinancialStatementProvider({ children }) {
 	const currentYear = new Date().getFullYear();
 	const currentMonth = new Date().getMonth() + 1;
 
-	const storedView = localStorage.getItem("chartView");
+	const storedView = sessionStorage.getItem("chartView");
 	const [chartView, setChartView] = useState(JSON.parse(storedView) ?? false);
 	/**
 	 * storedView: typeof string
@@ -37,15 +37,30 @@ export function FinancialStatementProvider({ children }) {
 	const [editing, setEditing] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
-	const [month, setMonth] = useState(currentMonth);
-	const [year, setYear] = useState(currentYear);
+	const storedMonthYear = sessionStorage.getItem("monthYear");
+	const [monthYear, setMonthYear] = useState(
+		JSON.parse(storedMonthYear) ?? { month: currentMonth, year: currentYear }
+	);
 
-	const handleMonthChange = (e) => setMonth(e.target.value);
-	const handleYearChange = (e) => setYear(e.target.value);
+	const handleMonthChange = (e) => {
+		const { value } = e.target;
+		console.log("value", value, typeof value);
+		const updatedValue = { ...monthYear, month: Number(value) };
+		setMonthYear(updatedValue);
+		sessionStorage.setItem("monthYear", JSON.stringify(updatedValue));
+	};
+
+	const handleYearChange = (e) => {
+		const { value } = e.target;
+		console.log("value", value, typeof value);
+		const updatedValue = { ...monthYear, year: Number(value) };
+		setMonthYear(updatedValue);
+		sessionStorage.setItem("monthYear", JSON.stringify(updatedValue));
+	};
 
 	const handleViewChange = () => {
 		setChartView(!chartView);
-		localStorage.setItem("chartView", JSON.stringify(!chartView));
+		sessionStorage.setItem("chartView", JSON.stringify(!chartView));
 	};
 	const handleStartEditing = () => setEditing(true);
 	const handleFinishEditing = () => setEditing(false);
@@ -72,8 +87,7 @@ export function FinancialStatementProvider({ children }) {
 		selected,
 		editing,
 		showModal,
-		currentYear,
-		currentMonth,
+
 		yearOptions,
 		monthOptions,
 		setSelected,
@@ -82,8 +96,7 @@ export function FinancialStatementProvider({ children }) {
 		handleCloseModal,
 		handleShowModal,
 
-		month,
-		year,
+		monthYear,
 		handleMonthChange,
 		handleYearChange,
 	};

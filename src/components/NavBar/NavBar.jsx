@@ -1,42 +1,50 @@
 import React, { useContext } from "react";
 import "./NavBar.css";
-import { Navbar, Nav /* NavDropdown, Button */ } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import FinancialStatementContext from "../../context/FinancialStatementContext";
-//import { PersonCircle } from "react-bootstrap-icons";
+import { PersonCircle } from "react-bootstrap-icons";
 
 export default function NavBar({ handleLogout, user }) {
-	const { year, month } = useContext(FinancialStatementContext);
+	const { monthYear } = useContext(FinancialStatementContext);
+	const { month, year } = monthYear;
+
+	const getUserFirstName = (name) => {
+		const foundIndex = name.indexOf(" ");
+		if (foundIndex === -1) return name;
+		return name.slice(0, foundIndex);
+	};
+
 	let nav = user ? (
 		<div>
 			<Nav>
-				<Nav.Link href="/" className="NavBar-link" onClick={handleLogout}>
-					Log Out
-					{/* <NavDropdown
-					align="end"
+				<NavDropdown
 					title={
 						<>
-							{user.name}
 							<PersonCircle size={25} />
+							<Navbar.Text style={{ margin: "0px 15px" }}>
+								{getUserFirstName(user.name)}
+							</Navbar.Text>
 						</>
 					}
-					id="basic-nav-dropdown"
+					id="collasible-nav-dropdown"
 				>
 					<NavDropdown.Item href="/">
 						<Button
-							onClick={handleLogout}
+							onClick={() => {
+								handleLogout();
+								sessionStorage.clear();
+							}}
 							variant="link"
 							style={{
 								textDecoration: "none",
 								padding: 0,
-								textAlign: "left",
 								color: "black",
 							}}
 						>
 							Log Out
 						</Button>
 					</NavDropdown.Item>
-				</NavDropdown> */}
-				</Nav.Link>
+				</NavDropdown>
 			</Nav>
 		</div>
 	) : (
@@ -54,7 +62,7 @@ export default function NavBar({ handleLogout, user }) {
 
 	return (
 		<div className="NavBar">
-			<Navbar expand="lg" bg="dark" variant="dark" fixed="top">
+			<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
 				<Navbar.Brand href={user ? "/overview" : "/"} className="NavBar-link">
 					FINESSE
 				</Navbar.Brand>
@@ -66,7 +74,7 @@ export default function NavBar({ handleLogout, user }) {
 								className="NavBar-link"
 								href={`/financialstatement/${year}/${month}`}
 							>
-								{user.name}'s Financial Statement
+								Financial Statement
 							</Nav.Link>
 						)}
 					</Nav>

@@ -29,7 +29,7 @@ export default class App extends Component {
 	};
 
 	render() {
-		const { month, year } = this.context;
+		//const { month, year } = this.context;
 
 		return (
 			<IncomeExpenseProvider>
@@ -51,12 +51,11 @@ export default class App extends Component {
 							></Route>
 
 							<Route
-								exact
-								path="/financialstatement/:year/:month"
-								render={({ match }) =>
+								path="/financialstatement"
+								render={() =>
 									userService.getUser() ? (
 										<main>
-											<FinancialStatementPage match={match} />
+											<FinancialStatementPage />
 										</main>
 									) : (
 										<Redirect to="/login" />

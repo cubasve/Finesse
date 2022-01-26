@@ -1,11 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Card, Button, Image } from "react-bootstrap";
 import "./HomePage.css";
-import FinancialStatementContext from "../../context/FinancialStatementContext";
 
 export default function HomePage() {
-	const { year, month } = useContext(FinancialStatementContext);
-
 	const financialStatementData = [
 		{
 			header: "Financial Statement 1",
@@ -90,10 +87,7 @@ export default function HomePage() {
 								<Card.Title>{title}</Card.Title>
 								<Card.Text>{text}</Card.Text>
 							</Card.Body>
-							<Button
-								variant="primary"
-								href={`/financialstatement/${year}/${month}`}
-							>
+							<Button variant="primary" href="/financialstatement">
 								Find Out!
 							</Button>
 						</Card>

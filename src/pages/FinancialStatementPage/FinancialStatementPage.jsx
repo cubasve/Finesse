@@ -8,19 +8,24 @@ import IncomeStatement from "../../components/IncomeStatement/IncomeStatement";
 // } from "react-bootstrap-icons";
 import { Form } from "react-bootstrap";
 import FinancialStatementContext from "../../context/FinancialStatementContext";
+// import { generatePath } from "react-router";
 
-export default function FinancialStatementPage({ match }) {
-	console.log(match.params);
+export default function FinancialStatementPage() {
 	const {
 		yearOptions,
 		monthOptions,
-		month,
+		monthYear,
 		handleMonthChange,
-		year,
 		handleYearChange,
 	} = useContext(FinancialStatementContext);
 
-	console.log("month", month, "year", year);
+	console.log("FinancialStatementContext", monthYear);
+
+	// const x = generatePath("/financialstatement/:year/:month", {
+	// 	year,
+	// 	month,
+	// });
+	// console.log("generatePath", x);
 
 	return (
 		<div>
@@ -40,7 +45,7 @@ export default function FinancialStatementPage({ match }) {
 						onChange={handleYearChange}
 						size="sm"
 						style={{ width: 100 }}
-						value={year}
+						value={monthYear.year}
 					>
 						{yearOptions.map((year) => (
 							<option key={year} value={year}>
@@ -56,7 +61,7 @@ export default function FinancialStatementPage({ match }) {
 						onChange={handleMonthChange}
 						size="sm"
 						style={{ width: 120 }}
-						value={month}
+						value={monthYear.month}
 					>
 						{Object.keys(monthOptions).map((month, index) => (
 							<option key={month} value={index + 1}>
