@@ -8,8 +8,16 @@ module.exports = {
 };
 
 async function show(req, res) {
+	console.log("req.params EVA", req.params);
 	try {
 		const user = await User.findById({ _id: req.user._id }); //req.body._id OR req.user._id?
+		const monthParams = Number(req.params.month);
+		const yearParams = Number(req.params.year);
+
+		const selectedEarned = user.earned.filter(
+			({ month, year }) => month === monthParams && year === yearParams
+		);
+		console.log(selectedEarned);
 		return res.json({ user: user }); //explicitly return to fetch call
 	} catch (err) {
 		console.error(err);
@@ -18,6 +26,7 @@ async function show(req, res) {
 }
 
 async function create(req, res) {
+	console.log("req EVA", req.params);
 	try {
 		const user = await User.findById({ _id: req.user._id });
 		//req.user = user you get back from token VS user = User.findById(...) is the user document from Mongoose

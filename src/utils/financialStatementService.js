@@ -9,6 +9,11 @@ export default {
 	deleteOne,
 };
 
+const array = window.location.href.split("/");
+const month = array[array.length - 1];
+const year = array[array.length - 2];
+
+console.log("window.location.href", year, month);
 function show() {
 	const options = {
 		method: "GET", //fetch automatically makes a GET request - code not needed
@@ -17,23 +22,10 @@ function show() {
 			Authorization: "Bearer " + tokenService.getToken(),
 		},
 	};
-	return fetch(BASE_URL, options).then((res) => res.json());
+	return fetch(`${BASE_URL}/${year}/${month}`, options).then((res) =>
+		res.json()
+	);
 }
-
-// function showTest(financialStatement) {
-// 	const options = {
-// 		method: "GET",
-// 		headers: {
-// 			"Content-type": "application/json",
-// 			Authorization: "Bearer " + tokenService.getToken(),
-// 		},
-// 		body: JSON.stringify(financialStatement),
-// 	};
-// 	return fetch(
-// 		`${BASE_URL}/${financialStatement.year}/${financialStatement.month}`,
-// 		options
-// 	).then((res) => res.json());
-// }
 
 function create(financialStatement) {
 	const options = {
@@ -44,7 +36,9 @@ function create(financialStatement) {
 		},
 		body: JSON.stringify(financialStatement),
 	};
-	return fetch(BASE_URL, options).then((res) => res.json());
+	return fetch(`${BASE_URL}/${year}/${month}`, options).then((res) =>
+		res.json()
+	);
 }
 
 function update(financialStatement) {

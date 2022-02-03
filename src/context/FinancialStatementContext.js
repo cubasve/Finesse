@@ -1,3 +1,5 @@
+import { generatePath } from "react-router";
+import { useHistory } from "react-router-dom";
 import React, { createContext, useState } from "react";
 import userService from "../utils/userService";
 export const FinancialStatementContext = createContext();
@@ -37,25 +39,35 @@ export function FinancialStatementProvider({ children }) {
 	const [editing, setEditing] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
+	let history = useHistory();
+
 	const storedMonthYear = sessionStorage.getItem("monthYear");
 	const [monthYear, setMonthYear] = useState(
 		JSON.parse(storedMonthYear) ?? { month: currentMonth, year: currentYear }
 	);
 
+	const getPath = (monthYear) => {
+		const path = generatePath("/financialstatement/:year/:month", {
+			year: monthYear.year,
+			month: monthYear.month,
+		});
+		return path;
+	};
+
 	const handleMonthChange = (e) => {
 		const { value } = e.target;
-		console.log("value", value, typeof value);
 		const updatedValue = { ...monthYear, month: Number(value) };
 		setMonthYear(updatedValue);
 		sessionStorage.setItem("monthYear", JSON.stringify(updatedValue));
+		history.push(getPath(updatedValue));
 	};
 
 	const handleYearChange = (e) => {
 		const { value } = e.target;
-		console.log("value", value, typeof value);
 		const updatedValue = { ...monthYear, year: Number(value) };
 		setMonthYear(updatedValue);
 		sessionStorage.setItem("monthYear", JSON.stringify(updatedValue));
+		history.push(getPath(updatedValue));
 	};
 
 	const handleViewChange = () => {

@@ -39,7 +39,7 @@ export default function EntityTable(props) {
 
 	return (
 		<Table borderless hover size="sm" style={{ marginBottom: 5 }}>
-			{totalEntity.map(({ _id, amount, category, type }) => (
+			{totalEntity?.map(({ _id, amount, category, type }) => (
 				<tbody key={_id}>
 					<tr>
 						{editing && _id === selected ? (

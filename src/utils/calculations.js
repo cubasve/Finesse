@@ -41,7 +41,7 @@ export function formatEntry(amount) {
  * @returns The sum of the entity
  */
 export function calculateSum(entity) {
-	return entity.map((elem) => elem.amount).reduce((acc, num) => acc + num, 0);
+	return entity?.map((elem) => elem.amount).reduce((acc, num) => acc + num, 0);
 }
 
 /**

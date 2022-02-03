@@ -8,24 +8,18 @@ import IncomeStatement from "../../components/IncomeStatement/IncomeStatement";
 // } from "react-bootstrap-icons";
 import { Form } from "react-bootstrap";
 import FinancialStatementContext from "../../context/FinancialStatementContext";
-// import { generatePath } from "react-router";
 
 export default function FinancialStatementPage() {
 	const {
-		yearOptions,
-		monthOptions,
+		// yearOptions,
+		// monthOptions,
 		monthYear,
 		handleMonthChange,
 		handleYearChange,
 	} = useContext(FinancialStatementContext);
 
-	console.log("FinancialStatementContext", monthYear);
-
-	// const x = generatePath("/financialstatement/:year/:month", {
-	// 	year,
-	// 	month,
-	// });
-	// console.log("generatePath", x);
+	const currentYear = new Date().getFullYear();
+	const currentMonth = new Date().getMonth() + 1;
 
 	return (
 		<div>
@@ -40,35 +34,50 @@ export default function FinancialStatementPage() {
 			>
 				<span>YEAR</span>
 				<span>
-					<Form.Control
-						as="select"
+					<Form.Select
 						onChange={handleYearChange}
 						size="sm"
 						style={{ width: 100 }}
+						defaultValue={currentYear}
 						value={monthYear.year}
 					>
-						{yearOptions.map((year) => (
-							<option key={year} value={year}>
-								{year}
-							</option>
-						))}
-					</Form.Control>
+						{/* {yearOptions.map((year) => (
+									<option key={year} value={year}>
+										{year}
+									</option>
+								))} */}
+						<option value={currentYear}>{currentYear}</option>
+						<option value={currentYear - 1}>{currentYear - 1}</option>
+						<option value={currentYear - 2}>{currentYear - 2}</option>
+					</Form.Select>
 				</span>
 				<span>MONTH</span>
 				<span>
-					<Form.Control
-						as="select"
+					<Form.Select
 						onChange={handleMonthChange}
 						size="sm"
 						style={{ width: 120 }}
+						defaultValue={currentMonth}
 						value={monthYear.month}
 					>
-						{Object.keys(monthOptions).map((month, index) => (
-							<option key={month} value={index + 1}>
-								{month}
-							</option>
-						))}
-					</Form.Control>
+						{/* {Object.keys(monthOptions).map((month, index) => (
+									<option key={month} value={index + 1}>
+										{month}
+									</option>
+								))} */}
+						<option value={1}>January</option>
+						<option value={2}>February</option>
+						<option value={3}>March</option>
+						<option value={4}>April</option>
+						<option value={5}>May</option>
+						<option value={6}>June</option>
+						<option value={7}>July</option>
+						<option value={8}>August</option>
+						<option value={9}>September</option>
+						<option value={10}>October</option>
+						<option value={11}>November</option>
+						<option value={12}>December</option>
+					</Form.Select>
 				</span>
 			</h5>
 			<div className="FinancialStatement">

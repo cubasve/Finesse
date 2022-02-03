@@ -16,11 +16,10 @@ export default function FormInput(props) {
 		<Form ref={formRef} onSubmit={handleSubmit} style={{ paddingBottom: 7 }}>
 			<Row>
 				<Form.Group as={Col} style={{ paddingRight: 0 }}>
-					<Form.Control
+					<Form.Select
 						name="type"
-						value={newEntity.type}
+						value={newEntity?.type}
 						onChange={handleChange}
-						as="select"
 						size="sm"
 					>
 						{options.map((option) => (
@@ -28,13 +27,13 @@ export default function FormInput(props) {
 								{option}
 							</option>
 						))}
-					</Form.Control>
+					</Form.Select>
 				</Form.Group>
 
 				<Form.Group as={Col} xs={5} style={{ padding: 0 }}>
 					<Form.Control
 						name="amount"
-						value={newEntity.amount}
+						value={newEntity?.amount}
 						onChange={handleChange}
 						required
 						pattern="[1-9]\d{0,}\.?\d{0,2}"
@@ -47,7 +46,7 @@ export default function FormInput(props) {
 					<Form.Control
 						type="hidden"
 						name="category"
-						value={newEntity.category}
+						value={newEntity?.category}
 						onChange={handleChange}
 					/>
 					<Button

@@ -4,6 +4,17 @@ const IncomeExpenseContext = React.createContext();
 export const IncomeExpenseConsumer = IncomeExpenseContext.Consumer;
 
 export class IncomeExpenseProvider extends Component {
+	constructor(props) {
+		super(props);
+		this.state = { message: "" };
+		this.month = this.props.monthYear.month;
+		this.year = this.props.monthYear.year;
+	}
+
+	componentDidUpdate() {
+		console.log("this.props UPDATE", this.month, this.year);
+	}
+
 	state = {
 		totalIncome: [],
 		totalExpenses: [],

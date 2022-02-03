@@ -29,10 +29,10 @@ export default class App extends Component {
 	};
 
 	render() {
-		//const { month, year } = this.context;
+		const { monthYear } = this.context;
 
 		return (
-			<IncomeExpenseProvider>
+			<IncomeExpenseProvider monthYear={monthYear}>
 				<AssetLiabilityProvider>
 					<div className="App">
 						<NavBar user={this.state.user} handleLogout={this.handleLogout} />
@@ -51,7 +51,8 @@ export default class App extends Component {
 							></Route>
 
 							<Route
-								path="/financialstatement"
+								exact
+								path="/financialstatement/:year/:month"
 								render={() =>
 									userService.getUser() ? (
 										<main>
