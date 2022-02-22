@@ -6,13 +6,22 @@ export const IncomeExpenseConsumer = IncomeExpenseContext.Consumer;
 export class IncomeExpenseProvider extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { message: "" };
-		this.month = this.props.monthYear.month;
-		this.year = this.props.monthYear.year;
+		// this.month = this.props.monthYear.month;
+		// this.year = this.props.monthYear.year;
+
+		this.month = sessionStorage.getItem("monthYear");
 	}
 
 	componentDidUpdate() {
-		console.log("this.props UPDATE", this.month, this.year);
+		if (sessionStorage.getItem("monthYear") !== null) {
+			const monthYear = sessionStorage.getItem("monthYear");
+			this.month = JSON.parse(monthYear).month;
+			this.year = JSON.parse(monthYear).year;
+		} else {
+			this.month = new Date().getMonth() + 1;
+			this.year = new Date().getFullYear();
+		}
+		console.log("current m/y", this.month, this.year);
 	}
 
 	state = {
@@ -24,8 +33,8 @@ export class IncomeExpenseProvider extends Component {
 			type: "Job",
 			amount: "",
 			category: "Earned",
-			month: 11,
-			year: 2021,
+			month: this.month,
+			year: this.year,
 		},
 		updatedEarnedIncome: {},
 		earnedFormInvalid: true,
@@ -35,8 +44,8 @@ export class IncomeExpenseProvider extends Component {
 			type: "Stock",
 			amount: "",
 			category: "Portfolio",
-			month: 11,
-			year: 2021,
+			month: 2,
+			year: 2022,
 		},
 		updatedPortfolioIncome: {},
 		portfolioFormInvalid: true,
@@ -46,8 +55,8 @@ export class IncomeExpenseProvider extends Component {
 			type: "Real Estate",
 			amount: "",
 			category: "Passive",
-			month: 11,
-			year: 2021,
+			month: 2,
+			year: 2022,
 		},
 		updatedPassiveIncome: {},
 		passiveFormInvalid: true,

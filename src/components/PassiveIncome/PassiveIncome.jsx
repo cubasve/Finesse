@@ -65,7 +65,7 @@ export default function PassiveIncome() {
 				handleChange={handlePassiveIncomeChange}
 				newEntity={newPassiveIncome}
 				options={passiveIncomeOptions}
-				placeholder=""
+				placeholder="$ From Assets"
 				formInvalid={passiveFormInvalid}
 			/>
 		</>

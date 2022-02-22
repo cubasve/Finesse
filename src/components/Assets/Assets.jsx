@@ -13,9 +13,9 @@ import { FinancialStatementContext } from "../../context/FinancialStatementConte
 import { ListUl, PieChart } from "react-bootstrap-icons";
 
 const popover = (
-	<Popover id="popover-basic">
+	<Popover>
 		<Popover.Title as="h3">Asset</Popover.Title>
-		<Popover.Content>Something that puts money in your pocket</Popover.Content>
+		<Popover.Body>Something that puts money in your pocket</Popover.Body>
 	</Popover>
 );
 

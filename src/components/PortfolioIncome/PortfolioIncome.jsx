@@ -66,7 +66,7 @@ export default function PortfolioIncome() {
 				handleChange={handlePortfolioIncomeChange}
 				newEntity={newPortfolioIncome}
 				options={portfolioIncomeOptions}
-				placeholder="Dividend/Interest"
+				placeholder="Capital Gains"
 				formInvalid={portfolioFormInvalid}
 			/>
 		</>

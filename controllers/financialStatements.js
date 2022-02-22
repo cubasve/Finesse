@@ -17,7 +17,15 @@ async function show(req, res) {
 		const selectedEarned = user.earned.filter(
 			({ month, year }) => month === monthParams && year === yearParams
 		);
-		console.log(selectedEarned);
+		const selectedPortfolio = user.portfolio.filter(
+			({ month, year }) => month === monthParams && year === yearParams
+		);
+		const selectedPassive = user.passive.filter(
+			({ month, year }) => month === monthParams && year === yearParams
+		);
+		user.earned = selectedEarned;
+		user.portfolio = selectedPortfolio;
+		user.passive = selectedPassive;
 		return res.json({ user: user }); //explicitly return to fetch call
 	} catch (err) {
 		console.error(err);

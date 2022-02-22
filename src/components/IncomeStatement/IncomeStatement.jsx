@@ -22,6 +22,10 @@ export default class IncomeStatement extends Component {
 		this.setState({ loading: false });
 	}
 
+	async componentDidUpdate() {
+		//
+	}
+
 	render() {
 		const { totalIncome, totalExpenses } = this.context;
 

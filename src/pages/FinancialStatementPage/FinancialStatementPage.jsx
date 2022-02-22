@@ -19,7 +19,6 @@ export default function FinancialStatementPage() {
 	} = useContext(FinancialStatementContext);
 
 	const currentYear = new Date().getFullYear();
-	const currentMonth = new Date().getMonth() + 1;
 
 	return (
 		<div>
@@ -38,7 +37,6 @@ export default function FinancialStatementPage() {
 						onChange={handleYearChange}
 						size="sm"
 						style={{ width: 100 }}
-						defaultValue={currentYear}
 						value={monthYear.year}
 					>
 						{/* {yearOptions.map((year) => (
@@ -57,7 +55,6 @@ export default function FinancialStatementPage() {
 						onChange={handleMonthChange}
 						size="sm"
 						style={{ width: 120 }}
-						defaultValue={currentMonth}
 						value={monthYear.month}
 					>
 						{/* {Object.keys(monthOptions).map((month, index) => (

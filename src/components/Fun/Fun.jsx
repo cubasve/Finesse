@@ -22,7 +22,7 @@ const funOptions = [
 const popover = (
 	<Popover id="popover-basic">
 		<Popover.Title as="h3">Fun</Popover.Title>
-		<Popover.Content>Guilt-free spending money</Popover.Content>
+		<Popover.Body>Guilt-free spending money</Popover.Body>
 	</Popover>
 );
 

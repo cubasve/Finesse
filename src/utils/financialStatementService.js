@@ -9,9 +9,13 @@ export default {
 	deleteOne,
 };
 
-const array = window.location.href.split("/");
-const month = array[array.length - 1];
-const year = array[array.length - 2];
+const monthYear = sessionStorage.getItem("monthYear");
+let month;
+let year;
+if (monthYear !== null) {
+	month = JSON.parse(monthYear).month;
+	year = JSON.parse(monthYear).year;
+}
 
 console.log("window.location.href", year, month);
 function show() {

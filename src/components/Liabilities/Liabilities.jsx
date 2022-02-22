@@ -12,9 +12,7 @@ import { FinancialStatementContext } from "../../context/FinancialStatementConte
 const popover = (
 	<Popover id="popover-basic">
 		<Popover.Title as="h3">Liability</Popover.Title>
-		<Popover.Content>
-			Something that takes money out of your pocket
-		</Popover.Content>
+		<Popover.Body>Something that takes money out of your pocket</Popover.Body>
 	</Popover>
 );
 const LiabilityPopover = () => (

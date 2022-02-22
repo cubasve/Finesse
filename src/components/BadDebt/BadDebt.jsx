@@ -21,7 +21,7 @@ const badDebtOptions = [
 const popover = (
 	<Popover id="popover-basic">
 		<Popover.Title as="h3">Bad Debt</Popover.Title>
-		<Popover.Content>Debt that is used to buy liabilities</Popover.Content>
+		<Popover.Body>Debt that is used to buy liabilities</Popover.Body>
 	</Popover>
 );
 

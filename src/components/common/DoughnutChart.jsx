@@ -16,6 +16,7 @@ export default function DoughnutChart(props) {
 				borderWidth,
 			},
 		],
+		fallbackContent: <>No data</>,
 	};
 
 	return <Doughnut data={doughnutData} />;
