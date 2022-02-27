@@ -10,12 +10,8 @@ export default {
 };
 
 const monthYear = sessionStorage.getItem("monthYear");
-let month;
-let year;
-if (monthYear !== null) {
-	month = JSON.parse(monthYear).month;
-	year = JSON.parse(monthYear).year;
-}
+const month = JSON.parse(monthYear)?.month ?? new Date().getMonth() + 1;
+const year = JSON.parse(monthYear)?.year ?? new Date().getFullYear();
 
 console.log("window.location.href", year, month);
 function show() {

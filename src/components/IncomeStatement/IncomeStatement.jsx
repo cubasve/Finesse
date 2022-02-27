@@ -22,8 +22,18 @@ export default class IncomeStatement extends Component {
 		this.setState({ loading: false });
 	}
 
-	async componentDidUpdate() {
-		//
+	async componentDidUpdate(prevProps, prevState) {
+		const monthYear = sessionStorage.getItem("monthYear");
+		this.month = JSON.parse(monthYear)?.month ?? new Date().getMonth() + 1;
+		this.year = JSON.parse(monthYear)?.year ?? new Date().getFullYear();
+
+		if (prevProps.month !== this.month || prevProps.year !== this.year) {
+			console.log("pokemons state has changed.");
+			const { handleFetchData } = this.context;
+			this.setState({ loading: true });
+			await handleFetchData();
+			this.setState({ loading: false });
+		}
 	}
 
 	render() {

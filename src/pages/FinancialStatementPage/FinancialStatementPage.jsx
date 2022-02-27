@@ -13,10 +13,12 @@ export default function FinancialStatementPage() {
 	const {
 		// yearOptions,
 		// monthOptions,
-		monthYear,
+		monthYear: { month, year },
 		handleMonthChange,
 		handleYearChange,
 	} = useContext(FinancialStatementContext);
+
+	console.log("month STATE", month, "year STATE", year);
 
 	const currentYear = new Date().getFullYear();
 
@@ -37,7 +39,7 @@ export default function FinancialStatementPage() {
 						onChange={handleYearChange}
 						size="sm"
 						style={{ width: 100 }}
-						value={monthYear.year}
+						value={year}
 					>
 						{/* {yearOptions.map((year) => (
 									<option key={year} value={year}>
@@ -55,7 +57,7 @@ export default function FinancialStatementPage() {
 						onChange={handleMonthChange}
 						size="sm"
 						style={{ width: 120 }}
-						value={monthYear.month}
+						value={month}
 					>
 						{/* {Object.keys(monthOptions).map((month, index) => (
 									<option key={month} value={index + 1}>
@@ -82,7 +84,7 @@ export default function FinancialStatementPage() {
 					<BalanceSheet />
 				</div>
 				<div>
-					<IncomeStatement />
+					<IncomeStatement month={month} year={year} />
 				</div>
 			</div>
 		</div>
